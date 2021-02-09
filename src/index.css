@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
 }
@@ -15,17 +15,34 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-div{
+div {
     margin: 0;
     padding: 0;
 }
+
 .block {
     display: inline-block;
-    background-color: green;
     width: 50px;
     height: 50px;
 }
-.wandX {
+
+.wand {
+    background-color: blue;
+    width: 48px;
+    height: 48px;
+    border: 1px solid darkblue;
+}
+
+.coin {
+    background-color: yellow;
+}
+
+.noco {
+    background-color: black;
+}
+
+
+/* .wandX {
     background-color: red;
     width: 50px;
     height: 10px;
@@ -91,4 +108,4 @@ div{
     background-color: green;
     height: 50px;
     width: 50px;
-}
+} */
