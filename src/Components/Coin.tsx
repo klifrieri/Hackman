@@ -1,5 +1,11 @@
+
+
 const Coin: React.FC = () => {
-  return <div className="coin field"></div>;
+  return (
+    <div className="field">
+      <div className="coin"></div>
+    </div>
+  );
 };
 
 export default Coin;
