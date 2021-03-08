@@ -35,6 +35,16 @@ code {
     border-radius: 50% !important;
 }
 
+.hackman {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 80%;
+    height: 80%;
+    background: rgb(255, 72, 0);
+    border-radius: 50% !important;
+}
+
 .row {
     height: 50px !important;
 }
