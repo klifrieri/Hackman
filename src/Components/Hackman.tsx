@@ -1,5 +1,5 @@
 
-const Coin: React.FC = () => {
+const Hackman: React.FC = () => {
     return (
       <div className="field">
         <div className="hackman"></div>
@@ -7,4 +7,4 @@ const Coin: React.FC = () => {
     );
   };
   
-  export default Coin;
+  export default Hackman;
