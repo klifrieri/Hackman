@@ -1,3 +1,6 @@
+## Project name
+HACKMAN
+
 
 ## Description
 
@@ -5,6 +8,7 @@ This is our special version of the famous Pacman-Game. Enjoy!
 
 ## Used Technologies
 
+- Javascript
 - Typescript
 - React
 - HTML
