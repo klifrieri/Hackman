@@ -1,7 +1,5 @@
 
-HACKMAN
-
-## Beschreibung
+## HACKMAN
 
 Willkommen! Hier findest du die Installationshilfe für unser Hackman-Spiel. Viel Spaß!
 
