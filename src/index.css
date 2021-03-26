@@ -4,6 +4,7 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    height: 100%;
     background: black;
 }
 
@@ -19,15 +20,19 @@ code {
 }
 
 .verticalWall{
-background-color: blue;
+    position: absolute;
+    width: 15px;
+    height: 50px;
+    left: 33%;
+    background-color: orange;
 }
 
 .horizontalWall{
-    /* position: absolute;
+    position: absolute;
     width: 50px;
     height: 15px;
-    top: 33%; */
-background-color: red;
+    top: 33%;
+    background-color: orange;
 }
 
 .wall.field {
@@ -71,8 +76,7 @@ background-color: red;
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
-.tester{
-    position: relative;
-    border: 10px solid darkorchid;
-    margin: 25px 0px;
-}
+/* .App{
+    border: 10px solid red;
+    top: 25%;
+} */
