@@ -2,6 +2,7 @@ import Coin from "./Coin";
 import Empty from "./Empty";
 import Wall from "./Wall";
 import Hackman from "./Hackman";
+import HorizontalWall from "./HorizontalWall";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -9,6 +10,7 @@ interface ISpielfeldProps {
 
 const renderComponent = (component: React.FC, key: number) => {
   if (component === Wall) return <Wall key={key} />;
+  else if (component === HorizontalWall) return <HorizontalWall key={key} />;
   else if (component === Coin) return <Coin key={key} />;
   else if (component === Hackman) return <Hackman key={key} />;
   else if (component === Empty) return <Empty key={key} />;
