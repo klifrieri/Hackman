@@ -29,7 +29,7 @@ code {
 .verticalWallBS{
     position: absolute;
     width: 15px;
-    height: 40px;
+    height: 32px;
     left: 35%;
     top: 0px;
     background-color: orange;
@@ -37,7 +37,7 @@ code {
 .verticalWallTS{
     position: absolute;
     width: 15px;
-    height: 40px;
+    height: 32px;
     left: 35%;
     bottom: 0px;
     background-color: orange;
@@ -52,7 +52,7 @@ code {
 }
 .horizontalWallLS{
     position: absolute;
-    width: 40px;
+    width: 32px;
     height: 15px;
     top: 35%;
     right: 0px;
@@ -60,7 +60,7 @@ code {
 }
 .horizontalWallRS{
     position: absolute;
-    width: 40px;
+    width: 32px;
     height: 15px;
     top: 35%;
     left: 0px;
