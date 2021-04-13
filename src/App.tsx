@@ -1,29 +1,35 @@
 import Coin from "./Components/Coin";
 import Empy from "./Components/Empty";
 import Wall from "./Components/Wall";
-import Holl from "./Components/HorizontalWall";
-import Vell from "./Components/VerticalWall";
+import Holl from "./Components/HorizontalWalls/HorizontalWall";
+import Hwrs from "./Components/HorizontalWalls/HorizontalWallRS";
+import Hwls from "./Components/HorizontalWalls/HorizontalWallLS";
+import Vell from "./Components/VerticalWalls/VerticalWall";
+import Vwts from "./Components/VerticalWalls/VerticalWallTS";
+import Vwbs from "./Components/VerticalWalls/VerticalWallBS";
+import Tpbo from "./Components/TPieces/TPieceBottom";
+import Tpto from "./Components/TPieces/TPieceTop";
 import Spielfeld from "./Components/Spielfeld";
 import Hack from "./Components/Hackman";
 
 
 // prettier-ignore
 let fields: React.FC[][] = [
-  [Wall, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Wall],
-  [Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell],
-  [Vell, Coin, Holl, Holl, Coin, Vell, Coin, Holl, Holl, Coin, Coin, Coin, Holl, Holl, Coin, Vell, Coin, Holl, Holl, Coin, Vell],
-  [Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell],
-  [Vell, Wall, Coin, Holl, Holl, Holl, Holl, Holl, Coin, Holl, Holl, Holl, Coin, Holl, Holl, Holl, Holl, Holl, Coin, Wall, Vell],
+  [Wall, Holl, Holl, Holl, Holl, Tpbo, Holl, Holl, Holl, Holl, Tpbo, Holl, Holl, Holl, Holl, Tpbo, Holl, Holl, Holl, Holl, Wall],
+  [Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vwbs, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell],
+  [Vell, Coin, Hwls, Hwrs, Coin, Vwbs, Coin, Hwls, Hwrs, Coin, Coin, Coin, Hwls, Hwrs, Coin, Vwbs, Coin, Hwls, Hwrs, Coin, Vell],
+  [Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vwts, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell],
+  [Vell, Wall, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Hwls, Tpto, Hwrs, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Wall, Vell],
   [Vell, Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell, Vell],
-  [Wall, Wall, Coin, Vell, Coin, Wall, Wall, Coin, Wall, Holl, Empy, Holl, Wall, Coin, Wall, Wall, Coin, Vell, Coin, Wall, Wall],
+  [Wall, Wall, Coin, Vwts, Coin, Wall, Wall, Coin, Wall, Holl, Empy, Holl, Wall, Coin, Wall, Wall, Coin, Vwts, Coin, Wall, Wall],
   [Empy, Empy, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Empy, Empy, Empy, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Empy, Empy],
-  [Holl, Holl, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Empy, Empy, Empy, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Holl, Holl],
+  [Holl, Hwrs, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Empy, Empy, Empy, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Hwls, Holl],
   [Empy, Empy, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Empy, Empy, Empy, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Empy, Empy],
-  [Wall, Holl, Coin, Vell, Coin, Wall, Wall, Coin, Wall, Holl, Holl, Holl, Wall, Coin, Wall, Wall, Coin, Vell, Coin, Holl, Wall],
-  [Vell, Coin, Coin, Coin, Coin, Coin, Coin, Hack, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell],
-  [Vell, Coin, Holl, Holl, Coin, Vell, Coin, Holl, Holl, Coin, Coin, Coin, Holl, Holl, Coin, Vell, Coin, Holl, Holl, Coin, Vell],
-  [Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell],
-  [Wall, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Holl, Wall]
+  [Wall, Hwrs, Hack, Vwbs, Coin, Wall, Wall, Coin, Wall, Holl, Tpbo, Holl, Wall, Coin, Wall, Wall, Coin, Vwbs, Coin, Hwls, Wall],
+  [Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vwbs, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell],
+  [Vell, Coin, Hwls, Hwrs, Coin, Vwts, Coin, Hwls, Hwrs, Coin, Coin, Coin, Hwls, Hwrs, Coin, Vwts, Coin, Hwls, Hwrs, Coin, Vell],
+  [Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vwts, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell],
+  [Wall, Holl, Holl, Holl, Holl, Tpto, Holl, Holl, Holl, Holl, Tpto, Holl, Holl, Holl, Holl, Tpto, Holl, Holl, Holl, Holl, Wall]
 ]
 
 const App: React.FC = () => {

@@ -23,7 +23,23 @@ code {
     position: absolute;
     width: 15px;
     height: 50px;
-    left: 33%;
+    left: 35%;
+    background-color: orange;
+}
+.verticalWallBS{
+    position: absolute;
+    width: 15px;
+    height: 40px;
+    left: 35%;
+    top: 0px;
+    background-color: orange;
+}
+.verticalWallTS{
+    position: absolute;
+    width: 15px;
+    height: 40px;
+    left: 35%;
+    bottom: 0px;
     background-color: orange;
 }
 
@@ -31,9 +47,45 @@ code {
     position: absolute;
     width: 50px;
     height: 15px;
-    top: 33%;
+    top: 35%;
     background-color: orange;
 }
+.horizontalWallLS{
+    position: absolute;
+    width: 40px;
+    height: 15px;
+    top: 35%;
+    right: 0px;
+    background-color: orange;
+}
+.horizontalWallRS{
+    position: absolute;
+    width: 40px;
+    height: 15px;
+    top: 35%;
+    left: 0px;
+    background-color: orange;
+}
+
+.tWallTop{
+    position: absolute;
+    width: 15px;
+    height: 30px;
+    left: 35%;
+    top: 0px;
+    background-color: orange;
+}
+.tWallBottom{
+    position: absolute;
+    width: 15px;
+    height: 30px;
+    left: 35%;
+    bottom: 0px;
+    background-color: orange;
+}
+
+
+
 
 .wall.field {
     background-color: orange;
