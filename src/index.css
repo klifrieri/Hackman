@@ -84,6 +84,23 @@ code {
     background-color: orange;
 }
 
+.tWallRight{
+    position: absolute;
+    width: 30px;
+    height: 15px;
+    top: 35%;
+    left: 0px;
+    background-color: orange;
+}
+.tWallLeft{
+    position: absolute;
+    width: 30px;
+    height: 15px;
+    top: 35%;
+    right: 0px;
+    background-color: orange;
+}
+
 
 
 

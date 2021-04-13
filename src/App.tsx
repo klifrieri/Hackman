@@ -9,6 +9,8 @@ import Vwts from "./Components/VerticalWalls/VerticalWallTS";
 import Vwbs from "./Components/VerticalWalls/VerticalWallBS";
 import Tpbo from "./Components/TPieces/TPieceBottom";
 import Tpto from "./Components/TPieces/TPieceTop";
+import Tprs from "./Components/TPieces/TPieceRight";
+import Tpls from "./Components/TPieces/TPieceLeft";
 import Spielfeld from "./Components/Spielfeld";
 import Hack from "./Components/Hackman";
 
@@ -19,7 +21,7 @@ let fields: React.FC[][] = [
   [Vell, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vwbs, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vell],
   [Vell, Coin, Hwls, Hwrs, Coin, Vwbs, Coin, Hwls, Hwrs, Coin, Coin, Coin, Hwls, Hwrs, Coin, Vwbs, Coin, Hwls, Hwrs, Coin, Vell],
   [Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vwts, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell],
-  [Vell, Wall, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Hwls, Tpto, Hwrs, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Wall, Vell],
+  [Tpls, Wall, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Hwls, Tpto, Hwrs, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Wall, Tprs],
   [Vell, Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell, Vell],
   [Wall, Wall, Coin, Vwts, Coin, Wall, Wall, Coin, Wall, Holl, Empy, Holl, Wall, Coin, Wall, Wall, Coin, Vwts, Coin, Wall, Wall],
   [Empy, Empy, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Empy, Empy, Empy, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Empy, Empy],

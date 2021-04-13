@@ -10,6 +10,8 @@ import HorizontalWallRS from "./HorizontalWalls/HorizontalWallRS";
 import HorizontalWallLS from "./HorizontalWalls/HorizontalWallLS";
 import TPieceBottom from "./TPieces/TPieceBottom";
 import TPieceTop from "./TPieces/TPieceTop";
+import TPieceRight from "./TPieces/TPieceRight";
+import TPieceLeft from "./TPieces/TPieceLeft";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -25,6 +27,8 @@ const renderComponent = (component: React.FC, key: number) => {
   else if (component === VerticalWallTS) return <VerticalWallTS key={key} />;
   else if (component === TPieceBottom) return <TPieceBottom key={key} />;
   else if (component === TPieceTop) return <TPieceTop key={key} />;
+  else if (component === TPieceRight) return <TPieceRight key={key} />;
+  else if (component === TPieceLeft) return <TPieceLeft key={key} />;
   else if (component === Coin) return <Coin key={key} />;
   else if (component === Hackman) return <Hackman key={key} />;
   else if (component === Empty) return <Empty key={key} />;
