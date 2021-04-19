@@ -1,6 +1,6 @@
 const VerticalWallTS: React.FC = () => {
     return <div className="field">        
-        <div className="verticalWallTS"></div>
+        <div className="verticalWallTS vertical"></div>
     </div>;
   };
   

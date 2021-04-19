@@ -3,19 +3,19 @@ import Empty from "./Empty";
 import Hackman from "./Hackman";
 import Wall from "./Wall";
 import VerticalWall from "./VerticalWalls/VerticalWall";
-import VerticalWallTS from "./VerticalWalls/VerticalWallTS";
-import VerticalWallBS from "./VerticalWalls/VerticalWallBS";
+import VerticalWallTS from "./VerticalWalls/VerticalWallTopShort";
+import VerticalWallBS from "./VerticalWalls/VerticalWallBottomShort";
 import HorizontalWall from "./HorizontalWalls/HorizontalWall";
-import HorizontalWallRS from "./HorizontalWalls/HorizontalWallRS";
-import HorizontalWallLS from "./HorizontalWalls/HorizontalWallLS";
+import HorizontalWallRS from "./HorizontalWalls/HorizontalWallRightSideShort";
+import HorizontalWallLS from "./HorizontalWalls/HorizontalWallLeftSideShort";
 import TPieceBottom from "./TPieces/TPieceBottom";
 import TPieceTop from "./TPieces/TPieceTop";
 import TPieceRight from "./TPieces/TPieceRight";
 import TPieceLeft from "./TPieces/TPieceLeft";
-import CornerLT from "./Corners/CornerLT";
-import CornerLB from "./Corners/CornerLB";
-import CornerRT from "./Corners/CornerRT";
-import CornerRB from "./Corners/CornerRB";
+import CornerLT from "./Corners/CornerLeftTop";
+import CornerLB from "./Corners/CornerLeftBottom";
+import CornerRT from "./Corners/CornerRightTop";
+import CornerRB from "./Corners/CornerRightBottom";
 
 interface ISpielfeldProps {
   fields: React.FC[][];

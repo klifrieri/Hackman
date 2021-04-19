@@ -26,23 +26,21 @@ code {
     left: 35%;
     background-color: orange;
 }
-.verticalWallBS{
+.vertical{
     position: absolute;
     width: 15px;
     height: 32px;
+    background-color: orange;
+}
+.verticalWallBS{
     left: 35%;
     top: 0px;
-    background-color: orange;
     border-bottom-left-radius: 9px;
     border-bottom-right-radius: 9px;
 }
 .verticalWallTS{
-    position: absolute;
-    width: 15px;
-    height: 32px;
     left: 35%;
     bottom: 0px;
-    background-color: orange;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
 }
@@ -54,77 +52,53 @@ code {
     top: 35%;
     background-color: orange;
 }
-.horizontalWallLS{
+.horizontal{
     position: absolute;
     width: 32px;
     height: 15px;
+    background-color: orange;
+}
+.horizontalWallLS{
     top: 35%;
     right: 0px;
-    background-color: orange;
     border-top-left-radius: 9px;
     border-bottom-left-radius: 9px;
 }
 .horizontalWallRS{
-    position: absolute;
-    width: 32px;
-    height: 15px;
     top: 35%;
     left: 0px;
-    background-color: orange;
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
 }
 
 .tWallTop{
-    position: absolute;
-    width: 15px;
-    height: 32px;
     left: 35%;
     top: 0px;
-    background-color: orange;
     border-bottom-left-radius: 9px;
     border-bottom-right-radius: 9px;
 }
 .tWallBottom{
-    position: absolute;
-    width: 15px;
-    height: 32px;
     left: 35%;
     bottom: 0px;
-    background-color: orange;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
 }
 
 .tWallRight{
-    position: absolute;
-    width: 32px;
-    height: 15px;
     top: 35%;
     left: 0px;
-    background-color: orange;
     border-bottom-right-radius: 9px;
     border-top-right-radius: 9px;
 }
 .tWallLeft{
-    position: absolute;
-    width: 32px;
-    height: 15px;
     top: 35%;
     right: 0px;
-    background-color: orange;
     border-bottom-left-radius: 9px;
     border-top-left-radius: 9px;
 }
 
 
 
-
-.wall.field {
-    background-color: orange;
-    border: 1px solid darkorange;
-    box-sizing: border-box;
-}
 
 .coin {
     position: absolute;
