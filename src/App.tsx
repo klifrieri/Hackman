@@ -1,6 +1,5 @@
 import Coin from "./Components/Coin";
 import Empy from "./Components/Empty";
-import Wall from "./Components/Wall";
 import Holl from "./Components/HorizontalWalls/HorizontalWall";
 import Hwrs from "./Components/HorizontalWalls/HorizontalWallRightSideShort";
 import Hwls from "./Components/HorizontalWalls/HorizontalWallLeftSideShort";
@@ -17,7 +16,6 @@ import Cort from "./Components/Corners/CornerRightTop";
 import Corb from "./Components/Corners/CornerRightBottom";
 import Spielfeld from "./Components/Spielfeld";
 import Hack from "./Components/Hackman";
-
 
 // prettier-ignore
 let fields: React.FC[][] = [
