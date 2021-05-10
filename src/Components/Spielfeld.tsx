@@ -16,6 +16,10 @@ import CornerLT from "./Corners/CornerLeftTop";
 import CornerLB from "./Corners/CornerLeftBottom";
 import CornerRT from "./Corners/CornerRightTop";
 import CornerRB from "./Corners/CornerRightBottom";
+import Empy from "./Empty";
+import Hack from "./Hackman";
+import React from "react";
+import { useState } from "react";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -44,14 +48,68 @@ const renderComponent = (component: React.FC, key: number) => {
   return undefined;
 };
 
+// let position: [number, number];
+//   for (let i = 0; i < feld.length; i++) {
+//     for (let y = 0; y < feld[i].length; y++) {
+//       if (feld[i][y] === Hack) {
+//         position = [i, y];
+//       }
+//     }
+//   }
+
+const handleKeyDown = (e: React.KeyboardEvent) => {
+  console.log(e.key);
+  // const zwischenFeld = feld;
+
+  // if (e.key === "a") {
+  //   if (feld[position[0]][position[1] - 1] === (Coin || Empy)) {
+  //     zwischenFeld[position[0]][position[1] - 1] = Hack;
+  //     zwischenFeld[position[0]][position[1]] = Empy;
+  //     setFeld(zwischenFeld);
+  //     console.log("MoveLeft");
+  //     return;
+  //   }
+  // }
+  // else if(e.key === "d"){
+  //   if (feld[position[0]][position[1] + 1] === (Coin || Empy)) {
+  //     zwischenFeld[position[0]][position[1] + 1] = Hack;
+  //     zwischenFeld[position[0]][position[1]] = Empy;
+  //     setFeld(zwischenFeld);
+  //     console.log("MoveRight");
+  //     return;
+  //   }
+  // }
+  // else if(e.key === "w"){
+  //   if (feld[position[0] - 1][position[1]] === (Coin || Empy)) {
+  //     zwischenFeld[position[0] - 1][position[1]] = Hack;
+  //     zwischenFeld[position[0]][position[1]] = Empy;
+  //     setFeld(zwischenFeld);
+  //     console.log("MoveUp");
+  //     return;
+  //   }
+  // }
+  // else if(e.key === "s"){
+  //   if (feld[position[0] + 1][position[1]] === (Coin || Empy)) {
+  //     zwischenFeld[position[0] + 1][position[1]] = Hack;
+  //     zwischenFeld[position[0]][position[1]] = Empy;
+  //     setFeld(zwischenFeld);
+  //     console.log("Movedown");
+  //     return;
+  //   }
+  // }
+}
+
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
+
+  const [feld, setFeld] = useState(props.fields);
+  
   return (
-    <div className="App center">
-      {props.fields.map((row, x) => {
+    <div className="App center" onKeyDown={handleKeyDown} tabIndex={0}>
+      {feld.map((row, x) => {
         return (
           <div className="row" key={x}>
-            {row.map((field, y) => {
-              return renderComponent(field, y);
+            {row.map((feld, y) => {
+              return renderComponent(feld, y);
             })}
           </div>
         );
