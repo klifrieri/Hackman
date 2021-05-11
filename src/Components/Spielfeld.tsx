@@ -100,12 +100,10 @@ const handleKeyDown = (e: React.KeyboardEvent) => {
 }
 
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
-
-  const [feld, setFeld] = useState(props.fields);
   
   return (
     <div className="App center" onKeyDown={handleKeyDown} tabIndex={0}>
-      {feld.map((row, x) => {
+      {props.fields.map((row, x) => {
         return (
           <div className="row" key={x}>
             {row.map((feld, y) => {
