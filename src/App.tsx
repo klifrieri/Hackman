@@ -37,7 +37,7 @@ const App: React.FC = () => {
     let spielfeldCopy: React.FC<{}>[][] = spielfeld;
     setPosition(getPosition);
     console.log(position);
-    if (e.key === "a") {
+    if (e.key === "a" || e.key === "A") {
       console.log(e.key);
 
       if (spielfeldCopy[position[0]][position[1] - 1] === Coin) {
@@ -59,7 +59,7 @@ const App: React.FC = () => {
       }
     } 
 
-    else if (e.key === "w") {
+    else if (e.key === "w" || e.key === "W") {
       console.log(e.key);
 
       if (spielfeld[position[0] - 1][position[1]] === Coin) {
@@ -81,7 +81,7 @@ const App: React.FC = () => {
       }
     } 
 
-    else if (e.key === "d") {
+    else if (e.key === "d" || e.key === "D") {
       console.log(e.key);
 
       if (spielfeld[position[0]][position[1] + 1] === Coin) {
@@ -103,7 +103,7 @@ const App: React.FC = () => {
       }
     } 
 
-    else if (e.key === "s") {
+    else if (e.key === "s" || e.key === "S") {
       console.log(e.key);
 
       if (spielfeld[position[0] + 1][position[1]] === Coin) {
