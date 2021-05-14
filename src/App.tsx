@@ -25,13 +25,6 @@ const App: React.FC = () => {
     }
     return getPosition;
   }
-
-  const checkElementPosition = (position:[number, number]):string => {
-
-    
-
-    return "";
-  }
   
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     let spielfeldCopy: React.FC<{}>[][] = spielfeld;
@@ -51,6 +44,11 @@ const App: React.FC = () => {
       } 
       else if(spielfeld[position[0]][position[1] - 1] === Empy){
         spielfeldCopy[position[0]][position[1] - 1] = Hack;
+        spielfeldCopy[position[0]][position[1]] = Empy;
+        setSpielfeld(spielfeldCopy);
+      } 
+      else if (spielfeld[position[0]][position[1] - 1] === undefined){
+        spielfeldCopy[position[0]][spielfeld[0].length - 1] = Hack;
         spielfeldCopy[position[0]][position[1]] = Empy;
         setSpielfeld(spielfeldCopy);
       }
@@ -76,6 +74,11 @@ const App: React.FC = () => {
         spielfeldCopy[position[0]][position[1]] = Empy;
         setSpielfeld(spielfeldCopy);
       }
+      else if (spielfeld[position[0] - 1][position[1]] === undefined) {
+        spielfeldCopy[spielfeld.length - 1][position[1]] = Hack;
+        spielfeldCopy[position[0]][position[1]] = Empy;
+        setSpielfeld(spielfeldCopy);
+      }
       else {
         console.log(spielfeld[position[0] - 1][position[1]]);
       }
@@ -98,6 +101,11 @@ const App: React.FC = () => {
         spielfeldCopy[position[0]][position[1]] = Empy;
         setSpielfeld(spielfeldCopy);
       }
+      else if (spielfeld[position[0]][position[1] + 1] === undefined) {
+        spielfeldCopy[position[0]][0] = Hack;
+        spielfeldCopy[position[0]][position[1]] = Empy;
+        setSpielfeld(spielfeldCopy);
+      }
       else {
         console.log(spielfeld[position[0]][position[1] + 1]);
       }
@@ -117,6 +125,11 @@ const App: React.FC = () => {
       } 
       else if(spielfeld[position[0] + 1][position[1]] === Empy){
         spielfeldCopy[position[0] + 1][position[1]] = Hack;
+        spielfeldCopy[position[0]][position[1]] = Empy;
+        setSpielfeld(spielfeldCopy);
+      }
+      else if (spielfeld[position[0] + 1][position[1]] === undefined) {
+        spielfeldCopy[0][position[1]] = Hack;
         spielfeldCopy[position[0]][position[1]] = Empy;
         setSpielfeld(spielfeldCopy);
       }
