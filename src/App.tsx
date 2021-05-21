@@ -7,14 +7,14 @@ import React from 'react';
 import { useEffect, useState, KeyboardEvent, useRef } from "react";
 
 const App: React.FC = () => {
-
-  const [spielfeld, setSpielfeld] = useState(SpielfeldLayout);
-  const [position, setPosition] = useState(getPosition);
-  let points: number = 0;
   
+  const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout);
+  const [position, setPosition] = useState(getPosition);
+  const [bewegungsRichtung, setBewegungsRichtung] = useState<string>();
+
   
   // Findet die Postition von Hackman heraus
-  function getPosition(){
+  function getPosition():[number, number] {
     let getPosition: [number, number] = [0, 0];
     for (let i = 0; i < spielfeld.length; i++) {
       for (let y = 0; y < spielfeld[i].length; y++) {
@@ -25,171 +25,99 @@ const App: React.FC = () => {
     }
     return getPosition;
   }
-  
+
   const handleKeyDown = (e: React.KeyboardEvent): void => {
-    let spielfeldCopy: React.FC<{}>[][] = spielfeld;
-    setPosition(getPosition);
-    console.log(position);
-    if (e.key === "a" || e.key === "A") {
-      console.log(e.key);
-
-      if (spielfeldCopy[position[0]][position[1] - 1] === Coin) {
-
-        spielfeldCopy[position[0]][position[1] - 1] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-
-        points += 1;
-        console.log("MoveLeft", points, spielfeld);
-      } 
-      else if(spielfeld[position[0]][position[1] - 1] === Empy){
-        spielfeldCopy[position[0]][position[1] - 1] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      } 
-      else if (spielfeld[position[0]][position[1] - 1] === undefined){
-        spielfeldCopy[position[0]][spielfeld[0].length - 1] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      }
-      else {
-        console.log(spielfeldCopy[position[0]][position[1] - 1]);
-      }
-    } 
-
-    else if (e.key === "w" || e.key === "W") {
-      console.log(e.key);
-
-      if (spielfeld[position[0] - 1][position[1]] === Coin) {
-
-        spielfeldCopy[position[0] - 1][position[1]] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-
-        points += 1;
-        console.log("MoveUp", points, spielfeld);
-      } 
-      else if(spielfeld[position[0] - 1][position[1]] === Empy){
-        spielfeldCopy[position[0] - 1][position[1]] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      }
-      else if (spielfeld[position[0] - 1][position[1]] === undefined) {
-        spielfeldCopy[spielfeld.length - 1][position[1]] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      }
-      else {
-        console.log(spielfeld[position[0] - 1][position[1]]);
-      }
-    } 
-
-    else if (e.key === "d" || e.key === "D") {
-      console.log(e.key);
-
-      if (spielfeld[position[0]][position[1] + 1] === Coin) {
-
-        spielfeldCopy[position[0]][position[1] + 1] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-
-        points += 1;
-        console.log("MoveRight", points, spielfeld);
-      } 
-      else if(spielfeld[position[0]][position[1] + 1] === Empy){
-        spielfeldCopy[position[0]][position[1] + 1] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      }
-      else if (spielfeld[position[0]][position[1] + 1] === undefined) {
-        spielfeldCopy[position[0]][0] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      }
-      else {
-        console.log(spielfeld[position[0]][position[1] + 1]);
-      }
-    } 
-
-    else if (e.key === "s" || e.key === "S") {
-      console.log(e.key);
-
-      if (spielfeld[position[0] + 1][position[1]] === Coin) {
-
-        spielfeldCopy[position[0] + 1][position[1]] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-
-        points += 1;
-        console.log("MoveDown", points, spielfeld);
-      } 
-      else if(spielfeld[position[0] + 1][position[1]] === Empy){
-        spielfeldCopy[position[0] + 1][position[1]] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      }
-      else if (spielfeld[position[0] + 1][position[1]] === undefined) {
-        spielfeldCopy[0][position[1]] = Hack;
-        spielfeldCopy[position[0]][position[1]] = Empy;
-        setSpielfeld(spielfeldCopy);
-      }
-      else {
-        console.log(spielfeld[position[0] + 1][position[1]]);
-      }
-    }
-
+    if (e.key === "w" || e.key === "W") setBewegungsRichtung( e.key);
+    else if (e.key === "a" || e.key === "A") setBewegungsRichtung( e.key);
+    else if (e.key === "s" || e.key === "S") setBewegungsRichtung( e.key);
+    else if (e.key === "d" || e.key === "D") setBewegungsRichtung( e.key);
+    else console.log(e.key + " ist ungültig");
   }
+  
+  useEffect( () => {
+    setInterval( () => {
+      let spielfeldCopy: React.FC<{}>[][] = spielfeld;
+      console.log(spielfeld);
+
+      if (bewegungsRichtung === "a" || bewegungsRichtung === "A") {
+  
+        if (spielfeld[position[0]][position[1] - 1] === Coin || spielfeld[position[0]][position[1] - 1] === Empy) {
+  
+          spielfeldCopy[position[0]][position[1] - 1] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+
+          console.log(spielfeld);
+        }
+        else if (spielfeld[position[0]][position[1] - 1] === undefined){
+          spielfeldCopy[position[0]][spielfeld[0].length - 1] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+        }
+      } 
+  
+      else if (bewegungsRichtung === "w" || bewegungsRichtung === "W") {
+  
+        if (spielfeld[position[0] - 1][position[1]] === Coin || spielfeld[position[0] - 1][position[1]] === Empy) {
+  
+          spielfeldCopy[position[0] - 1][position[1]] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+
+          console.log(spielfeld);
+        }
+        else if (spielfeld[position[0] - 1][position[1]] === undefined) {
+          spielfeldCopy[spielfeld.length - 1][position[1]] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+        }
+      } 
+  
+      else if (bewegungsRichtung === "d" || bewegungsRichtung === "D") {
+  
+        if (spielfeld[position[0]][position[1] + 1] === Coin || spielfeld[position[0]][position[1] + 1] === Empy) {
+  
+          spielfeldCopy[position[0]][position[1] + 1] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+
+          console.log(spielfeld);
+        }
+        else if (spielfeld[position[0]][position[1] + 1] === undefined) {
+          spielfeldCopy[position[0]][0] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+        }
+      } 
+  
+      else if (bewegungsRichtung === "s" || bewegungsRichtung === "S") {
+  
+        if (spielfeld[position[0] + 1][position[1]] === Coin || spielfeld[position[0] + 1][position[1]] === Empy) {
+  
+          spielfeldCopy[position[0] + 1][position[1]] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+
+          console.log(spielfeld);
+        }
+        else if (spielfeld[position[0] + 1][position[1]] === undefined) {
+          spielfeldCopy[0][position[1]] = Hack;
+          spielfeldCopy[position[0]][position[1]] = Empy;
+          setSpielfeld(spielfeldCopy);
+          setPosition(getPosition);
+        }
+      }
+    }, 1000);
+  });
 
   return <Spielfeld fields={spielfeld} handleSpielfeldKeyDown={handleKeyDown} />;
 };
 
-
 export default App;
-
-
-
-
-// // Bewegt Hackman
-// document.addEventListener("keydown", (event) => {
-    
-//   if (event.code === moveLeft) {
-//     if (fields[position[0]][position[1] - 1] === (Coin || Empy)) {
-//       fields[position[0]][position[1] - 1] = Hack;
-//       fields[position[0]][position[1]] = Empy;
-//       points += 1;
-//       console.log("MoveLeft", points);
-//       return;
-//     }
-//   }
-//   else if(event.code === moveRight){
-//     if (fields[position[0]][position[1] + 1] === (Coin || Empy)) {
-//       fields[position[0]][position[1] + 1] = Hack;
-//       fields[position[0]][position[1]] = Empy;
-//       points += 1;
-//       console.log("MoveRight", points);
-//       return;
-//     }
-//   }
-//   else if(event.code === moveUp){
-//     if (fields[position[0] - 1][position[1]] === (Coin || Empy)) {
-//       fields[position[0] - 1][position[1]] = Hack;
-//       fields[position[0]][position[1]] = Empy;
-//       points += 1;
-//       console.log("MoveUp", points);
-//       return;
-//     }
-//   }
-//   else if(event.code === moveDown){
-//     if (fields[position[0] + 1][position[1]] === (Coin || Empy)) {
-//       fields[position[0] + 1][position[1]] = Hack;
-//       fields[position[0]][position[1]] = Empy;
-//       points += 1;
-//       console.log("Movedown", points);
-//       return;
-//     }
-//   }
-//   if(points > 50 ){
-//     gameRunning = false;
-//     return;
-//   }  
-// })
