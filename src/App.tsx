@@ -4,7 +4,7 @@ import React from "react";
 import { useState } from "react";
 
 const App: React.FC = () => {
-  const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout);
+  const [spielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout);
 
   return <Spielfeld fields={spielfeld} />;
 };
