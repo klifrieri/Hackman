@@ -21,6 +21,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import Koordinate from "../Types/Koordinate";
 import Richtung from "../Types/Richtung";
+import Snack from "./Snack";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -46,6 +47,7 @@ const renderComponent = (component: React.FC, key: number) => {
   else if (component === CornerRB) return <CornerRB key={key} />;
   else if (component === Coin) return <Coin key={key} />;
   else if (component === Hackman) return <Hackman key={key} />;
+  else if (component === Snack) return <Snack key={key} />;
   else if (component === Empty) return <Empty key={key} />;
   else return undefined;
 };
@@ -96,25 +98,29 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Oben: {
         return (
           spielfeld[position.y - 1][position.x] === Empty ||
-          spielfeld[position.y - 1][position.x] === Coin
+          spielfeld[position.y - 1][position.x] === Coin ||
+          spielfeld[position.y - 1][position.x] === Snack
         );
       }
       case Richtung.Links: {
         return (
           spielfeld[position.y][position.x - 1] === Empty ||
-          spielfeld[position.y][position.x - 1] === Coin
+          spielfeld[position.y][position.x - 1] === Coin ||
+          spielfeld[position.y][position.x - 1] === Snack
         );
       }
       case Richtung.Unten: {
         return (
           spielfeld[position.y + 1][position.x] === Empty ||
-          spielfeld[position.y + 1][position.x] === Coin
+          spielfeld[position.y + 1][position.x] === Coin ||
+          spielfeld[position.y + 1][position.x] === Snack
         );
       }
       case Richtung.Rechts: {
         return (
           spielfeld[position.y][position.x + 1] === Empty ||
-          spielfeld[position.y][position.x + 1] === Coin
+          spielfeld[position.y][position.x + 1] === Coin ||
+          spielfeld[position.y][position.x + 1] === Snack
         );
       }
       default:
