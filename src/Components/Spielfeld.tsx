@@ -16,6 +16,12 @@ import CornerLT from "./Corners/CornerLeftTop";
 import CornerLB from "./Corners/CornerLeftBottom";
 import CornerRT from "./Corners/CornerRightTop";
 import CornerRB from "./Corners/CornerRightBottom";
+import Hack from "./Hackman";
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Koordinate from "../Types/Koordinate";
+import Richtung from "../Types/Richtung";
+import Snack from "./Snack";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -24,8 +30,10 @@ interface ISpielfeldProps {
 const renderComponent = (component: React.FC, key: number) => {
   if (component === Wall) return <Wall key={key} />;
   else if (component === HorizontalWall) return <HorizontalWall key={key} />;
-  else if (component === HorizontalWallLS) return <HorizontalWallLS key={key} />;
-  else if (component === HorizontalWallRS) return <HorizontalWallRS key={key} />;
+  else if (component === HorizontalWallLS)
+    return <HorizontalWallLS key={key} />;
+  else if (component === HorizontalWallRS)
+    return <HorizontalWallRS key={key} />;
   else if (component === VerticalWall) return <VerticalWall key={key} />;
   else if (component === VerticalWallBS) return <VerticalWallBS key={key} />;
   else if (component === VerticalWallTS) return <VerticalWallTS key={key} />;
@@ -39,19 +47,136 @@ const renderComponent = (component: React.FC, key: number) => {
   else if (component === CornerRB) return <CornerRB key={key} />;
   else if (component === Coin) return <Coin key={key} />;
   else if (component === Hackman) return <Hackman key={key} />;
+  else if (component === Snack) return <Snack key={key} />;
   else if (component === Empty) return <Empty key={key} />;
-
-  return undefined;
+  else return undefined;
 };
 
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
+  const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
+  const [position, setPosition] = useState(Koordinate.Empty());
+  const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
+    Richtung.Keine
+  );
+
+  useEffect(() => {
+    const interval = setInterval(() => move(), 250);
+    return () => clearInterval(interval);
+  });
+
+  const handleKeyDown = (e: React.KeyboardEvent): void => {
+    setPosition(getHackmanPosition());
+
+    if (e.key.toLowerCase() === "w" || e.key === "ArrowUp")
+      setBewegungsRichtung(Richtung.Oben);
+    else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
+      setBewegungsRichtung(Richtung.Links);
+    else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown")
+      setBewegungsRichtung(Richtung.Unten);
+    else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight")
+      setBewegungsRichtung(Richtung.Rechts);
+  };
+
+  const getHackmanPosition = (): Koordinate => {
+    let position: Koordinate = Koordinate.Empty();
+
+    for (let y = 0; y < spielfeld.length; y++) {
+      for (let x = 0; x < spielfeld[y].length; x++) {
+        if (spielfeld[y][x] === Hack) {
+          position.x = x;
+          position.y = y;
+        }
+      }
+    }
+    return position;
+  };
+
+  const canMove = (): boolean => {
+    setPosition(getHackmanPosition());
+
+    switch (bewegungsRichtung) {
+      case Richtung.Oben: {
+        return (
+          spielfeld[position.y - 1][position.x] === Empty ||
+          spielfeld[position.y - 1][position.x] === Coin ||
+          spielfeld[position.y - 1][position.x] === Snack
+        );
+      }
+      case Richtung.Links: {
+        return (
+          spielfeld[position.y][position.x - 1] === Empty ||
+          spielfeld[position.y][position.x - 1] === Coin ||
+          spielfeld[position.y][position.x - 1] === Snack
+        );
+      }
+      case Richtung.Unten: {
+        return (
+          spielfeld[position.y + 1][position.x] === Empty ||
+          spielfeld[position.y + 1][position.x] === Coin ||
+          spielfeld[position.y + 1][position.x] === Snack
+        );
+      }
+      case Richtung.Rechts: {
+        return (
+          spielfeld[position.y][position.x + 1] === Empty ||
+          spielfeld[position.y][position.x + 1] === Coin ||
+          spielfeld[position.y][position.x + 1] === Snack
+        );
+      }
+      default:
+        return false;
+    }
+  };
+
+  const move = () => {
+    let spielfeldCopy: React.FC<{}>[][] = spielfeld;
+    setPosition(getHackmanPosition());
+
+    switch (bewegungsRichtung) {
+      case Richtung.Oben: {
+        if (canMove()) {
+          spielfeldCopy[position.y][position.x] = Empty;
+          spielfeldCopy[position.y - 1][position.x] = Hack;
+          setSpielfeld(spielfeldCopy);
+        }
+        break;
+      }
+      case Richtung.Links: {
+        if (canMove()) {
+          spielfeldCopy[position.y][position.x] = Empty;
+          spielfeldCopy[position.y][position.x - 1] = Hack;
+
+          setSpielfeld(spielfeldCopy);
+        }
+        break;
+      }
+      case Richtung.Unten: {
+        if (canMove()) {
+          spielfeldCopy[position.y][position.x] = Empty;
+          spielfeldCopy[position.y + 1][position.x] = Hack;
+
+          setSpielfeld(spielfeldCopy);
+        }
+        break;
+      }
+      case Richtung.Rechts: {
+        if (canMove()) {
+          spielfeldCopy[position.y][position.x] = Empty;
+          spielfeldCopy[position.y][position.x + 1] = Hack;
+          setSpielfeld(spielfeldCopy);
+        }
+        break;
+      }
+    }
+  };
+
   return (
-    <div className="App center">
-      {props.fields.map((row, x) => {
+    <div className="App center" onKeyDown={handleKeyDown} tabIndex={0}>
+      {spielfeld.map((row, x) => {
         return (
           <div className="row" key={x}>
-            {row.map((field, y) => {
-              return renderComponent(field, y);
+            {row.map((feld, y) => {
+              return renderComponent(feld, y);
             })}
           </div>
         );
