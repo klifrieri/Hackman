@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/hackman/static/css/main.14e4f131.chunk.css",
+    "main.js": "/hackman/static/js/main.6620b515.chunk.js",
+    "main.js.map": "/hackman/static/js/main.6620b515.chunk.js.map",
+    "runtime-main.js": "/hackman/static/js/runtime-main.46f79a9c.js",
+    "runtime-main.js.map": "/hackman/static/js/runtime-main.46f79a9c.js.map",
+    "static/js/2.46501dfe.chunk.js": "/hackman/static/js/2.46501dfe.chunk.js",
+    "static/js/2.46501dfe.chunk.js.map": "/hackman/static/js/2.46501dfe.chunk.js.map",
+    "static/js/3.30051334.chunk.js": "/hackman/static/js/3.30051334.chunk.js",
+    "static/js/3.30051334.chunk.js.map": "/hackman/static/js/3.30051334.chunk.js.map",
+    "index.html": "/hackman/index.html",
+    "static/css/main.14e4f131.chunk.css.map": "/hackman/static/css/main.14e4f131.chunk.css.map",
+    "static/js/2.46501dfe.chunk.js.LICENSE.txt": "/hackman/static/js/2.46501dfe.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.46f79a9c.js",
+    "static/js/2.46501dfe.chunk.js",
+    "static/css/main.14e4f131.chunk.css",
+    "static/js/main.6620b515.chunk.js"
+  ]
+}
