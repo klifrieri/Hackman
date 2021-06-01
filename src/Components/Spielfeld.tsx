@@ -98,25 +98,29 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Oben: {
         return (
           spielfeld[position.y - 1][position.x] === Empty ||
-          spielfeld[position.y - 1][position.x] === Coin
+          spielfeld[position.y - 1][position.x] === Coin ||
+          spielfeld[position.y - 1][position.x] === Snack
         );
       }
       case Richtung.Links: {
         return (
           spielfeld[position.y][position.x - 1] === Empty ||
-          spielfeld[position.y][position.x - 1] === Coin
+          spielfeld[position.y][position.x - 1] === Coin ||
+          spielfeld[position.y][position.x - 1] === Snack
         );
       }
       case Richtung.Unten: {
         return (
           spielfeld[position.y + 1][position.x] === Empty ||
-          spielfeld[position.y + 1][position.x] === Coin
+          spielfeld[position.y + 1][position.x] === Coin ||
+          spielfeld[position.y + 1][position.x] === Snack
         );
       }
       case Richtung.Rechts: {
         return (
           spielfeld[position.y][position.x + 1] === Empty ||
-          spielfeld[position.y][position.x + 1] === Coin
+          spielfeld[position.y][position.x + 1] === Coin ||
+          spielfeld[position.y][position.x + 1] === Snack
         );
       }
       default:
