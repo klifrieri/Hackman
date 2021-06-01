@@ -109,6 +109,15 @@ code {
     background: white;
     border-radius: 50% !important;
 }
+.snack {
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    width: 50%;
+    height: 50%;
+    background: white;
+    border-radius: 50% !important;
+}
 
 .hackman {
     position: absolute;
