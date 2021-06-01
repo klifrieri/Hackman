@@ -144,3 +144,21 @@ code {
     margin-right: -50%;
     transform: translate(-50%, -50%);
 }
+
+.geistKopf {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 70%;
+    height: 70%;
+    background: blue;
+    border-radius: 50% !important;
+}
+.geistKörper {
+    position: absolute;
+    width: 70%;
+    height: 40%;
+    top: 45%;
+    left: 10%;
+    background-color: blue;
+}
