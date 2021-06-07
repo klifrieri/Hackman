@@ -108,15 +108,17 @@ code {
     height: 20%;
     background: white;
     border-radius: 50% !important;
+    z-index: 10;
 }
 .snack {
     position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 40%;
     background: white;
     border-radius: 50% !important;
+    z-index: 10;
 }
 
 .hackman {
@@ -127,6 +129,31 @@ code {
     height: 80%;
     background: rgb(255, 72, 0);
     border-radius: 50% !important;
+}
+.eye{
+    background-color: #19181A;
+    width: 10px;
+    height: 9px;
+    border-radius: 50%;
+    transition: transform 0.7s;
+    transform: translateX(7px) translateY(10px);
+}
+.eye-move{
+    transition: transform 0.6s;
+    transform: translateX(13px) translateY(4px) scale(0.7);
+}
+.mouth{
+    background-color: black;
+    width: 25px;
+    height: 25px;
+    transition: transform 0.6s;
+    transform: translateX(-32px) translateY(-0px) rotateZ(45deg);
+    z-index: 0;
+}
+.mouth-open{           
+    transition: transform 0.7s;
+    transform: translateX(-10px) translateY(-0px) rotateZ(45deg); 
+
 }
 
 .row {
