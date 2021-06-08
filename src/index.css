@@ -114,7 +114,7 @@ code {
 }
 
 
-/* Objekte */
+/* Coins */
 .coin {
     position: absolute;
     top: 40%;
@@ -172,6 +172,9 @@ code {
 }
 
 /* Geister */
+.geist{
+    z-index: 15;
+}
 .geist-kopf {
     position: absolute;
     top: 10%;
