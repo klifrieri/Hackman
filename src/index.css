@@ -172,7 +172,7 @@ code {
 }
 
 /* Geister */
-.geistKopf {
+.geist-kopf {
     position: absolute;
     top: 10%;
     left: 10%;
@@ -180,12 +180,31 @@ code {
     height: 70%;
     background: blue;
     border-radius: 50% !important;
+    display: flex;
+    flex-direction: row;
 }
-.geistKörper {
+.geist-augen{
+    margin-left: 15%;
+    background-color: rgb(189, 170, 170);
+    height: 25%;
+    width: 20%;
+    border-radius: 50%;
+    transform: translateY(7px) translateX(2.5px);
+}
+.geist-körper {
     position: absolute;
     width: 70%;
     height: 40%;
     top: 45%;
     left: 10%;
     background-color: blue;
+    display: flex;
+    flex-direction: row;
+}
+.geist-zacken{
+    width: 60%;
+    height: 80%;
+    border-radius: 50%;
+    background-color: black;
+    transform: translateY(13px);
 }

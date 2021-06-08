@@ -2,12 +2,16 @@
 const Geist: React.FC = () => {
     return (
         <div className="field">
-            <div className="geistKopf"></div>
-            <div className="geistKörper"></div>
-            <div>
-                <div className="geistZacken"></div>
-                <div className="geistZacken"></div>
-                <div className="geistZacken"></div>
+            <div className="geist">
+                <div className="geist-kopf">
+                    <div className="geist-augen"></div>
+                    <div className="geist-augen"></div>
+                </div>
+                <div className="geist-körper">
+                    <div className="geist-zacken"></div>
+                    <div className="geist-zacken"></div>
+                    <div className="geist-zacken"></div>
+                </div>
             </div>
         </div>
     );
