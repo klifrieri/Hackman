@@ -23,6 +23,7 @@ import Koordinate from "../Types/Koordinate";
 import Richtung from "../Types/Richtung";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
+import Gate from "./Gate";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -51,6 +52,7 @@ const renderComponent = (component: React.FC, key: number) => {
   else if (component === Ghost) return <Ghost key={key} />;
   else if (component === Snack) return <Snack key={key} />;
   else if (component === Empty) return <Empty key={key} />;
+  else if (component === Gate) return <Gate key={key} />;
   else return undefined;
 };
 

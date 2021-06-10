@@ -17,6 +17,7 @@ import Corb from "./Components/Corners/CornerRightBottom";
 import Snac from "./Components/Snack";
 import Hack from "./Components/Hackman";
 import Geis from "./Components/Ghost";
+import Gate from "./Components/Gate";
 import React from 'react';
 
 const SpielfeldLayout = () => {
@@ -27,7 +28,7 @@ const SpielfeldLayout = () => {
         [Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vwts, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell],
         [Tpls, Cort, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Hwls, Tpto, Hwrs, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Colt, Tprs],
         [Vell, Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Snac, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell, Vell],
-        [Colb, Corb, Coin, Vwts, Coin, Colt, Cort, Coin, Colt, Hwrs, Empy, Hwls, Cort, Coin, Colt, Cort, Coin, Vwts, Coin, Colb, Corb],
+        [Colb, Corb, Coin, Vwts, Coin, Colt, Cort, Coin, Colt, Hwrs, Gate, Hwls, Cort, Coin, Colt, Cort, Coin, Vwts, Coin, Colb, Corb],
         [Empy, Empy, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Geis, Empy, Geis, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Empy, Empy],
         [Hwls, Hwrs, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Empy, Empy, Empy, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Hwls, Hwrs],
         [Empy, Empy, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Geis, Empy, Geis, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Empy, Empy],
