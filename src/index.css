@@ -34,7 +34,7 @@ code {
 }
 
 
-/* Wände */
+/* Walls */
 .verticalWall{
     position: absolute;
     width: 15px;
@@ -168,14 +168,14 @@ code {
 }
 .mouth-open{           
     transition: transform 0.7s;
-    transform: translateX(-8px) translateY(-0px) rotateZ(45deg); 
+    transform: translateX(-8px) translateY(-0px) rotateZ(45deg);
 }
 
-/* Geister */
-.geist{
+/* Ghosts */
+.ghost{
     z-index: 15;
 }
-.geist-kopf {
+.ghost-head {
     position: absolute;
     top: 10%;
     left: 10%;
@@ -186,7 +186,7 @@ code {
     display: flex;
     flex-direction: row;
 }
-.geist-augen{
+.ghost-eye{
     margin-left: 15%;
     background-color: rgb(189, 170, 170);
     height: 25%;
@@ -194,7 +194,7 @@ code {
     border-radius: 50%;
     transform: translateY(7px) translateX(2.5px);
 }
-.geist-körper {
+.ghost-body {
     position: absolute;
     width: 70%;
     height: 40%;
@@ -204,7 +204,7 @@ code {
     display: flex;
     flex-direction: row;
 }
-.geist-zacken{
+.ghost-spikes{
     width: 60%;
     height: 80%;
     border-radius: 50%;

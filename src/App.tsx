@@ -1,5 +1,5 @@
 import SpielfeldLayout from "./SpielfeldLayout";
-import Spielfeld from "./Components/Spielfeld";
+import Spielfeld from "./Components/Gamefield";
 import React from "react";
 import { useState } from "react";
 

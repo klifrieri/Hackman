@@ -22,7 +22,7 @@ import { useState } from "react";
 import Koordinate from "../Types/Koordinate";
 import Richtung from "../Types/Richtung";
 import Snack from "./Snack";
-import Geist from "./Geist";
+import Ghost from "./Ghost";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -48,7 +48,7 @@ const renderComponent = (component: React.FC, key: number) => {
   else if (component === CornerRB) return <CornerRB key={key} />;
   else if (component === Coin) return <Coin key={key} />;
   else if (component === Hackman) return <Hackman key={key} />;
-  else if (component === Geist) return <Geist key={key} />;
+  else if (component === Ghost) return <Ghost key={key} />;
   else if (component === Snack) return <Snack key={key} />;
   else if (component === Empty) return <Empty key={key} />;
   else return undefined;

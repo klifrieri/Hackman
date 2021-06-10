@@ -16,7 +16,7 @@ import Cort from "./Components/Corners/CornerRightTop";
 import Corb from "./Components/Corners/CornerRightBottom";
 import Snac from "./Components/Snack";
 import Hack from "./Components/Hackman";
-import Geis from "./Components/Geist";
+import Geis from "./Components/Ghost";
 import React from 'react';
 
 const SpielfeldLayout = () => {
