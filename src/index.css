@@ -184,10 +184,10 @@ code {
     transform: rotateY(-180deg);
 }
 .move-top{
-    transform: rotateZ(90deg) translateY(-50px);
+    transform: rotateZ(90deg) translateX(-50px);
 }
 .move-bottom{
-    transform: rotateZ(-90deg) translateY(50px);  
+    transform: rotateZ(-90deg) translateX(50px);  
 }
 .move-right{
     transform: rotateY(-180deg) translateX(50px);

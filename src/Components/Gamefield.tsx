@@ -146,10 +146,9 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         break;
       }
       case Richtung.Links: {
-        if (canMove()) {
+        if (canMove()) {          
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
-
           setSpielfeld(spielfeldCopy);
         }
         break;
@@ -158,7 +157,6 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         if (canMove()) {
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
-
           setSpielfeld(spielfeldCopy);
         }
         break;
