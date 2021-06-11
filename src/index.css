@@ -41,12 +41,14 @@ code {
     height: 50px;
     left: 35%;
     background-color: orange;
+    z-index: 10;
 }
 .vertical{
     position: absolute;
     width: 15px;
     height: 32px;
     background-color: orange;
+    z-index: 10;
 }
 .verticalWallBS{
     left: 35%;
@@ -67,12 +69,14 @@ code {
     height: 15px;
     top: 35%;
     background-color: orange;
+    z-index: 10;
 }
 .horizontal{
     position: absolute;
     width: 32px;
     height: 15px;
     background-color: orange;
+    z-index: 10;
 }
 .horizontalWallLS{
     top: 35%;
@@ -92,12 +96,14 @@ code {
     top: 0px;
     border-bottom-left-radius: 9px;
     border-bottom-right-radius: 9px;
+    z-index: 10;
 }
 .tWallBottom{
     left: 35%;
     bottom: 0px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
+    z-index: 10;
 }
 
 .tWallRight{
@@ -105,12 +111,14 @@ code {
     left: 0px;
     border-bottom-right-radius: 9px;
     border-top-right-radius: 9px;
+    z-index: 10;
 }
 .tWallLeft{
     top: 35%;
     right: 0px;
     border-bottom-left-radius: 9px;
     border-top-left-radius: 9px;
+    z-index: 10;
 }
 .gate{
     position: absolute;
@@ -126,6 +134,7 @@ code {
     background-size: 7.5px 7.5px;
     background-position: 0px 0.8px, 1.1px 4px, 4px 2.5px, 1px 2px;
     border-radius: 10px;
+    z-index: 10;
 }
 
 
@@ -160,29 +169,54 @@ code {
     height: 80%;
     background: rgb(255, 72, 0);
     border-radius: 50% !important;
+    transition: transform 1s;
+}
+.top{
+    transform: rotateZ(90deg);
+}
+.bottom{
+    transform: rotateZ(-90deg);
+}
+.left{
+    transform: rotateY(0deg);
+}
+.right{
+    transform: rotateY(-180deg);
+}
+.move-top{
+    transform: rotateZ(90deg) translateY(-50px);
+}
+.move-bottom{
+    transform: rotateZ(-90deg) translateY(50px);  
+}
+.move-right{
+    transform: rotateY(-180deg) translateX(50px);
+}
+.move-left{
+    transform: rotateY(0deg) translateX(-50px);
 }
 .eye{
     background-color: #19181A;
     width: 10px;
     height: 9px;
     border-radius: 50%;
-    transition: transform 0.7s;
+    transition: transform 0.25s;
     transform: translateX(7px) translateY(10px);
 }
 .eye-move{
-    transition: transform 0.6s;
+    transition: transform 0.25s;
     transform: translateX(13px) translateY(4px) scale(0.7);
 }
 .mouth{
     background-color: black;
     width: 25px;
     height: 25px;
-    transition: transform 0.6s;
+    transition: transform 0.25s;
     transform: translateX(-32px) translateY(-0px) rotateZ(45deg);
     z-index: 0;
 }
 .mouth-open{           
-    transition: transform 0.7s;
+    transition: transform 0.25s;
     transform: translateX(-8px) translateY(-0px) rotateZ(45deg);
 }
 
