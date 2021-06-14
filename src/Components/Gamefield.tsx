@@ -141,37 +141,41 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
         if (canMove()) {
-          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });
+          await Emitter.emit('startAnimation', {});
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
+          Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Links: {
         if (canMove()) {       
-          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });   
+          await Emitter.emit('startAnimation', {});   
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
+          Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Unten: {
         if (canMove()) {
-          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });
+          await Emitter.emit('startAnimation', {});
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
+          Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Rechts: {
         if (canMove()) {
-          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });
+          await Emitter.emit('startAnimation', {});
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);
+          Emitter.removeAllListeners('startAnimation');
         }
         break;
       }

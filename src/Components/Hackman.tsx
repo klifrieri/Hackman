@@ -42,40 +42,39 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
       setClassNames("hackman left move-left");
     }
     else if(richtung === Richtung.Rechts){
-      setClassNames("hackman rigth move-right");
+      setClassNames("hackman right move-right");
     }
     else if(richtung === Richtung.Keine){
       setClassNames("hackman");
     }
     setTimeout(()=>{
       setClassNames(getClassByRichtung(props.richtung));
+      console.log("Emitter started");
     }, 250)
   }
 
   
   const getClassByRichtung = (richtung: Richtung): string => {
-    console.log("emitter works");
     switch (richtung) {
       case Richtung.Oben:
         return `hackman top`;
-        case Richtung.Links:
-          return `hackman left`;
-          case Richtung.Unten:
-            return `hackman bottom`;
-            case Richtung.Rechts:
-              return `hackman right`;
-              default:
-                return `hackman`;
-              }
+      case Richtung.Links:
+        return `hackman left`;
+      case Richtung.Unten:
+        return `hackman bottom`;
+      case Richtung.Rechts:
+        return `hackman right`;
+      default:
+        return `hackman`;
+      }
   };
             
   useEffect(() => {
     props.emitter.addListener("startAnimation", () => {    
-    moveMouth();
-    moveHackman(props.richtung);
-    setClassNames(getClassByRichtung(props.richtung));      
+      moveMouth();
+      moveHackman(props.richtung);
+      setClassNames(getClassByRichtung(props.richtung));      
     })
-    //props.emitter.removeAllListeners();
   }, []);
 
   return (
