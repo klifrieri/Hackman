@@ -24,6 +24,7 @@ import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
 import { useRef } from "react";
+import EventEmitter from "events";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -50,7 +51,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={bewegungsRichtung} ref={test} />;
+      return <Hackman key={key} richtung={bewegungsRichtung} emitter={Emitter}/>;
     else if (component === Ghost) return <Ghost key={key} />;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
@@ -58,7 +59,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else return undefined;
   };
 
-  const test = useRef<React.FC<any>>();
+  const Emitter:EventEmitter = new EventEmitter();
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
   const [position, setPosition] = useState(Koordinate.Empty());
   const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
@@ -133,13 +134,14 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     }
   };
 
-  const move = () => {
+  const move = async () => {
     let spielfeldCopy: React.FC<{}>[][] = spielfeld;
     setPosition(getHackmanPosition());
 
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
         if (canMove()) {
+          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -147,7 +149,8 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         break;
       }
       case Richtung.Links: {
-        if (canMove()) {          
+        if (canMove()) {       
+          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });   
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -156,6 +159,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       }
       case Richtung.Unten: {
         if (canMove()) {
+          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -164,6 +168,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       }
       case Richtung.Rechts: {
         if (canMove()) {
+          await Emitter.emit('startAnimation', { es6rules: true, mixinsAreLame: true });
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);

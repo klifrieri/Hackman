@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Richtung from "../Types/Richtung";
+import { EventEmitter } from "events";
 
 type HackmanProps = {
   richtung: Richtung;
+  emitter: EventEmitter;
 };
 
 const Hackman: React.FC<any> = (props: HackmanProps) => {
@@ -52,6 +54,7 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
 
   
   const getClassByRichtung = (richtung: Richtung): string => {
+    console.log("emitter works");
     switch (richtung) {
       case Richtung.Oben:
         return `hackman top`;
@@ -67,11 +70,12 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
   };
             
   useEffect(() => {
+    props.emitter.addListener("startAnimation", () => {    
+    moveMouth();
     moveHackman(props.richtung);
-    return () => {
-      moveMouth();
-      setClassNames(getClassByRichtung(props.richtung));
-  };
+    setClassNames(getClassByRichtung(props.richtung));      
+    })
+    //props.emitter.removeAllListeners();
   }, []);
 
   return (
