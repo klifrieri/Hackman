@@ -23,7 +23,6 @@ import Richtung from "../Types/Richtung";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
-import { useRef } from "react";
 import EventEmitter from "events";
 
 interface ISpielfeldProps {
@@ -134,14 +133,14 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     }
   };
 
-  const move = async () => {
+  const move = () => {
     let spielfeldCopy: React.FC<{}>[][] = spielfeld;
     setPosition(getHackmanPosition());
 
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
         if (canMove()) {
-          await Emitter.emit('startAnimation', {});
+          Emitter.emit('startAnimation', {});
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -151,7 +150,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       }
       case Richtung.Links: {
         if (canMove()) {       
-          await Emitter.emit('startAnimation', {});   
+          Emitter.emit('startAnimation', {});   
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -161,7 +160,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       }
       case Richtung.Unten: {
         if (canMove()) {
-          await Emitter.emit('startAnimation', {});
+          Emitter.emit('startAnimation', {});
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -171,7 +170,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       }
       case Richtung.Rechts: {
         if (canMove()) {
-          await Emitter.emit('startAnimation', {});
+          Emitter.emit('startAnimation', {});
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);

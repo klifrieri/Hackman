@@ -49,10 +49,10 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
     }
     setTimeout(()=>{
       setClassNames(getClassByRichtung(props.richtung));
-      console.log("Emitter started");
     }, 250)
   }
-
+  
+  
   
   const getClassByRichtung = (richtung: Richtung): string => {
     switch (richtung) {
@@ -74,6 +74,7 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
       moveMouth();
       moveHackman(props.richtung);
       setClassNames(getClassByRichtung(props.richtung));      
+      console.log("Emitter started");
     })
   }, []);
 
