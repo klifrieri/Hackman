@@ -24,6 +24,7 @@ code {
 }
 .empty.field {
     background-color: black;
+    z-index: 5;
 }
 .center {
     position: absolute;
@@ -170,6 +171,7 @@ code {
     background: rgb(255, 72, 0);
     border-radius: 50% !important;
     transition: transform 1s;
+    z-index: 7;
 }
 .top{
     transform: rotateZ(90deg);
@@ -184,7 +186,7 @@ code {
     transform: rotateY(-180deg);
 }
 .move-top{
-    transform: rotateZ(90deg) translateX(-50px);
+    transform: rotateZ(90deg) translateX(50px);
 }
 .move-bottom{
     transform: rotateZ(-90deg) translateX(50px);  
@@ -193,7 +195,7 @@ code {
     transform: rotateY(-180deg) translateX(50px);
 }
 .move-left{
-    transform: rotateY(0deg) translateX(-50px);
+    transform: rotateY(0deg) translateX(50px);
 }
 .eye{
     background-color: #19181A;

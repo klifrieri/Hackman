@@ -28,8 +28,8 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
         mouth?.classList.add("mouth-open");
       }, 250)
   }
-  const moveHackman = (richtung:Richtung) => {   
 
+  const moveHackman = (richtung:Richtung) => {   
     if(richtung === Richtung.Oben){
       setClassNames("hackman top move-top");
     }
@@ -50,26 +50,29 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
     }, 250)
   }
 
-  useEffect(() => {
-    setClassNames(getClassByRichtung(props.richtung));
-    moveMouth();
-    moveHackman(props.richtung);
-  }, []);
-
+  
   const getClassByRichtung = (richtung: Richtung): string => {
     switch (richtung) {
       case Richtung.Oben:
         return `hackman top`;
-      case Richtung.Links:
-        return `hackman left`;
-      case Richtung.Unten:
-        return `hackman bottom`;
-      case Richtung.Rechts:
-        return `hackman right`;
-      default:
-        return `hackman`;
-    }
+        case Richtung.Links:
+          return `hackman left`;
+          case Richtung.Unten:
+            return `hackman bottom`;
+            case Richtung.Rechts:
+              return `hackman right`;
+              default:
+                return `hackman`;
+              }
   };
+            
+  useEffect(() => {
+    moveHackman(props.richtung);
+    return () => {
+      moveMouth();
+      setClassNames(getClassByRichtung(props.richtung));
+  };
+  }, []);
 
   return (
     <div className="field">

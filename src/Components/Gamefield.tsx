@@ -23,6 +23,7 @@ import Richtung from "../Types/Richtung";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
+import { useRef } from "react";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
@@ -49,7 +50,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={bewegungsRichtung} />;
+      return <Hackman key={key} richtung={bewegungsRichtung} ref={test} />;
     else if (component === Ghost) return <Ghost key={key} />;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
@@ -57,6 +58,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else return undefined;
   };
 
+  const test = useRef<React.FC<any>>();
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
   const [position, setPosition] = useState(Koordinate.Empty());
   const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
@@ -80,10 +82,9 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight")
       setBewegungsRichtung(Richtung.Rechts);
   };
-
-  const getHackmanPosition = (): Koordinate => {
+    const getHackmanPosition = (): Koordinate => {
     let position: Koordinate = Koordinate.Empty();
-
+    
     for (let y = 0; y < spielfeld.length; y++) {
       for (let x = 0; x < spielfeld[y].length; x++) {
         if (spielfeld[y][x] === Hackman) {
@@ -97,7 +98,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
 
   const canMove = (): boolean => {
     setPosition(getHackmanPosition());
-
+    
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
         return (
