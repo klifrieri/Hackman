@@ -16,45 +16,49 @@ import CornerLT from "./Corners/CornerLeftTop";
 import CornerLB from "./Corners/CornerLeftBottom";
 import CornerRT from "./Corners/CornerRightTop";
 import CornerRB from "./Corners/CornerRightBottom";
-import Hack from "./Hackman";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import Koordinate from "../Types/Koordinate";
 import Richtung from "../Types/Richtung";
 import Snack from "./Snack";
-import Geist from "./Geist";
+import Ghost from "./Ghost";
+import Gate from "./Gate";
+import { useRef } from "react";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
 }
 
-const renderComponent = (component: React.FC, key: number) => {
-  if (component === Wall) return <Wall key={key} />;
-  else if (component === HorizontalWall) return <HorizontalWall key={key} />;
-  else if (component === HorizontalWallLS)
-    return <HorizontalWallLS key={key} />;
-  else if (component === HorizontalWallRS)
-    return <HorizontalWallRS key={key} />;
-  else if (component === VerticalWall) return <VerticalWall key={key} />;
-  else if (component === VerticalWallBS) return <VerticalWallBS key={key} />;
-  else if (component === VerticalWallTS) return <VerticalWallTS key={key} />;
-  else if (component === TPieceBottom) return <TPieceBottom key={key} />;
-  else if (component === TPieceTop) return <TPieceTop key={key} />;
-  else if (component === TPieceRight) return <TPieceRight key={key} />;
-  else if (component === TPieceLeft) return <TPieceLeft key={key} />;
-  else if (component === CornerLT) return <CornerLT key={key} />;
-  else if (component === CornerLB) return <CornerLB key={key} />;
-  else if (component === CornerRT) return <CornerRT key={key} />;
-  else if (component === CornerRB) return <CornerRB key={key} />;
-  else if (component === Coin) return <Coin key={key} />;
-  else if (component === Hackman) return <Hackman key={key} />;
-  else if (component === Geist) return <Geist key={key} />;
-  else if (component === Snack) return <Snack key={key} />;
-  else if (component === Empty) return <Empty key={key} />;
-  else return undefined;
-};
-
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
+  const renderComponent = (component: React.FC<any>, key: number) => {
+    if (component === Wall) return <Wall key={key} />;
+    else if (component === HorizontalWall) return <HorizontalWall key={key} />;
+    else if (component === HorizontalWallLS)
+      return <HorizontalWallLS key={key} />;
+    else if (component === HorizontalWallRS)
+      return <HorizontalWallRS key={key} />;
+    else if (component === VerticalWall) return <VerticalWall key={key} />;
+    else if (component === VerticalWallBS) return <VerticalWallBS key={key} />;
+    else if (component === VerticalWallTS) return <VerticalWallTS key={key} />;
+    else if (component === TPieceBottom) return <TPieceBottom key={key} />;
+    else if (component === TPieceTop) return <TPieceTop key={key} />;
+    else if (component === TPieceRight) return <TPieceRight key={key} />;
+    else if (component === TPieceLeft) return <TPieceLeft key={key} />;
+    else if (component === CornerLT) return <CornerLT key={key} />;
+    else if (component === CornerLB) return <CornerLB key={key} />;
+    else if (component === CornerRT) return <CornerRT key={key} />;
+    else if (component === CornerRB) return <CornerRB key={key} />;
+    else if (component === Coin) return <Coin key={key} />;
+    else if (component === Hackman)
+      return <Hackman key={key} richtung={bewegungsRichtung} ref={test} />;
+    else if (component === Ghost) return <Ghost key={key} />;
+    else if (component === Snack) return <Snack key={key} />;
+    else if (component === Empty) return <Empty key={key} />;
+    else if (component === Gate) return <Gate key={key} />;
+    else return undefined;
+  };
+
+  const test = useRef<React.FC<any>>();
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
   const [position, setPosition] = useState(Koordinate.Empty());
   const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
@@ -78,13 +82,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight")
       setBewegungsRichtung(Richtung.Rechts);
   };
-
-  const getHackmanPosition = (): Koordinate => {
+    const getHackmanPosition = (): Koordinate => {
     let position: Koordinate = Koordinate.Empty();
-
+    
     for (let y = 0; y < spielfeld.length; y++) {
       for (let x = 0; x < spielfeld[y].length; x++) {
-        if (spielfeld[y][x] === Hack) {
+        if (spielfeld[y][x] === Hackman) {
           position.x = x;
           position.y = y;
         }
@@ -95,7 +98,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
 
   const canMove = (): boolean => {
     setPosition(getHackmanPosition());
-
+    
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
         return (
@@ -138,16 +141,15 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Oben: {
         if (canMove()) {
           spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y - 1][position.x] = Hack;
+          spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
         }
         break;
       }
       case Richtung.Links: {
-        if (canMove()) {
+        if (canMove()) {          
           spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y][position.x - 1] = Hack;
-
+          spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
         }
         break;
@@ -155,8 +157,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Unten: {
         if (canMove()) {
           spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y + 1][position.x] = Hack;
-
+          spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
         }
         break;
@@ -164,7 +165,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Rechts: {
         if (canMove()) {
           spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y][position.x + 1] = Hack;
+          spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);
         }
         break;
