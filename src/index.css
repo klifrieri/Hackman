@@ -170,7 +170,7 @@ code {
     height: 80%;
     background: rgb(255, 72, 0);
     border-radius: 50% !important;
-    transition: transform 1s;
+    transition: transform 0.5s;
     z-index: 7;
 }
 .top{
@@ -186,39 +186,39 @@ code {
     transform: rotateY(-180deg);
 }
 .move-top{
-    transform: rotateZ(90deg) translateX(50px);
+    transform: rotateZ(90deg) translateX(-50px);
 }
 .move-bottom{
-    transform: rotateZ(-90deg) translateX(50px);  
+    transform: rotateZ(-90deg) translateX(-50px);  
 }
 .move-right{
-    transform: rotateY(-180deg) translateX(50px);
+    transform: rotateY(-180deg) translateX(-50px);
 }
 .move-left{
-    transform: rotateY(0deg) translateX(50px);
+    transform: rotateY(0deg) translateX(-50px);
 }
 .eye{
     background-color: #19181A;
     width: 10px;
     height: 9px;
     border-radius: 50%;
-    transition: transform 0.25s;
+    transition: transform 0.125s;
     transform: translateX(7px) translateY(10px);
 }
 .eye-move{
-    transition: transform 0.25s;
+    transition: transform 0.125s;
     transform: translateX(13px) translateY(4px) scale(0.7);
 }
 .mouth{
     background-color: black;
     width: 25px;
     height: 25px;
-    transition: transform 0.25s;
+    transition: transform 0.125s;
     transform: translateX(-32px) translateY(-0px) rotateZ(45deg);
     z-index: 0;
 }
 .mouth-open{           
-    transition: transform 0.25s;
+    transition: transform 0.125s;
     transform: translateX(-8px) translateY(-0px) rotateZ(45deg);
 }
 

@@ -23,12 +23,13 @@ import Richtung from "../Types/Richtung";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
-import { useRef } from "react";
+import EventEmitter from "events";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
+  emitter: EventEmitter;
 }
-
+let cache:number = 5;
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === Wall) return <Wall key={key} />;
@@ -50,7 +51,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={bewegungsRichtung} ref={test} />;
+      return <Hackman key={key} richtung={bewegungsRichtung} emitter={props.emitter}/>;
     else if (component === Ghost) return <Ghost key={key} />;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
@@ -58,12 +59,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else return undefined;
   };
 
-  const test = useRef<React.FC<any>>();
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
   const [position, setPosition] = useState(Koordinate.Empty());
   const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
     Richtung.Keine
   );
+  
 
   useEffect(() => {
     const interval = setInterval(() => move(), 250);
@@ -73,6 +74,16 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     setPosition(getHackmanPosition());
 
+    if(e.key.toLowerCase() === "w" || e.key === "ArrowUp")
+      cache = 0;
+    else if(e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
+      cache = 2;
+    else if(e.key.toLowerCase() === "s" || e.key === "ArrowDown")
+      cache = 1;
+    else if(e.key.toLowerCase() === "d" || e.key === "ArrowRight")
+      cache = 3;
+
+
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp")
       setBewegungsRichtung(Richtung.Oben);
     else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
@@ -81,6 +92,8 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       setBewegungsRichtung(Richtung.Unten);
     else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight")
       setBewegungsRichtung(Richtung.Rechts);
+    else if(cache === bewegungsRichtung)
+      return;
   };
     const getHackmanPosition = (): Koordinate => {
     let position: Koordinate = Koordinate.Empty();
@@ -95,6 +108,25 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     }
     return position;
   };
+
+  const checkCoins = (): boolean => {
+    switch(bewegungsRichtung){
+      case Richtung.Oben:{
+        return (spielfeld[position.y - 1][position.x] === Coin || spielfeld[position.y - 1][position.x] === Snack)
+      }
+      case Richtung.Links: {
+        return(spielfeld[position.y][position.x - 1] === Coin || spielfeld[position.y][position.x - 1] === Snack)
+      }
+      case Richtung.Unten:{
+        return(spielfeld[position.y + 1][position.x] === Coin || spielfeld[position.y + 1][position.x] === Snack)
+      }
+      case Richtung.Rechts:{
+        return(spielfeld[position.y][position.x + 1] === Coin || spielfeld[position.y][position.x + 1] === Snack)
+      }
+      default:
+        return false;
+    }
+  }
 
   const canMove = (): boolean => {
     setPosition(getHackmanPosition());
@@ -140,33 +172,53 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
         if (canMove()) {
+          props.emitter.emit('startAnimation', bewegungsRichtung);
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Links: {
-        if (canMove()) {          
+        if (canMove()) {       
+          props.emitter.emit('startAnimation', bewegungsRichtung);   
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Unten: {
         if (canMove()) {
+          props.emitter.emit('startAnimation', bewegungsRichtung);
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Rechts: {
         if (canMove()) {
+          props.emitter.emit('startAnimation', bewegungsRichtung);
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }

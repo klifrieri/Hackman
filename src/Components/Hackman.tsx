@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import Richtung from "../Types/Richtung";
+import { EventEmitter } from "events";
 
 type HackmanProps = {
   richtung: Richtung;
+  emitter: EventEmitter;
 };
 
 const Hackman: React.FC<any> = (props: HackmanProps) => {
@@ -11,7 +13,7 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
   const moveMouth = () => {
       let eye = document.getElementById("eye");
       let mouth = document.getElementById("mouth");
-      if(eye?.classList.contains("eye-move")){
+      if((eye?.classList.contains("eye-move"))){
         eye.classList.remove("eye-move");
       }
       else{
@@ -40,7 +42,7 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
       setClassNames("hackman left move-left");
     }
     else if(richtung === Richtung.Rechts){
-      setClassNames("hackman rigth move-right");
+      setClassNames("hackman right move-right");
     }
     else if(richtung === Richtung.Keine){
       setClassNames("hackman");
@@ -49,36 +51,40 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
       setClassNames(getClassByRichtung(props.richtung));
     }, 250)
   }
-
+  
+  
   
   const getClassByRichtung = (richtung: Richtung): string => {
     switch (richtung) {
       case Richtung.Oben:
         return `hackman top`;
-        case Richtung.Links:
-          return `hackman left`;
-          case Richtung.Unten:
-            return `hackman bottom`;
-            case Richtung.Rechts:
-              return `hackman right`;
-              default:
-                return `hackman`;
-              }
+      case Richtung.Links:
+        return `hackman left`;
+      case Richtung.Unten:
+        return `hackman bottom`;
+      case Richtung.Rechts:
+        return `hackman right`;
+      default:
+        return `hackman`;
+      }
   };
-            
+  props.emitter.once("startAnimation", (bewegungsRichtung) => {    
+    moveHackman(bewegungsRichtung);
+    console.log("Emitter started");
+  })
   useEffect(() => {
-    moveHackman(props.richtung);
-    return () => {
+    props.emitter.once("moveMouth", () => {
+      //setClassNames(getClassByRichtung(props.richtung));
       moveMouth();
-      setClassNames(getClassByRichtung(props.richtung));
-  };
+    })
+    setClassNames(getClassByRichtung(props.richtung));      
   }, []);
 
   return (
     <div className="field">
       <div className={classNames} id="hackman">
-        <div className="eye eye-move" id="eye"></div>
-        <div className="mouth mouth-open" id="mouth"></div>
+        <div className="eye" id="eye"></div>
+        <div className="mouth" id="mouth"></div>
       </div>
     </div>
   );
