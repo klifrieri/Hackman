@@ -97,6 +97,25 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     return position;
   };
 
+  const checkCoins = (): boolean => {
+    switch(bewegungsRichtung){
+      case Richtung.Oben:{
+        return (spielfeld[position.y - 1][position.x] === Coin || spielfeld[position.y - 1][position.x] === Snack)
+      }
+      case Richtung.Links: {
+        return(spielfeld[position.y][position.x - 1] === Coin || spielfeld[position.y][position.x - 1] === Snack)
+      }
+      case Richtung.Unten:{
+        return(spielfeld[position.y + 1][position.x] === Coin || spielfeld[position.y + 1][position.x] === Snack)
+      }
+      case Richtung.Rechts:{
+        return(spielfeld[position.y][position.x + 1] === Coin || spielfeld[position.y][position.x + 1] === Snack)
+      }
+      default:
+        return false;
+    }
+  }
+
   const canMove = (): boolean => {
     setPosition(getHackmanPosition());
     
@@ -142,6 +161,9 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Oben: {
         if (canMove()) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -152,6 +174,9 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Links: {
         if (canMove()) {       
           props.emitter.emit('startAnimation', bewegungsRichtung);   
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -162,6 +187,9 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Unten: {
         if (canMove()) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -172,6 +200,9 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Rechts: {
         if (canMove()) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
+          if(checkCoins()){
+            props.emitter.emit("moveMouth");
+          }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);
