@@ -29,7 +29,7 @@ interface ISpielfeldProps {
   fields: React.FC[][];
   emitter: EventEmitter;
 }
-
+let cache:number = 5;
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === Wall) return <Wall key={key} />;
@@ -74,6 +74,16 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     setPosition(getHackmanPosition());
 
+    if(e.key.toLowerCase() === "w" || e.key === "ArrowUp")
+      cache = 0;
+    else if(e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
+      cache = 2;
+    else if(e.key.toLowerCase() === "s" || e.key === "ArrowDown")
+      cache = 1;
+    else if(e.key.toLowerCase() === "d" || e.key === "ArrowRight")
+      cache = 3;
+
+
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp")
       setBewegungsRichtung(Richtung.Oben);
     else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
@@ -82,6 +92,8 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       setBewegungsRichtung(Richtung.Unten);
     else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight")
       setBewegungsRichtung(Richtung.Rechts);
+    else if(cache === bewegungsRichtung)
+      return;
   };
     const getHackmanPosition = (): Koordinate => {
     let position: Koordinate = Koordinate.Empty();
