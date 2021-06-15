@@ -27,6 +27,7 @@ import EventEmitter from "events";
 
 interface ISpielfeldProps {
   fields: React.FC[][];
+  emitter: EventEmitter;
 }
 
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
@@ -50,7 +51,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={bewegungsRichtung} emitter={Emitter}/>;
+      return <Hackman key={key} richtung={bewegungsRichtung} emitter={props.emitter}/>;
     else if (component === Ghost) return <Ghost key={key} />;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
@@ -58,12 +59,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else return undefined;
   };
 
-  const Emitter:EventEmitter = new EventEmitter();
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
   const [position, setPosition] = useState(Koordinate.Empty());
   const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
     Richtung.Keine
   );
+  
 
   useEffect(() => {
     const interval = setInterval(() => move(), 250);
@@ -140,41 +141,41 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
         if (canMove()) {
-          Emitter.emit('startAnimation', {});
+          props.emitter.emit('startAnimation', bewegungsRichtung);
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
-          Emitter.removeAllListeners('startAnimation');
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Links: {
         if (canMove()) {       
-          Emitter.emit('startAnimation', {});   
+          props.emitter.emit('startAnimation', bewegungsRichtung);   
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
-          Emitter.removeAllListeners('startAnimation');
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Unten: {
         if (canMove()) {
-          Emitter.emit('startAnimation', {});
+          props.emitter.emit('startAnimation', bewegungsRichtung);
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
-          Emitter.removeAllListeners('startAnimation');
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }
       case Richtung.Rechts: {
         if (canMove()) {
-          Emitter.emit('startAnimation', {});
+          props.emitter.emit('startAnimation', bewegungsRichtung);
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);
-          Emitter.removeAllListeners('startAnimation');
+          //Emitter.removeAllListeners('startAnimation');
         }
         break;
       }

@@ -68,14 +68,14 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
         return `hackman`;
       }
   };
-            
+  props.emitter.once("startAnimation", (bewegungsRichtung) => {    
+    moveHackman(bewegungsRichtung);
+    console.log("Emitter started");
+  })
+  
   useEffect(() => {
-    props.emitter.addListener("startAnimation", () => {    
-      moveMouth();
-      moveHackman(props.richtung);
-      setClassNames(getClassByRichtung(props.richtung));      
-      console.log("Emitter started");
-    })
+    moveMouth();
+    setClassNames(getClassByRichtung(props.richtung));      
   }, []);
 
   return (
