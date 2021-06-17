@@ -70,7 +70,7 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
   };
   props.emitter.once("startAnimation", (bewegungsRichtung) => {    
     moveHackman(bewegungsRichtung);
-    console.log("Emitter started");
+    //console.log("Emitter started");
   })
   useEffect(() => {
     props.emitter.once("moveMouth", () => {
