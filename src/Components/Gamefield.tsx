@@ -134,19 +134,14 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
-        try {
-          if (spielfeld[position.y - 1][position.x] === Empty ||
+
+          if (spielfeld[position.y - 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y - 1][position.x] === Empty ||
             spielfeld[position.y - 1][position.x] === Coin ||
             spielfeld[position.y - 1][position.x] === Snack)
             return BewegungMoeglich.Ja;
           else return BewegungMoeglich.Nein;
-        } catch (error) {
-          if (error === TypeError) return BewegungMoeglich.Portal;
-          else {
-            console.log(error);
-            return BewegungMoeglich.Nein;
-          }
-        }
+
         // return (
         //   spielfeld[position.y - 1][position.x] === Empty ||
         //   spielfeld[position.y - 1][position.x] === Coin ||
@@ -154,6 +149,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         // );
       }
       case Richtung.Links: {
+
         if (spielfeld[position.y][position.x - 1] === Empty ||
           spielfeld[position.y][position.x - 1] === Coin ||
           spielfeld[position.y][position.x - 1] === Snack)
@@ -161,6 +157,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         else if (spielfeld[position.y][position.x - 1] === undefined)
           return BewegungMoeglich.Portal;
         else return BewegungMoeglich.Nein;
+
         // return (
         //   spielfeld[position.y][position.x - 1] === Empty ||
         //   spielfeld[position.y][position.x - 1] === Coin ||
@@ -168,19 +165,14 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         // );
       }
       case Richtung.Unten: {
-        try {
-          if (spielfeld[position.y + 1][position.x] === Empty ||
+
+          if (spielfeld[position.y + 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y + 1][position.x] === Empty ||
             spielfeld[position.y + 1][position.x] === Coin ||
             spielfeld[position.y + 1][position.x] === Snack)
             return BewegungMoeglich.Ja;
           else return BewegungMoeglich.Nein;
-        } catch (error) {
-          if (error === TypeError) return BewegungMoeglich.Portal;
-          else {
-            console.log(error);
-            return BewegungMoeglich.Nein;
-          }
-        }
+
         // return (
         //   spielfeld[position.y + 1][position.x] === Empty ||
         //   spielfeld[position.y + 1][position.x] === Coin ||
@@ -188,6 +180,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         // );
       }
       case Richtung.Rechts: {
+
         if (spielfeld[position.y][position.x + 1] === Empty ||
           spielfeld[position.y][position.x + 1] === Coin ||
           spielfeld[position.y][position.x + 1] === Snack)
@@ -195,6 +188,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         else if (spielfeld[position.y][position.x + 1] === undefined)
           return BewegungMoeglich.Portal;
         else return BewegungMoeglich.Nein;
+
         // return (
         //   spielfeld[position.y][position.x + 1] === Empty ||
         //   spielfeld[position.y][position.x + 1] === Coin ||
