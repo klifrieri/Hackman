@@ -42,4 +42,6 @@ const SpielfeldLayout = () => {
     return fields;
 }
 
+
+
 export default SpielfeldLayout;

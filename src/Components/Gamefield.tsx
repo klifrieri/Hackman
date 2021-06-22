@@ -1,3 +1,4 @@
+import BewegungMoeglich from "../Types/BewegungMoeglich";
 import Coin from "./Coin";
 import Empty from "./Empty";
 import Hackman from "./Hackman";
@@ -128,40 +129,74 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     }
   }
 
-  const canMove = (): boolean => {
+  const canMove = (): BewegungMoeglich => {
     setPosition(getHackmanPosition());
     
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
-        return (
-          spielfeld[position.y - 1][position.x] === Empty ||
-          spielfeld[position.y - 1][position.x] === Coin ||
-          spielfeld[position.y - 1][position.x] === Snack
-        );
+
+          if (spielfeld[position.y - 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y - 1][position.x] === Empty ||
+            spielfeld[position.y - 1][position.x] === Coin ||
+            spielfeld[position.y - 1][position.x] === Snack)
+            return BewegungMoeglich.Ja;
+          else return BewegungMoeglich.Nein;
+
+        // return (
+        //   spielfeld[position.y - 1][position.x] === Empty ||
+        //   spielfeld[position.y - 1][position.x] === Coin ||
+        //   spielfeld[position.y - 1][position.x] === Snack
+        // );
       }
       case Richtung.Links: {
-        return (
-          spielfeld[position.y][position.x - 1] === Empty ||
+
+        if (spielfeld[position.y][position.x - 1] === Empty ||
           spielfeld[position.y][position.x - 1] === Coin ||
-          spielfeld[position.y][position.x - 1] === Snack
-        );
+          spielfeld[position.y][position.x - 1] === Snack)
+          return BewegungMoeglich.Ja;
+        else if (spielfeld[position.y][position.x - 1] === undefined)
+          return BewegungMoeglich.Portal;
+        else return BewegungMoeglich.Nein;
+
+        // return (
+        //   spielfeld[position.y][position.x - 1] === Empty ||
+        //   spielfeld[position.y][position.x - 1] === Coin ||
+        //   spielfeld[position.y][position.x - 1] === Snack
+        // );
       }
       case Richtung.Unten: {
-        return (
-          spielfeld[position.y + 1][position.x] === Empty ||
-          spielfeld[position.y + 1][position.x] === Coin ||
-          spielfeld[position.y + 1][position.x] === Snack
-        );
+
+          if (spielfeld[position.y + 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y + 1][position.x] === Empty ||
+            spielfeld[position.y + 1][position.x] === Coin ||
+            spielfeld[position.y + 1][position.x] === Snack)
+            return BewegungMoeglich.Ja;
+          else return BewegungMoeglich.Nein;
+
+        // return (
+        //   spielfeld[position.y + 1][position.x] === Empty ||
+        //   spielfeld[position.y + 1][position.x] === Coin ||
+        //   spielfeld[position.y + 1][position.x] === Snack
+        // );
       }
       case Richtung.Rechts: {
-        return (
-          spielfeld[position.y][position.x + 1] === Empty ||
+
+        if (spielfeld[position.y][position.x + 1] === Empty ||
           spielfeld[position.y][position.x + 1] === Coin ||
-          spielfeld[position.y][position.x + 1] === Snack
-        );
+          spielfeld[position.y][position.x + 1] === Snack)
+          return BewegungMoeglich.Ja;
+        else if (spielfeld[position.y][position.x + 1] === undefined)
+          return BewegungMoeglich.Portal;
+        else return BewegungMoeglich.Nein;
+
+        // return (
+        //   spielfeld[position.y][position.x + 1] === Empty ||
+        //   spielfeld[position.y][position.x + 1] === Coin ||
+        //   spielfeld[position.y][position.x + 1] === Snack
+        // );
       }
       default:
-        return false;
+        return BewegungMoeglich.Nein;
     }
   };
 
@@ -171,7 +206,17 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
 
     switch (bewegungsRichtung) {
       case Richtung.Oben: {
-        if (canMove()) {
+
+        if (canMove() === BewegungMoeglich.Portal){
+          // props.emitter.emit('startAnimation', bewegungsRichtung);
+          // if(checkCoins()){
+          //   props.emitter.emit("moveMouth");
+          // }
+          spielfeldCopy[position.y][position.x] = Empty;
+          spielfeldCopy[spielfeldCopy.length - 1][position.x] = Hackman;
+          setSpielfeld(spielfeldCopy);
+        }
+        else if (canMove() === BewegungMoeglich.Ja) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
           if(checkCoins()){
             props.emitter.emit("moveMouth");
@@ -181,10 +226,23 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           setSpielfeld(spielfeldCopy);
           //Emitter.removeAllListeners('startAnimation');
         }
+
         break;
       }
       case Richtung.Links: {
-        if (canMove()) {       
+
+        if (canMove() === BewegungMoeglich.Portal){
+          // props.emitter.emit('startAnimation', bewegungsRichtung);   
+          // if(checkCoins()){
+          //   props.emitter.emit("moveMouth");
+          // }
+          spielfeldCopy[position.y][spielfeldCopy[0].length - 1] = Hackman;
+          spielfeldCopy[position.y][position.x] = Empty;
+          setSpielfeld(spielfeldCopy);
+          //Emitter.removeAllListeners('startAnimation');
+        }
+
+        else if (canMove() === BewegungMoeglich.Ja) {       
           props.emitter.emit('startAnimation', bewegungsRichtung);   
           if(checkCoins()){
             props.emitter.emit("moveMouth");
@@ -194,10 +252,20 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           setSpielfeld(spielfeldCopy);
           //Emitter.removeAllListeners('startAnimation');
         }
+
         break;
       }
       case Richtung.Unten: {
-        if (canMove()) {
+        if (canMove() === BewegungMoeglich.Portal){
+          // props.emitter.emit('startAnimation', bewegungsRichtung);
+          // if(checkCoins()){
+          //   props.emitter.emit("moveMouth");
+          // }
+          spielfeldCopy[position.y][position.x] = Empty;
+          spielfeldCopy[0][position.x] = Hackman;
+          setSpielfeld(spielfeldCopy);
+        }
+        else if (canMove() === BewegungMoeglich.Ja) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
           if(checkCoins()){
             props.emitter.emit("moveMouth");
@@ -207,10 +275,22 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           setSpielfeld(spielfeldCopy);
           //Emitter.removeAllListeners('startAnimation');
         }
+
         break;
       }
       case Richtung.Rechts: {
-        if (canMove()) {
+
+        if (canMove() === BewegungMoeglich.Portal){
+          // props.emitter.emit('startAnimation', bewegungsRichtung);
+          // if(checkCoins()){
+          //   props.emitter.emit("moveMouth");
+          // }
+          spielfeldCopy[position.y][position.x] = Empty;
+          spielfeldCopy[position.y][0] = Hackman;
+          setSpielfeld(spielfeldCopy);
+        }
+        
+        else if (canMove() === BewegungMoeglich.Ja) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
           if(checkCoins()){
             props.emitter.emit("moveMouth");
@@ -220,6 +300,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           setSpielfeld(spielfeldCopy);
           //Emitter.removeAllListeners('startAnimation');
         }
+
         break;
       }
     }
