@@ -77,7 +77,8 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
       //setClassNames(getClassByRichtung(props.richtung));
       moveMouth();
     })
-    setClassNames(getClassByRichtung(props.richtung));      
+    setClassNames(getClassByRichtung(props.richtung));   
+    //eslint-disable-next-line   
   }, []);
 
   return (
