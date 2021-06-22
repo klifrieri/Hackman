@@ -141,7 +141,11 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
             return BewegungMoeglich.Ja;
           else return BewegungMoeglich.Nein;
         } catch (error) {
-          return BewegungMoeglich.Portal;
+          if (error === TypeError) return BewegungMoeglich.Portal;
+          else {
+            console.log(error);
+            return BewegungMoeglich.Nein;
+          }
         }
         // return (
         //   spielfeld[position.y - 1][position.x] === Empty ||
@@ -171,7 +175,11 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
             return BewegungMoeglich.Ja;
           else return BewegungMoeglich.Nein;
         } catch (error) {
-          return BewegungMoeglich.Portal;
+          if (error === TypeError) return BewegungMoeglich.Portal;
+          else {
+            console.log(error);
+            return BewegungMoeglich.Nein;
+          }
         }
         // return (
         //   spielfeld[position.y + 1][position.x] === Empty ||
