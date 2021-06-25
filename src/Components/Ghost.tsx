@@ -1,5 +1,17 @@
+import { useEffect, useState } from "react";
+import Richtung from "../Types/Richtung";
+import { EventEmitter } from "events";
 
-const Ghost: React.FC = () => {
+type GhostProps = {
+    richtung: Richtung;
+    emitter: EventEmitter;
+  };
+
+
+const Ghost: React.FC<any> = (props: GhostProps) => {
+
+    
+
     return (
         <div className="field">
             <div className="ghost">

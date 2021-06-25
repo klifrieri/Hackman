@@ -53,7 +53,8 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
       return <Hackman key={key} richtung={bewegungsRichtung} emitter={props.emitter}/>;
-    else if (component === Ghost) return <Ghost key={key} />;
+    else if (component === Ghost)
+     return <Ghost key={key} richtung={bewegungsRichtungGeist} emitter={props.emitter}/>;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
@@ -65,12 +66,20 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
     Richtung.Keine
   );
+  const [bewegungsRichtungGeist, setBewegungsRichtungGeist] = useState<Richtung>(Richtung.Keine) 
+  const [positionGhost, setPositionGhost] = useState(Koordinate.Empty());
   
 
   useEffect(() => {
     const interval = setInterval(() => move(), 250);
     return () => clearInterval(interval);
   });
+  useEffect(() => {
+    const changeDirection = setInterval(() => {
+      changeGhostDirection(getGhostsPosition())      
+    }, changeGhostDirectionTimer())
+  })
+
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     setPosition(getHackmanPosition());
@@ -110,6 +119,19 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     return position;
   };
 
+  const getGhostsPosition = ():Koordinate[] => {
+    let positions :Koordinate[] = new Array(4);
+    for (let y = 0; y < spielfeld.length; y++) {
+      for (let x = 0; x < spielfeld[y].length; x++) {
+        if (spielfeld[y][x] === Ghost) {
+          let ghost = new Koordinate(x,y);
+          positions.push(ghost);
+        }
+      }
+    }
+    return positions;
+  }
+
   const checkCoins = (): boolean => {
     switch(bewegungsRichtung){
       case Richtung.Oben:{
@@ -127,6 +149,68 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       default:
         return false;
     }
+  }
+
+  const canMoveGhost = (ghost:Koordinate):BewegungMoeglich => {
+    setPositionGhost(ghost);
+    switch(bewegungsRichtungGeist){
+      case Richtung.Oben: {
+        if (spielfeld[positionGhost.y - 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y - 1][positionGhost.x] === Empty ||
+            spielfeld[positionGhost.y - 1][positionGhost.x] === Coin ||
+            spielfeld[positionGhost.y - 1][positionGhost.x] === Snack ||
+            spielfeld[positionGhost.y - 1][positionGhost.x] === Hackman ||
+            spielfeld[positionGhost.y - 1][positionGhost.x] === Gate)
+            return BewegungMoeglich.Ja;
+          else return BewegungMoeglich.Nein;
+      }
+      case Richtung.Unten: {
+        if (spielfeld[positionGhost.y + 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y + 1][positionGhost.x] === Empty ||
+            spielfeld[positionGhost.y + 1][positionGhost.x] === Coin ||
+            spielfeld[positionGhost.y + 1][positionGhost.x] === Snack ||
+            spielfeld[positionGhost.y + 1][positionGhost.x] === Hackman ||
+            spielfeld[positionGhost.y + 1][positionGhost.x] === Gate)
+            return BewegungMoeglich.Ja;
+          else return BewegungMoeglich.Nein;
+      }
+      case Richtung.Links: {
+        if (spielfeld[positionGhost.x - 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y][positionGhost.x - 1] === Empty ||
+            spielfeld[positionGhost.y][positionGhost.x - 1] === Coin ||
+            spielfeld[positionGhost.y][positionGhost.x - 1] === Snack ||
+            spielfeld[positionGhost.y][positionGhost.x - 1] === Hackman ||
+            spielfeld[positionGhost.y][positionGhost.x - 1] === Gate)
+            return BewegungMoeglich.Ja;
+          else return BewegungMoeglich.Nein;
+      }
+      case Richtung.Rechts: {
+        if (spielfeld[positionGhost.x + 1] === undefined) return BewegungMoeglich.Portal;
+          else if (spielfeld[position.y][positionGhost.x + 1] === Empty ||
+            spielfeld[positionGhost.y][positionGhost.x + 1] === Coin ||
+            spielfeld[positionGhost.y][positionGhost.x + 1] === Snack ||
+            spielfeld[positionGhost.y][positionGhost.x + 1] === Hackman ||
+            spielfeld[positionGhost.y][positionGhost.x + 1] === Gate)
+            return BewegungMoeglich.Ja;
+          else return BewegungMoeglich.Nein;
+      }
+      default: 
+        return BewegungMoeglich.Nein
+    }
+  }
+
+  const changeGhostDirectionTimer = ():number => {
+    return Math.floor(Math.random()*7)*1000;
+  }
+
+  const changeGhostDirection = (ghosts:Koordinate[]):void => {
+    for(let i = 0; i < ghosts.length; i++){
+      props.emitter.emit("setDirection", bewegungsRichtungGeist)
+    }
+  }
+
+  const moveGhosts = (ghosts: Koordinate[]):void => {
+    
   }
 
   const canMove = (): BewegungMoeglich => {
