@@ -71,14 +71,15 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   
 
   useEffect(() => {
-    const interval = setInterval(() => move(), 250);
+    const interval = setInterval(() => moveGameObjects(), 250);
     return () => clearInterval(interval);
   });
-  useEffect(() => {
-    const changeDirection = setInterval(() => {
-      changeGhostDirection(getGhostsPosition())      
-    }, changeGhostDirectionTimer())
-  })
+
+  const moveGameObjects = ():void => {
+    move();
+    moveGhosts(getGhostsPosition());
+  }
+
 
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
@@ -105,31 +106,34 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if(cache === bewegungsRichtung)
       return;
   };
-    const getHackmanPosition = (): Koordinate => {
-    let position: Koordinate = Koordinate.Empty();
-    
-    for (let y = 0; y < spielfeld.length; y++) {
-      for (let x = 0; x < spielfeld[y].length; x++) {
-        if (spielfeld[y][x] === Hackman) {
-          position.x = x;
-          position.y = y;
-        }
+
+
+
+  const getHackmanPosition = (): Koordinate => {
+  let position: Koordinate = Koordinate.Empty();
+  
+  for (let y = 0; y < spielfeld.length; y++) {
+    for (let x = 0; x < spielfeld[y].length; x++) {
+      if (spielfeld[y][x] === Hackman) {
+        position.x = x;
+        position.y = y;
       }
     }
-    return position;
+  }
+  return position;
   };
 
   const getGhostsPosition = ():Koordinate[] => {
-    let positions :Koordinate[] = new Array(4);
+    let ghosts :Koordinate[] = new Array(4);
     for (let y = 0; y < spielfeld.length; y++) {
       for (let x = 0; x < spielfeld[y].length; x++) {
         if (spielfeld[y][x] === Ghost) {
           let ghost = new Koordinate(x,y);
-          positions.push(ghost);
+          ghosts.push(ghost);
         }
       }
     }
-    return positions;
+    return ghosts;
   }
 
   const checkCoins = (): boolean => {
@@ -151,7 +155,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     }
   }
 
-  const canMoveGhost = (ghost:Koordinate):BewegungMoeglich => {
+  const canMoveGhost = (ghost:Koordinate, bewegungsRichtungGeist:Richtung):BewegungMoeglich => {
     setPositionGhost(ghost);
     switch(bewegungsRichtungGeist){
       case Richtung.Oben: {
@@ -199,18 +203,120 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     }
   }
 
-  const changeGhostDirectionTimer = ():number => {
-    return Math.floor(Math.random()*7)*1000;
+  const setGhostMoveCount = ():number => {
+    return Math.floor(Math.random()*10)*1000;
   }
 
-  const changeGhostDirection = (ghosts:Koordinate[]):void => {
-    for(let i = 0; i < ghosts.length; i++){
-      props.emitter.emit("setDirection", bewegungsRichtungGeist)
+  const setGhostMoveDirection = (ghost:Koordinate):void => {
+    if(bewegungsRichtungGeist === Richtung.Keine){
+      if(canMoveGhost(ghost, Richtung.Links) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Links);
+      else if(canMoveGhost(ghost, Richtung.Rechts) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Rechts);
+      else if(canMoveGhost(ghost, Richtung.Oben) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+      else if(canMoveGhost(ghost, Richtung.Unten) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+    }
+    else if(bewegungsRichtungGeist === Richtung.Links){
+      if(canMoveGhost(ghost, Richtung.Links) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Links);
+      else if(canMoveGhost(ghost, Richtung.Rechts) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Rechts);
+      else if(canMoveGhost(ghost, Richtung.Oben) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+      else if(canMoveGhost(ghost, Richtung.Unten) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+    }
+    else if(bewegungsRichtungGeist === Richtung.Rechts){
+      if(canMoveGhost(ghost, Richtung.Rechts) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Rechts);
+      else if(canMoveGhost(ghost, Richtung.Links) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Links);
+      else if(canMoveGhost(ghost, Richtung.Oben) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+      else if(canMoveGhost(ghost, Richtung.Unten) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+    }
+    else if(bewegungsRichtungGeist === Richtung.Oben){
+      if(canMoveGhost(ghost, Richtung.Oben) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+      else if(canMoveGhost(ghost, Richtung.Links) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Links);
+      else if(canMoveGhost(ghost, Richtung.Rechts) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Rechts);
+      else if(canMoveGhost(ghost, Richtung.Unten) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+    }
+    else if(bewegungsRichtungGeist === Richtung.Unten){
+      if(canMoveGhost(ghost, Richtung.Unten) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
+      else if(canMoveGhost(ghost, Richtung.Links) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Links);
+      else if(canMoveGhost(ghost, Richtung.Rechts) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Rechts);
+      else if(canMoveGhost(ghost, Richtung.Oben) === BewegungMoeglich.Ja)
+        setBewegungsRichtungGeist(Richtung.Oben);
     }
   }
 
   const moveGhosts = (ghosts: Koordinate[]):void => {
-    
+    let spielfeldCopy: React.FC<{}>[][] = spielfeld;
+    for(let i = 0; i < ghosts.length; i++){
+      let ghosts = getGhostsPosition();
+      setGhostMoveDirection(ghosts[i]);
+      switch(bewegungsRichtungGeist){
+        case Richtung.Oben: {
+          if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Portal){            
+            spielfeldCopy[spielfeldCopy.length - 1][position.x] = Ghost;
+            setSpielfeld(spielfeldCopy);
+          }
+          else if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Ja) {
+            props.emitter.emit('bewegGeist', bewegungsRichtungGeist);
+            spielfeldCopy[position.y - 1][position.x] = Ghost;
+            setSpielfeld(spielfeldCopy);
+          }  
+          break;
+        }
+        case Richtung.Links: {  
+          if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Portal){
+            spielfeldCopy[position.y][spielfeldCopy[0].length - 1] = Ghost;
+            setSpielfeld(spielfeldCopy);
+          }  
+          else if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Ja) {       
+            props.emitter.emit('bewegGeist', bewegungsRichtungGeist);   
+            spielfeldCopy[position.y][position.x - 1] = Ghost;
+            setSpielfeld(spielfeldCopy);
+          }  
+          break;
+        }
+        case Richtung.Unten: {
+          if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Portal){
+            spielfeldCopy[0][position.x] = Ghost;
+            setSpielfeld(spielfeldCopy);
+          }
+          else if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Ja) {
+            props.emitter.emit('bewegGeist', bewegungsRichtungGeist);
+            spielfeldCopy[position.y + 1][position.x] = Ghost;
+            setSpielfeld(spielfeldCopy);
+          }  
+          break;
+        }
+        case Richtung.Rechts: {
+  
+          if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Portal){
+            spielfeldCopy[position.y][0] = Hackman;
+            setSpielfeld(spielfeldCopy);
+          }          
+          else if (canMoveGhost(ghosts[i], bewegungsRichtungGeist) === BewegungMoeglich.Ja) {
+            props.emitter.emit('startAnimation', bewegungsRichtungGeist);
+            spielfeldCopy[position.y][position.x + 1] = Ghost;
+            setSpielfeld(spielfeldCopy);
+          }  
+          break;
+        }
+      }      
+    }
   }
 
   const canMove = (): BewegungMoeglich => {
