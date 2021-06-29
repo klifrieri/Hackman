@@ -1,7 +1,7 @@
 
 ## HACKMAN
 
-Willkommen! Hier findest du die Installationshilfe für unser Hackman-Spiel. Viel Spaß!
+Willkommen! Hier findest du die Installationshilfe für unser Hackman-Spiel. Viel Spaß!!!
 
 ## Verwendete Technologien
 
@@ -23,5 +23,3 @@ Willkommen! Hier findest du die Installationshilfe für unser Hackman-Spiel. Vie
 6. Installiere TypeScript -> npm install typescript
 7. Starte das Projekt mit dem Befehl "npm start"
 8. Viel Spaß!
-
-
