@@ -24,4 +24,3 @@ Willkommen! Hier findest du die Installationshilfe für unser Hackman-Spiel. Vie
 7. Starte das Projekt mit dem Befehl "npm start"
 8. Viel Spaß!
 
-
