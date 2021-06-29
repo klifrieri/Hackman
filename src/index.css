@@ -1,3 +1,6 @@
+
+
+/* Main */
 body {
     margin: 0;
     padding: 0;
@@ -7,30 +10,46 @@ body {
     height: 100%;
     background: black;
 }
-
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
 .field {
     position: relative;
     display: inline-block;
     width: 50px;
     height: 50px;
 }
+.row {
+    height: 50px !important;
+}
+.empty.field {
+    background-color: black;
+    z-index: 5;
+}
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
 
+
+/* Walls */
 .verticalWall{
     position: absolute;
     width: 15px;
     height: 50px;
     left: 35%;
     background-color: orange;
+    z-index: 10;
 }
 .vertical{
     position: absolute;
     width: 15px;
     height: 32px;
     background-color: orange;
+    z-index: 10;
 }
 .verticalWallBS{
     left: 35%;
@@ -51,12 +70,14 @@ code {
     height: 15px;
     top: 35%;
     background-color: orange;
+    z-index: 10;
 }
 .horizontal{
     position: absolute;
     width: 32px;
     height: 15px;
     background-color: orange;
+    z-index: 10;
 }
 .horizontalWallLS{
     top: 35%;
@@ -76,12 +97,14 @@ code {
     top: 0px;
     border-bottom-left-radius: 9px;
     border-bottom-right-radius: 9px;
+    z-index: 10;
 }
 .tWallBottom{
     left: 35%;
     bottom: 0px;
     border-top-left-radius: 9px;
     border-top-right-radius: 9px;
+    z-index: 10;
 }
 
 .tWallRight{
@@ -89,17 +112,34 @@ code {
     left: 0px;
     border-bottom-right-radius: 9px;
     border-top-right-radius: 9px;
+    z-index: 10;
 }
 .tWallLeft{
     top: 35%;
     right: 0px;
     border-bottom-left-radius: 9px;
     border-top-left-radius: 9px;
+    z-index: 10;
+}
+.gate{
+    position: absolute;
+    width: 50px;
+    height: 10px;
+    top: 40%;
+    right: 0px;
+    background-color: rgba(192, 192, 192, 0.6);
+    background-image: linear-gradient(335deg, rgba(187, 0, 0, 0.6) 4px, transparent 4px),
+        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 2.7px, transparent 2.7px),
+        linear-gradient(335deg, rgba(187, 0, 0, 0.6) 2.7px, transparent 2.7px),
+        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 2.7px, transparent 2.7px);
+    background-size: 7.5px 7.5px;
+    background-position: 0px 0.8px, 1.1px 4px, 4px 2.5px, 1px 2px;
+    border-radius: 10px;
+    z-index: 10;
 }
 
 
-
-
+/* Coins */
 .coin {
     position: absolute;
     top: 40%;
@@ -108,17 +148,20 @@ code {
     height: 20%;
     background: white;
     border-radius: 50% !important;
+    z-index: 10;
 }
 .snack {
     position: absolute;
-    top: 25%;
-    left: 25%;
-    width: 50%;
-    height: 50%;
+    top: 30%;
+    left: 30%;
+    width: 40%;
+    height: 40%;
     background: white;
     border-radius: 50% !important;
+    z-index: 10;
 }
 
+/* Hackman */
 .hackman {
     position: absolute;
     top: 10%;
@@ -127,20 +170,95 @@ code {
     height: 80%;
     background: rgb(255, 72, 0);
     border-radius: 50% !important;
+    transition: transform 0.5s;
+    z-index: 7;
 }
-
-.row {
-    height: 50px !important;
+.top{
+    transform: rotateZ(90deg);
 }
-
-.empty.field {
+.bottom{
+    transform: rotateZ(-90deg);
+}
+.left{
+    transform: rotateY(0deg);
+}
+.right{
+    transform: rotateY(-180deg);
+}
+.move-top{
+    transform: rotateZ(90deg) translateX(-50px);
+}
+.move-bottom{
+    transform: rotateZ(-90deg) translateX(-50px);  
+}
+.move-right{
+    transform: rotateY(-180deg) translateX(-50px);
+}
+.move-left{
+    transform: rotateY(0deg) translateX(-50px);
+}
+.eye{
+    background-color: #19181A;
+    width: 10px;
+    height: 9px;
+    border-radius: 50%;
+    transition: transform 0.125s;
+    transform: translateX(7px) translateY(10px);
+}
+.eye-move{
+    transition: transform 0.125s;
+    transform: translateX(13px) translateY(4px) scale(0.7);
+}
+.mouth{
     background-color: black;
+    width: 25px;
+    height: 25px;
+    transition: transform 0.125s;
+    transform: translateX(-32px) translateY(-0px) rotateZ(45deg);
+    z-index: 0;
+}
+.mouth-open{           
+    transition: transform 0.125s;
+    transform: translateX(-8px) translateY(-0px) rotateZ(45deg);
 }
 
-.center {
+/* Ghosts */
+.ghost{
+    z-index: 15;
+}
+.ghost-head {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
+    top: 10%;
+    left: 10%;
+    width: 70%;
+    height: 70%;
+    background: blue;
+    border-radius: 50% !important;
+    display: flex;
+    flex-direction: row;
+}
+.ghost-eye{
+    margin-left: 15%;
+    background-color: rgb(189, 170, 170);
+    height: 25%;
+    width: 20%;
+    border-radius: 50%;
+    transform: translateY(7px) translateX(2.5px);
+}
+.ghost-body {
+    position: absolute;
+    width: 70%;
+    height: 40%;
+    top: 45%;
+    left: 10%;
+    background-color: blue;
+    display: flex;
+    flex-direction: row;
+}
+.ghost-spikes{
+    width: 60%;
+    height: 80%;
+    border-radius: 50%;
+    background-color: black;
+    transform: translateY(13px);
 }
