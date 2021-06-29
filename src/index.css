@@ -227,7 +227,7 @@ code {
 
 /* Ghosts */
 .ghost{
-    z-index: 15;
+    z-index: 20;
 }
 .ghost-head {
     position: absolute;
@@ -239,6 +239,7 @@ code {
     border-radius: 50% !important;
     display: flex;
     flex-direction: row;
+    z-index: 20;
 }
 .ghost-eye{
     margin-left: 15%;
@@ -247,6 +248,7 @@ code {
     width: 20%;
     border-radius: 50%;
     transform: translateY(7px) translateX(2.5px);
+    z-index: 20;
 }
 .ghost-body {
     position: absolute;
@@ -257,6 +259,7 @@ code {
     background-color: blue;
     display: flex;
     flex-direction: row;
+    z-index: 20;
 }
 .ghost-spikes{
     width: 60%;
@@ -264,4 +267,5 @@ code {
     border-radius: 50%;
     background-color: black;
     transform: translateY(13px);
+    z-index: 20;
 }
