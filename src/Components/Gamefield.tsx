@@ -30,7 +30,7 @@ interface ISpielfeldProps {
   fields: React.FC[][];
   emitter: EventEmitter;
 }
-let cache:number = 5;
+
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === Wall) return <Wall key={key} />;
@@ -62,13 +62,13 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   };
 
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
-  const [position, setPosition] = useState(Koordinate.Empty());
+  const [position, setPosition] = useState(new Koordinate(10,12));
   const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
     Richtung.Keine
   );
   const [bewegungsRichtungGeist, setBewegungsRichtungGeist] =
     useState<Richtung>(Richtung.Keine);
-  const [positionGhost, setPositionGhost] = useState<Koordinate>(Koordinate.Empty());
+  const [positionGhost, setPositionGhost] = useState<Koordinate>(new Koordinate(10,8));
   
 
   useEffect(() => {
@@ -84,16 +84,6 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     setPosition(getHackmanPosition());
 
-    if(e.key.toLowerCase() === "w" || e.key === "ArrowUp")
-      cache = 0;
-    else if(e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
-      cache = 2;
-    else if(e.key.toLowerCase() === "s" || e.key === "ArrowDown")
-      cache = 1;
-    else if(e.key.toLowerCase() === "d" || e.key === "ArrowRight")
-      cache = 3;
-
-
       if (e.key.toLowerCase() === "w" || e.key === "ArrowUp")
       setBewegungsRichtung(Richtung.Oben);
       else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
@@ -102,7 +92,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       setBewegungsRichtung(Richtung.Unten);
       else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight")
       setBewegungsRichtung(Richtung.Rechts);
-      else if(cache === bewegungsRichtung)
+      else
       return;
     };
     
@@ -408,12 +398,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     setPositionGhost(ghost);
       switch(bewegungsRichtungGeist){
         case Richtung.Oben: {
-          if (canMoveGhost(ghost) === BewegungMoeglich.Portal){              
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;         
-            spielfeldCopy[spielfeldCopy.length - 1][positionGhost.x] = Ghost;
-            setSpielfeld(spielfeldCopy);
-          }
-          else if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
+          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){              
+          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;         
+          //   spielfeldCopy[spielfeldCopy.length - 1][positionGhost.x] = Ghost;
+          //   setSpielfeld(spielfeldCopy);
+          // }
+          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
             spielfeldCopy[positionGhost.y - 1][positionGhost.x] = Ghost;
             spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
             setSpielfeld(spielfeldCopy);
@@ -425,12 +415,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           break;
         }
         case Richtung.Links: {  
-          if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
-            spielfeldCopy[positionGhost.y][spielfeldCopy[0].length - 1] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-            setSpielfeld(spielfeldCopy);
-          }  
-          else if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {       
+          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
+          //   spielfeldCopy[positionGhost.y][spielfeldCopy[0].length - 1] = Ghost;
+          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
+          //   setSpielfeld(spielfeldCopy);
+          // }  
+          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {       
             spielfeldCopy[positionGhost.y][positionGhost.x - 1] = Ghost;
             spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;            
             setSpielfeld(spielfeldCopy);
@@ -442,12 +432,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           break;
         }
         case Richtung.Unten: {
-          if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
-            spielfeldCopy[0][positionGhost.x] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-            setSpielfeld(spielfeldCopy);
-          }
-          else if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
+          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
+          //   spielfeldCopy[0][positionGhost.x] = Ghost;
+          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
+          //   setSpielfeld(spielfeldCopy);
+          // }
+          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
             spielfeldCopy[positionGhost.y + 1][positionGhost.x] = Ghost;
             spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
             setSpielfeld(spielfeldCopy);
@@ -460,12 +450,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         }
         case Richtung.Rechts: {
           
-          if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
-            spielfeldCopy[positionGhost.y][0] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-            setSpielfeld(spielfeldCopy);
-          }          
-          else if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
+          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
+          //   spielfeldCopy[positionGhost.y][0] = Ghost;
+          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
+          //   setSpielfeld(spielfeldCopy);
+          // }          
+          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
             spielfeldCopy[positionGhost.y][positionGhost.x + 1] = Ghost;
             spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
             setSpielfeld(spielfeldCopy);

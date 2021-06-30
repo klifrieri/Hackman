@@ -6,7 +6,7 @@ import { EventEmitter } from "events";
 
 const App: React.FC = () => {
   const eventEmitter: EventEmitter = new EventEmitter();
-  const [spielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout(eventEmitter));
+  const [spielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout());
 
   return <Spielfeld fields={spielfeld} emitter={eventEmitter}/>;
 };
