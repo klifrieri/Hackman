@@ -17,7 +17,7 @@ import CornerLT from "./Corners/CornerLeftTop";
 import CornerLB from "./Corners/CornerLeftBottom";
 import CornerRT from "./Corners/CornerRightTop";
 import CornerRB from "./Corners/CornerRightBottom";
-import React, { useEffect } from "react";
+import React, { useEffect, useLayoutEffect } from "react";
 import { useState } from "react";
 import Koordinate from "../Types/Koordinate";
 import Richtung from "../Types/Richtung";
@@ -25,10 +25,14 @@ import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
 import EventEmitter from "events";
+import CustomInterval from "./../UtilityFunctions/Interval";
+import SpielfeldLayout from "../SpielfeldLayout";
+import {BehaviorSubject} from './../../node_modules/rxjs'
 
 interface ISpielfeldProps {
-  fields: React.FC[][];
+  // fields: React.FC[][];
   emitter: EventEmitter;
+  service: ()=>[BehaviorSubject<React.FC<{}>[][]>, (e: React.KeyboardEvent) => void]
 }
 
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
@@ -52,591 +56,135 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={bewegungsRichtung} emitter={props.emitter}/>;
+      return <Hackman key={key} richtung={bewegungsRichtungHackman} emitter={props.emitter}/>;
     else if (component === Ghost)
-     return <Ghost key={key} richtung={bewegungsRichtungGeist} emitter={props.emitter}/>;
+     return <Ghost key={key} richtung={bewegungsRichtungGhost} emitter={props.emitter}/>;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
     else return undefined;
   };
 
-  const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
-  const [position, setPosition] = useState(new Koordinate(10,12));
-  const [bewegungsRichtung, setBewegungsRichtung] = useState<Richtung>(
+  require('events').EventEmitter.defaultMaxListeners = 50;
+  const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout());
+
+  // const [positionHackman,setPositionHackman] = useState(new Koordinate(10,12));
+  
+  
+  const [bewegungsRichtungHackman, setBewegungsRichtungHackman] = useState<Richtung>(
     Richtung.Keine
   );
-  const [bewegungsRichtungGeist, setBewegungsRichtungGeist] =
-    useState<Richtung>(Richtung.Keine);
-  const [positionGhost, setPositionGhost] = useState<Koordinate>(new Koordinate(10,8));
+  const [bewegungHackmanMoeglich,setBewegungHackmanMoeglich] = useState<BewegungMoeglich>(BewegungMoeglich.Nein);
   
+  // let bewegungHackmanMoeglich:BewegungMoeglich = BewegungMoeglich.Nein;
+
+  const [positionGhost, setPositionGhost] = useState<Koordinate>(new Koordinate(10,8));
+  const [bewegungsRichtungGhost, setBewegungsRichtungGhost] =
+    useState<Richtung>(Richtung.Keine);
+  
+  const characters = new Array("Hackman");
 
   useEffect(() => {
-    const interval = setInterval(() => move(), 250);
-    const interval2 = setInterval(() => moveGhost(getGhostPosition()), 250);
-    return () => {
-      clearInterval(interval);
-      clearInterval(interval2);
-    };
-  });
-  
+    const subscription = props.service()[0].subscribe(setSpielfeld);
+        // subscribe(setSpielfeld);
+    return () => subscription.unsubscribe()
+  }, [props.service()[0]])
 
-  const handleKeyDown = (e: React.KeyboardEvent): void => {
-    setPosition(getHackmanPosition());
-
-      if (e.key.toLowerCase() === "w" || e.key === "ArrowUp")
-      setBewegungsRichtung(Richtung.Oben);
-      else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft")
-      setBewegungsRichtung(Richtung.Links);
-      else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown")
-      setBewegungsRichtung(Richtung.Unten);
-      else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight")
-      setBewegungsRichtung(Richtung.Rechts);
-      else
-      return;
-    };
-    
-  //#region Hackman
-  const getHackmanPosition = (): Koordinate => {
-    let position: Koordinate = Koordinate.Empty();
-    
-    for (let y = 0; y < spielfeld.length; y++) {
-      for (let x = 0; x < spielfeld[y].length; x++) {
-        if (spielfeld[y][x] === Hackman) {
-        position.x = x;
-        position.y = y;
-        }
-      }
-    }
-    return position;
-  };
+  // useEffect(() => {
+  //   if(bewegungHackmanMoeglich === BewegungMoeglich.Ja){
+  //     intervalstart();
+  //   }
+  //   // console.log("fadss");
+  //   else{
+  //     intervalstop();
+  //   }
+  //   return () => {
+  //     intervalstop();
+  //   };
+  // },[bewegungHackmanMoeglich]);
 
 
-  const canMove = (): BewegungMoeglich => {
-    setPosition(getHackmanPosition());
-    
-    switch (bewegungsRichtung) {
-      case Richtung.Oben: {
 
-          if (spielfeld[position.y - 1] === undefined) return BewegungMoeglich.Portal;
-          else if (spielfeld[position.y - 1][position.x] === Empty ||
-            spielfeld[position.y - 1][position.x] === Coin ||
-            spielfeld[position.y - 1][position.x] === Snack)
-            return BewegungMoeglich.Ja;
-          else return BewegungMoeglich.Nein;
-
-        // return (
-        //   spielfeld[position.y - 1][position.x] === Empty ||
-        //   spielfeld[position.y - 1][position.x] === Coin ||
-        //   spielfeld[position.y - 1][position.x] === Snack
-        // );
-      }
-      case Richtung.Links: {
-
-        if (spielfeld[position.y][position.x - 1] === Empty ||
-          spielfeld[position.y][position.x - 1] === Coin ||
-          spielfeld[position.y][position.x - 1] === Snack)
-          return BewegungMoeglich.Ja;
-        else if (spielfeld[position.y][position.x - 1] === undefined)
-          return BewegungMoeglich.Portal;
-        else return BewegungMoeglich.Nein;
-
-        // return (
-        //   spielfeld[position.y][position.x - 1] === Empty ||
-        //   spielfeld[position.y][position.x - 1] === Coin ||
-        //   spielfeld[position.y][position.x - 1] === Snack
-        // );
-      }
-      case Richtung.Unten: {
-
-          if (spielfeld[position.y + 1] === undefined) return BewegungMoeglich.Portal;
-          else if (spielfeld[position.y + 1][position.x] === Empty ||
-            spielfeld[position.y + 1][position.x] === Coin ||
-            spielfeld[position.y + 1][position.x] === Snack)
-            return BewegungMoeglich.Ja;
-          else return BewegungMoeglich.Nein;
-
-        // return (
-        //   spielfeld[position.y + 1][position.x] === Empty ||
-        //   spielfeld[position.y + 1][position.x] === Coin ||
-        //   spielfeld[position.y + 1][position.x] === Snack
-        // );
-      }
-      case Richtung.Rechts: {
-
-        if (spielfeld[position.y][position.x + 1] === Empty ||
-          spielfeld[position.y][position.x + 1] === Coin ||
-          spielfeld[position.y][position.x + 1] === Snack)
-          return BewegungMoeglich.Ja;
-        else if (spielfeld[position.y][position.x + 1] === undefined)
-          return BewegungMoeglich.Portal;
-        else return BewegungMoeglich.Nein;
-
-        // return (
-        //   spielfeld[position.y][position.x + 1] === Empty ||
-        //   spielfeld[position.y][position.x + 1] === Coin ||
-        //   spielfeld[position.y][position.x + 1] === Snack
-        // );
-      }
-      default:
-        return BewegungMoeglich.Nein;
-    }
-  };
-
-  
-  const move = () => {
-    let spielfeldCopy: React.FC<{}>[][] = spielfeld;
-    setPosition(getHackmanPosition());
-
-    switch (bewegungsRichtung) {
-      case Richtung.Oben: {
-
-        if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
-          spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[spielfeldCopy.length - 1][position.x] = Hackman;
-          setSpielfeld(spielfeldCopy);
-        }
-        else if (canMove() === BewegungMoeglich.Ja) {
-          props.emitter.emit('startAnimation', bewegungsRichtung);
-          if(checkCoins()){
-            props.emitter.emit("moveMouth");
-          }
-          spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y - 1][position.x] = Hackman;
-          setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
-        }
-
-        break;
-      }
-      case Richtung.Links: {
-
-        if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);   
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
-          spielfeldCopy[position.y][spielfeldCopy[0].length - 1] = Hackman;
-          spielfeldCopy[position.y][position.x] = Empty;
-          setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
-        }
-
-        else if (canMove() === BewegungMoeglich.Ja) {       
-          props.emitter.emit('startAnimation', bewegungsRichtung);   
-          if(checkCoins()){
-            props.emitter.emit("moveMouth");
-          }
-          spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y][position.x - 1] = Hackman;
-          setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
-        }
-
-        break;
-      }
-      case Richtung.Unten: {
-        if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
-          spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[0][position.x] = Hackman;
-          setSpielfeld(spielfeldCopy);
-        }
-        else if (canMove() === BewegungMoeglich.Ja) {
-          props.emitter.emit('startAnimation', bewegungsRichtung);
-          if(checkCoins()){
-            props.emitter.emit("moveMouth");
-          }
-          spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y + 1][position.x] = Hackman;
-          setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
-        }
-
-        break;
-      }
-      case Richtung.Rechts: {
-
-        if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
-          spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y][0] = Hackman;
-          setSpielfeld(spielfeldCopy);
-        }
-        
-        else if (canMove() === BewegungMoeglich.Ja) {
-          props.emitter.emit('startAnimation', bewegungsRichtung);
-          if(checkCoins()){
-            props.emitter.emit("moveMouth");
-          }
-          spielfeldCopy[position.y][position.x] = Empty;
-          spielfeldCopy[position.y][position.x + 1] = Hackman;
-          setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
-        }
-
-        break;
-      }
-    }
-  };
-  //#endregion
-
-
-  
-  //#region Ghosts
-
-  const getGhostsPosition = ():Koordinate[] => {
-    let ghosts :Koordinate[] = [];
-    for (let y = 0; y < spielfeld.length; y++) {
-      for (let x = 0; x < spielfeld[y].length; x++) {
-        if (spielfeld[y][x] === Ghost) {
-          let ghost = new Koordinate(y, x);
-          ghosts.push(ghost);
-        }
-      }
-    }
-    return ghosts;
-  }
-
-  const getGhostPosition = ():Koordinate => {
-    let ghost :Koordinate = new Koordinate(0, 0);
-    for (let y = 0; y < spielfeld.length; y++) {
-      for (let x = 0; x < spielfeld[y].length; x++) {
-        if (spielfeld[y][x] === Ghost) {
-          ghost.y = y;
-          ghost.x = x;
-        }
-      }
-    }
-    return ghost;
-  }
-  
-  
-  const canMoveGhost = (ghost:Koordinate):BewegungMoeglich => {
-    setPositionGhost(ghost);
-    switch(bewegungsRichtungGeist){
-      case Richtung.Oben: {
-        if (spielfeld[positionGhost.y - 1] === undefined) {
-          return BewegungMoeglich.Portal;
-        }
-        else if (spielfeld[position.y - 1][positionGhost.x] === Empty ||
-          spielfeld[positionGhost.y - 1][positionGhost.x] === Coin ||
-          spielfeld[positionGhost.y - 1][positionGhost.x] === Snack ||
-          spielfeld[positionGhost.y - 1][positionGhost.x] === Hackman ||
-          spielfeld[positionGhost.y - 1][positionGhost.x] === Gate){
-            return BewegungMoeglich.Ja;
-          }
-        else{
-          return BewegungMoeglich.Nein;
-        }
-      }
-      case Richtung.Unten: {
-        if (spielfeld[positionGhost.y + 1] === undefined){
-          return BewegungMoeglich.Portal;
-        }
-        else if (spielfeld[position.y + 1][positionGhost.x] === Empty ||
-          spielfeld[positionGhost.y + 1][positionGhost.x] === Coin ||
-          spielfeld[positionGhost.y + 1][positionGhost.x] === Snack ||
-          spielfeld[positionGhost.y + 1][positionGhost.x] === Hackman ||
-          spielfeld[positionGhost.y + 1][positionGhost.x] === Gate){
-            return BewegungMoeglich.Ja;
-          }
-        else{
-          return BewegungMoeglich.Nein;
-        }
-      }
-      case Richtung.Links: {
-        if (spielfeld[positionGhost.x - 1] === undefined){
-          return BewegungMoeglich.Portal;
-        }
-        else if (spielfeld[position.y][positionGhost.x - 1] === Empty ||
-          spielfeld[positionGhost.y][positionGhost.x - 1] === Coin ||
-          spielfeld[positionGhost.y][positionGhost.x - 1] === Snack ||
-          spielfeld[positionGhost.y][positionGhost.x - 1] === Hackman ||
-          spielfeld[positionGhost.y][positionGhost.x - 1] === Gate){
-            return BewegungMoeglich.Ja;
-          }
-        else{
-          return BewegungMoeglich.Nein;
-        }
-      }
-      case Richtung.Rechts: {
-        if (spielfeld[positionGhost.x + 1] === undefined){
-          return BewegungMoeglich.Portal;
-        }
-        else if (spielfeld[position.y][positionGhost.x + 1] === Empty ||
-          spielfeld[positionGhost.y][positionGhost.x + 1] === Coin ||
-          spielfeld[positionGhost.y][positionGhost.x + 1] === Snack ||
-          spielfeld[positionGhost.y][positionGhost.x + 1] === Hackman ||
-          spielfeld[positionGhost.y][positionGhost.x + 1] === Gate){
-            return BewegungMoeglich.Ja;
-          }
-        else{
-          return BewegungMoeglich.Nein;
-        }
-      }
-      case Richtung.Keine:{
-        return BewegungMoeglich.Nein;
-      }
-      default: 
-        return BewegungMoeglich.Nein
-    }
-  }
-
-  const moveGhost = (ghost:Koordinate) => {
-    let spielfeldCopy: React.FC<{}>[][] = spielfeld;
-    setPositionGhost(ghost);
-      switch(bewegungsRichtungGeist){
-        case Richtung.Oben: {
-          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){              
-          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;         
-          //   spielfeldCopy[spielfeldCopy.length - 1][positionGhost.x] = Ghost;
-          //   setSpielfeld(spielfeldCopy);
-          // }
-          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
-            spielfeldCopy[positionGhost.y - 1][positionGhost.x] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);            
-          }  
-          else{
-            setGhostMoveDirection(ghost);
-          }
-          break;
-        }
-        case Richtung.Links: {  
-          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
-          //   spielfeldCopy[positionGhost.y][spielfeldCopy[0].length - 1] = Ghost;
-          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-          //   setSpielfeld(spielfeldCopy);
-          // }  
-          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {       
-            spielfeldCopy[positionGhost.y][positionGhost.x - 1] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;            
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);               
-          }
-          else{
-            setGhostMoveDirection(ghost);
-          }  
-          break;
-        }
-        case Richtung.Unten: {
-          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
-          //   spielfeldCopy[0][positionGhost.x] = Ghost;
-          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-          //   setSpielfeld(spielfeldCopy);
-          // }
-          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
-            spielfeldCopy[positionGhost.y + 1][positionGhost.x] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);            
-          }  
-          else{
-            setGhostMoveDirection(ghost);
-          }
-          break;
-        }
-        case Richtung.Rechts: {
-          
-          // if (canMoveGhost(ghost) === BewegungMoeglich.Portal){
-          //   spielfeldCopy[positionGhost.y][0] = Ghost;
-          //   spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-          //   setSpielfeld(spielfeldCopy);
-          // }          
-          if (canMoveGhost(ghost) === BewegungMoeglich.Ja) {
-            spielfeldCopy[positionGhost.y][positionGhost.x + 1] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);            
-          }  
-          else{
-            setGhostMoveDirection(ghost);
-          }
-          break;
-        }
-        case Richtung.Keine:{
-          setGhostMoveDirection(ghost);
-        }
-      }  
-  }
-
-  const moveGhosts = (ghosts: Koordinate[]):void => {
-    console.log(ghosts);
-    let spielfeldCopy: React.FC<{}>[][] = spielfeld;
-    //setGhostMoveDirection(ghosts[i]);
-    for(let i = 0; i < ghosts.length; i++){
-      setPositionGhost(ghosts[i]);
-      switch(bewegungsRichtungGeist){
-        case Richtung.Oben: {
-          if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Portal){              
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;         
-            spielfeldCopy[spielfeldCopy.length - 1][positionGhost.x] = Ghost;
-            setSpielfeld(spielfeldCopy);
-          }
-          else if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Ja) {
-            spielfeldCopy[positionGhost.y - 1][positionGhost.x] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);            
-          }  
-          else{
-            setGhostMoveDirection(ghosts[i]);
-          }
-          break;
-        }
-        case Richtung.Links: {  
-          if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Portal){
-            spielfeldCopy[positionGhost.y][spielfeldCopy[0].length - 1] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-            setSpielfeld(spielfeldCopy);
-          }  
-          else if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Ja) {       
-            spielfeldCopy[positionGhost.y][positionGhost.x - 1] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;            
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);               
-          }
-          else{
-            setGhostMoveDirection(ghosts[i]);
-          }  
-          break;
-        }
-        case Richtung.Unten: {
-          if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Portal){
-            spielfeldCopy[0][positionGhost.x] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-            setSpielfeld(spielfeldCopy);
-          }
-          else if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Ja) {
-            spielfeldCopy[positionGhost.y + 1][positionGhost.x] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);            
-          }  
-          else{
-            setGhostMoveDirection(ghosts[i]);
-          }
-          break;
-        }
-        case Richtung.Rechts: {
-          
-          if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Portal){
-            spielfeldCopy[positionGhost.y][0] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Empty;
-            setSpielfeld(spielfeldCopy);
-          }          
-          else if (canMoveGhost(ghosts[i]) === BewegungMoeglich.Ja) {
-            spielfeldCopy[positionGhost.y][positionGhost.x + 1] = Ghost;
-            spielfeldCopy[positionGhost.y][positionGhost.x] = Coin;
-            setSpielfeld(spielfeldCopy);
-            //props.emitter.emit('bewegGeist', i, ghosts);            
-          }  
-          else{
-            setGhostMoveDirection(ghosts[i]);
-          }
-          break;
-        }
-        case Richtung.Keine:{
-          setGhostMoveDirection(ghosts[i]);
-        }
-      }  
-    }
-  }
-
-
-  const setGhostMoveDirection = (ghost:Koordinate):void => {
-    if(bewegungsRichtungGeist === Richtung.Oben){
-      if(canMoveGhost(ghost) === BewegungMoeglich.Ja){
-        return;
-      }
-      else{
-        setBewegungsRichtungGeist(Richtung.Rechts);
-      }
-    }
-    else if(bewegungsRichtungGeist === Richtung.Rechts){
-      if(canMoveGhost(ghost) === BewegungMoeglich.Ja){
-        return;
-      }
-      else{
-        setBewegungsRichtungGeist(Richtung.Unten);
-      }
-    }
-    else if(bewegungsRichtungGeist === Richtung.Unten){
-      if(canMoveGhost(ghost) === BewegungMoeglich.Ja){
-        return;
-      }
-      else{
-        setBewegungsRichtungGeist(Richtung.Links);
-      }
-    }
-    else if(bewegungsRichtungGeist === Richtung.Links){
-      if(canMoveGhost(ghost) === BewegungMoeglich.Ja){
-        return;
-      }
-      else{
-        setBewegungsRichtungGeist(Richtung.Oben);
-      }
-    }
-    else if(bewegungsRichtungGeist === Richtung.Keine){
-      if(canMoveGhost(ghost) === BewegungMoeglich.Ja){
-        return;
-      }
-      else{
-        setBewegungsRichtungGeist(Richtung.Oben);
-      }
-    }
-    else{
-      console.log("Fehler in setGhostDirection " + bewegungsRichtungGeist);
-    }
-  }
-    
-  // const setGhostMoveCount = ():number => {
-  //   return Math.floor(Math.random()*10)*1000;
+  // const moveAllWrapper = ()=>{
+  //   characters.forEach(element => {
+  //       move(element);
+  //   });
   // }
+
+
+
+
+  // const getCoordinates = (stateFieldName:string): Koordinate => {
+  //   let position: Koordinate = Koordinate.Empty();
+
+  //   for (let y = 0; y < spielfeld.length; y++) {
+  //     for (let x = 0; x < spielfeld[y].length; x++) {
+  //       if (spielfeld[y][x].name=== stateFieldName) {
+  //       position.x = x;
+  //       position.y = y;
+  //       }
+  //     }
+  //   }
+  //   return position;
+  // };
+
+  
+  
+  
   //#endregion
-    
 
+  // const logFeld = ()=>{
+  //   let leString = "";
+  //   for (let y = 0; y < spielfeld.length; y++) {
+  //     for (let x = 0; x < spielfeld[y].length; x++) {
+  //       leString +=spielfeld[y][x].name + " ";
+  //     }
+  //     leString += "\n";
+  //   }
+  //   console.log(leString);
+  // }
+  // const checkCoins = (): boolean => {
+  //   switch(bewegungsRichtungHackman){
+  //     case Richtung.Oben:{
+  //       return (spielfeld[positionHackman.y - 1][positionHackman.x] === Coin || spielfeld[positionHackman.y - 1][positionHackman.x] === Snack)
+  //     }
+  //     case Richtung.Links: {
+  //       return(spielfeld[positionHackman.y][positionHackman.x - 1] === Coin || spielfeld[positionHackman.y][positionHackman.x - 1] === Snack)
+  //     }
+  //     case Richtung.Unten:{
+  //       return(spielfeld[positionHackman.y + 1][positionHackman.x] === Coin || spielfeld[positionHackman.y + 1][positionHackman.x] === Snack)
+  //     }
+  //     case Richtung.Rechts:{
+  //       return(spielfeld[positionHackman.y][positionHackman.x + 1] === Coin || spielfeld[positionHackman.y][positionHackman.x + 1] === Snack)
+  //     }
+  //     default:
+  //       return false;
+  //   }
+  // }
 
-
-  const checkCoins = (): boolean => {
-    switch(bewegungsRichtung){
-      case Richtung.Oben:{
-        return (spielfeld[position.y - 1][position.x] === Coin || spielfeld[position.y - 1][position.x] === Snack)
-      }
-      case Richtung.Links: {
-        return(spielfeld[position.y][position.x - 1] === Coin || spielfeld[position.y][position.x - 1] === Snack)
-      }
-      case Richtung.Unten:{
-        return(spielfeld[position.y + 1][position.x] === Coin || spielfeld[position.y + 1][position.x] === Snack)
-      }
-      case Richtung.Rechts:{
-        return(spielfeld[position.y][position.x + 1] === Coin || spielfeld[position.y][position.x + 1] === Snack)
-      }
-      default:
-        return false;
-    }
-  }
-
-
-
-
-
+// const canMove = (): BewegungMoeglich => {
+//   switch(bewegungsRichtungHackman){
+//     case Richtung.Oben:{
+//       return canMoveUp();
+//       }
+//     case Richtung.Links: {
+//       return canMoveLeft();
+//     }
+//     case Richtung.Unten:{
+//       return canMoveDown();
+//     }
+//     case Richtung.Rechts:{
+//       return canMoveRight();
+//     }
+//     default:
+//       return BewegungMoeglich.Nein;
+//   }
+// }
+// const [intervalstart,intervalstop] = CustomInterval(move,250);
 
   return (
-    <div className="App center" onKeyDown={handleKeyDown} tabIndex={0}>
-      {spielfeld.map((row, x) => {
+    <div className="App center" onKeyDown={() => props.service()[1]} tabIndex={0}>
+      {spielfeld!.map((row, x) => {
         return (
           <div className="row" key={x}>
             {row.map((feld, y) => {

@@ -3,12 +3,13 @@ import Spielfeld from "./Components/Gamefield";
 import React from "react";
 import { useState } from "react";
 import { EventEmitter } from "events";
+import SpielFeldService from "./UtilityFunctions/spielFeldService";
 
 const App: React.FC = () => {
   const eventEmitter: EventEmitter = new EventEmitter();
-  const [spielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout());
-
-  return <Spielfeld fields={spielfeld} emitter={eventEmitter}/>;
+  // const [spielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout());
+  const spielFeldService = SpielFeldService();
+  return <Spielfeld service={SpielFeldService} emitter={eventEmitter}/>;
 };
 
 export default App;
