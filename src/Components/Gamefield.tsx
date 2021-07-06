@@ -318,7 +318,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         );
       })}
     </div>
-  );
+  )
 };
 
 export default Spielfeld;
