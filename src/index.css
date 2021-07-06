@@ -35,6 +35,18 @@ code {
 }
 
 
+/* Stats */
+
+.statsContainer{
+    display: inline-block;
+}
+
+.statsProp{
+    color : white;
+    text-align: center;
+    display: inline-block;
+}
+
 /* Walls */
 .verticalWall{
     position: absolute;

@@ -307,7 +307,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   };
 
   return (
-    <div className="App center" onKeyDown={handleKeyDown} tabIndex={0}>
+    <div onKeyDown={handleKeyDown} tabIndex={0}>
       {spielfeld.map((row, x) => {
         return (
           <div className="row" key={x}>
