@@ -21,22 +21,9 @@ import Richtung from "../Types/Richtung";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
-import EventEmitter from "events";
-import {BehaviorSubject} from './../../node_modules/rxjs';
+import IGameFieldProps from "../Interfaces/IGameFieldProps";
 
-interface ISpielfeldProps {
-  fields: React.FC[][];
-  emitter: EventEmitter;
-  spielFeldService: {
-    spielFeldSubject: BehaviorSubject<React.FC<{}>[][]>;
-    bewegungsRichtungHackmanSubject: BehaviorSubject<Richtung>;
-    handleKeyDown: (e: React.KeyboardEvent) => void;
-    }
-}
-
-
-
-const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
+const Spielfeld: React.FC<IGameFieldProps> = (props) => {
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === Wall) return <Wall key={key} />;
     else if (component === HorizontalWall) return <HorizontalWall key={key} />;
@@ -57,16 +44,15 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={bewegungsRichtungHackman} emitter={props.emitter}/>;
+      return <Hackman key={key} richtung={bewegungsRichtungHackman}/>;
     else if (component === Ghost)
-     return <Ghost key={key} richtung={Richtung.Links} emitter={props.emitter}/>;
+     return <Ghost key={key} richtung={Richtung.Links}/>;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
     else return undefined;
   };
 
-  require('events').EventEmitter.defaultMaxListeners = 50;
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
   const [bewegungsRichtungHackman,setBewegungsRichtungHackman] = useState<Richtung>(Richtung.Keine);
 

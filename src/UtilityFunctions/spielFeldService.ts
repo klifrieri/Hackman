@@ -7,16 +7,16 @@ import SpielfeldLayout from '../SpielfeldLayout';
 import BewegungMoeglich from '../Types/BewegungMoeglich';
 import Koordinate from '../Types/Koordinate';
 import Richtung from '../Types/Richtung';
-import {BehaviorSubject, Observable} from './../../node_modules/rxjs';
-import CustomIntervalF from './Interval';
+import {BehaviorSubject} from './../../node_modules/rxjs';
+import CustomInterval from './CustomInterval';
 
 
 const SpielFeldService = ()=>{
-
     const spielFeldSubject :BehaviorSubject<React.FC<{}>[][]> = new BehaviorSubject(SpielfeldLayout());
+
     let positionHackman:Koordinate = new Koordinate(10,12);
     let bewegungsRichtungHackmanSubject= new BehaviorSubject(Richtung.Keine);
-    const [intervalStart,intervalStop] = CustomIntervalF(() => move(bewegungsRichtungHackmanSubject.getValue(),intervallTriggerHackmanMove,positionHackman),250);
+    const [intervalStart,intervalStop] = CustomInterval(() => move(bewegungsRichtungHackmanSubject.getValue(),intervallTriggerHackmanMove,positionHackman),250);
 
     const intervallTriggerHackmanMove = {
         bewegungMoeglich: BewegungMoeglich.Nein,
@@ -48,22 +48,12 @@ const SpielFeldService = ()=>{
         switch (bewegungsRichtung) {
           case Richtung.Oben: {
               if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-                // props.emitter.emit('startAnimation', bewegungsRichtung);
-                // if(checkCoins()){
-                  //   props.emitter.emit("moveMouth");
-                  // }
                   spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
                   spielFeldCopy[spielFeldCopy.length - 1][positionHackman.x] = Hackman;
                 }
                 else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
-                  //   props.emitter.emit('startAnimation', bewegungsRichtungHackman);
-                  //   if(checkCoins()){
-                    //     props.emitter.emit("moveMouth");
-                    //   }
-                    
                     spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
                     spielFeldCopy[positionHackman.y - 1][positionHackman.x] = Hackman;
-                    //   props.emitter.removeAllListeners('startAnimation');
                       positionHackman.y = positionHackman.y-1;
                   }
                   intervallTrigger.set(canMoveUp(position));
@@ -72,23 +62,13 @@ const SpielFeldService = ()=>{
           }
           case Richtung.Links: {
             if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-              // props.emitter.emit('startAnimation', bewegungsRichtung);   
-              // if(checkCoins()){
-              //   props.emitter.emit("moveMouth");
-              // }
               spielFeldCopy[positionHackman.y][spielFeldCopy[0].length - 1] = Hackman;
               spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-              //Emitter.removeAllListeners('startAnimation');
             }
     
-            else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {       
-            //   props.emitter.emit('startAnimation', bewegungsRichtungHackman);   
-            //   if(checkCoins()){
-            //     props.emitter.emit("moveMouth");
-            //   }
+            else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
               spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
               spielFeldCopy[positionHackman.y][positionHackman.x - 1] = Hackman;
-              // props.emitter.removeAllListeners('startAnimation');
               positionHackman.x = positionHackman.x-1;
             }
             intervallTrigger.set(canMoveLeft(position));
@@ -96,21 +76,12 @@ const SpielFeldService = ()=>{
           }
           case Richtung.Unten: {
             if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-              // props.emitter.emit('startAnimation', bewegungsRichtung);
-              // if(checkCoins()){
-              //   props.emitter.emit("moveMouth");
-              // }
               spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
               spielFeldCopy[0][positionHackman.x] = Hackman;
             }
             else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
-            //   props.emitter.emit('startAnimation', bewegungsRichtungHackman);
-            //   if(checkCoins()){
-            //     props.emitter.emit("moveMouth");
-            //   }
               spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
               spielFeldCopy[positionHackman.y + 1][positionHackman.x] = Hackman;
-            //   props.emitter.removeAllListeners('startAnimation');
               positionHackman.y = positionHackman.y+1;
             }
             intervallTrigger.set(canMoveDown(position));
@@ -118,23 +89,13 @@ const SpielFeldService = ()=>{
           }
           case Richtung.Rechts: {
             if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-              // props.emitter.emit('startAnimation', bewegungsRichtung);
-              // if(checkCoins()){
-              //   props.emitter.emit("moveMouth");
-              // }
               spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
               spielFeldCopy[positionHackman.y][0] = Hackman;
             }
             
             else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
-            //   props.emitter.emit('startAnimation', bewegungsRichtungHackman);
-            //   if(checkCoins()){
-            //     props.emitter.emit("moveMouth");
-            //   }
               spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
               spielFeldCopy[positionHackman.y][positionHackman.x + 1] = Hackman;
-              
-            //   props.emitter.removeAllListeners('startAnimation');
               positionHackman.x = positionHackman.x+1;
             }
 
@@ -144,7 +105,25 @@ const SpielFeldService = ()=>{
         }
         setSpielfeldSubject(spielFeldCopy);
       };
-
+// const checkCoins = (): boolean => {
+//   let spielFeldCopy:React.FC<{}>[][] = spielFeldSubject.getValue().slice();
+//   switch(bewegungsRichtungHackmanSubject.getValue()){
+//     case Richtung.Oben:{
+//       return (spielFeldCopy[positionHackman.y - 1][positionHackman.x] === Coin || spielFeldCopy[positionHackman.y - 1][positionHackman.x] === Snack)
+//     }
+//     case Richtung.Links: {
+//       return(spielFeldCopy[positionHackman.y][positionHackman.x - 1] === Coin || spielFeldCopy[positionHackman.y][positionHackman.x - 1] === Snack)
+//     }
+//     case Richtung.Unten:{
+//       return(spielFeldCopy[positionHackman.y + 1][positionHackman.x] === Coin || spielFeldCopy[positionHackman.y + 1][positionHackman.x] === Snack)
+//     }
+//     case Richtung.Rechts:{
+//       return(spielFeldCopy[positionHackman.y][positionHackman.x + 1] === Coin || spielFeldCopy[positionHackman.y][positionHackman.x + 1] === Snack)
+//     }
+//     default:
+//       return false;
+//   }
+// }
 const canMoveUp = (position:Koordinate) =>{
     const spielFeld = spielFeldSubject.getValue();
     if (spielFeld[position.y - 1] === undefined) return BewegungMoeglich.Portal;
@@ -215,24 +194,7 @@ const canMoveUp = (position:Koordinate) =>{
 
 export default SpielFeldService;
 
-  // const checkCoins = (): boolean => {
-  //   switch(bewegungsRichtungHackman){
-  //     case Richtung.Oben:{
-  //       return (spielfeld[positionHackman.y - 1][positionHackman.x] === Coin || spielfeld[positionHackman.y - 1][positionHackman.x] === Snack)
-  //     }
-  //     case Richtung.Links: {
-  //       return(spielfeld[positionHackman.y][positionHackman.x - 1] === Coin || spielfeld[positionHackman.y][positionHackman.x - 1] === Snack)
-  //     }
-  //     case Richtung.Unten:{
-  //       return(spielfeld[positionHackman.y + 1][positionHackman.x] === Coin || spielfeld[positionHackman.y + 1][positionHackman.x] === Snack)
-  //     }
-  //     case Richtung.Rechts:{
-  //       return(spielfeld[positionHackman.y][positionHackman.x + 1] === Coin || spielfeld[positionHackman.y][positionHackman.x + 1] === Snack)
-  //     }
-  //     default:
-  //       return false;
-  //   }
-  // }
+
 // const canMove = (): BewegungMoeglich => {
 //   switch(bewegungsRichtungHackman){
 //     case Richtung.Oben:{

@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
 import Richtung from "../Types/Richtung";
-import { EventEmitter } from "events";
-import Emitter from "../service";
+import { CharacterProps } from "../Interfaces/CharacterProps";
 
-
-type HackmanProps = {
-  richtung: Richtung;
-  emitter: EventEmitter;
-};
-
-const Hackman: React.FC<any> = (props: HackmanProps) => {
+const Hackman: React.FC<any> = (props:CharacterProps) => {
   const [classNames, setClassNames] = useState("");
-  const [test,testmore] = useState("");
   const moveMouth = () => {
       let eye = document.getElementById("eye");
       let mouth = document.getElementById("mouth");
@@ -69,23 +61,11 @@ const Hackman: React.FC<any> = (props: HackmanProps) => {
         return `hackman`;
       }
   };
-  props.emitter.once("startAnimation", (bewegungsRichtung) => {    
-    moveHackman(bewegungsRichtung);
-    //console.log("Emitter started");
-  })
   useEffect(() => {
-    props.emitter.once("moveMouth", () => {
-      moveMouth();
-    }) 
     setClassNames(getClassByRichtung(props.richtung));
     
     //eslint-disable-next-line   
   }, []);
-
-  // useEffect(() => {
-
-  //   //eslint-disable-next-line   
-  // }, []);
 
   return (
     <div className="field">
