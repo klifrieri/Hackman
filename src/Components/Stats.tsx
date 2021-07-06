@@ -4,11 +4,11 @@ interface IStatsProps {
 }
 
 const Stats: React.FC<IStatsProps> = (props) => {
-    return <div className="statsContainer">
-        <p className="statsProp">
+    return <div className="stats container">
+        <p className="stats content">
             {props.eatenCoins}•
         </p>
-        <p className="statsProp">
+        <p className="stats content">
             {props.remainingLives}♥
         </p>
     </div>
