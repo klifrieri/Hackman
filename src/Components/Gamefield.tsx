@@ -208,10 +208,6 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Oben: {
 
         if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[spielfeldCopy.length - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -224,7 +220,6 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y - 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
         }
 
         break;
@@ -232,14 +227,9 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Links: {
 
         if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);   
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
           spielfeldCopy[position.y][spielfeldCopy[0].length - 1] = Hackman;
           spielfeldCopy[position.y][position.x] = Empty;
           setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
         }
 
         else if (canMove() === BewegungMoeglich.Ja) {       
@@ -250,17 +240,12 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x - 1] = Hackman;
           setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
         }
 
         break;
       }
       case Richtung.Unten: {
         if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[0][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -273,7 +258,6 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y + 1][position.x] = Hackman;
           setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
         }
 
         break;
@@ -281,10 +265,6 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
       case Richtung.Rechts: {
 
         if (canMove() === BewegungMoeglich.Portal){
-          // props.emitter.emit('startAnimation', bewegungsRichtung);
-          // if(checkCoins()){
-          //   props.emitter.emit("moveMouth");
-          // }
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][0] = Hackman;
           setSpielfeld(spielfeldCopy);
@@ -298,7 +278,6 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
           spielfeldCopy[position.y][position.x] = Empty;
           spielfeldCopy[position.y][position.x + 1] = Hackman;
           setSpielfeld(spielfeldCopy);
-          //Emitter.removeAllListeners('startAnimation');
         }
 
         break;
