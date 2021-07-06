@@ -29,7 +29,9 @@ import EventEmitter from "events";
 interface ISpielfeldProps {
   fields: React.FC[][];
   emitter: EventEmitter;
+  onCoinEaten : any;
 }
+
 let cache:number = 5;
 const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
   const renderComponent = (component: React.FC<any>, key: number) => {
@@ -215,6 +217,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         else if (canMove() === BewegungMoeglich.Ja) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
           if(checkCoins()){
+            props.onCoinEaten();
             props.emitter.emit("moveMouth");
           }
           spielfeldCopy[position.y][position.x] = Empty;
@@ -235,6 +238,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         else if (canMove() === BewegungMoeglich.Ja) {       
           props.emitter.emit('startAnimation', bewegungsRichtung);   
           if(checkCoins()){
+            props.onCoinEaten();
             props.emitter.emit("moveMouth");
           }
           spielfeldCopy[position.y][position.x] = Empty;
@@ -253,6 +257,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         else if (canMove() === BewegungMoeglich.Ja) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
           if(checkCoins()){
+            props.onCoinEaten();
             props.emitter.emit("moveMouth");
           }
           spielfeldCopy[position.y][position.x] = Empty;
@@ -273,6 +278,7 @@ const Spielfeld: React.FC<ISpielfeldProps> = (props) => {
         else if (canMove() === BewegungMoeglich.Ja) {
           props.emitter.emit('startAnimation', bewegungsRichtung);
           if(checkCoins()){
+            props.onCoinEaten();
             props.emitter.emit("moveMouth");
           }
           spielfeldCopy[position.y][position.x] = Empty;

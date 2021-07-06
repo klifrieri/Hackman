@@ -1,6 +1,6 @@
 interface IStatsProps {
-    eatenCoins : number,
-    remainingLives : number
+    eatenCoins : number | undefined,
+    remainingLives : number | undefined
 }
 
 const Stats: React.FC<IStatsProps> = (props) => {

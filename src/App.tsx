@@ -7,12 +7,13 @@ import Stats from "./Components/Stats";
 
 const App: React.FC = () => {
   const [spielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout);
+  const [eatenCoins, setEatenCoins] = useState(0);
   const eventEmitter: EventEmitter = new EventEmitter();
 
   return(
     <div className="App center">
-      <Spielfeld fields={spielfeld} emitter={eventEmitter}/>;
-      <Stats remainingLives={3} eatenCoins={0}/>
+      <Spielfeld fields={spielfeld} emitter={eventEmitter} onCoinEaten={() => setEatenCoins(eatenCoins + 1)}/>;
+      <Stats remainingLives={3} eatenCoins={eatenCoins}/>
     </div>
   )
 };
