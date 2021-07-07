@@ -5,7 +5,7 @@ export default interface IGameFieldProps {
     fields: React.FC[][];
     spielFeldService: {
       spielFeldSubject: BehaviorSubject<React.FC<{}>[][]>;
-      bewegungsRichtungHackmanSubject: BehaviorSubject<Richtung>;
+      bewegungsRichtungSubject: BehaviorSubject<any>;
       handleKeyDown: (e: React.KeyboardEvent) => void;
       }
   }

@@ -1,6 +1,9 @@
 import React from 'react';
+import Character from '../Classes/Character';
+import GhostCharacter from '../Classes/GhostCharacter';
 import Coin from '../Components/Coin';
 import Empty from '../Components/Empty';
+import Ghost from '../Components/Ghost';
 import Hackman from '../Components/Hackman';
 import Snack from '../Components/Snack';
 import SpielfeldLayout from '../SpielfeldLayout';
@@ -9,101 +12,261 @@ import Koordinate from '../Types/Koordinate';
 import Richtung from '../Types/Richtung';
 import {BehaviorSubject} from './../../node_modules/rxjs';
 import CustomInterval from './CustomInterval';
+import getRandomNumber from './GetRandomNumber';
+
+
+
 
 
 const SpielFeldService = ()=>{
-    const spielFeldSubject :BehaviorSubject<React.FC<{}>[][]> = new BehaviorSubject(SpielfeldLayout());
-
-    let positionHackman:Koordinate = new Koordinate(10,12);
-    let bewegungsRichtungHackmanSubject= new BehaviorSubject(Richtung.Keine);
-    const [intervalStart,intervalStop] = CustomInterval(() => move(bewegungsRichtungHackmanSubject.getValue(),intervallTriggerHackmanMove,positionHackman),250);
-
-    const intervallTriggerHackmanMove = {
-        bewegungMoeglich: BewegungMoeglich.Nein,
-        set: function(value:BewegungMoeglich){
-            this.bewegungMoeglich = value;
-            if(this.bewegungMoeglich == BewegungMoeglich.Ja){
-                intervalStart();
-                // move(bewegungsRichtungHackman,positionHackman)
-            }
-            else if(this.bewegungMoeglich == BewegungMoeglich.Nein){
-              intervalStop();
-            }
-        }
-    };
-    
+    const spielFeldSubject :BehaviorSubject<React.FC<{}>[][]> = new BehaviorSubject(SpielfeldLayout().slice());
     const setSpielfeldSubject = (spielfeld:React.FC<{}>[][])=>{
-        spielFeldSubject.next(spielfeld);
+      spielFeldSubject.next(spielfeld);
     }
-    const setBewegungsRichtungHackmanSubject = (richtung:Richtung)=>{
-      bewegungsRichtungHackmanSubject.next(richtung);
+    const getSpielFeldValue = () => {
+      return spielFeldSubject.getValue();
     }
-    // const setNum = (num:number)=>{
-    //   nummer.next(num);
-    // }
 
+    const hackman = new Character("Hackman",new Koordinate(10,12));
+    const ghost1 = new GhostCharacter("Ghost1",new Koordinate(9,7));
+    const ghost2 = new GhostCharacter("Ghost2",new Koordinate(11,7));
+    const ghost3 = new GhostCharacter("Ghost2",new Koordinate(9,9));
+    const ghost4 = new GhostCharacter("Ghost2",new Koordinate(11,9));
+    const ghosts :GhostCharacter[]= [ghost1,ghost2,ghost3,ghost4];
 
-    function move(bewegungsRichtung:Richtung,intervallTrigger:{bewegungMoeglich: BewegungMoeglich;set: (value: BewegungMoeglich) => void;},position:Koordinate){
-        let spielFeldCopy:React.FC<{}>[][] = spielFeldSubject.getValue().slice();
-        switch (bewegungsRichtung) {
+    const [intervalStart,intervalStop] = CustomInterval(gameTick,2500);
+
+    setTimeout(() => {ghost1.setShallTick = true},2500);
+    setTimeout(() => {ghost2.setShallTick = true},5000);
+    setTimeout(() => {ghost3.setShallTick = true},7500);
+    setTimeout(() => {ghost4.setShallTick = true},10000);
+
+    intervalStart();
+     function gameTick(){
+      let spielFeldCopy:React.FC<{}>[][] = getSpielFeldValue().slice();
+      move(hackman,spielFeldCopy);
+      ghosts.forEach( ghost => {
+        setTimeout(function(){
+          if(ghost.getShallTick){
+            if(ghost.needsNewCountDeclaration() || ghost.getBewegungMoeglich === BewegungMoeglich.Nein){
+              getRandomDirectionAndCount(ghost);
+            }
+            moveGhost(ghost,spielFeldCopy)
+          }
+        },250)
+
+      });
+      setSpielfeldSubject(spielFeldCopy);
+    }
+
+    function getRandomDirectionAndCount(ghost:GhostCharacter)
+    {
+      let max = 7,min =1;
+      let tryBreakOutAfter:number = getRandomNumber(min,max);
+
+      let _canMoveUp = {
+        direction: Richtung.Oben,
+        bewegungMoeglich: canMoveUp(ghost.getPosition)
+      }
+      let _canMoveDown = {
+        direction: Richtung.Unten,
+        bewegungMoeglich: canMoveDown(ghost.getPosition)
+      }
+      let _canMoveLeft = {
+        direction: Richtung.Links,
+        bewegungMoeglich: canMoveLeft(ghost.getPosition)
+      }
+      let _canMoveRight = {
+        direction: Richtung.Rechts,
+        bewegungMoeglich: canMoveRight(ghost.getPosition)
+      }
+      let _canMoveDirections: {direction: Richtung;bewegungMoeglich: BewegungMoeglich;}[] = new Array();
+
+      if(_canMoveUp.bewegungMoeglich === BewegungMoeglich.Ja || _canMoveUp.bewegungMoeglich === BewegungMoeglich.Portal){
+        _canMoveDirections.push(_canMoveUp);
+      }
+      if(_canMoveDown.bewegungMoeglich === BewegungMoeglich.Ja || _canMoveDown.bewegungMoeglich === BewegungMoeglich.Portal){
+        _canMoveDirections.push(_canMoveDown);
+      }
+      if(_canMoveLeft.bewegungMoeglich === BewegungMoeglich.Ja || _canMoveLeft.bewegungMoeglich === BewegungMoeglich.Portal){
+        _canMoveDirections.push(_canMoveLeft);
+      }
+      if(_canMoveRight.bewegungMoeglich === BewegungMoeglich.Ja || _canMoveRight.bewegungMoeglich === BewegungMoeglich.Portal){
+        _canMoveDirections.push(_canMoveRight);
+      }
+
+      if(_canMoveDirections.length === 0){
+        ghost.setBewegungsRichtung = Richtung.Keine;
+        ghost.setBewegungMoeglich = BewegungMoeglich.Nein;
+      }
+      else if(_canMoveDirections.length === 1){
+        ghost.setBewegungsRichtung = _canMoveDirections[0].direction;
+        ghost.setBewegungMoeglich = _canMoveDirections[0].bewegungMoeglich;
+      }
+      else{
+        let index = getRandomNumber(0,_canMoveDirections.length);
+        ghost.setBewegungsRichtung = _canMoveDirections[index].direction;
+        ghost.setBewegungMoeglich = _canMoveDirections[index].bewegungMoeglich;
+      }
+      ghost.setDeclaredCount = tryBreakOutAfter;
+    }
+
+    function moveGhost(ghost:GhostCharacter,spielFeldCopy:React.FC<{}>[][])
+    {
+      ghost.incrementCount();
+      if(ghost.cachedField === Ghost){
+        console.log();
+      }
+      // if(ghost.cachedField !== Ghost)
+      spielFeldCopy[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
+        switch (ghost.getBewegungsRichtung) {
           case Richtung.Oben: {
-              if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-                  spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-                  spielFeldCopy[spielFeldCopy.length - 1][positionHackman.x] = Hackman;
+            if (ghost.getBewegungMoeglich === BewegungMoeglich.Portal){
+                ghost.setCachedField = spielFeldCopy[spielFeldCopy.length - 1][ghost.getPosition.x]
+                if(ghost.cachedField === Ghost){
+                  console.log();
                 }
-                else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
-                    spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-                    spielFeldCopy[positionHackman.y - 1][positionHackman.x] = Hackman;
-                      positionHackman.y = positionHackman.y-1;
-                  }
-                  intervallTrigger.set(canMoveUp(position));
-    
+                spielFeldCopy[spielFeldCopy.length - 1][ghost.getPosition.x] = Ghost;
+                ghost.getPosition.y = spielFeldCopy.length - 1;
+              }
+            else if (ghost.getBewegungMoeglich === BewegungMoeglich.Ja) {
+                ghost.setCachedField = spielFeldCopy[ghost.getPosition.y - 1][ghost.getPosition.x];
+                if(ghost.cachedField === Ghost){
+                  console.log();
+                }
+                spielFeldCopy[ghost.getPosition.y - 1][ghost.getPosition.x] = Ghost;
+                ghost.getPosition.y = ghost.getPosition.y-1;
+              }
+              ghost.setBewegungMoeglich = canMoveUp(ghost.getPosition);
             break;
           }
           case Richtung.Links: {
-            if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-              spielFeldCopy[positionHackman.y][spielFeldCopy[0].length - 1] = Hackman;
-              spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
+            if (ghost.getBewegungMoeglich === BewegungMoeglich.Portal){
+              ghost.setCachedField = spielFeldCopy[ghost.getPosition.y][spielFeldCopy[0].length - 1]
+              if(ghost.cachedField === Ghost){
+                console.log();
+              }
+              spielFeldCopy[ghost.getPosition.y][spielFeldCopy[0].length - 1] = Ghost;
+              ghost.getPosition.x = spielFeldCopy[0].length - 1;
             }
     
-            else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
-              spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-              spielFeldCopy[positionHackman.y][positionHackman.x - 1] = Hackman;
-              positionHackman.x = positionHackman.x-1;
+            else if (ghost.getBewegungMoeglich === BewegungMoeglich.Ja) {
+              ghost.setCachedField = spielFeldCopy[ghost.getPosition.y][ghost.getPosition.x - 1]
+              if(ghost.cachedField === Ghost){
+                console.log();
+              }
+              spielFeldCopy[ghost.getPosition.y][ghost.getPosition.x - 1] = Ghost;
+              ghost.getPosition.x = ghost.getPosition.x-1;
             }
-            intervallTrigger.set(canMoveLeft(position));
+            ghost.setBewegungMoeglich = canMoveLeft(ghost.getPosition);
             break;
           }
           case Richtung.Unten: {
-            if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-              spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-              spielFeldCopy[0][positionHackman.x] = Hackman;
+            if (ghost.getBewegungMoeglich === BewegungMoeglich.Portal){
+              ghost.setCachedField = spielFeldCopy[0][ghost.getPosition.x]
+              if(ghost.cachedField === Ghost){
+                console.log();
+              }
+              spielFeldCopy[0][ghost.getPosition.x] = Ghost;
+              ghost.getPosition.y = 0;
             }
-            else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
-              spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-              spielFeldCopy[positionHackman.y + 1][positionHackman.x] = Hackman;
-              positionHackman.y = positionHackman.y+1;
+            else if (ghost.getBewegungMoeglich === BewegungMoeglich.Ja) {
+              ghost.setCachedField = spielFeldCopy[ghost.getPosition.y + 1][ghost.getPosition.x]
+              if(ghost.cachedField === Ghost){
+                console.log();
+              }
+              spielFeldCopy[ghost.getPosition.y + 1][ghost.getPosition.x] = Ghost;
+              ghost.getPosition.y = ghost.getPosition.y+1;
             }
-            intervallTrigger.set(canMoveDown(position));
+            ghost.setBewegungMoeglich = canMoveDown(ghost.getPosition);
             break;
           }
           case Richtung.Rechts: {
-            if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Portal){
-              spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-              spielFeldCopy[positionHackman.y][0] = Hackman;
+            if (ghost.getBewegungMoeglich === BewegungMoeglich.Portal){
+              ghost.setCachedField = spielFeldCopy[ghost.getPosition.y][0]
+              if(ghost.cachedField === Ghost){
+                console.log();
+              }
+              spielFeldCopy[ghost.getPosition.y][0] = Ghost;
+              ghost.getPosition.x = 0;
             }
             
-            else if (intervallTrigger.bewegungMoeglich === BewegungMoeglich.Ja) {
-              spielFeldCopy[positionHackman.y][positionHackman.x] = Empty;
-              spielFeldCopy[positionHackman.y][positionHackman.x + 1] = Hackman;
-              positionHackman.x = positionHackman.x+1;
+            else if (ghost.getBewegungMoeglich === BewegungMoeglich.Ja) {
+              ghost.setCachedField = spielFeldCopy[ghost.getPosition.y][ghost.getPosition.x + 1]
+              if(ghost.cachedField === Ghost){
+                console.log();
+              }
+              spielFeldCopy[ghost.getPosition.y][ghost.getPosition.x + 1] = Ghost;
+              ghost.getPosition.x = ghost.getPosition.x+1;
             }
 
-            intervallTrigger.set(canMoveRight(position));
+            ghost.setBewegungMoeglich = canMoveRight(ghost.getPosition);
             break;
           }
         }
-        setSpielfeldSubject(spielFeldCopy);
+        return spielFeldCopy;
+    }
+
+    function move(hackman:Character,spielFeldCopy:React.FC<{}>[][]){
+        
+        switch (hackman.getBewegungsRichtung) {
+          case Richtung.Oben: {
+            if (hackman.getBewegungMoeglich === BewegungMoeglich.Portal){
+                spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+                spielFeldCopy[spielFeldCopy.length - 1][hackman.getPosition.x] = Hackman;
+              }
+            else if (hackman.getBewegungMoeglich === BewegungMoeglich.Ja) {
+                spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+                spielFeldCopy[hackman.getPosition.y - 1][hackman.getPosition.x] = Hackman;
+                hackman.setPositionY = hackman.getPosition.y-1;
+              }
+              hackman.setBewegungMoeglich = canMoveUp(hackman.getPosition);
+            break;
+          }
+          case Richtung.Links: {
+            if (hackman.getBewegungMoeglich === BewegungMoeglich.Portal){
+              spielFeldCopy[hackman.getPosition.y][spielFeldCopy[0].length - 1] = Hackman;
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+            }
+    
+            else if (hackman.getBewegungMoeglich === BewegungMoeglich.Ja) {
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x - 1] = Hackman;
+              hackman.setPositionX = hackman.getPosition.x-1;
+            }
+            hackman.setBewegungMoeglich = canMoveLeft(hackman.getPosition);
+            break;
+          }
+          case Richtung.Unten: {
+            if (hackman.getBewegungMoeglich === BewegungMoeglich.Portal){
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+              spielFeldCopy[0][hackman.getPosition.x] = Hackman;
+            }
+            else if (hackman.getBewegungMoeglich === BewegungMoeglich.Ja) {
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+              spielFeldCopy[hackman.getPosition.y + 1][hackman.getPosition.x] = Hackman;
+              hackman.setPositionY = hackman.getPosition.y+1;
+            }
+            hackman.setBewegungMoeglich = canMoveDown(hackman.getPosition);
+            break;
+          }
+          case Richtung.Rechts: {
+            if (hackman.getBewegungMoeglich === BewegungMoeglich.Portal){
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+              spielFeldCopy[hackman.getPosition.y][0] = Hackman;
+            }
+            
+            else if (hackman.getBewegungMoeglich === BewegungMoeglich.Ja) {
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
+              spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x + 1] = Hackman;
+              hackman.setPositionX = hackman.getPosition.x+1;
+            }
+
+            hackman.setBewegungMoeglich = canMoveRight(hackman.getPosition);
+            break;
+          }
+        }
+        return spielFeldCopy;
       };
 // const checkCoins = (): boolean => {
 //   let spielFeldCopy:React.FC<{}>[][] = spielFeldSubject.getValue().slice();
@@ -124,62 +287,66 @@ const SpielFeldService = ()=>{
 //       return false;
 //   }
 // }
-const canMoveUp = (position:Koordinate) =>{
+function canMoveUp(position:Koordinate){
     const spielFeld = spielFeldSubject.getValue();
     if (spielFeld[position.y - 1] === undefined) return BewegungMoeglich.Portal;
     else if (spielFeld[position.y - 1][position.x] === Empty ||
       spielFeld[position.y - 1][position.x] === Coin ||
       spielFeld[position.y - 1][position.x] === Snack)
       return BewegungMoeglich.Ja;
+      else if (spielFeld[position.y - 1][position.x] === Empty) return BewegungMoeglich.Nein;
     else return BewegungMoeglich.Nein;
   }
 
-  const canMoveDown = (position:Koordinate) =>{
+  function canMoveDown(position:Koordinate){
     const spielFeld = spielFeldSubject.getValue();
     if (spielFeld[position.y + 1] === undefined) return BewegungMoeglich.Portal;
     else if(spielFeld[position.y + 1][position.x] === Empty ||
       spielFeld[position.y + 1][position.x] === Coin ||
       spielFeld[position.y + 1][position.x] === Snack)
       return BewegungMoeglich.Ja;
+      else if (spielFeld[position.y + 1][position.x] === Empty)return BewegungMoeglich.Nein;
     else return BewegungMoeglich.Nein;   
   }
 
-  const canMoveLeft = (position:Koordinate) =>{
+  function canMoveLeft(position:Koordinate){
     const spielFeld = spielFeldSubject.getValue();
         if (spielFeld[position.y][position.x - 1] === undefined) return BewegungMoeglich.Portal;
         else if (spielFeld[position.y][position.x - 1] === Empty ||
           spielFeld[position.y][position.x - 1] === Coin ||
           spielFeld[position.y][position.x - 1] === Snack)
           return BewegungMoeglich.Ja;
+          else if (spielFeld[position.y][position.x - 1] === Empty)  return BewegungMoeglich.Nein;
         else return BewegungMoeglich.Nein;
   }
 
-  const canMoveRight = (position:Koordinate) =>{
+  function canMoveRight(position:Koordinate){
     const spielFeld = spielFeldSubject.getValue();
     if (spielFeld[position.y][position.x + 1] === undefined) return BewegungMoeglich.Portal;
     else if (spielFeld[position.y][position.x + 1] === Empty ||
       spielFeld[position.y][position.x + 1] === Coin ||
       spielFeld[position.y][position.x + 1] === Snack)
       return BewegungMoeglich.Ja;
+    else if(spielFeld[position.y][position.x + 1] === Ghost) return BewegungMoeglich.Nein;
     else return BewegungMoeglich.Nein;
   }
 
     const handleKeyDown = (e: React.KeyboardEvent): void => {
           if (e.key.toLowerCase() === "w" || e.key === "ArrowUp"){
-            setBewegungsRichtungHackmanSubject(Richtung.Oben);
-            intervallTriggerHackmanMove.set(canMoveUp(positionHackman));
+            hackman.setBewegungsRichtung = Richtung.Oben;
+            hackman.setBewegungMoeglich = canMoveUp(hackman.getPosition);
           }
           else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft"){
-            setBewegungsRichtungHackmanSubject(Richtung.Links);
-            intervallTriggerHackmanMove.set(canMoveLeft(positionHackman));
+            hackman.setBewegungsRichtung = Richtung.Links;
+            hackman.setBewegungMoeglich = canMoveLeft(hackman.getPosition);
           }
           else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown"){
-            setBewegungsRichtungHackmanSubject(Richtung.Unten);
-            intervallTriggerHackmanMove.set(canMoveDown(positionHackman));
+            hackman.setBewegungsRichtung = Richtung.Unten;
+            hackman.setBewegungMoeglich = canMoveDown(hackman.getPosition);
           }
           else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight"){
-            setBewegungsRichtungHackmanSubject(Richtung.Rechts);
-            intervallTriggerHackmanMove.set(canMoveRight(positionHackman));
+            hackman.setBewegungsRichtung = Richtung.Rechts;
+            hackman.setBewegungMoeglich = canMoveRight(hackman.getPosition);
           }
           else
           return;
@@ -187,7 +354,7 @@ const canMoveUp = (position:Koordinate) =>{
 
         return {
           spielFeldSubject,
-          bewegungsRichtungHackmanSubject,
+          bewegungsRichtungSubject : hackman.getBewegungsRichtungSubject,
           handleKeyDown
         }
 }

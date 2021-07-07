@@ -59,23 +59,23 @@ const Spielfeld: React.FC<IGameFieldProps> = (props) => {
 
   useEffect(() => {
     const spielFeldSubscription = props.spielFeldService.spielFeldSubject.subscribe((value)=>{
-      console.log(spielfeld);
-      console.log("\n");
-      console.log(value);
-      setSpielfeld(value);
-      console.log("\n");
-      console.log(spielfeld);
+      // console.log(spielfeld);
+      // console.log("\n");
+      // console.log(value);
+      setSpielfeld(value.slice());
+      // console.log("\n");
+      // console.log(spielfeld);
   });
     return () => spielFeldSubscription.unsubscribe()
   },[props.spielFeldService])
 
   useEffect(()=>{
-    const bewegungsRichtungHackmanSubscription = props.spielFeldService.bewegungsRichtungHackmanSubject.subscribe((value)=>{
-      console.log(bewegungsRichtungHackman);
-      console.log("\n");
-      console.log(value);
-      console.log("\n");
-      console.log(bewegungsRichtungHackman);
+    const bewegungsRichtungHackmanSubscription = props.spielFeldService.bewegungsRichtungSubject.subscribe((value)=>{
+      // console.log(bewegungsRichtungHackman);
+      // console.log("\n");
+      // console.log(value);
+      // console.log("\n");
+      // console.log(bewegungsRichtungHackman);
       setBewegungsRichtungHackman(value);     
     });
     return () => bewegungsRichtungHackmanSubscription.unsubscribe()
