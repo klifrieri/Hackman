@@ -17,10 +17,7 @@ import Corb from "./Components/Corners/CornerRightBottom";
 import Snac from "./Components/Snack";
 import Hack from "./Components/Hackman";
 import Geis from "./Components/Ghost";
-import Gate from "./Components/Gate";
 import React from 'react';
-import EventEmitter from "events";
-import Coordinate from "./Types/Coordinate";
 
 const SpielfeldLayout = () => {
     let fields: React.FC<any>[][] = [

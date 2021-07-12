@@ -4,7 +4,6 @@ import {EventEmitter} from "events"
 
 export default interface IGameFieldProps {
     fields: React.FC[][];
-    onCoinEaten : any;
     spielFeldService: {
       spielFeldSubject: BehaviorSubject<React.FC<{}>[][]>;
       bewegungsRichtungSubject: BehaviorSubject<any>;

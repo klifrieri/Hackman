@@ -17,7 +17,7 @@ const App: React.FC = () => {
   })
   return(
     <div className="App center">
-      <GameField fields={spielfeld} spielFeldService={spielFeldService} onCoinEaten={() => setEatenCoins(eatenCoins + 1)}/>;
+      <GameField fields={spielfeld} spielFeldService={spielFeldService}/>;
       <Stats remainingLives={3} eatenCoins={eatenCoins}/>
     </div>
   )

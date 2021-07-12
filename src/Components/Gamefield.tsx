@@ -83,7 +83,7 @@ const GameField: React.FC<IGameFieldProps> = (props) => {
   },[props.spielFeldService])
 
   return (
-    <div className="App center" onKeyDown={props.spielFeldService.handleKeyDown} tabIndex={0}>
+    <div onKeyDown={props.spielFeldService.handleKeyDown} tabIndex={0}>
       {spielfeld.map((row, x) => {
         return (
           <div className="row" key={x}>

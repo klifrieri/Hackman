@@ -72,7 +72,7 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][],emitter:Ev
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
           hackmanMovesUp(spielFeldCopy, hackman);
           if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-            emitter.emit("increaseEatenCoins");
+            // emitter.emit("increaseEatenCoins");
           }
         }
       break;
@@ -85,7 +85,7 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][],emitter:Ev
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
         hackmanMovesLeft(spielFeldCopy, hackman);
         if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-          emitter.emit("increaseEatenCoins");
+          // emitter.emit("increaseEatenCoins");
         }
       }
       break;
@@ -97,7 +97,7 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][],emitter:Ev
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
         hackmanMovesDown(spielFeldCopy, hackman);
         if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-          emitter.emit("increaseEatenCoins");
+          // emitter.emit("increaseEatenCoins");
         }
       }
       break;
@@ -110,7 +110,7 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][],emitter:Ev
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
         hackmanMovesRight(spielFeldCopy, hackman);
         if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-          emitter.emit("increaseEatenCoins");
+          // emitter.emit("increaseEatenCoins");
         }
       }
       break;
