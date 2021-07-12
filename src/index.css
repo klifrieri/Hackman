@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: 'System';
+    src: url('./AtariST8x16SystemFont.ttf');
+}
 
 /* Main */
 *{
@@ -37,6 +40,23 @@ code {
     transform: translate(-50%, -50%);
 }
 
+
+/* Stats */
+
+.stats.container{
+    display: block;
+    text-align: center;
+}
+
+.stats.content{
+    color : white;
+    display: inline-block;
+    margin: 0px;
+    font-size: 2em;
+    margin: 0 0.5em 0.5em 0;
+    font-family: "System";
+    letter-spacing: 10px;
+}
 
 /* Walls */
 .verticalWall{

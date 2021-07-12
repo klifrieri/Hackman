@@ -17,13 +17,14 @@ import CornerLB from "./Corners/CornerLeftBottom";
 import CornerRT from "./Corners/CornerRightTop";
 import CornerRB from "./Corners/CornerRightBottom";
 import React, { useEffect, useState } from "react";
-import Direction from "../Types/Direction";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
 import IGameFieldProps from "../Interfaces/IGameFieldProps";
+import Direction from "../Types/Direction";
 
-const Spielfeld: React.FC<IGameFieldProps> = (props) => {
+
+const GameField: React.FC<IGameFieldProps> = (props) => {
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === Wall) return <Wall key={key} />;
     else if (component === HorizontalWall) return <HorizontalWall key={key} />;
@@ -93,7 +94,7 @@ const Spielfeld: React.FC<IGameFieldProps> = (props) => {
         );
       })}
     </div>
-  );
+  )
 };
 
-export default Spielfeld;
+export default GameField;

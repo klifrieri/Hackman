@@ -3,6 +3,8 @@ import Empty from "../../Components/Empty";
 import Hackman from "../../Components/Hackman";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
+import EventEmitter from "events";
+import { checkCoins } from "./CanMove";
 
 
 function hackmanMovesUp(spielFeldCopy: React.FC<{}>[][], hackman: Character): React.FC<{}>[][] {
@@ -61,7 +63,7 @@ function hackmanMovesDownTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: 
     return spielFeldCopy;
 }
 
-function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][]): React.FC<{}>[][]{     
+function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][],emitter:EventEmitter): React.FC<{}>[][]{     
   switch (hackman.getBewegungsRichtung) {
     case Direction.Up: {
       if (hackman.getBewegungMoeglich === Moveable.Portal){
@@ -69,6 +71,9 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][]): React.FC
         }
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
           hackmanMovesUp(spielFeldCopy, hackman);
+          if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
+            emitter.emit("increaseEatenCoins");
+          }
         }
       break;
     }
@@ -79,6 +84,9 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][]): React.FC
 
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
         hackmanMovesLeft(spielFeldCopy, hackman);
+        if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
+          emitter.emit("increaseEatenCoins");
+        }
       }
       break;
     }
@@ -88,6 +96,9 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][]): React.FC
       }
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
         hackmanMovesDown(spielFeldCopy, hackman);
+        if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
+          emitter.emit("increaseEatenCoins");
+        }
       }
       break;
     }
@@ -98,6 +109,9 @@ function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][]): React.FC
       
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
         hackmanMovesRight(spielFeldCopy, hackman);
+        if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
+          emitter.emit("increaseEatenCoins");
+        }
       }
       break;
     }

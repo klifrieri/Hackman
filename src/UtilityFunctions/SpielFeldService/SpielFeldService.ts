@@ -11,11 +11,12 @@ import {moveHackman} from './MoveHackman';
 import { canMove, canMoveDown, canMoveLeft, canMoveRight, canMoveUp, getPossibleDirections } from './CanMove';
 import { moveGhost } from './MoveGhost';
 import { setRandomDirectionAndCount } from '../GetRandomNumber';
+import EventEmitter from 'events';
 
 
 
 
-const SpielFeldService = ()=>{
+const SpielFeldService = (emitter:EventEmitter)=>{
   const spielFeldSubject :BehaviorSubject<React.FC<{}>[][]> = new BehaviorSubject(SpielfeldLayout().slice());
   const setSpielfeldSubject = ()=>{
     spielFeldSubject.next(gameTick().slice());
@@ -42,7 +43,7 @@ const SpielFeldService = ()=>{
     function gameTick() :React.FC<{}>[][]{
     let spielFeldCopy:React.FC<{}>[][] = getSpielFeldValue().slice();
     hackman.setBewegungMoeglich = canMove(hackman.getBewegungsRichtung,spielFeldCopy,hackman.getPosition);
-    spielFeldCopy = moveHackman(hackman,spielFeldCopy);
+    spielFeldCopy = moveHackman(hackman,spielFeldCopy,emitter);
     ghosts.forEach( ghost => {
         if(ghost.getShallTick){
           if(ghost.needsNewCountDeclaration() || ghost.getBewegungMoeglich === Moveable.No){
@@ -104,6 +105,7 @@ const SpielFeldService = ()=>{
     else
     return;
   };
+
 
   return {
     spielFeldSubject,

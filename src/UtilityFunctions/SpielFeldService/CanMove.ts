@@ -105,4 +105,22 @@ function getPossibleDirections(spielFeld:React.FC<{}>[][],position:Coordinate):{
   return canMoveDirections;
 }
   
-  export {canMove,canMoveRight,canMoveLeft,canMoveDown,canMoveUp,getPossibleDirections};
+function checkCoins(gameField:React.FC<{}>[][],direction:Direction,position:Coordinate): boolean{
+  switch(direction){
+    case Direction.Up:{
+      return (gameField[position.y - 1][position.x] === Coin || gameField[position.y - 1][position.x] === Snack)
+    }
+    case Direction.Left: {
+      return(gameField[position.y][position.x - 1] === Coin || gameField[position.y][position.x - 1] === Snack)
+    }
+    case Direction.Down:{
+      return(gameField[position.y + 1][position.x] === Coin || gameField[position.y + 1][position.x] === Snack)
+    }
+    case Direction.Right:{
+      return(gameField[position.y][position.x + 1] === Coin || gameField[position.y][position.x + 1] === Snack)
+    }
+    default:
+      return false;
+  }
+}
+  export {canMove,canMoveRight,canMoveLeft,canMoveDown,canMoveUp,getPossibleDirections,checkCoins};
