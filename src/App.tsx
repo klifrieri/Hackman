@@ -2,7 +2,7 @@ import SpielfeldLayout from "./SpielfeldLayout";
 import Spielfeld from "./Components/Gamefield";
 import React from "react";
 import { useState } from "react";
-import SpielFeldService from "./UtilityFunctions/spielFeldService";
+import SpielFeldService from "./UtilityFunctions/SpielFeldService/SpielFeldService";
 
 const App: React.FC = () => {
   const [spielfeld] = useState<React.FC<{}>[][]>(SpielfeldLayout());

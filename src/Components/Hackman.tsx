@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Richtung from "../Types/Richtung";
+import Direction from "../Types/Direction";
 import { CharacterProps } from "../Interfaces/CharacterProps";
 
 const Hackman: React.FC<any> = (props:CharacterProps) => {
@@ -25,20 +25,20 @@ const Hackman: React.FC<any> = (props:CharacterProps) => {
       }, 250)
   }
 
-  const moveHackman = (richtung:Richtung) => {   
-    if(richtung === Richtung.Oben){
+  const moveHackman = (richtung:Direction) => {   
+    if(richtung === Direction.Up){
       setClassNames("hackman top move-top");
     }
-    else if(richtung === Richtung.Unten){
+    else if(richtung === Direction.Down){
       setClassNames("hackman bottom move-bottom");
     }
-    else if(richtung === Richtung.Links){
+    else if(richtung === Direction.Left){
       setClassNames("hackman left move-left");
     }
-    else if(richtung === Richtung.Rechts){
+    else if(richtung === Direction.Right){
       setClassNames("hackman right move-right");
     }
-    else if(richtung === Richtung.Keine){
+    else if(richtung === Direction.Nothing){
       setClassNames("hackman");
     }
     // setTimeout(()=>{
@@ -47,15 +47,15 @@ const Hackman: React.FC<any> = (props:CharacterProps) => {
   }
   
   
-  const getClassByRichtung = (richtung: Richtung): string => {
+  const getClassByRichtung = (richtung: Direction): string => {
     switch (richtung) {
-      case Richtung.Oben:
+      case Direction.Up:
         return `hackman top`;
-      case Richtung.Links:
+      case Direction.Left:
         return `hackman left`;
-      case Richtung.Unten:
+      case Direction.Down:
         return `hackman bottom`;
-      case Richtung.Rechts:
+      case Direction.Right:
         return `hackman right`;
       default:
         return `hackman`;

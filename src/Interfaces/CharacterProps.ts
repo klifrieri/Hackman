@@ -1,5 +1,5 @@
-import Richtung from "../Types/Richtung";
+import Direction from "../Types/Direction";
 
 export type CharacterProps = {
-    richtung: Richtung;
+    richtung: Direction;
   };

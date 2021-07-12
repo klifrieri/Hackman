@@ -1,5 +1,5 @@
 import { BehaviorSubject } from "rxjs/internal/BehaviorSubject";
-import Richtung from "../Types/Richtung";
+import Direction from "../Types/Direction";
 
 export default interface IGameFieldProps {
     fields: React.FC[][];

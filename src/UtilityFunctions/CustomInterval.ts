@@ -1,9 +1,9 @@
-import Koordinate from "../Types/Koordinate";
-import Richtung from "../Types/Richtung";
+import Coordinate from "../Types/Coordinate";
+import Direction from "../Types/Direction";
 
-const CustomIntervalF = (funct:(bewegungsRichtung:Richtung,positionOld:Koordinate)=>void,mSec:number)=>{
+const CustomInterval = (funct:()=>void,mSec:number)=>{
     let isSet:boolean = false;
-    let interval!:number;
+    let interval!:NodeJS.Timeout;
     const start = ()=>{
         if(!isSet){
             interval = setInterval(funct, mSec);
@@ -21,4 +21,4 @@ const CustomIntervalF = (funct:(bewegungsRichtung:Richtung,positionOld:Koordinat
 
 
 
-export default CustomIntervalF;
+export default CustomInterval;

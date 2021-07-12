@@ -20,7 +20,7 @@ import Geis from "./Components/Ghost";
 import Gate from "./Components/Gate";
 import React from 'react';
 import EventEmitter from "events";
-import Koordinate from "./Types/Koordinate";
+import Coordinate from "./Types/Coordinate";
 
 const SpielfeldLayout = () => {
     let fields: React.FC<any>[][] = [

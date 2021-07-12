@@ -17,7 +17,7 @@ import CornerLB from "./Corners/CornerLeftBottom";
 import CornerRT from "./Corners/CornerRightTop";
 import CornerRB from "./Corners/CornerRightBottom";
 import React, { useEffect, useState } from "react";
-import Richtung from "../Types/Richtung";
+import Direction from "../Types/Direction";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
@@ -46,7 +46,7 @@ const Spielfeld: React.FC<IGameFieldProps> = (props) => {
     else if (component === Hackman)
       return <Hackman key={key} richtung={bewegungsRichtungHackman}/>;
     else if (component === Ghost)
-     return <Ghost key={key} richtung={Richtung.Links}/>;
+     return <Ghost key={key} richtung={Direction.Left}/>;
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
@@ -54,7 +54,7 @@ const Spielfeld: React.FC<IGameFieldProps> = (props) => {
   };
 
   const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
-  const [bewegungsRichtungHackman,setBewegungsRichtungHackman] = useState<Richtung>(Richtung.Keine);
+  const [bewegungsRichtungHackman,setBewegungsRichtungHackman] = useState<Direction>(Direction.Nothing);
 
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import Empty from "../Components/Empty";
 import Ghost from "../Components/Ghost";
-import BewegungMoeglich from "../Types/BewegungMoeglich";
-import Koordinate from "../Types/Koordinate";
+import Moveable from "../Types/Moveable";
+import Coordinate from "../Types/Coordinate";
 import Character from "./Character";
 
 class GhostCharacter extends Character{
@@ -30,19 +30,24 @@ class GhostCharacter extends Character{
     private _cachedField:React.FC<{}>;
     public get cachedField(){
       if(this._cachedField === Ghost)
-      console.log(this._cachedField.name + "Und das " + this.getBewegungsRichtung);
+      console.log("Cache gelesen "+ this._cachedField.name);
         return this._cachedField;
     }
     public set setCachedField(value:React.FC<{}>){
+      console.log("Value beim setzen " + value.name)
     this._cachedField = value;
+    if(this._cachedField === Ghost)
+      console.log("Cache gelesen "+ this._cachedField.name);
+    
     }
-    constructor(name:string,position:Koordinate){
-      super(name,position);
-      console.log(this.getBewegungMoeglich);
+    constructor(name:string,positionY:number,positionX:number){
+      super(name,positionY,positionX);
+      // console.log(this.getBewegungMoeglich);
       this._shallTick = false;
       this._declaredCount = 0;
       this._count = 0;
       this._cachedField = Empty;
+      console.log(positionY + " and x " + positionX)
     }
   }
   export default GhostCharacter;
