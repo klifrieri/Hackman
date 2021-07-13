@@ -67,8 +67,11 @@ const GameField: React.FC<IGameFieldProps> = (props) => {
       // console.log("\n");
       // console.log(spielfeld);
   });
+  // const sub2 = props.spielFeldService.eatenCoinsSubject.subscribe((value)=>{
+  //   props.onCoinEaten();
+  // });
     return () => spielFeldSubscription.unsubscribe()
-  },[props.spielFeldService])
+  },[props.spielFeldService.spielFeldSubject])
 
   useEffect(()=>{
     const bewegungsRichtungHackmanSubscription = props.spielFeldService.bewegungsRichtungSubject.subscribe((value)=>{
@@ -80,8 +83,14 @@ const GameField: React.FC<IGameFieldProps> = (props) => {
       setBewegungsRichtungHackman(value);     
     });
     return () => bewegungsRichtungHackmanSubscription.unsubscribe()
-  },[props.spielFeldService])
+  },[props.spielFeldService.bewegungsRichtungSubject]);
 
+  useEffect(()=>{
+    const eatenCoinsSubscription = props.spielFeldService.eatenCoinsSubject.subscribe((value)=>{
+      props.onCoinEaten();
+    });
+    return () => eatenCoinsSubscription.unsubscribe();
+  },[props.spielFeldService.eatenCoinsSubject])
   return (
     <div onKeyDown={props.spielFeldService.handleKeyDown} tabIndex={0}>
       {spielfeld.map((row, x) => {

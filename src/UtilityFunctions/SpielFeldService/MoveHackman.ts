@@ -63,60 +63,61 @@ function hackmanMovesDownTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: 
     return spielFeldCopy;
 }
 
-function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][],emitter:EventEmitter): React.FC<{}>[][]{     
+function moveHackman(hackman:Character,spielFeldCopy:React.FC<{}>[][]): {spielFeldCopy:React.FC<{}>[][],increaseCoins:boolean}{    
+  let increaseCoins:boolean=false; 
   switch (hackman.getBewegungsRichtung) {
     case Direction.Up: {
       if (hackman.getBewegungMoeglich === Moveable.Portal){
-          hackmanMovesUpTroughPortal(spielFeldCopy, hackman);
+          spielFeldCopy = hackmanMovesUpTroughPortal(spielFeldCopy, hackman);
         }
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
-          hackmanMovesUp(spielFeldCopy, hackman);
+        spielFeldCopy = hackmanMovesUp(spielFeldCopy, hackman);
           if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-            // emitter.emit("increaseEatenCoins");
+            increaseCoins = true;
           }
         }
       break;
     }
     case Direction.Left: {
       if (hackman.getBewegungMoeglich === Moveable.Portal){
-        hackmanMovesLeftTroughPortal(spielFeldCopy, hackman);
+        spielFeldCopy = hackmanMovesLeftTroughPortal(spielFeldCopy, hackman);
       }
 
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
-        hackmanMovesLeft(spielFeldCopy, hackman);
+        spielFeldCopy = hackmanMovesLeft(spielFeldCopy, hackman);
         if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-          // emitter.emit("increaseEatenCoins");
+          increaseCoins = true;
         }
       }
       break;
     }
     case Direction.Down: {
       if (hackman.getBewegungMoeglich === Moveable.Portal){
-        hackmanMovesDownTroughPortal(spielFeldCopy, hackman);
+        spielFeldCopy = hackmanMovesDownTroughPortal(spielFeldCopy, hackman);
       }
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
-        hackmanMovesDown(spielFeldCopy, hackman);
+        spielFeldCopy = hackmanMovesDown(spielFeldCopy, hackman);
         if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-          // emitter.emit("increaseEatenCoins");
+          increaseCoins = true;
         }
       }
       break;
     }
     case Direction.Right: {
       if (hackman.getBewegungMoeglich === Moveable.Portal){
-        hackmanMovesRightTroughPortal(spielFeldCopy, hackman);
+        spielFeldCopy = hackmanMovesRightTroughPortal(spielFeldCopy, hackman);
       }
       
       else if (hackman.getBewegungMoeglich === Moveable.Yes) {
-        hackmanMovesRight(spielFeldCopy, hackman);
+        spielFeldCopy = hackmanMovesRight(spielFeldCopy, hackman);
         if(checkCoins(spielFeldCopy,Direction.Up,hackman.getPosition)){
-          // emitter.emit("increaseEatenCoins");
+          increaseCoins = true;
         }
       }
       break;
     }
   }
-  return spielFeldCopy;
+  return {spielFeldCopy,increaseCoins};
 };
 
 export {hackmanMovesDownTroughPortal,hackmanMovesDown,hackmanMovesRightTroughPortal,hackmanMovesRight,hackmanMovesUpTroughPortal,hackmanMovesUp,hackmanMovesLeftTroughPortal,hackmanMovesLeft,moveHackman};

@@ -1,10 +1,14 @@
-import { EventEmitter } from "events";
+import EventEmitter from 'eventemitter3';
 
-class Emitter{
-    constructor(){
-        this.emitter = new EventEmitter();
-    }
-    emitter;
+const eventEmitter = new EventEmitter();
+
+const Emitter = {
+  on: (event : any, fn:any) => eventEmitter.on(event, fn),
+  once: (event:any, fn:any) => eventEmitter.once(event, fn),
+  off: (event:any, fn:any) => eventEmitter.off(event, fn),
+  emit: (event:any, payload:any) => eventEmitter.emit(event, payload)
 }
+
+Object.freeze(Emitter);
 
 export default Emitter;

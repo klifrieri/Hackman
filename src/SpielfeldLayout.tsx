@@ -38,7 +38,7 @@ const SpielfeldLayout = () => {
         [Colb, Holl, Holl, Holl, Holl, Tpto, Holl, Holl, Holl, Holl, Tpto, Holl, Holl, Holl, Holl, Tpto, Holl, Holl, Holl, Holl, Corb]
     ]
 
-    return fields;
+    return fields.slice();
 }
 
 

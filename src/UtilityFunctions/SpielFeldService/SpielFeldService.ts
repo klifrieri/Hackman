@@ -5,26 +5,34 @@ import SpielfeldLayout from '../../SpielfeldLayout';
 import Moveable from '../../Types/Moveable';
 import Coordinate from '../../Types/Coordinate';
 import Direction from '../../Types/Direction';
-import {BehaviorSubject} from 'rxjs';
+import {BehaviorSubject, Subject} from 'rxjs';
 import CustomInterval from '../CustomInterval';
 import {moveHackman} from './MoveHackman';
 import { canMove, canMoveDown, canMoveLeft, canMoveRight, canMoveUp, getPossibleDirections } from './CanMove';
 import { moveGhost } from './MoveGhost';
 import { setRandomDirectionAndCount } from '../GetRandomNumber';
-import EventEmitter from 'events';
+import Emitter from '../../service';
 
 
 
 
-const SpielFeldService = (emitter:EventEmitter)=>{
+const SpielFeldService = ()=>{
   const spielFeldSubject :BehaviorSubject<React.FC<{}>[][]> = new BehaviorSubject(SpielfeldLayout().slice());
-  const setSpielfeldSubject = ()=>{
-    spielFeldSubject.next(gameTick().slice());
+  let eatenCoinsSubject :BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  const setSubjects = ()=>{
+    let result = gameTick();
+    spielFeldSubject.next(result.spielFeldCopy.slice());
+    if(result.increaseCoins){
+        setEatenCoinsSubject(1);
+    }
+
   }
   const getSpielFeldValue = () => {
     return spielFeldSubject.getValue();
   }
-
+  const setEatenCoinsSubject = (value:number)=>{
+    eatenCoinsSubject.next(1);
+  }
   const hackman = new Character("Hackman",12,10);
   const ghost1 = new GhostCharacter("Ghost1",7,9);
   const ghost2 = new GhostCharacter("Ghost2",7,11);
@@ -32,7 +40,7 @@ const SpielFeldService = (emitter:EventEmitter)=>{
   const ghost4 = new GhostCharacter("Ghost2",9,11);
   const ghosts :GhostCharacter[]= [ghost1,ghost2,ghost3,ghost4];
 
-  const [intervalStart,intervalStop] = CustomInterval(setSpielfeldSubject,250);
+  const [intervalStart,intervalStop] = CustomInterval(setSubjects,5000);
 
   setTimeout(() => {ghost1.setShallTick = true},2500);
   setTimeout(() => {ghost2.setShallTick = true},5000);
@@ -40,23 +48,23 @@ const SpielFeldService = (emitter:EventEmitter)=>{
   setTimeout(() => {ghost4.setShallTick = true},10000);
 
   intervalStart();
-    function gameTick() :React.FC<{}>[][]{
+    function gameTick() :{spielFeldCopy:React.FC<{}>[][],increaseCoins:boolean}{
     let spielFeldCopy:React.FC<{}>[][] = getSpielFeldValue().slice();
     hackman.setBewegungMoeglich = canMove(hackman.getBewegungsRichtung,spielFeldCopy,hackman.getPosition);
-    spielFeldCopy = moveHackman(hackman,spielFeldCopy,emitter);
+    let result = moveHackman(hackman,spielFeldCopy);
     ghosts.forEach( ghost => {
         if(ghost.getShallTick){
           if(ghost.needsNewCountDeclaration() || ghost.getBewegungMoeglich === Moveable.No){
-            const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(spielFeldCopy,ghost.getPosition);
+            const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(result.spielFeldCopy,ghost.getPosition);
             ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
           }
           else{
-            ghost.setBewegungMoeglich = canMove(ghost.getBewegungsRichtung,spielFeldCopy,ghost.getPosition);
+            ghost.setBewegungMoeglich = canMove(ghost.getBewegungsRichtung,result.spielFeldCopy,ghost.getPosition);
           }
-          spielFeldCopy = moveGhost(ghost,spielFeldCopy);
+          result.spielFeldCopy = moveGhost(ghost,result.spielFeldCopy);
         }
     });
-  return spielFeldCopy;
+  return result;
 }
 
 
@@ -110,7 +118,8 @@ const SpielFeldService = (emitter:EventEmitter)=>{
   return {
     spielFeldSubject,
     bewegungsRichtungSubject : hackman.getBewegungsRichtungSubject,
-    handleKeyDown
+    handleKeyDown,
+    eatenCoinsSubject
   }
 }
 
