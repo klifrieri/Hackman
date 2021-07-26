@@ -50,19 +50,19 @@ function canMoveRight(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
   else return Moveable.No;
 }
 
-function canMove(richtung:Direction,spielFeld:React.FC<{}>[][],position:Coordinate): Moveable{
-  switch(richtung){
+function canMove(gameField:React.FC<{}>[][],position:Coordinate,direction:Direction,): Moveable{
+  switch(direction){
     case Direction.Up:{
-      return canMoveUp(spielFeld,position);
+      return canMoveUp(gameField,position);
       }
     case Direction.Left: {
-      return canMoveLeft(spielFeld,position);
+      return canMoveLeft(gameField,position);
     }
     case Direction.Down:{
-      return canMoveDown(spielFeld,position);
+      return canMoveDown(gameField,position);
     }
     case Direction.Right:{
-      return canMoveRight(spielFeld,position);
+      return canMoveRight(gameField,position);
     }
     default:
       return Moveable.No;

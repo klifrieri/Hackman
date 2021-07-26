@@ -20,11 +20,18 @@ import React, { useEffect, useState } from "react";
 import Snack from "./Snack";
 import Ghost from "./Ghost";
 import Gate from "./Gate";
-import IGameFieldProps from "../Interfaces/IGameFieldProps";
+// import IGameFieldProps from "../Interfaces/IGameFieldProps";
 import Direction from "../Types/Direction";
+import { useDispatch, useSelector } from "react-redux";
+import { State, store } from "../State/store";
+import { bindActionCreators } from "redux";
+import gameFieldSlice from "../State/slices/gameFieldSlice";
+import { canMoveLeft } from "../UtilityFunctions/SpielFeldService/CanMove";
+import Moveable from "../Types/Moveable";
+import CustomInterval from "../UtilityFunctions/CustomInterval";
 
 
-const GameField: React.FC<IGameFieldProps> = (props) => {
+const GameField: React.FC = () => {
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === Wall) return <Wall key={key} />;
     else if (component === HorizontalWall) return <HorizontalWall key={key} />;
@@ -45,7 +52,7 @@ const GameField: React.FC<IGameFieldProps> = (props) => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={bewegungsRichtungHackman}/>;
+      return <Hackman key={key} richtung={hackmanDirection}/>;
     else if (component === Ghost)
      return <Ghost key={key} richtung={Direction.Left}/>;
     else if (component === Snack) return <Snack key={key} />;
@@ -54,45 +61,46 @@ const GameField: React.FC<IGameFieldProps> = (props) => {
     else return undefined;
   };
 
-  const [spielfeld, setSpielfeld] = useState<React.FC<{}>[][]>(props.fields);
-  const [bewegungsRichtungHackman,setBewegungsRichtungHackman] = useState<Direction>(Direction.Nothing);
+  const dispatch = useDispatch();
+  
+  const {moveHackman,changeIsMoveableHackman} = bindActionCreators(gameFieldSlice.actions,dispatch)
 
 
-  useEffect(() => {
-    const spielFeldSubscription = props.spielFeldService.spielFeldSubject.subscribe((value)=>{
-      // console.log(spielfeld);
-      // console.log("\n");
-      // console.log(value);
-      setSpielfeld(value.slice());
-      // console.log("\n");
-      // console.log(spielfeld);
-  });
-  // const sub2 = props.spielFeldService.eatenCoinsSubject.subscribe((value)=>{
-  //   props.onCoinEaten();
-  // });
-    return () => spielFeldSubscription.unsubscribe()
-  },[props.spielFeldService.spielFeldSubject])
+
+  const spielfeld = useSelector((state:State)=>state.gameField);
+  const hackmanIsMoveable = useSelector((state:State)=>state.hackman.getBewegungMoeglich);
+  const hackmanDirection = useSelector((state:State)=>state.hackman.getBewegungsRichtung);
 
   useEffect(()=>{
-    const bewegungsRichtungHackmanSubscription = props.spielFeldService.bewegungsRichtungSubject.subscribe((value)=>{
-      // console.log(bewegungsRichtungHackman);
-      // console.log("\n");
-      // console.log(value);
-      // console.log("\n");
-      // console.log(bewegungsRichtungHackman);
-      setBewegungsRichtungHackman(value);     
-    });
-    return () => bewegungsRichtungHackmanSubscription.unsubscribe()
-  },[props.spielFeldService.bewegungsRichtungSubject]);
+    const [intervalStart,intervalStop] = CustomInterval(()=>store.dispatch(moveHackman),250);
+    if(hackmanIsMoveable == Moveable.Yes){
+      intervalStart();
+    }
+    else{
+      intervalStop();
+    }
+    return ()=>intervalStop();
+  },[hackmanIsMoveable])
 
-  useEffect(()=>{
-    const eatenCoinsSubscription = props.spielFeldService.eatenCoinsSubject.subscribe((value)=>{
-      props.onCoinEaten();
-    });
-    return () => eatenCoinsSubscription.unsubscribe();
-  },[props.spielFeldService.eatenCoinsSubject])
+  const handleKeyDown = (e: React.KeyboardEvent): void => {
+      if (e.key.toLowerCase() === "w" || e.key === "ArrowUp"){
+        store.dispatch(changeIsMoveableHackman(Direction.Up))
+      }
+      else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight"){
+        store.dispatch(changeIsMoveableHackman(Direction.Right))
+      }
+      else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown"){
+        store.dispatch(changeIsMoveableHackman(Direction.Down))
+      }
+      else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft"){
+        store.dispatch(changeIsMoveableHackman(Direction.Left))
+      }
+      else
+      return;
+    };
+
   return (
-    <div onKeyDown={props.spielFeldService.handleKeyDown} tabIndex={0}>
+    <div onKeyDown={handleKeyDown} tabIndex={0}>
       {spielfeld.map((row, x) => {
         return (
           <div className="row" key={x}>
