@@ -26,7 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "../State/store";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../State/slices/gameFieldSlice";
-import { canMoveLeft } from "../UtilityFunctions/SpielFeldService/CanMove";
+import { canMoveLeft } from "../UtilityFunctions/move/CanMove";
 import Moveable from "../Types/Moveable";
 import CustomInterval from "../UtilityFunctions/CustomInterval";
 
@@ -63,7 +63,7 @@ const GameField: React.FC = () => {
 
   const dispatch = useDispatch();
   
-  const {moveHackman,changeIsMoveableHackman} = bindActionCreators(gameFieldSlice.actions,dispatch)
+  const {gameTick,changeIsMoveableHackman,activateGhost} = bindActionCreators(gameFieldSlice.actions,dispatch)
 
 
 
@@ -72,16 +72,17 @@ const GameField: React.FC = () => {
   const hackmanDirection = useSelector((state:State)=>state.hackman.getBewegungsRichtung);
 
   useEffect(()=>{
-    const [intervalStart,intervalStop] = CustomInterval(()=>store.dispatch(moveHackman),250);
-    if(hackmanIsMoveable == Moveable.Yes){
-      intervalStart();
-    }
-    else{
-      intervalStop();
-    }
+    const [intervalStart,intervalStop] = CustomInterval(()=>store.dispatch(gameTick),250);
+    intervalStart();
     return ()=>intervalStop();
   },[hackmanIsMoveable])
 
+  useEffect(()=>{
+    setTimeout(() => {store.dispatch(activateGhost(1))},2500);
+    setTimeout(() => {store.dispatch(activateGhost(2))},5000);
+    setTimeout(() => {store.dispatch(activateGhost(3))},7500);
+    setTimeout(() => {store.dispatch(activateGhost(4))},10000);
+  },[])
   const handleKeyDown = (e: React.KeyboardEvent): void => {
       if (e.key.toLowerCase() === "w" || e.key === "ArrowUp"){
         store.dispatch(changeIsMoveableHackman(Direction.Up))

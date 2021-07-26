@@ -1,4 +1,4 @@
-import {canMoveRight,canMoveLeft,canMoveDown,canMoveUp} from '../../../../UtilityFunctions/SpielFeldService/CanMove';
+import {canMoveRight,canMoveLeft,canMoveDown,canMoveUp} from '../../../../UtilityFunctions/move/CanMove';
 import Coordinate from '../../../../Types/Coordinate';
 import Moveable from '../../../../Types/Moveable';
 import { testGameFieldCoinHackmanMiddle, testGameFieldElse, testGameFieldEmpty, testGameFieldGhost,testGameFieldPortalLeftAndRight,testGameFieldPortalUpAndDown, testGameFieldSnack } from '../../../Mock/TestField.Mock';

@@ -13,6 +13,8 @@
 // import { setRandomDirectionAndCount } from '../GetRandomNumber';
 // import Emitter from '../../service';
 
+import { moveHackman } from "./MoveHackman";
+
 
 
 
@@ -34,18 +36,12 @@
 //     eatenCoinsSubject.next(1);
 //   }
 //   const hackman = new Character("Hackman",12,10);
-//   const ghost1 = new GhostCharacter("Ghost1",7,9);
-//   const ghost2 = new GhostCharacter("Ghost2",7,11);
-//   const ghost3 = new GhostCharacter("Ghost2",9,9);
-//   const ghost4 = new GhostCharacter("Ghost2",9,11);
+
 //   const ghosts :GhostCharacter[]= [ghost1,ghost2,ghost3,ghost4];
 
 //   const [intervalStart,intervalStop] = CustomInterval(setSubjects,5000);
 
-//   setTimeout(() => {ghost1.setShallTick = true},2500);
-//   setTimeout(() => {ghost2.setShallTick = true},5000);
-//   setTimeout(() => {ghost3.setShallTick = true},7500);
-//   setTimeout(() => {ghost4.setShallTick = true},10000);
+
 
 //   intervalStart();
 //     function gameTick() :{spielFeldCopy:React.FC<{}>[][],increaseCoins:boolean}{
@@ -66,8 +62,6 @@
 //     });
 //   return result;
 // }
-
-
 
 
 
