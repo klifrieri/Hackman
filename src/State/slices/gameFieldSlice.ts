@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { canMove, getPossibleDirections} from '../../UtilityFunctions/move/CanMove';
 import SpielfeldLayout from '../../SpielfeldLayout'
 import Character from '../../Classes/Character';
-import Hackman from '../../Components/Hackman';
 import { moveHackman } from '../../UtilityFunctions/move/MoveHackman';
 import Direction from '../../Types/Direction';
 import GhostCharacter from '../../Classes/GhostCharacter';
@@ -10,6 +9,7 @@ import Moveable from '../../Types/Moveable';
 import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumber';
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
+import React from 'react';
 
 const initialStateHackman:Character = new Character("Hackman",12,10);
 const ghost1 = new GhostCharacter("Ghost1",7,9);
@@ -23,7 +23,6 @@ const gameFieldSlice = createSlice({
         gameField:SpielfeldLayout(),
         eatenCoins:0,
         hackman:initialStateHackman,
-        hackComponent:Hackman,
         ghost1:ghost1,
         ghost2:ghost2,
         ghost3:ghost3,
@@ -32,17 +31,23 @@ const gameFieldSlice = createSlice({
     reducers: {
       gameTick: (state) =>{
         const ghosts : WritableDraft<GhostCharacter>[]= [state.ghost1,state.ghost2,state.ghost3,state.ghost4];
-        let {gameField,increaseCoins} = moveHackman(state.gameField,state.hackman,state.hackComponent);
+        let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
+        let increaseCoins = false;
+        if(state.hackman.moveable === Moveable.Yes){
+          let {gameField,increaseCoins} = moveHackman(state.gameField,state.hackman);
+          gameFieldForAll = gameField;
+          increaseCoins = increaseCoins;
+        }
         ghosts.forEach( ghost => {
             if(ghost.shallTick){
               if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
-                const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameField,ghost.getPosition);
+                const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameFieldForAll,ghost.getPosition);
                 ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
               }
               else{
-                ghost.moveable = canMove(gameField,ghost.getPosition,ghost.direction);
+                ghost.moveable = canMove(gameFieldForAll,ghost.getPosition,ghost.direction);
               }
-              gameField = moveGhost(gameField,ghost);
+              gameFieldForAll = moveGhost(gameFieldForAll,ghost);
             }
         });
         if(increaseCoins){

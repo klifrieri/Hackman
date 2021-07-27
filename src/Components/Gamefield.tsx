@@ -26,6 +26,7 @@ import { State, store } from "../State/store";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../State/slices/gameFieldSlice";
 import CustomInterval from "../UtilityFunctions/CustomInterval";
+import { useRef } from "react";
 
 
 const GameField: React.FC = () => {
@@ -34,7 +35,8 @@ const GameField: React.FC = () => {
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanIsMoveable = useSelector((state: State) => state.hackman.moveable);
-  const hackmanDirection = useSelector((state: State) => state.hackman.direction);
+
+  const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setTimeout(() => { store.dispatch(activateGhost(1)) }, 2500);
@@ -43,6 +45,13 @@ const GameField: React.FC = () => {
     setTimeout(() => { store.dispatch(activateGhost(4)) }, 10000);
   }, [])
 
+  useEffect(() => {
+    setStyleTag();
+    window.addEventListener("resize", setStyleTag);
+    return () => window.removeEventListener("resize", setStyleTag);
+    //eslint-disable-next-line
+  },[]);
+  
   useEffect(() => {
     const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
     intervalStart();
@@ -86,7 +95,7 @@ const GameField: React.FC = () => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={hackmanDirection} />;
+      return <Hackman key={key} />;
     else if (component === Ghost)
       return <Ghost key={key} richtung={Direction.Left} />;
     else if (component === Snack) return <Snack key={key} />;
@@ -95,8 +104,56 @@ const GameField: React.FC = () => {
     else return undefined;
   };
   
+  const setStyleTag = () => {
+    setRowHeightStyleTag();
+    let headTag = document.getElementsByTagName('head');
+    let row = centerRef.current?.firstElementChild;
+    let rowHeightInPx = getComputedStyle(row!).height;
+
+    var styleTag = document.createElement('style');
+    styleTag.type = 'text/css';
+    styleTag.id = "styleTag";
+    
+    styleTag.innerHTML = `div.center > div.row > div.field {width: ${rowHeightInPx};}`;
+    let styleSheetTest = document.getElementById("styleTag");
+    if(styleSheetTest){
+      headTag[0].removeChild(styleSheetTest);
+    }
+    headTag[0].appendChild(styleTag);
+  };
+
+  const setRowHeightStyleTag = ()=>{
+    let headTag = document.getElementsByTagName('head');
+    let height = window.innerHeight;
+    let width = window.innerWidth;
+    console.log("Height" + height);
+    console.log("\nWidth" + width);
+    var styleRow = document.createElement('style');
+    styleRow.type = 'text/css';
+    styleRow.id = "rowStyleTag";
+    let estimatedHeight= 0;
+    if(height>width+width/2){
+      estimatedHeight = 2;
+      console.log("case one!")
+    }
+    else if(height> width){
+      estimatedHeight = 3;
+      console.log("case two!")
+    }
+    else{
+      estimatedHeight = 5
+      console.log("case three!")
+    }
+    styleRow.innerHTML = `div.center > div.row { height: ${estimatedHeight}%}`;
+    let styleSheetTest = document.getElementById("rowStyleTag");
+    if(styleSheetTest){
+      headTag[0].removeChild(styleSheetTest);
+    }
+    headTag[0].appendChild(styleRow);
+  }
+
   return (
-    <div onKeyDown={handleKeyDown} tabIndex={0}>
+    <div ref={centerRef} className="center" onKeyDown={handleKeyDown} tabIndex={0}>
       {gameField.map((row, x) => {
         return (
           <div className="row" key={x}>

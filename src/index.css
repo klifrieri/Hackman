@@ -1,172 +1,172 @@
-@font-face {
-    font-family: 'System';
-    src: url('./AtariST8x16SystemFont.ttf');
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
-
+html {
+    height: 100%;
+  }
+div#root {
+    height: 100%;
+    background-color: black;
+}
 /* Main */
-*{
-    outline: none;
-}
 body {
+    height: 100%;
     margin: 0;
     padding: 0;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+}
+
+.center {
+    width: 100%;
     height: 100%;
-    background: black;
+    position: relative;
+    display: block;
 }
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+
+.row {
+    position: relative;
+    transform: translateY(150%);
+    margin: 0 auto;
+    width: fit-content;
 }
+
 .field {
     position: relative;
+    height: 100%;
+    background-color: gray;
+    color: black;
     display: inline-block;
-    width: 50px;
-    height: 50px;
 }
-.row {
-    height: 50px !important;
-}
+
 .empty.field {
     background-color: black;
-    z-index: 5;
-}
-.center {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, -50%);
-}
-
-
-/* Stats */
-
-.stats.container{
-    display: block;
-    text-align: center;
-}
-
-.stats.content{
-    color : white;
-    display: inline-block;
-    margin: 0px;
-    font-size: 2em;
-    margin: 0 0.5em 0.5em 0;
-    font-family: "System";
-    letter-spacing: 10px;
 }
 
 /* Walls */
-.verticalWall{
-    position: absolute;
-    width: 15px;
-    height: 50px;
-    left: 35%;
+ .verticalWall{
+    position: relative;
+    width: 20%;
+    height: 100%;
+    transform: translateX(200%);
     background-color: orange;
     z-index: 10;
-}
-.vertical{
-    position: absolute;
-    width: 15px;
-    height: 32px;
-    background-color: orange;
-    z-index: 10;
-}
-.verticalWallBS{
-    left: 35%;
-    top: 0px;
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
-}
-.verticalWallTS{
-    left: 35%;
-    bottom: 0px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
 }
 
-.horizontalWall{
-    position: absolute;
-    width: 50px;
-    height: 15px;
-    top: 35%;
+ .vertical{
+    position: relative;
+    width: 20%;
+    height: 60%;
+    background-color: orange;
+    z-index: 10;
+} 
+.tPieceVerticalWall{
+    position: relative;
+    width: 20%;
+    height: 100%;
+    transform: translateX(200%) translateY(-20%);
     background-color: orange;
     z-index: 10;
 }
-.horizontal{
-    position: absolute;
-    width: 32px;
-    height: 15px;
-    background-color: orange;
-    z-index: 10;
-}
-.horizontalWallLS{
-    top: 35%;
-    right: 0px;
-    border-top-left-radius: 9px;
-    border-bottom-left-radius: 9px;
-}
-.horizontalWallRS{
-    top: 35%;
-    left: 0px;
-    border-top-right-radius: 9px;
-    border-bottom-right-radius: 9px;
-}
-
 .tWallTop{
-    left: 35%;
-    top: 0px;
-    border-bottom-left-radius: 9px;
-    border-bottom-right-radius: 9px;
+    position: relative;
+    transform:translateX(200%) translateY(-34%);
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
     z-index: 10;
 }
 .tWallBottom{
-    left: 35%;
-    bottom: 0px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
+    position: relative;
+    transform:translateX(200%) translateY(35%);
+    border-top-left-radius: 25%;
+    border-top-right-radius: 25%;
     z-index: 10;
 }
 
 .tWallRight{
-    top: 35%;
-    left: 0px;
-    border-bottom-right-radius: 9px;
-    border-top-right-radius: 9px;
+    position: relative;
+    transform: translateX(0%) translateY(200%);
+    border-bottom-right-radius: 25%;
+    border-top-right-radius: 25%;
     z-index: 10;
 }
 .tWallLeft{
-    top: 35%;
-    right: 0px;
-    border-bottom-left-radius: 9px;
-    border-top-left-radius: 9px;
+    position: relative;
+    transform: translateX(68%) translateY(200%);
+    border-bottom-left-radius: 25%;
+    border-top-left-radius: 25%;
     z-index: 10;
 }
+
+.verticalWallBS{
+    position: relative;
+    transform: translateX(200%);
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+    z-index: 10;
+}
+.verticalWallTS{
+    position: relative;
+    transform: translateX(200%) translateY(80%);
+    border-top-left-radius: 25%;
+    border-top-right-radius: 25%;
+    z-index: 10;
+}
+
+
+.horizontalWall{
+    position: relative;
+    width: 100%;
+    height: 20%;
+    background-color: orange;
+    transform: translateY(200%);
+    z-index: 10;
+}
+.horizontal{
+    position: relative;
+    width: 60%;
+    height: 20%;
+    background-color: orange;
+    z-index: 10;
+}
+
+.horizontalWallLS{
+    position: relative;
+    transform: translateX(70%) translateY(200%);
+    border-top-left-radius: 25%;
+    border-bottom-left-radius: 25%;
+    z-index: 10;
+}
+.horizontalWallRS{
+    position: relative;
+    transform: translateX(-5%) translateY(200%);
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
+    z-index: 10;
+} 
 .gate{
     position: absolute;
-    width: 50px;
-    height: 10px;
+    width: 100%;
+    height: 20%;
     top: 40%;
-    right: 0px;
+    right: 0%;
     background-color: rgba(192, 192, 192, 0.6);
-    background-image: linear-gradient(335deg, rgba(187, 0, 0, 0.6) 4px, transparent 4px),
-        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 2.7px, transparent 2.7px),
-        linear-gradient(335deg, rgba(187, 0, 0, 0.6) 2.7px, transparent 2.7px),
-        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 2.7px, transparent 2.7px);
-    background-size: 7.5px 7.5px;
-    background-position: 0px 0.8px, 1.1px 4px, 4px 2.5px, 1px 2px;
-    border-radius: 10px;
+    background-image: linear-gradient(335deg, rgba(187, 0, 0, 0.6) 60%, transparent 60%),
+        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 20%, transparent 20%),
+        linear-gradient(335deg, rgba(187, 0, 0, 0.6) 20%, transparent 20%),
+        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 20%, transparent 20%);
+    background-size: 15% 15%;
+    background-position: 0% 15%, 18% 30%, 20% 15%, 10% 80%;
+    border-radius: 30%;
     z-index: 10;
-}
+} 
 
 
 /* Coins */
-.coin {
-    position: absolute;
-    top: 40%;
-    left: 40%;
+ .coin {
+    position: relative;
+    transform: translateX(200%) translateY(200%);
     width: 20%;
     height: 20%;
     background: white;
@@ -174,80 +174,82 @@ code {
     z-index: 10;
 }
 .snack {
-    position: absolute;
-    top: 30%;
-    left: 30%;
+    position: relative;
+    transform: translateY(75%) translateX(75%);
     width: 40%;
     height: 40%;
     background: white;
     border-radius: 50% !important;
     z-index: 10;
-}
+} 
 
 /* Hackman */
 .hackman {
-    position: absolute;
-    top: 10%;
-    left: 10%;
+    position: relative;
     width: 80%;
     height: 80%;
     background: rgb(255, 72, 0);
     border-radius: 50% !important;
-    transition: transform 0.25s;
+    transform: translateX(10%) translateY(12%);
+    /* transition: transform 0.5s; */
     z-index: 7;
 }
 .top{
-    transform: rotateZ(90deg);
+    transform: rotateZ(90deg) translateX(10%) translateY(-12%);
 }
 .bottom{
-    transform: rotateZ(-90deg);
+    transform: rotateZ(-90deg) translateX(-10%) translateY(12%);
 }
 .left{
-    transform: rotateY(0deg);
+    transform: rotateY(0deg) translateX(10%) translateY(12%);
 }
 .right{
-    transform: rotateY(-180deg);
+    transform: rotateY(-180deg) translateX(-10%) translateY(12%);
 }
 .move-top{
-    transform: rotateZ(90deg) translateX(-50px);
+    transform: rotateZ(90deg) translateX(-150%);
 }
 .move-bottom{
-    transform: rotateZ(-90deg) translateX(-50px);  
+    transform: rotateZ(-90deg) translateX(-150%);  
 }
 .move-right{
-    transform: rotateY(-180deg) translateX(-50px);
+    transform: rotateY(-180deg) translateX(-150%);
 }
 .move-left{
-    transform: rotateY(0deg) translateX(-50px);
+    transform: rotateY(0deg) translateX(-150%);
 }
 .eye{
     background-color: #19181A;
-    width: 10px;
-    height: 9px;
+    width: 22%;
+    height: 22%;
     border-radius: 50%;
     transition: transform 0.125s;
-    transform: translateX(7px) translateY(10px);
+    transform: translateX(80%) translateY(100%);
+    z-index: 7;
 }
 .eye-move{
     transition: transform 0.125s;
-    transform: translateX(13px) translateY(4px) scale(0.7);
+    transform: translateX(140%) translateY(60%) scale(0.7);
 }
 .mouth{
+    position: relative;
     background-color: black;
-    width: 25px;
-    height: 25px;
+    width: 55%;
+    height: 55%;
     transition: transform 0.125s;
-    transform: translateX(-32px) translateY(-0px) rotateZ(45deg);
+    transform: translateX(-125%) translateY(0%) rotateZ(45deg);
     z-index: 0;
 }
-.mouth-open{           
+.mouth-open{        
+    position: relative;   
     transition: transform 0.125s;
-    transform: translateX(-8px) translateY(-0px) rotateZ(45deg);
+    transform: translateX(-25%) translateY(5%) rotateZ(45deg);
+    z-index: 0;
 }
 
 /* Ghosts */
 .ghost{
-    z-index: 20;
+    z-index: 15;
 }
 .ghost-head {
     position: absolute;
@@ -259,7 +261,6 @@ code {
     border-radius: 50% !important;
     display: flex;
     flex-direction: row;
-    z-index: 20;
 }
 .ghost-eye{
     margin-left: 15%;
@@ -267,8 +268,7 @@ code {
     height: 25%;
     width: 20%;
     border-radius: 50%;
-    transform: translateY(7px) translateX(2.5px);
-    z-index: 20;
+    transform: translateY(100%) translateX(30%);
 }
 .ghost-body {
     position: absolute;
@@ -279,13 +279,11 @@ code {
     background-color: blue;
     display: flex;
     flex-direction: row;
-    z-index: 20;
 }
 .ghost-spikes{
     width: 60%;
     height: 80%;
     border-radius: 50%;
     background-color: black;
-    transform: translateY(13px);
-    z-index: 20;
+    transform: translateY(100%);
 }
