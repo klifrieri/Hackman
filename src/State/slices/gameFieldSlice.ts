@@ -34,13 +34,13 @@ const gameFieldSlice = createSlice({
         const ghosts : WritableDraft<GhostCharacter>[]= [state.ghost1,state.ghost2,state.ghost3,state.ghost4];
         let {gameField,increaseCoins} = moveHackman(state.gameField,state.hackman,state.hackComponent);
         ghosts.forEach( ghost => {
-            if(ghost.getShallTick){
-              if(ghost.needsNewCountDeclaration() || ghost.getBewegungMoeglich === Moveable.No){
+            if(ghost.shallTick){
+              if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
                 const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameField,ghost.getPosition);
                 ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
               }
               else{
-                ghost.setBewegungMoeglich = canMove(gameField,ghost.getPosition,ghost.getBewegungsRichtung);
+                ghost.moveable = canMove(gameField,ghost.getPosition,ghost.direction);
               }
               gameField = moveGhost(gameField,ghost);
             }
@@ -51,7 +51,7 @@ const gameFieldSlice = createSlice({
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;
-        state.hackman.setBewegungMoeglich = canMove(state.gameField,state.hackman.getPosition,payload.payload);
+        state.hackman.moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload);
       },
       increaseCoins: (state)=> {
         state.eatenCoins++;
@@ -59,16 +59,16 @@ const gameFieldSlice = createSlice({
       activateGhost:(state,payload:PayloadAction<number>)=>{
         switch(payload.payload){
           case 1:
-            state.ghost1.setShallTick = true;
+            state.ghost1.shallTick = true;
             break;
           case 2:
-            state.ghost2.setShallTick = true;
+            state.ghost2.shallTick = true;
             break;
           case 3:
-            state.ghost3.setShallTick = true;
+            state.ghost3.shallTick = true;
             break;
           case 4:
-            state.ghost4.setShallTick = true;
+            state.ghost4.shallTick = true;
             break;
         }
       }

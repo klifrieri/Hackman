@@ -6,14 +6,14 @@ import Character from "./Character";
 
 class GhostCharacter extends Character{
     private _shallTick:boolean;
-    public set setShallTick(value:boolean){
+    public set shallTick(value:boolean){
       this._shallTick = value;
     }
-    public get getShallTick() : boolean{
+    public get shallTick() : boolean{
       return this._shallTick;
     }
     private _declaredCount: number;
-    public set setDeclaredCount(value:number){
+    public set declaredCount(value:number){
       this._declaredCount = value;
       this.resetCount();
     }
@@ -29,25 +29,17 @@ class GhostCharacter extends Character{
     }
     private _cachedField:React.FC<{}>;
     public get cachedField(){
-      if(this._cachedField === Ghost)
-      console.log("Cache gelesen "+ this._cachedField.name);
-        return this._cachedField;
+      return this._cachedField;
     }
-    public set setCachedField(value:React.FC<{}>){
-      console.log("Value beim setzen " + value.name)
+    public set cachedField(value:React.FC<{}>){
     this._cachedField = value;
-    if(this._cachedField === Ghost)
-      console.log("Cache gelesen "+ this._cachedField.name);
-    
     }
     constructor(name:string,positionY:number,positionX:number){
       super(name,positionY,positionX);
-      // console.log(this.getBewegungMoeglich);
       this._shallTick = false;
       this._declaredCount = 0;
       this._count = 0;
       this._cachedField = Empty;
-      console.log(positionY + " and x " + positionX)
     }
   }
   export default GhostCharacter;

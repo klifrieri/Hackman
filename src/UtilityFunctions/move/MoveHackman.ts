@@ -10,7 +10,7 @@ import React from "react";
 function hackmanMovesUp(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraft<Character>,hackComponent:React.FC<any>): React.FC<{}>[][] {
   spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
   spielFeldCopy[hackman.getPosition.y - 1][hackman.getPosition.x] = hackComponent;
-  hackman.setPositionY = hackman.getPosition.y - 1;
+  hackman.positionY = hackman.getPosition.y - 1;
   return spielFeldCopy;
 }
 
@@ -24,7 +24,7 @@ function hackmanMovesRight(spielFeldCopy: React.FC<{}>[][], hackman: WritableDra
 function hackmanMovesDown(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraft<Character>,hackComponent:React.FC<any>): React.FC<{}>[][] {
   spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
   spielFeldCopy[hackman.getPosition.y + 1][hackman.getPosition.x] = hackComponent;
-  hackman.setPositionY = hackman.getPosition.y + 1;
+  hackman.positionY = hackman.getPosition.y + 1;
   return spielFeldCopy;
 }
 
@@ -38,7 +38,7 @@ function hackmanMovesLeft(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraf
 function hackmanMovesUpTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraft<Character>,hackComponent:React.FC<any>): React.FC<{}>[][] {
   spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
   spielFeldCopy[spielFeldCopy.length - 1][hackman.getPosition.x] = hackComponent;
-  hackman.setPositionY = spielFeldCopy.length - 1;
+  hackman.positionY = spielFeldCopy.length - 1;
   return spielFeldCopy;
 }
 
@@ -59,14 +59,14 @@ function hackmanMovesLeftTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: 
 function hackmanMovesDownTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraft<Character>,hackComponent:React.FC<any>): React.FC<{}>[][] {
   spielFeldCopy[hackman.getPosition.y][hackman.getPosition.x] = Empty;
   spielFeldCopy[0][hackman.getPosition.x] = hackComponent;
-  hackman.setPositionY = 0;
+  hackman.positionY = 0;
   return spielFeldCopy;
 }
 
 function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>,hackComponent:React.FC<any>): { gameField: React.FC<{}>[][], increaseCoins: boolean } {
   let increaseCoins: boolean = false;
-  if (hackman.getBewegungMoeglich === Moveable.Yes) {
-    switch (hackman.getBewegungsRichtung) {
+  if (hackman.moveable === Moveable.Yes) {
+    switch (hackman.direction) {
       case Direction.Up: {
         if (checkCoins(gameField, Direction.Up, hackman.getPosition)) {
           increaseCoins = true;
@@ -97,8 +97,8 @@ function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Charact
       }
     }
   }
-  else if (hackman.getBewegungMoeglich === Moveable.Portal) {
-    switch (hackman.getBewegungsRichtung) {
+  else if (hackman.moveable === Moveable.Portal) {
+    switch (hackman.direction) {
       case Direction.Up: {
         gameField = hackmanMovesUpTroughPortal(gameField, hackman,hackComponent);
         break;
@@ -117,7 +117,7 @@ function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Charact
       }
     }
   }
-  hackman.setBewegungMoeglich = canMove(gameField,hackman.getPosition,hackman.getBewegungsRichtung);
+  hackman.moveable = canMove(gameField,hackman.getPosition,hackman.direction);
   return { gameField, increaseCoins };
 };
 
