@@ -33,26 +33,26 @@ const gameFieldSlice = createSlice({
         const ghosts : WritableDraft<GhostCharacter>[]= [state.ghost1,state.ghost2,state.ghost3,state.ghost4];
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins = false;
-        if(state.hackman.moveable === Moveable.Yes){
-          let {gameField,increaseCoins} = moveHackman(state.gameField,state.hackman);
-          gameFieldForAll = gameField;
-          increaseCoins = increaseCoins;
-        }
-        ghosts.forEach( ghost => {
-            if(ghost.shallTick){
-              if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
-                const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameFieldForAll,ghost.getPosition);
-                ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
+          if(state.hackman.moveable === Moveable.Yes){
+            let {gameField,increaseCoins} = moveHackman(state.gameField,state.hackman);
+            gameFieldForAll = gameField;
+            increaseCoins = increaseCoins;    
+          }
+          ghosts.forEach( ghost => {
+              if(ghost.shallTick){
+                if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
+                  const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameFieldForAll,ghost.getPosition);
+                  ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
+                }
+                else{
+                  ghost.moveable = canMove(gameFieldForAll,ghost.getPosition,ghost.direction);
+                }
+                gameFieldForAll = moveGhost(gameFieldForAll,ghost);
               }
-              else{
-                ghost.moveable = canMove(gameFieldForAll,ghost.getPosition,ghost.direction);
-              }
-              gameFieldForAll = moveGhost(gameFieldForAll,ghost);
-            }
-        });
-        if(increaseCoins){
-          state.eatenCoins++;
-        }
+          });
+          if(increaseCoins){
+            state.eatenCoins++;
+          }
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;

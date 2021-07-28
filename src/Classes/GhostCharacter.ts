@@ -1,7 +1,4 @@
-import Empty from "../Components/Empty";
-import Ghost from "../Components/Ghost";
-import Moveable from "../Types/Moveable";
-import Coordinate from "../Types/Coordinate";
+import Empty from "../Components/Fields/Path/Empty";
 import Character from "./Character";
 
 class GhostCharacter extends Character{

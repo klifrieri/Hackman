@@ -1,7 +1,7 @@
 import { debug } from 'console';
-import Coin from '../../../../Components/Coin';
-import Empty from '../../../../Components/Empty';
-import Ghost from '../../../../Components/Ghost';
+import Coin from '../../../../Components/Fields/Path/Coin';
+import Empty from '../../../../Components/Fields/Path/Empty';
+import Ghost from '../../../../Components/Ghost/Ghost';
 import { ghostMovesDown, ghostMovesLeft, ghostMovesRight, ghostMovesUp } from '../../../../UtilityFunctions/move/MoveGhost';
 import GetGhostByPosition from '../../../Mock/GhostCharacter.Mock';
 import { testGameFieldCoinGhostDown,testGameFieldCoinGhostLeft,testGameFieldCoinGhostRight,testGameFieldCoinGhostUp } from '../../../Mock/TestField.Mock';

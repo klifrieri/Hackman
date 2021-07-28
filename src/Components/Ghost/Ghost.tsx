@@ -1,4 +1,4 @@
-import { CharacterProps } from "../Interfaces/CharacterProps";
+import { CharacterProps } from "../../Interfaces/CharacterProps";
 
 
 

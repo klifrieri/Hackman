@@ -27,7 +27,6 @@ body {
 
 .row {
     position: relative;
-    transform: translateY(150%);
     margin: 0 auto;
     width: fit-content;
 }
@@ -35,14 +34,11 @@ body {
 .field {
     position: relative;
     height: 100%;
-    background-color: gray;
+    background-color: black;
     color: black;
     display: inline-block;
 }
 
-.empty.field {
-    background-color: black;
-}
 
 /* Walls */
  .verticalWall{
@@ -51,7 +47,6 @@ body {
     height: 100%;
     transform: translateX(200%);
     background-color: orange;
-    z-index: 10;
 }
 
  .vertical{
@@ -59,7 +54,6 @@ body {
     width: 20%;
     height: 60%;
     background-color: orange;
-    z-index: 10;
 } 
 .tPieceVerticalWall{
     position: relative;
@@ -67,21 +61,18 @@ body {
     height: 100%;
     transform: translateX(200%) translateY(-20%);
     background-color: orange;
-    z-index: 10;
 }
 .tWallTop{
     position: relative;
     transform:translateX(200%) translateY(-34%);
     border-bottom-left-radius: 25%;
     border-bottom-right-radius: 25%;
-    z-index: 10;
 }
 .tWallBottom{
     position: relative;
     transform:translateX(200%) translateY(35%);
     border-top-left-radius: 25%;
     border-top-right-radius: 25%;
-    z-index: 10;
 }
 
 .tWallRight{
@@ -89,14 +80,12 @@ body {
     transform: translateX(0%) translateY(200%);
     border-bottom-right-radius: 25%;
     border-top-right-radius: 25%;
-    z-index: 10;
 }
 .tWallLeft{
     position: relative;
     transform: translateX(68%) translateY(200%);
     border-bottom-left-radius: 25%;
     border-top-left-radius: 25%;
-    z-index: 10;
 }
 
 .verticalWallBS{
@@ -104,14 +93,12 @@ body {
     transform: translateX(200%);
     border-bottom-left-radius: 25%;
     border-bottom-right-radius: 25%;
-    z-index: 10;
 }
 .verticalWallTS{
     position: relative;
     transform: translateX(200%) translateY(80%);
     border-top-left-radius: 25%;
     border-top-right-radius: 25%;
-    z-index: 10;
 }
 
 
@@ -121,14 +108,12 @@ body {
     height: 20%;
     background-color: orange;
     transform: translateY(200%);
-    z-index: 10;
 }
 .horizontal{
     position: relative;
     width: 60%;
     height: 20%;
     background-color: orange;
-    z-index: 10;
 }
 
 .horizontalWallLS{
@@ -136,14 +121,12 @@ body {
     transform: translateX(70%) translateY(200%);
     border-top-left-radius: 25%;
     border-bottom-left-radius: 25%;
-    z-index: 10;
 }
 .horizontalWallRS{
     position: relative;
     transform: translateX(-5%) translateY(200%);
     border-top-right-radius: 25%;
     border-bottom-right-radius: 25%;
-    z-index: 10;
 } 
 .gate{
     position: absolute;
@@ -159,7 +142,6 @@ body {
     background-size: 15% 15%;
     background-position: 0% 15%, 18% 30%, 20% 15%, 10% 80%;
     border-radius: 30%;
-    z-index: 10;
 } 
 
 
@@ -171,7 +153,6 @@ body {
     height: 20%;
     background: white;
     border-radius: 50% !important;
-    z-index: 10;
 }
 .snack {
     position: relative;
@@ -180,72 +161,8 @@ body {
     height: 40%;
     background: white;
     border-radius: 50% !important;
-    z-index: 10;
 } 
 
-/* Hackman */
-.hackman {
-    position: relative;
-    width: 80%;
-    height: 80%;
-    background: rgb(255, 72, 0);
-    border-radius: 50% !important;
-    transform: translateX(10%) translateY(12%);
-    /* transition: transform 0.5s; */
-    z-index: 7;
-}
-.top{
-    transform: rotateZ(90deg) translateX(10%) translateY(-12%);
-}
-.bottom{
-    transform: rotateZ(-90deg) translateX(-10%) translateY(12%);
-}
-.left{
-    transform: rotateY(0deg) translateX(10%) translateY(12%);
-}
-.right{
-    transform: rotateY(-180deg) translateX(-10%) translateY(12%);
-}
-.move-top{
-    transform: rotateZ(90deg) translateX(-150%);
-}
-.move-bottom{
-    transform: rotateZ(-90deg) translateX(-150%);  
-}
-.move-right{
-    transform: rotateY(-180deg) translateX(-150%);
-}
-.move-left{
-    transform: rotateY(0deg) translateX(-150%);
-}
-.eye{
-    background-color: #19181A;
-    width: 22%;
-    height: 22%;
-    border-radius: 50%;
-    transition: transform 0.125s;
-    transform: translateX(80%) translateY(100%);
-    z-index: 7;
-}
-.eye-move{
-    transition: transform 0.125s;
-    transform: translateX(140%) translateY(60%) scale(0.7);
-}
-.mouth{
-    position: relative;
-    background-color: black;
-    width: 55%;
-    height: 55%;
-    transition: transform 0.125s;
-    transform: translateX(-125%) translateY(0%) rotateZ(45deg);
-    z-index: 0;
-}
-.mouth-open{        
-    position: relative;   
-    transition: transform 0.125s;
-    transform: translateX(-25%) translateY(5%) rotateZ(45deg);
-    z-index: 0;
-}
 
 /* Ghosts */
 .ghost{

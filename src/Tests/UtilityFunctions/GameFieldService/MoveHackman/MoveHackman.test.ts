@@ -1,5 +1,5 @@
-import Empty from '../../../../Components/Empty';
-import Hackman from '../../../../Components/Hackman';
+import Empty from '../../../../Components/Fields/Path/Empty';
+import Hackman from '../../../../Components/Hackman/Hackman';
 import { hackmanMovesDown, hackmanMovesLeft, hackmanMovesRight, hackmanMovesUp } from '../../../../UtilityFunctions/move/MoveHackman';
 import GetHackmanByPosition from '../../../Mock/Character.Mock';
 import { testGameFieldCoinHackmanMiddle } from '../../../Mock/TestField.Mock';

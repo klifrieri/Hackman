@@ -1,25 +1,24 @@
-import Coin from "./Coin";
-import Empty from "./Empty";
-import Hackman from "./Hackman";
-import Wall from "./Wall";
-import VerticalWall from "./VerticalWalls/VerticalWall";
-import VerticalWallTS from "./VerticalWalls/VerticalWallTopShort";
-import VerticalWallBS from "./VerticalWalls/VerticalWallBottomShort";
-import HorizontalWall from "./HorizontalWalls/HorizontalWall";
-import HorizontalWallRS from "./HorizontalWalls/HorizontalWallRightSideShort";
-import HorizontalWallLS from "./HorizontalWalls/HorizontalWallLeftSideShort";
-import TPieceBottom from "./TPieces/TPieceBottom";
-import TPieceTop from "./TPieces/TPieceTop";
-import TPieceRight from "./TPieces/TPieceRight";
-import TPieceLeft from "./TPieces/TPieceLeft";
-import CornerLT from "./Corners/CornerLeftTop";
-import CornerLB from "./Corners/CornerLeftBottom";
-import CornerRT from "./Corners/CornerRightTop";
-import CornerRB from "./Corners/CornerRightBottom";
+import Coin from "./Fields/Path/Coin";
+import Empty from "./Fields/Path/Empty";
+import Hackman from "./Hackman/Hackman";
+import VerticalWall from "./Fields/VerticalWalls/VerticalWall";
+import VerticalWallTS from "./Fields/VerticalWalls/VerticalWallTopShort";
+import VerticalWallBS from "./Fields/VerticalWalls/VerticalWallBottomShort";
+import HorizontalWall from "./Fields/HorizontalWalls/HorizontalWall";
+import HorizontalWallRS from "./Fields/HorizontalWalls/HorizontalWallRightSideShort";
+import HorizontalWallLS from "./Fields/HorizontalWalls/HorizontalWallLeftSideShort";
+import TPieceBottom from "./Fields/TPieces/TPieceBottom";
+import TPieceTop from "./Fields/TPieces/TPieceTop";
+import TPieceRight from "./Fields/TPieces/TPieceRight";
+import TPieceLeft from "./Fields/TPieces/TPieceLeft";
+import CornerLT from "./Fields/Corners/CornerLeftTop";
+import CornerLB from "./Fields/Corners/CornerLeftBottom";
+import CornerRT from "./Fields/Corners/CornerRightTop";
+import CornerRB from "./Fields/Corners/CornerRightBottom";
 import React, { useEffect } from "react";
-import Snack from "./Snack";
-import Ghost from "./Ghost";
-import Gate from "./Gate";
+import Snack from "./Fields/Path/Snack";
+import Ghost from "./Ghost/Ghost";
+import Gate from "./Fields/Path/Gate";
 import Direction from "../Types/Direction";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "../State/store";
@@ -27,6 +26,7 @@ import { bindActionCreators } from "redux";
 import gameFieldSlice from "../State/slices/gameFieldSlice";
 import CustomInterval from "../UtilityFunctions/CustomInterval";
 import { useRef } from "react";
+import Stats from "./Stats/Stats";
 
 
 const GameField: React.FC = () => {
@@ -76,8 +76,7 @@ const GameField: React.FC = () => {
   };
 
   const renderComponent = (component: React.FC<any>, key: number) => {
-    if (component === Wall) return <Wall key={key} />;
-    else if (component === HorizontalWall) return <HorizontalWall key={key} />;
+    if (component === HorizontalWall) return <HorizontalWall key={key} />;
     else if (component === HorizontalWallLS)
       return <HorizontalWallLS key={key} />;
     else if (component === HorizontalWallRS)
@@ -158,11 +157,12 @@ const GameField: React.FC = () => {
         return (
           <div className="row" key={x}>
             {row.map((feld, y) => {
-              return renderComponent(feld, y);
+              return renderComponent(feld, y)
             })}
           </div>
-        );
+        )
       })}
+    <Stats/>
     </div>
   )
 };
