@@ -64,34 +64,34 @@ function hackmanMovesDownTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: 
   return spielFeldCopy;
 }
 
-function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>): { gameField: React.FC<{}>[][], increaseCoins: boolean } {
-  let increaseCoins: boolean = false;
+function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>): { gameField: React.FC<{}>[][], increaseTheCoins: boolean } {
+  let increaseTheCoins: boolean = false;
   if (hackman.moveable === Moveable.Yes) {
     switch (hackman.direction) {
       case Direction.Up: {
         if (checkCoins(gameField, Direction.Up, hackman.getPosition)) {
-          increaseCoins = true;
+          increaseTheCoins = true;
         }
         gameField = hackmanMovesUp(gameField, hackman);
         break;
       }
       case Direction.Right: {
         if (checkCoins(gameField, Direction.Right, hackman.getPosition)) {
-          increaseCoins = true;
+          increaseTheCoins = true;
         }
         gameField = hackmanMovesRight(gameField, hackman);
         break;
       }
       case Direction.Down: {
         if (checkCoins(gameField, Direction.Down, hackman.getPosition)) {
-          increaseCoins = true;
+          increaseTheCoins = true;
         }
         gameField = hackmanMovesDown(gameField, hackman);
         break;
       }
       case Direction.Left: {
         if (checkCoins(gameField, Direction.Left, hackman.getPosition)) {
-          increaseCoins = true;
+          increaseTheCoins = true;
         }
         gameField = hackmanMovesLeft(gameField, hackman);
         break;
@@ -119,7 +119,7 @@ function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Charact
     }
   }
   hackman.moveable = canMove(gameField,hackman.getPosition,hackman.direction);
-  return { gameField, increaseCoins };
+  return { gameField, increaseTheCoins };
 };
 
 export { hackmanMovesDownTroughPortal, hackmanMovesDown, hackmanMovesRightTroughPortal, hackmanMovesRight, hackmanMovesUpTroughPortal, hackmanMovesUp, hackmanMovesLeftTroughPortal, hackmanMovesLeft, moveHackman };

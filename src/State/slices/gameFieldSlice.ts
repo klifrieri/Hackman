@@ -34,9 +34,9 @@ const gameFieldSlice = createSlice({
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins = false;
           if(state.hackman.moveable === Moveable.Yes){
-            let {gameField,increaseCoins} = moveHackman(state.gameField,state.hackman);
+            let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
             gameFieldForAll = gameField;
-            increaseCoins = increaseCoins;    
+            increaseCoins = increaseTheCoins;    
           }
           ghosts.forEach( ghost => {
               if(ghost.shallTick){
