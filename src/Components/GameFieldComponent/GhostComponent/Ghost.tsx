@@ -1,9 +1,4 @@
-import { CharacterProps } from "../../Interfaces/CharacterProps";
-
-
-
-
-const Ghost: React.FC<any> = (props: CharacterProps) => {
+const Ghost: React.FC<any> = () => {
     return (
         <div className="field">
             <div className="ghost">

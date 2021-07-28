@@ -1,11 +1,11 @@
 import Character from "../../Classes/Character";
-import Empty from "../../Components/Fields/Path/Empty";
+import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
 import { canMove, checkCoins } from "./CanMove";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import React from "react";
-import Hackman from "../../Components/Hackman/Hackman";
+import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 
 
 function hackmanMovesUp(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraft<Character>): React.FC<{}>[][] {

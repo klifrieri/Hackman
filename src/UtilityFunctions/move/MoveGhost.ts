@@ -1,5 +1,5 @@
 import GhostCharacter from "../../Classes/GhostCharacter";
-import Ghost from "../../Components/Ghost/Ghost";
+import Ghost from "../../Components/GameFieldComponent/GhostComponent/Ghost";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";

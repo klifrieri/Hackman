@@ -1,12 +1,12 @@
-import Colt from '../../Components/Fields/Corners/CornerLeftTop'
-import Colb from "../../Components/Fields/Corners/CornerLeftBottom";
-import Cort from "../../Components/Fields/Corners/CornerRightTop";
-import Corb from "../../Components/Fields/Corners/CornerRightBottom";
-import Coin from "../../Components/Fields/Path/Coin";
-import Empy from "../../Components/Fields/Path/Empty";
-import Hack from "../../Components/Hackman/Hackman";
-import Snac from "../../Components/Fields/Path/Snack";
-import Geis from "../../Components/Ghost/Ghost";
+import Colt from '../../Components/GameFieldComponent/FieldComponents/Corners/CornerLeftTop'
+import Colb from "../../Components/GameFieldComponent/FieldComponents/Corners/CornerLeftBottom";
+import Cort from "../../Components/GameFieldComponent/FieldComponents/Corners/CornerRightTop";
+import Corb from "../../Components/GameFieldComponent/FieldComponents/Corners/CornerRightBottom";
+import Coin from "../../Components/GameFieldComponent/FieldComponents/Path/Coin";
+import Empy from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
+import Hack from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import Snac from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
+import Geis from "../../Components/GameFieldComponent/GhostComponent/Ghost";
 
 const testGameFieldCoinHackmanMiddle: React.FC<any>[][] = [
     [Colt,Coin,Cort],

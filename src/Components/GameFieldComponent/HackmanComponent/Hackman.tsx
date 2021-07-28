@@ -1,9 +1,8 @@
 import { useEffect } from "react";
-import Direction from "../../Types/Direction";
+import Direction from "../../../Types/Direction";
 import { useSelector } from "react-redux";
-import { State } from "../../State/store";
+import { State } from "../../../State/store";
 import { useState } from "react";
-import './hackman.css';
 
 const Hackman: React.FC<any> = () => {
   const hackmanDirection = useSelector((state: State) => state.hackman.direction);
@@ -25,6 +24,21 @@ const Hackman: React.FC<any> = () => {
         return '';
       }
   }
+
+  const getEyeAnimationClassName = (): string => {   
+    switch (hackmanDirection) {
+      case Direction.Up:
+        return 'eye-move-bottom-to-up';
+      case Direction.Left:
+        return 'eye-move-right-to-left';
+      case Direction.Down:
+        return 'eye-move-up-to-bottom';
+      case Direction.Right:
+        return 'eye-move-left-to-right';
+      default:
+        return '';
+      }
+  }
   
   const getViewDirectionClassName = (): string => {
     switch (hackmanDirection) {
@@ -40,10 +54,10 @@ const Hackman: React.FC<any> = () => {
         return ' leftView ';
       }
   };
-
+  
   useEffect(() => {
     setHackmanAnimationClassName(getHackmanAnimationClassName())
-    setEyeAnimationClassName("eye-move")
+    setEyeAnimationClassName(getEyeAnimationClassName())
     const timeOut = setTimeout(() => {
       setHackmanAnimationClassName("hackmanFill");
       setEyeAnimationClassName("")
@@ -54,13 +68,13 @@ const Hackman: React.FC<any> = () => {
   },[]);
 
   useEffect(()=>{
-    setViewDirectionClassName(getViewDirectionClassName())
+    setViewDirectionClassName(getViewDirectionClassName());
   },[hackmanDirection])
 
   return (
     <div className="field">
       <div  className={"hackmanForm" + viewDirectionClassName + hackmanAnimationClassName}>
-        <div className={"eye " + eyeAnimationClassName}></div>
+      <div className={"eye " + eyeAnimationClassName}></div>
       </div>
     </div>
   );
