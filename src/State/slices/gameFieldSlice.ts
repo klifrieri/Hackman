@@ -8,7 +8,6 @@ import GhostCharacter from '../../Types/Character/GhostCharacter';
 import Moveable from '../../Types/Moveable';
 import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumber';
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
-import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import React from 'react';
 
 const initialStateHackman:Character = new Character("Hackman",12,10);
@@ -23,12 +22,12 @@ const gameFieldSlice = createSlice({
     initialState:{
         gameField:SpielfeldLayout(),
         eatenCoins:0,
+        hackmanMoved:false,
         hackman:initialStateHackman,
         ghosts:ghosts,
     },
     reducers: {
       gameTick: (state) =>{
-        // const ghosts : WritableDraft<GhostCharacter>[]= [state.ghost1,state.ghost2,state.ghost3,state.ghost4];
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins = false;
           if(state.hackman.moveable === Moveable.Yes){
@@ -54,7 +53,12 @@ const gameFieldSlice = createSlice({
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;
-        state.hackman.moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload);
+        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload);
+        if(isMoveable === Moveable.Yes){
+          if(state.hackmanMoved === false)
+          state.hackmanMoved = true;
+        }
+        state.hackman.moveable = isMoveable;
       },
       increaseCoins: (state)=> {
         state.eatenCoins++;
