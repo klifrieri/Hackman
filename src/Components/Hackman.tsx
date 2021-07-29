@@ -1,77 +1,62 @@
-import { useEffect, useState } from "react";
-import Direction from "../Types/Direction";
-import { CharacterProps } from "../Interfaces/CharacterProps";
+import { useEffect } from "react";
+import Direction from "./../Types/Direction";
+import { useSelector } from "react-redux";
+import { State } from "./../State/store";
+import { useState } from "react";
 
-const Hackman: React.FC<any> = (props:CharacterProps) => {
-  const [classNames, setClassNames] = useState("");
-  const moveMouth = () => {
-      let eye = document.getElementById("eye");
-      let mouth = document.getElementById("mouth");
-      if((eye?.classList.contains("eye-move"))){
-        eye.classList.remove("eye-move");
-      }
-      else{
-        eye?.classList.add("eye-move");
-      }
-      if(mouth?.classList.contains("mouth-open")){
-        mouth.classList.remove("mouth-open");
-      }
-      else{
-        mouth?.classList.add("mouth-open");
-      }
-      setTimeout(() => {
-        eye?.classList.add("eye-move");
-        mouth?.classList.add("mouth-open");
-      }, 250)
-  }
+const Hackman: React.FC<any> = () => {
+  const hackmanDirection = useSelector((state: State) => state.hackman.direction);
+  const [hackmanAnimationClassName,setHackmanAnimationClassName] = useState("hackmanFill");
+  const [viewDirectionClassName,setViewDirectionClassName] = useState("leftView");
 
-  const moveHackman = (richtung:Direction) => {   
-    if(richtung === Direction.Up){
-      setClassNames("hackman top move-top");
-    }
-    else if(richtung === Direction.Down){
-      setClassNames("hackman bottom move-bottom");
-    }
-    else if(richtung === Direction.Left){
-      setClassNames("hackman left move-left");
-    }
-    else if(richtung === Direction.Right){
-      setClassNames("hackman right move-right");
-    }
-    else if(richtung === Direction.Nothing){
-      setClassNames("hackman");
-    }
-    // setTimeout(()=>{
-    //   setClassNames(getClassByRichtung(props.richtung));
-    // }, 250)
-  }
-  
-  
-  const getClassByRichtung = (richtung: Direction): string => {
-    switch (richtung) {
+  const getHackmanAnimationClassName = (): string => {   
+    switch (hackmanDirection) {
       case Direction.Up:
-        return `hackman top`;
+        return 'move-from-bottom-to-up';
       case Direction.Left:
-        return `hackman left`;
+        return 'move-from-right-to-left';
       case Direction.Down:
-        return `hackman bottom`;
+        return 'move-from-up-to-bottom';
       case Direction.Right:
-        return `hackman right`;
+        return 'move-from-left-to-right';
       default:
-        return `hackman`;
+        return '';
+      }
+  }
+  
+  const getViewDirectionClassName = (): string => {
+    switch (hackmanDirection) {
+      case Direction.Up:
+        return ' upView ';
+      case Direction.Left:
+        return ' leftView ';
+      case Direction.Down:
+        return ' downView ';
+      case Direction.Right:
+        return ' rightView ';
+      default:
+        return ' leftView ';
       }
   };
+  
   useEffect(() => {
-    setClassNames(getClassByRichtung(props.richtung));
-    
+    setHackmanAnimationClassName(getHackmanAnimationClassName())
+    const timeOut = setTimeout(() => {
+      setHackmanAnimationClassName("hackmanFill");
+    }, 250);
+
+    return ()=> clearTimeout(timeOut);
     //eslint-disable-next-line   
-  }, []);
+  },[]);
+
+  useEffect(()=>{
+    setViewDirectionClassName(getViewDirectionClassName());
+  },[hackmanDirection])
 
   return (
     <div className="field">
-      <div className={classNames} id="hackman">
-        <div className="eye" id="eye"></div>
-        <div className="mouth" id="mouth"></div>
+      <div  className={"hackmanForm" + viewDirectionClassName + hackmanAnimationClassName}>
+      <div className="eye"></div>
       </div>
     </div>
   );
