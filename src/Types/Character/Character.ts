@@ -1,6 +1,6 @@
-import Moveable from "../Types/Moveable";
-import Coordinate from "../Types/Coordinate";
-import Direction from "../Types/Direction";
+import Moveable from "../Moveable";
+import Coordinate from "../Coordinate";
+import Direction from "../Direction";
 
 class Character{
     private _name: string;

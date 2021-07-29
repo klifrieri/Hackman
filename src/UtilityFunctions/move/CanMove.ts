@@ -1,6 +1,6 @@
 import Coin from "../../Components/GameFieldComponent/FieldComponents/Path/Coin";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import Ghost from "../../Components/GameFieldComponent/GhostComponent/Ghost";
+import Ghost from "../../Components/GameFieldComponent/GhostComponents/Ghost3";
 import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
 import Moveable from "../../Types/Moveable";
 import Coordinate from "../../Types/Coordinate";

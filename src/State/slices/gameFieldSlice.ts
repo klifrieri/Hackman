@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { canMove, getPossibleDirections} from '../../UtilityFunctions/move/CanMove';
 import SpielfeldLayout from '../../SpielfeldLayout'
-import Character from '../../Classes/Character';
+import Character from '../../Types/Character/Character';
 import { moveHackman } from '../../UtilityFunctions/move/MoveHackman';
 import Direction from '../../Types/Direction';
-import GhostCharacter from '../../Classes/GhostCharacter';
+import GhostCharacter from '../../Types/Character/GhostCharacter';
 import Moveable from '../../Types/Moveable';
 import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumber';
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
@@ -16,6 +16,7 @@ const ghost1 = new GhostCharacter("Ghost1",7,9);
 const ghost2 = new GhostCharacter("Ghost2",7,11);
 const ghost3 = new GhostCharacter("Ghost3",9,9);
 const ghost4 = new GhostCharacter("Ghost4",9,11);
+const ghosts : GhostCharacter[]= [ghost1,ghost2,ghost3,ghost4];
 
 const gameFieldSlice = createSlice({
     name: 'game',
@@ -23,14 +24,11 @@ const gameFieldSlice = createSlice({
         gameField:SpielfeldLayout(),
         eatenCoins:0,
         hackman:initialStateHackman,
-        ghost1:ghost1,
-        ghost2:ghost2,
-        ghost3:ghost3,
-        ghost4:ghost4,
+        ghosts:ghosts,
     },
     reducers: {
       gameTick: (state) =>{
-        const ghosts : WritableDraft<GhostCharacter>[]= [state.ghost1,state.ghost2,state.ghost3,state.ghost4];
+        // const ghosts : WritableDraft<GhostCharacter>[]= [state.ghost1,state.ghost2,state.ghost3,state.ghost4];
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins = false;
           if(state.hackman.moveable === Moveable.Yes){
@@ -64,16 +62,16 @@ const gameFieldSlice = createSlice({
       activateGhost:(state,payload:PayloadAction<number>)=>{
         switch(payload.payload){
           case 1:
-            state.ghost1.shallTick = true;
+            state.ghosts[0].shallTick = true;
             break;
           case 2:
-            state.ghost2.shallTick = true;
+            state.ghosts[1].shallTick = true;
             break;
           case 3:
-            state.ghost3.shallTick = true;
+            state.ghosts[2].shallTick = true;
             break;
           case 4:
-            state.ghost4.shallTick = true;
+            state.ghosts[3].shallTick = true;
             break;
         }
       }

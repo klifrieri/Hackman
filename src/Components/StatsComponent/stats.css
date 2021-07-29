@@ -6,14 +6,51 @@
 .stats.container{
     display: block;
     text-align: center;
+    margin: 0 auto;
+}
+.stats.container.width{
+    width: 100px;
 }
 
 .stats.content{
     color : white;
     display: inline-block;
     margin: 0px;
-    font-size: 2em;
     margin: 0 0.5em 0.5em 0;
     font-family: "System";
     letter-spacing: 10px;
+}
+
+.stats.content.fontSize{
+    font-size: 0.5em;   
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .stats.content.fontSize {font-size: 1em;}
+    .stats.container.width {width: 100px;}
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .stats.content.fontSize {font-size: 1em;}
+    .stats.container.width {width: 100px;}
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px){
+    .stats.content.fontSize {font-size: 1.5em;}
+    .stats.container.width {width: 125px;}
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .stats.content.fontSize {font-size: 2em;}
+    .stats.container.width {width: 150px;}
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .stats.content.fontSize {font-size: 3em;}
+    .stats.container.width {width: 200px;}
 }

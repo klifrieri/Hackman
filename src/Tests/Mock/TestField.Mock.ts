@@ -6,7 +6,7 @@ import Coin from "../../Components/GameFieldComponent/FieldComponents/Path/Coin"
 import Empy from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import Hack from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import Snac from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
-import Geis from "../../Components/GameFieldComponent/GhostComponent/Ghost";
+import Geis from "../../Components/GameFieldComponent/GhostComponents/Ghost3";
 
 const testGameFieldCoinHackmanMiddle: React.FC<any>[][] = [
     [Colt,Coin,Cort],

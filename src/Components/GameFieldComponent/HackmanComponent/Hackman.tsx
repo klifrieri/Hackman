@@ -7,7 +7,6 @@ import { useState } from "react";
 const Hackman: React.FC<any> = () => {
   const hackmanDirection = useSelector((state: State) => state.hackman.direction);
   const [hackmanAnimationClassName,setHackmanAnimationClassName] = useState("hackmanFill");
-  const [eyeAnimationClassName,setEyeAnimationClassName] = useState("");
   const [viewDirectionClassName,setViewDirectionClassName] = useState("leftView");
 
   const getHackmanAnimationClassName = (): string => {   
@@ -20,21 +19,6 @@ const Hackman: React.FC<any> = () => {
         return 'move-from-up-to-bottom';
       case Direction.Right:
         return 'move-from-left-to-right';
-      default:
-        return '';
-      }
-  }
-
-  const getEyeAnimationClassName = (): string => {   
-    switch (hackmanDirection) {
-      case Direction.Up:
-        return 'eye-move-bottom-to-up';
-      case Direction.Left:
-        return 'eye-move-right-to-left';
-      case Direction.Down:
-        return 'eye-move-up-to-bottom';
-      case Direction.Right:
-        return 'eye-move-left-to-right';
       default:
         return '';
       }
@@ -57,10 +41,8 @@ const Hackman: React.FC<any> = () => {
   
   useEffect(() => {
     setHackmanAnimationClassName(getHackmanAnimationClassName())
-    setEyeAnimationClassName(getEyeAnimationClassName())
     const timeOut = setTimeout(() => {
       setHackmanAnimationClassName("hackmanFill");
-      setEyeAnimationClassName("")
     }, 250);
 
     return ()=> clearTimeout(timeOut);
@@ -74,7 +56,7 @@ const Hackman: React.FC<any> = () => {
   return (
     <div className="field">
       <div  className={"hackmanForm" + viewDirectionClassName + hackmanAnimationClassName}>
-      <div className={"eye " + eyeAnimationClassName}></div>
+      <div className="eye"></div>
       </div>
     </div>
   );

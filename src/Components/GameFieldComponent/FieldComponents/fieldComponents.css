@@ -6,6 +6,7 @@
     background-color: orange;
 }
 
+
  .vertical{
     position: relative;
     width: 20%;
@@ -15,8 +16,8 @@
 .tPieceVerticalWall{
     position: relative;
     width: 20%;
-    height: 100%;
-    transform: translateX(200%) translateY(-20%);
+    height: 101%;
+    transform: translateX(200%) translateY(-21%);
     background-color: orange;
 }
 .tWallTop{

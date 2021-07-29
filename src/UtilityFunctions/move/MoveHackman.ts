@@ -1,4 +1,4 @@
-import Character from "../../Classes/Character";
+import Character from "../../Types/Character/Character";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";

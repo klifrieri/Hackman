@@ -1,7 +1,7 @@
 @import url('./Components/GameFieldComponent/gameField.css');
 @import url('./Components/GameFieldComponent/FieldComponents/fieldComponents.css');
 @import url('./Components/GameFieldComponent/HackmanComponent/hackman.css');
-@import url('./Components/GameFieldComponent/GhostComponent/ghost.css');
+@import url('./Components/GameFieldComponent/GhostComponents/ghost.css');
 @import url('./Components/StatsComponent/stats.css');
 
 code {
