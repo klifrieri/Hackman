@@ -1,7 +1,6 @@
 import GhostCharacter from "../Types/Character/GhostCharacter";
 import Moveable from "../Types/Moveable";
 import Direction from "../Types/Direction";
-import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 
 function getRandomNumber(min:number,max:number){
     min = Math.ceil(min);

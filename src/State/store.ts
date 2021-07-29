@@ -1,4 +1,4 @@
-import { applyMiddleware, combineReducers, compose, createStore, StoreEnhancer } from "@reduxjs/toolkit";
+import { applyMiddleware, createStore} from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import gameFieldSlice from "./slices/gameFieldSlice";
 

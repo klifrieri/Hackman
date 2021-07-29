@@ -50,6 +50,8 @@ const gameFieldSlice = createSlice({
           if(increaseCoins){
             state.eatenCoins++;
           }
+          state.hackman.moveable = canMove(gameFieldForAll,state.hackman.getPosition,state.hackman.direction);
+          state.gameField = gameFieldForAll;
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;

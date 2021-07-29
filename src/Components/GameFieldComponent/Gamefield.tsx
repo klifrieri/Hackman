@@ -35,7 +35,6 @@ const GameField: React.FC = () => {
   const { gameTick, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
 
   const gameField = useSelector((state: State) => state.gameField);
-  const hackmanIsMoveable = useSelector((state: State) => state.hackman.moveable);
   const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
 
   useEffect(() => {
@@ -61,7 +60,7 @@ const GameField: React.FC = () => {
     const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
     intervalStart();
     return () => intervalStop();
-  }, [hackmanIsMoveable])
+  }, [])
 
 
   const renderComponent = (component: React.FC<any>, key: number) => {

@@ -2,7 +2,7 @@ import Character from "../../Types/Character/Character";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
-import { canMove, checkCoins } from "./CanMove";
+import { checkCoins } from "./CanMove";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import React from "react";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
@@ -118,7 +118,6 @@ function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Charact
       }
     }
   }
-  hackman.moveable = canMove(gameField,hackman.getPosition,hackman.direction);
   return { gameField, increaseTheCoins };
 };
 
