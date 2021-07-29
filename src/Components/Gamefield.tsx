@@ -25,7 +25,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "../State/store";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../State/slices/gameFieldSlice";
-import CustomInterval from "../UtilityFunctions/CustomInterval";
+import  { CustomInterval, CustomTimeout } from "../UtilityFunctions/CustomInterval";
 
 
 const GameField: React.FC = () => {
@@ -35,13 +35,26 @@ const GameField: React.FC = () => {
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanIsMoveable = useSelector((state: State) => state.hackman.moveable);
   const hackmanDirection = useSelector((state: State) => state.hackman.direction);
+  const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
 
   useEffect(() => {
-    setTimeout(() => { store.dispatch(activateGhost(1)) }, 2500);
-    setTimeout(() => { store.dispatch(activateGhost(2)) }, 5000);
-    setTimeout(() => { store.dispatch(activateGhost(3)) }, 7500);
-    setTimeout(() => { store.dispatch(activateGhost(4)) }, 10000);
-  }, [])
+    let [ghost1TimerStart,ghost1TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(1)),2500)
+    let [ghost2TimerStart,ghost2TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(2)),5000)
+    let [ghost3TimerStart,ghost3TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(3)),7500)
+    let [ghost4TimerStart,ghost4TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(4)),10000)
+    if(hackmanMoved){
+    ghost1TimerStart();
+    ghost2TimerStart();
+    ghost3TimerStart();
+    ghost4TimerStart();
+  }
+  return () =>{
+    ghost1TimerStop();
+    ghost2TimerStop();
+    ghost3TimerStop();
+    ghost4TimerStop();
+  }
+  }, [hackmanMoved])
 
   useEffect(() => {
     const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);

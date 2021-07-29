@@ -23,6 +23,7 @@ const gameFieldSlice = createSlice({
         gameField:SpielfeldLayout(),
         eatenCoins:0,
         hackman:initialStateHackman,
+        hackmanMoved:false,
         hackComponent:Hackman,
         ghost1:ghost1,
         ghost2:ghost2,
@@ -51,7 +52,12 @@ const gameFieldSlice = createSlice({
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;
-        state.hackman.moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload);
+        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload);
+        if(isMoveable === Moveable.Yes){
+          if(state.hackmanMoved === false)
+          state.hackmanMoved = true;
+        }
+        state.hackman.moveable = isMoveable;
       },
       increaseCoins: (state)=> {
         state.eatenCoins++;
