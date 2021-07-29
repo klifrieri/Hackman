@@ -117,7 +117,6 @@ function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Charact
       }
     }
   }
-  hackman.moveable = canMove(gameField,hackman.getPosition,hackman.direction);
   return { gameField, increaseCoins };
 };
 

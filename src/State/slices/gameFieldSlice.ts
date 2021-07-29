@@ -39,16 +39,19 @@ const gameFieldSlice = createSlice({
               if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
                 const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameField,ghost.getPosition);
                 ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
+                gameField = moveGhost(gameField,ghost);
               }
               else{
                 ghost.moveable = canMove(gameField,ghost.getPosition,ghost.direction);
+                gameField = moveGhost(gameField,ghost);
               }
-              gameField = moveGhost(gameField,ghost);
             }
         });
         if(increaseCoins){
           state.eatenCoins++;
         }
+        state.hackman.moveable = canMove(gameField,state.hackman.getPosition,state.hackman.direction);
+        state.gameField = gameField;
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;

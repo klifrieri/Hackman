@@ -56,13 +56,13 @@ const GameField: React.FC = () => {
     ghost4TimerStop();
   }  
   
-  },[]) // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[hackmanMoved])
 
   useEffect(() => {
     const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
     intervalStart();
     return () => intervalStop();
-  },[]) // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {

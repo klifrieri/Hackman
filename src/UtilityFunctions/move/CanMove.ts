@@ -5,6 +5,7 @@ import Snack from "../../Components/Snack";
 import Moveable from "../../Types/Moveable";
 import Coordinate from "../../Types/Coordinate";
 import Direction from "../../Types/Direction";
+import Hackman from "../../Components/Hackman";
 
 function canMoveUp(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
   let positionValue = position.y - 1;
@@ -13,7 +14,7 @@ function canMoveUp(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
     spielFeld[positionValue][position.x] === Coin ||
     spielFeld[positionValue][position.x] === Snack)
     return Moveable.Yes;
-    else if (spielFeld[positionValue][position.x] === Ghost) return Moveable.No;
+    else if (spielFeld[positionValue][position.x] === Ghost || spielFeld[positionValue][position.x] === Hackman) return Moveable.No;
   else return Moveable.No;
 }
 
@@ -24,7 +25,7 @@ function canMoveDown(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
     spielFeld[positionValue][position.x] === Coin ||
     spielFeld[positionValue][position.x] === Snack)
     return Moveable.Yes;
-    else if (spielFeld[positionValue][position.x] === Ghost)return Moveable.No;
+    else if (spielFeld[positionValue][position.x] === Ghost || spielFeld[positionValue][position.y] === Hackman)return Moveable.No;
   else return Moveable.No;   
 }
 
@@ -35,19 +36,23 @@ function canMoveLeft(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
         spielFeld[position.y][positionValue] === Coin ||
         spielFeld[position.y][positionValue] === Snack)
         return Moveable.Yes;
-      else if (spielFeld[position.y][positionValue] === Ghost)  return Moveable.No;
+      else if (spielFeld[position.y][positionValue] === Ghost || spielFeld[position.y][positionValue] === Hackman)  return Moveable.No;
       else return Moveable.No;
 }
 
 function canMoveRight(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
   let positionValue = position.x + 1;
-  if (spielFeld[position.y][positionValue] === undefined) return Moveable.Portal;
+  if(positionValue !== undefined)
+{  if (spielFeld[position.y][positionValue] === undefined) return Moveable.Portal;
   else if (spielFeld[position.y][positionValue] === Empty ||
     spielFeld[position.y][positionValue] === Coin ||
     spielFeld[position.y][positionValue] === Snack)
     return Moveable.Yes;
-  else if(spielFeld[position.y][positionValue] === Ghost) return Moveable.No;
-  else return Moveable.No;
+  else if(spielFeld[position.y][positionValue] === Ghost || spielFeld[position.y][positionValue] === Hackman) return Moveable.No;
+  else return Moveable.No;}
+  else{
+    return Moveable.No;
+  }
 }
 
 function canMove(gameField:React.FC<{}>[][],position:Coordinate,direction:Direction,): Moveable{
