@@ -87,7 +87,7 @@ function getPossibleDirections(spielFeld:React.FC<{}>[][],position:Coordinate):{
     bewegungMoeglich: canMoveRight(spielFeld,position)
   }
 
-  let canMoveDirections: {direction: Direction;bewegungMoeglich: Moveable;}[] = new Array();
+  let canMoveDirections: {direction: Direction;bewegungMoeglich: Moveable;}[] = [];
 
   if(_canMoveUp.bewegungMoeglich === Moveable.Yes || _canMoveUp.bewegungMoeglich === Moveable.Portal){
     canMoveDirections.push(_canMoveUp);

@@ -51,6 +51,7 @@ const Hackman: React.FC<any> = () => {
 
   useEffect(()=>{
     setViewDirectionClassName(getViewDirectionClassName());
+    //eslint-disable-next-line  
   },[hackmanDirection])
 
   return (

@@ -33,9 +33,10 @@ const GameField: React.FC = () => {
   const { gameTick, changeIsMoveableHackman, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
 
   const gameField = useSelector((state: State) => state.gameField);
-  const hackmanIsMoveable = useSelector((state: State) => state.hackman.moveable);
   const hackmanDirection = useSelector((state: State) => state.hackman.direction);
   const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
+
+  
 
   useEffect(() => {
     let [ghost1TimerStart,ghost1TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(1)),2500)
@@ -53,14 +54,15 @@ const GameField: React.FC = () => {
     ghost2TimerStop();
     ghost3TimerStop();
     ghost4TimerStop();
-  }
-  }, [hackmanMoved])
+  }  
+  
+  },[]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
     intervalStart();
     return () => intervalStop();
-  }, [hackmanIsMoveable])
+  },[]) // eslint-disable-next-line react-hooks/exhaustive-deps
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {

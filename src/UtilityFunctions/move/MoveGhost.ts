@@ -2,7 +2,6 @@ import GhostCharacter from "../../Classes/GhostCharacter";
 import Ghost from "../../Components/Ghost";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
-import Coordinate from "../../Types/Coordinate";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 
 function ghostMovesRight(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
