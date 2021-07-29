@@ -2,7 +2,7 @@ import Character from "../../Classes/Character";
 import Empty from "../../Components/Empty";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
-import { canMove, checkCoins } from "./CanMove";
+import { checkCoins } from "./CanMove";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import React from "react";
 
