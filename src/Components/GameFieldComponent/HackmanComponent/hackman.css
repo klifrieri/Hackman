@@ -164,36 +164,36 @@
   } 
 
 @keyframes move-from-bottom-to-up {
-    0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(100%) translateY(12%);}
-    7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(92.9%) translateY(12%);}
-    14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(85.75%) translateY(12%);}
-    21.45%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(78.6%) translateY(12%);}
-    28.6%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(71.45%) translateY(12%);}
-    35.75%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(64.3%) translateY(12%);}
-    42.8%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(57.15%) translateY(12%);}
-    50%  {background:conic-gradient(#ff9000 235deg, #000 235deg 305deg,#ff9000 305deg 360deg);transform:rotateZ(90deg) translateX(50%) translateY(12%);}
-    57.15%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(42.9%) translateY(12%);}
-    64.3%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(35.75%) translateY(12%);}
-    71.45%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(28.6%) translateY(12%);}
-    78.6%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(21.45%) translateY(12%);}
-    85.75%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(14.3%) translateY(12%);}
-    92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(7.15%) translateY(12%);}
-    100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(0%) translateY(12%);} 
+    0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(100%) translateY(-12%);}
+    7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(92.9%) translateY(-12%);}
+    14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(85.75%) translateY(-12%);}
+    21.45%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(78.6%) translateY(-12%);}
+    28.6%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(71.45%) translateY(-12%);}
+    35.75%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(64.3%) translateY(-12%);}
+    42.8%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(57.15%) translateY(-12%);}
+    50%  {background:conic-gradient(#ff9000 235deg, #000 235deg 305deg,#ff9000 305deg 360deg);transform:rotateZ(90deg) translateX(50%) translateY(-12%);}
+    57.15%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(42.9%) translateY(-12%);}
+    64.3%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(35.75%) translateY(-12%);}
+    71.45%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(28.6%) translateY(-12%);}
+    78.6%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(21.45%) translateY(-12%);}
+    85.75%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(14.3%) translateY(-12%);}
+    92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(7.15%) translateY(-12%);}
+    100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(0%) translateY(-12%);} 
   } 
 @-webkit-keyframes move-from-bottom-to-up {
-    0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(100%) translateY(12%);}
-    7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(92.9%) translateY(12%);}
-    14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(85.75%) translateY(12%);}
-    21.45%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(78.6%) translateY(12%);}
-    28.6%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(71.45%) translateY(12%);}
-    35.75%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(64.3%) translateY(12%);}
-    42.8%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(57.15%) translateY(12%);}
-    50%  {background:conic-gradient(#ff9000 235deg, #000 235deg 305deg,#ff9000 305deg 360deg);transform:rotateZ(90deg) translateX(50%) translateY(12%);}
-    57.15%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(42.9%) translateY(12%);}
-    64.3%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(35.75%) translateY(12%);}
-    71.45%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(28.6%) translateY(12%);}
-    78.6%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(21.45%) translateY(12%);}
-    85.75%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(14.3%) translateY(12%);}
-    92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(7.15%) translateY(12%);}
-    100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(0%) translateY(12%);} 
+    0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(100%) translateY(-12%);}
+    7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(92.9%) translateY(-12%);}
+    14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(85.75%) translateY(-12%);}
+    21.45%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(78.6%) translateY(-12%);}
+    28.6%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(71.45%) translateY(-12%);}
+    35.75%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(64.3%) translateY(-12%);}
+    42.8%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(57.15%) translateY(-12%);}
+    50%  {background:conic-gradient(#ff9000 235deg, #000 235deg 305deg,#ff9000 305deg 360deg);transform:rotateZ(90deg) translateX(50%) translateY(-12%);}
+    57.15%   {background:conic-gradient(#ff9000 240deg, #000 240deg 300deg,#ff9000 300deg 360deg);transform:rotateZ(90deg) translateX(42.9%) translateY(-12%);}
+    64.3%   {background:conic-gradient(#ff9000 245deg, #000 245deg 295deg,#ff9000 295deg 360deg);transform:rotateZ(90deg) translateX(35.75%) translateY(-12%);}
+    71.45%   {background:conic-gradient(#ff9000 250deg, #000 250deg 290deg,#ff9000 290deg 360deg);transform:rotateZ(90deg) translateX(28.6%) translateY(-12%);}
+    78.6%   {background:conic-gradient(#ff9000 255deg, #000 255deg 285deg,#ff9000 285deg 360deg);transform:rotateZ(90deg) translateX(21.45%) translateY(-12%);}
+    85.75%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(14.3%) translateY(-12%);}
+    92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(7.15%) translateY(-12%);}
+    100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(0%) translateY(-12%);} 
   } 
