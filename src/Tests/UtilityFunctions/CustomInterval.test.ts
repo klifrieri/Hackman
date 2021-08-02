@@ -1,4 +1,4 @@
-import CustomInterval from "./../../UtilityFunctions/CustomInterval";
+import {CustomInterval} from "./../../UtilityFunctions/CustomInterval";
 
 const chai = require('chai');
 
