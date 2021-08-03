@@ -1,5 +1,4 @@
-
-const Ghost: React.FC = () => {
+const Ghost: React.FC<any> = () => {
     return (
         <div className="field">
             <div className="ghost">

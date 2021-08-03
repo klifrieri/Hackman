@@ -1,91 +1,63 @@
-import { useEffect, useState } from "react";
-import Richtung from "../Types/Richtung";
-import { EventEmitter } from "events";
+import { useEffect } from "react";
+import Direction from "./../Types/Direction";
+import { useSelector } from "react-redux";
+import { State } from "./../State/store";
+import { useState } from "react";
 
-type HackmanProps = {
-  richtung: Richtung;
-  emitter: EventEmitter;
-};
+const Hackman: React.FC<any> = () => {
+  const hackmanDirection = useSelector((state: State) => state.hackman.direction);
+  const [hackmanAnimationClassName,setHackmanAnimationClassName] = useState("hackmanFill");
+  const [viewDirectionClassName,setViewDirectionClassName] = useState("leftView");
 
-const Hackman: React.FC<any> = (props: HackmanProps) => {
-  const [classNames, setClassNames] = useState("");
-
-  const moveMouth = () => {
-      let eye = document.getElementById("eye");
-      let mouth = document.getElementById("mouth");
-      if((eye?.classList.contains("eye-move"))){
-        eye.classList.remove("eye-move");
-      }
-      else{
-        eye?.classList.add("eye-move");
-      }
-      if(mouth?.classList.contains("mouth-open")){
-        mouth.classList.remove("mouth-open");
-      }
-      else{
-        mouth?.classList.add("mouth-open");
-      }
-      setTimeout(() => {
-        eye?.classList.add("eye-move");
-        mouth?.classList.add("mouth-open");
-      }, 250)
-  }
-
-  const moveHackman = (richtung:Richtung) => {   
-    if(richtung === Richtung.Oben){
-      setClassNames("hackman top move-top");
-    }
-    else if(richtung === Richtung.Unten){
-      setClassNames("hackman bottom move-bottom");
-    }
-    else if(richtung === Richtung.Links){
-      setClassNames("hackman left move-left");
-    }
-    else if(richtung === Richtung.Rechts){
-      setClassNames("hackman right move-right");
-    }
-    else if(richtung === Richtung.Keine){
-      setClassNames("hackman");
-    }
-    setTimeout(()=>{
-      setClassNames(getClassByRichtung(props.richtung));
-    }, 250)
-  }
-  
-  
-  
-  const getClassByRichtung = (richtung: Richtung): string => {
-    switch (richtung) {
-      case Richtung.Oben:
-        return `hackman top`;
-      case Richtung.Links:
-        return `hackman left`;
-      case Richtung.Unten:
-        return `hackman bottom`;
-      case Richtung.Rechts:
-        return `hackman right`;
+  const getHackmanAnimationClassName = (): string => {   
+    switch (hackmanDirection) {
+      case Direction.Up:
+        return 'move-from-bottom-to-up';
+      case Direction.Left:
+        return 'move-from-right-to-left';
+      case Direction.Down:
+        return 'move-from-up-to-bottom';
+      case Direction.Right:
+        return 'move-from-left-to-right';
       default:
-        return `hackman`;
+        return '';
+      }
+  }
+  
+  const getViewDirectionClassName = (): string => {
+    switch (hackmanDirection) {
+      case Direction.Up:
+        return ' upView ';
+      case Direction.Left:
+        return ' leftView ';
+      case Direction.Down:
+        return ' downView ';
+      case Direction.Right:
+        return ' rightView ';
+      default:
+        return ' leftView ';
       }
   };
-  props.emitter.once("startAnimation", (bewegungsRichtung) => {    
-    moveHackman(bewegungsRichtung);
-    //console.log("Emitter started");
-  })
+  
   useEffect(() => {
-    props.emitter.once("moveMouth", () => {
-      //setClassNames(getClassByRichtung(props.richtung));
-      moveMouth();
-    })
-    setClassNames(getClassByRichtung(props.richtung));   
+    setHackmanAnimationClassName(getHackmanAnimationClassName())
+    const timeOut = setTimeout(() => {
+      setHackmanAnimationClassName("hackmanFill");
+    }, 250);
+
+    return ()=> clearTimeout(timeOut);
     //eslint-disable-next-line   
-  }, []);
+  },[]);
+
+  useEffect(()=>{
+    setViewDirectionClassName(getViewDirectionClassName());
+    //eslint-disable-next-line  
+  },[hackmanDirection])
 
   return (
     <div className="field">
-      <div className={classNames} id="hackman">
-        <div className="eye" id="eye"></div>
-        <div className="mouth" id="mouth"></div>
+      <div  className={"hackmanForm" + viewDirectionClassName + hackmanAnimationClassName}>
+      <div className="eye"></div>
       </div>
     </div>
   );

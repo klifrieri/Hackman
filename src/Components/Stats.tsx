@@ -1,15 +1,15 @@
-interface IStatsProps {
-    eatenCoins : number | undefined,
-    remainingLives : number | undefined
-}
+import { useSelector } from "react-redux"
+import { State } from "../State/store"
 
-const Stats: React.FC<IStatsProps> = (props) => {
+const Stats: React.FC<any> = () => {
+    const eatenCoins = useSelector((state:State)=>state.eatenCoins)
+    const remainingLives:number = 3;
     return <div className="stats container">
         <p className="stats content">
-            {props.eatenCoins}•
+            {eatenCoins}•
         </p>
         <p className="stats content">
-            {props.remainingLives}♥
+            {remainingLives}♥
         </p>
     </div>
 }

@@ -8,6 +8,7 @@ Willkommen! Hier findest du die Installationshilfe für unser Hackman-Spiel. Vie
 - Javascript
 - Typescript
 - React
+- Redux
 - HTML
 - CSS
 - NPM
