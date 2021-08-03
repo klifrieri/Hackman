@@ -1,5 +1,5 @@
-import Hackman from '../../../../Components/Hackman';
-import Empty from '../../../../Components/Empty';
+import Hackman from '../../../../Components/GameFieldComponent/HackmanComponent/Hackman';
+import Empty from '../../../../Components/GameFieldComponent/FieldComponents/Path/Empty';
 import { hackmanMovesDownTroughPortal, hackmanMovesLeftTroughPortal, hackmanMovesRightTroughPortal, hackmanMovesUpTroughPortal} from '../../../../UtilityFunctions/move/MoveHackman';
 import GetHackmanByPosition from '../../../Mock/Character.Mock';
 import {testGameFieldCoinPacmanDown,testGameFieldCoinPacmanLeft,testGameFieldCoinPacmanRight,testGameFieldCoinPacmanTop } from '../../../Mock/TestField.Mock';

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import Direction from "./../Types/Direction";
+import Direction from "../../../Types/Direction";
 import { useSelector } from "react-redux";
-import { State } from "./../State/store";
+import { State } from "../../../State/store";
 import { useState } from "react";
 
 const Hackman: React.FC<any> = () => {
@@ -51,7 +51,6 @@ const Hackman: React.FC<any> = () => {
 
   useEffect(()=>{
     setViewDirectionClassName(getViewDirectionClassName());
-    //eslint-disable-next-line  
   },[hackmanDirection])
 
   return (

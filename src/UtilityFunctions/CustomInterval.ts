@@ -1,3 +1,4 @@
+  
 const CustomInterval = (funct:()=>void,mSec:number)=>{
     let isSet:boolean = false;
     let interval!:NodeJS.Timeout;

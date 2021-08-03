@@ -1,0 +1,122 @@
+.verticalWall{
+    position: relative;
+    width: 20%;
+    height: 100%;
+    transform: translateX(200%);
+    background-color: orange;
+}
+
+
+ .vertical{
+    position: relative;
+    width: 20%;
+    height: 60%;
+    background-color: orange;
+} 
+.tPieceVerticalWall{
+    position: relative;
+    width: 20%;
+    height: 101%;
+    transform: translateX(200%) translateY(-21%);
+    background-color: orange;
+}
+.tWallTop{
+    position: relative;
+    transform:translateX(200%) translateY(-34%);
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+}
+.tWallBottom{
+    position: relative;
+    transform:translateX(200%) translateY(35%);
+    border-top-left-radius: 25%;
+    border-top-right-radius: 25%;
+}
+
+.tWallRight{
+    position: relative;
+    transform: translateX(0%) translateY(200%);
+    border-bottom-right-radius: 25%;
+    border-top-right-radius: 25%;
+}
+.tWallLeft{
+    position: relative;
+    transform: translateX(68%) translateY(200%);
+    border-bottom-left-radius: 25%;
+    border-top-left-radius: 25%;
+}
+
+.verticalWallBS{
+    position: relative;
+    transform: translateX(200%);
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
+}
+.verticalWallTS{
+    position: relative;
+    transform: translateX(200%) translateY(80%);
+    border-top-left-radius: 25%;
+    border-top-right-radius: 25%;
+}
+
+
+.horizontalWall{
+    position: relative;
+    width: 100%;
+    height: 20%;
+    background-color: orange;
+    transform: translateY(200%);
+}
+.horizontal{
+    position: relative;
+    width: 60%;
+    height: 20%;
+    background-color: orange;
+}
+
+.horizontalWallLS{
+    position: relative;
+    transform: translateX(70%) translateY(200%);
+    border-top-left-radius: 25%;
+    border-bottom-left-radius: 25%;
+}
+.horizontalWallRS{
+    position: relative;
+    transform: translateX(-5%) translateY(200%);
+    border-top-right-radius: 25%;
+    border-bottom-right-radius: 25%;
+} 
+.gate{
+    position: absolute;
+    width: 100%;
+    height: 20%;
+    top: 40%;
+    right: 0%;
+    background-color: rgba(192, 192, 192, 0.6);
+    background-image: linear-gradient(335deg, rgba(187, 0, 0, 0.6) 60%, transparent 60%),
+        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 20%, transparent 20%),
+        linear-gradient(335deg, rgba(187, 0, 0, 0.6) 20%, transparent 20%),
+        linear-gradient(155deg, rgba(221, 0, 0, 0.6) 20%, transparent 20%);
+    background-size: 15% 15%;
+    background-position: 0% 15%, 18% 30%, 20% 15%, 10% 80%;
+    border-radius: 30%;
+} 
+
+
+/* Coins */
+ .coin {
+    position: relative;
+    transform: translateX(200%) translateY(200%);
+    width: 20%;
+    height: 20%;
+    background: white;
+    border-radius: 50% !important;
+}
+.snack {
+    position: relative;
+    transform: translateY(75%) translateX(75%);
+    width: 40%;
+    height: 40%;
+    background: white;
+    border-radius: 50% !important;
+} 

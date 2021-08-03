@@ -1,4 +1,4 @@
-const Ghost: React.FC<any> = () => {
+const Ghost4: React.FC<any> = () => {
     return (
         <div className="field">
             <div className="ghost">
@@ -16,4 +16,4 @@ const Ghost: React.FC<any> = () => {
     );
 }
 
-export default Ghost;
+export default Ghost4;

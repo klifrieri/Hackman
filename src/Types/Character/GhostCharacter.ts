@@ -1,4 +1,4 @@
-import Empty from "../Components/Empty";
+import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import Character from "./Character";
 
 class GhostCharacter extends Character{

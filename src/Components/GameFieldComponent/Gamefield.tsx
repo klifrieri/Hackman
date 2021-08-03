@@ -1,42 +1,41 @@
-import Coin from "./Coin";
-import Empty from "./Empty";
-import Hackman from "./Hackman";
-import Wall from "./Wall";
-import VerticalWall from "./VerticalWalls/VerticalWall";
-import VerticalWallTS from "./VerticalWalls/VerticalWallTopShort";
-import VerticalWallBS from "./VerticalWalls/VerticalWallBottomShort";
-import HorizontalWall from "./HorizontalWalls/HorizontalWall";
-import HorizontalWallRS from "./HorizontalWalls/HorizontalWallRightSideShort";
-import HorizontalWallLS from "./HorizontalWalls/HorizontalWallLeftSideShort";
-import TPieceBottom from "./TPieces/TPieceBottom";
-import TPieceTop from "./TPieces/TPieceTop";
-import TPieceRight from "./TPieces/TPieceRight";
-import TPieceLeft from "./TPieces/TPieceLeft";
-import CornerLT from "./Corners/CornerLeftTop";
-import CornerLB from "./Corners/CornerLeftBottom";
-import CornerRT from "./Corners/CornerRightTop";
-import CornerRB from "./Corners/CornerRightBottom";
+import Coin from "./FieldComponents/Path/Coin";
+import Empty from "./FieldComponents/Path/Empty";
+import Hackman from "./HackmanComponent/Hackman";
+import VerticalWall from "./FieldComponents/VerticalWalls/VerticalWall";
+import VerticalWallTS from "./FieldComponents/VerticalWalls/VerticalWallTopShort";
+import VerticalWallBS from "./FieldComponents/VerticalWalls/VerticalWallBottomShort";
+import HorizontalWall from "./FieldComponents/HorizontalWalls/HorizontalWall";
+import HorizontalWallRS from "./FieldComponents/HorizontalWalls/HorizontalWallRightSideShort";
+import HorizontalWallLS from "./FieldComponents/HorizontalWalls/HorizontalWallLeftSideShort";
+import TPieceBottom from "./FieldComponents/TPieces/TPieceBottom";
+import TPieceTop from "./FieldComponents/TPieces/TPieceTop";
+import TPieceRight from "./FieldComponents/TPieces/TPieceRight";
+import TPieceLeft from "./FieldComponents/TPieces/TPieceLeft";
+import CornerLT from "./FieldComponents/Corners/CornerLeftTop";
+import CornerLB from "./FieldComponents/Corners/CornerLeftBottom";
+import CornerRT from "./FieldComponents/Corners/CornerRightTop";
+import CornerRB from "./FieldComponents/Corners/CornerRightBottom";
 import React, { useEffect } from "react";
-import Snack from "./Snack";
-import Ghost from "./Ghost";
-import Gate from "./Gate";
-import Direction from "../Types/Direction";
+import Snack from "./FieldComponents/Path/Snack";
+import Gate from "./FieldComponents/Path/Gate";
 import { useDispatch, useSelector } from "react-redux";
-import { State, store } from "../State/store";
+import { State, store } from "../../State/store";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../State/slices/gameFieldSlice";
-import  { CustomInterval, CustomTimeout } from "../UtilityFunctions/CustomInterval";
+import gameFieldSlice from "../../State/slices/gameFieldSlice";
+import { CustomInterval, CustomTimeout } from "../../UtilityFunctions/CustomInterval";
+import './gameField.css';
+import Ghost1 from "./GhostComponents/Ghost1";
+import Ghost2 from "./GhostComponents/Ghost2";
+import Ghost3 from "./GhostComponents/Ghost3";
+import Ghost4 from "./GhostComponents/Ghost4";
 
 
 const GameField: React.FC = () => {
   const dispatch = useDispatch();
-  const { gameTick, changeIsMoveableHackman, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
+  const { gameTick, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
 
   const gameField = useSelector((state: State) => state.gameField);
-  const hackmanDirection = useSelector((state: State) => state.hackman.direction);
   const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
-
-  
 
   useEffect(() => {
     let [ghost1TimerStart,ghost1TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(1)),2500)
@@ -54,36 +53,18 @@ const GameField: React.FC = () => {
     ghost2TimerStop();
     ghost3TimerStop();
     ghost4TimerStop();
-  }  
-  
-  },[hackmanMoved])
+  }
+  }, [hackmanMoved])
 
   useEffect(() => {
     const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
     intervalStart();
     return () => intervalStop();
-  },[])
+  }, [])
 
-  const handleKeyDown = (e: React.KeyboardEvent): void => {
-    if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
-      store.dispatch(changeIsMoveableHackman(Direction.Up))
-    }
-    else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
-      store.dispatch(changeIsMoveableHackman(Direction.Right))
-    }
-    else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown") {
-      store.dispatch(changeIsMoveableHackman(Direction.Down))
-    }
-    else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft") {
-      store.dispatch(changeIsMoveableHackman(Direction.Left))
-    }
-    else
-      return;
-  };
 
   const renderComponent = (component: React.FC<any>, key: number) => {
-    if (component === Wall) return <Wall key={key} />;
-    else if (component === HorizontalWall) return <HorizontalWall key={key} />;
+    if (component === HorizontalWall) return <HorizontalWall key={key} />;
     else if (component === HorizontalWallLS)
       return <HorizontalWallLS key={key} />;
     else if (component === HorizontalWallRS)
@@ -101,9 +82,19 @@ const GameField: React.FC = () => {
     else if (component === CornerRB) return <CornerRB key={key} />;
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
-      return <Hackman key={key} richtung={hackmanDirection} />;
-    else if (component === Ghost)
-      return <Ghost key={key} richtung={Direction.Left} />;
+      return <Hackman key={key} />;
+    else if (component === Ghost1){     
+      return <Ghost1 key={key}/>;
+    }
+    else if (component === Ghost2){     
+      return <Ghost2 key={key}/>;
+    }
+    else if (component === Ghost3){     
+      return <Ghost3 key={key}/>;
+    }
+    else if (component === Ghost4){     
+      return <Ghost4 key={key}/>;
+    }
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
@@ -111,17 +102,17 @@ const GameField: React.FC = () => {
   };
   
   return (
-    <div onKeyDown={handleKeyDown} tabIndex={0}>
+    <>
       {gameField.map((row, x) => {
         return (
           <div className="row" key={x}>
             {row.map((feld, y) => {
-              return renderComponent(feld, y);
+              return renderComponent(feld, y)
             })}
           </div>
-        );
+        )
       })}
-    </div>
+    </>
   )
 };
 

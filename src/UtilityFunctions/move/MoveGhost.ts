@@ -1,10 +1,10 @@
-import GhostCharacter from "../../Classes/GhostCharacter";
-import Ghost from "../../Components/Ghost";
+import GhostCharacter from "../../Types/Character/GhostCharacter";
+import Ghost from "../../Components/GameFieldComponent/GhostComponents/Ghost3";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 
-function ghostMovesRight(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesRight(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     ghost.cachedField = gameField[ghost.getPosition.y][ghost.getPosition.x + 1];
     gameField[ghost.getPosition.y][ghost.getPosition.x + 1] = Ghost;
@@ -12,7 +12,7 @@ function ghostMovesRight(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostC
     return gameField;
 }
 
-function ghostMovesDown(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesDown(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     ghost.cachedField = gameField[ghost.getPosition.y + 1][ghost.getPosition.x];
     gameField[ghost.getPosition.y + 1][ghost.getPosition.x] = Ghost;
@@ -20,7 +20,7 @@ function ghostMovesDown(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCh
     return gameField;
 }
 
-function ghostMovesLeft(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesLeft(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     ghost.cachedField = gameField[ghost.getPosition.y][ghost.getPosition.x - 1];
     gameField[ghost.getPosition.y][ghost.getPosition.x - 1] = Ghost;
@@ -28,7 +28,7 @@ function ghostMovesLeft(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCh
     return gameField;
 }
 
-function ghostMovesUp(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesUp(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     ghost.cachedField = gameField[ghost.getPosition.y - 1][ghost.getPosition.x];
     gameField[ghost.getPosition.y - 1][ghost.getPosition.x] = Ghost;
@@ -37,7 +37,7 @@ function ghostMovesUp(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostChar
     return gameField;
 }
 
-function ghostMovesRightTroughPortal(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesRightTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     ghost.cachedField = gameField[ghost.getPosition.y][0];
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     gameField[ghost.getPosition.y][0] = Ghost;
@@ -45,7 +45,7 @@ function ghostMovesRightTroughPortal(gameField: React.FC<{}>[][],ghost: Writable
     return gameField;
 }
 
-function ghostMovesDownTroughPortal(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesDownTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     ghost.cachedField = gameField[0][ghost.getPosition.x];
     gameField[0][ghost.getPosition.x] = Ghost;
@@ -53,7 +53,7 @@ function ghostMovesDownTroughPortal(gameField: React.FC<{}>[][],ghost: WritableD
     return gameField;
 }
 
-function ghostMovesLeftTroughPortal(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesLeftTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     ghost.cachedField = gameField[ghost.getPosition.y][gameField[0].length - 1];
     gameField[ghost.getPosition.y][gameField[0].length - 1] = Ghost;
@@ -61,7 +61,7 @@ function ghostMovesLeftTroughPortal(gameField: React.FC<{}>[][],ghost: WritableD
     return gameField;
 }
 
-function ghostMovesUpTroughPortal(gameField: React.FC<{}>[][],ghost: WritableDraft<GhostCharacter>): React.FC<{}>[][] {
+function ghostMovesUpTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
     gameField[ghost.getPosition.y][ghost.getPosition.x] = ghost.cachedField;
     ghost.cachedField = gameField[gameField.length - 1][ghost.getPosition.x];
     gameField[gameField.length - 1][ghost.getPosition.x] = Ghost;
@@ -69,7 +69,7 @@ function ghostMovesUpTroughPortal(gameField: React.FC<{}>[][],ghost: WritableDra
     return gameField;
 }
 
-function moveGhost(gameField:React.FC<{}>[][],ghost:WritableDraft<GhostCharacter>)
+function moveGhost(gameField:React.FC<any>[][],ghost:WritableDraft<GhostCharacter>)
 {
   ghost.incrementCount();
   if(ghost.moveable === Moveable.Yes){
