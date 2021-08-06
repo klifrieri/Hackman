@@ -9,6 +9,7 @@ import Moveable from "../../Types/Moveable";
 import Coordinate from "../../Types/Coordinate";
 import Direction from "../../Types/Direction";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import CoinValue from "../../Types/CoinValue";
 
 function canMoveUp(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
   let positionValue = position.y - 1;
@@ -108,23 +109,32 @@ function getPossibleDirections(spielFeld:React.FC<{}>[][],position:Coordinate):{
 
   return canMoveDirections;
 }
-  
-function checkCoins(gameField:React.FC<{}>[][],direction:Direction,position:Coordinate): boolean{
+
+function isEdible(gameField:React.FC<{}>[][],direction:Direction,position:Coordinate): CoinValue{
   switch(direction){
     case Direction.Up:{
-      return (gameField[position.y - 1][position.x] === Coin || gameField[position.y - 1][position.x] === Snack)
+      if (gameField[position.y - 1][position.x] === Coin) return CoinValue.One;
+      else if (gameField[position.y - 1][position.x] === Snack) return CoinValue.Five;
+      else return CoinValue.Zero;
     }
     case Direction.Left: {
-      return(gameField[position.y][position.x - 1] === Coin || gameField[position.y][position.x - 1] === Snack)
+      if (gameField[position.y][position.x - 1] === Coin) return CoinValue.One;
+      else if (gameField[position.y][position.x - 1] === Snack) return CoinValue.Five;
+      else return CoinValue.Zero;
     }
     case Direction.Down:{
-      return(gameField[position.y + 1][position.x] === Coin || gameField[position.y + 1][position.x] === Snack)
+      if (gameField[position.y + 1][position.x] === Coin) return CoinValue.One;
+      else if (gameField[position.y + 1][position.x] === Snack) return CoinValue.Five;
+      else return CoinValue.Zero;
     }
     case Direction.Right:{
-      return(gameField[position.y][position.x + 1] === Coin || gameField[position.y][position.x + 1] === Snack)
+      if (gameField[position.y][position.x + 1] === Coin) return CoinValue.One;
+      else if (gameField[position.y][position.x + 1] === Snack) return CoinValue.Five;
+      else return CoinValue.Zero;
     }
     default:
-      return false;
+      return CoinValue.Zero;
   }
 }
-  export {canMove,canMoveRight,canMoveLeft,canMoveDown,canMoveUp,getPossibleDirections,checkCoins};
+
+export {canMove,canMoveRight,canMoveLeft,canMoveDown,canMoveUp,getPossibleDirections,isEdible};

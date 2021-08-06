@@ -2,7 +2,7 @@ import Character from "../../Types/Character/Character";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
-import { checkCoins } from "./CanMove";
+import { isEdible } from "./CanMove";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import React from "react";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
@@ -69,28 +69,28 @@ function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Charact
   if (hackman.moveable === Moveable.Yes) {
     switch (hackman.direction) {
       case Direction.Up: {
-        if (checkCoins(gameField, Direction.Up, hackman.getPosition)) {
+        if (isEdible(gameField, Direction.Up, hackman.getPosition)) {
           increaseTheCoins = true;
         }
         gameField = hackmanMovesUp(gameField, hackman);
         break;
       }
       case Direction.Right: {
-        if (checkCoins(gameField, Direction.Right, hackman.getPosition)) {
+        if (isEdible(gameField, Direction.Right, hackman.getPosition)) {
           increaseTheCoins = true;
         }
         gameField = hackmanMovesRight(gameField, hackman);
         break;
       }
       case Direction.Down: {
-        if (checkCoins(gameField, Direction.Down, hackman.getPosition)) {
+        if (isEdible(gameField, Direction.Down, hackman.getPosition)) {
           increaseTheCoins = true;
         }
         gameField = hackmanMovesDown(gameField, hackman);
         break;
       }
       case Direction.Left: {
-        if (checkCoins(gameField, Direction.Left, hackman.getPosition)) {
+        if (isEdible(gameField, Direction.Left, hackman.getPosition)) {
           increaseTheCoins = true;
         }
         gameField = hackmanMovesLeft(gameField, hackman);
