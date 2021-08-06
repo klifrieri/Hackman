@@ -110,6 +110,7 @@ function getPossibleDirections(spielFeld:React.FC<{}>[][],position:Coordinate):{
   return canMoveDirections;
 }
 
+// returns the written statistical Value of the next Field by Direction
 function isEdible(gameField:React.FC<{}>[][],direction:Direction,position:Coordinate): CoinValue{
   switch(direction){
     case Direction.Up:{
