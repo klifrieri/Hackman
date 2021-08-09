@@ -62,23 +62,23 @@ const App: React.FC = () => {
       width -= 50;
     }
     
-    console.log("Height" + height);
-    console.log("\nWidth" + width);
+    console.debug("Height" + height);
+    console.debug("\nWidth" + width);
     var styleRow = document.createElement('style');
     styleRow.type = 'text/css';
     styleRow.id = "rowStyleTag";
     let estimatedHeight= 0;
     if(height>width+width/2){
       estimatedHeight = 2;
-      console.log("case one!")
+      console.debug("case one!")
     }
     else if(height> width){
       estimatedHeight = 3;
-      console.log("case two!")
+      console.debug("case two!")
     }
     else{
       estimatedHeight = 5
-      console.log("case three!")
+      console.debug("case three!")
     }
     styleRow.innerHTML = `div.center > div.row { height: ${estimatedHeight}%}`;
     let styleSheetTest = document.getElementById("rowStyleTag");
