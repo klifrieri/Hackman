@@ -58,6 +58,10 @@ const App: React.FC = () => {
     let headTag = document.getElementsByTagName('head');
     let height = window.innerHeight;
     let width = window.innerWidth;
+    if((width - height) < 50){
+      width -= 50;
+    }
+    
     console.log("Height" + height);
     console.log("\nWidth" + width);
     var styleRow = document.createElement('style');
