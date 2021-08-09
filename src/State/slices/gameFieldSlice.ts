@@ -9,6 +9,7 @@ import Moveable from '../../Types/Moveable';
 import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumber';
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import React from 'react';
+import CoinValue from '../../Types/CoinValue';
 
 const initialStateHackman:Character = new Character("Hackman",12,10);
 const ghost1 = new GhostCharacter("Ghost1",7,9);
@@ -29,7 +30,7 @@ const gameFieldSlice = createSlice({
     reducers: {
       gameTick: (state) =>{
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
-        let increaseCoins = false;
+        let increaseCoins: CoinValue = 0;
           if(state.hackman.moveable === Moveable.Yes){
             let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
             gameFieldForAll = gameField;
@@ -47,9 +48,9 @@ const gameFieldSlice = createSlice({
                 gameFieldForAll = moveGhost(gameFieldForAll,ghost);
               }
           });
-          if(increaseCoins){
-            state.eatenCoins++;
-          }
+          if(increaseCoins === CoinValue.One) state.eatenCoins++;
+          else if (increaseCoins === CoinValue.Five) state.eatenCoins += 5;
+
           state.hackman.moveable = canMove(gameFieldForAll,state.hackman.getPosition,state.hackman.direction);
           state.gameField = gameFieldForAll;
       },

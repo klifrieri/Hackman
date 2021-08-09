@@ -2,10 +2,11 @@ import Character from "../../Types/Character/Character";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
-import { checkCoins } from "./CanMove";
+import { isEdible } from "./CanMove";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import React from "react";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import CoinValue from "../../Types/CoinValue";
 
 
 function hackmanMovesUp(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraft<Character>): React.FC<{}>[][] {
@@ -64,35 +65,31 @@ function hackmanMovesDownTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: 
   return spielFeldCopy;
 }
 
-function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>): { gameField: React.FC<{}>[][], increaseTheCoins: boolean } {
-  let increaseTheCoins: boolean = false;
+function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>): { gameField: React.FC<{}>[][], increaseTheCoins: CoinValue } {
+  let increaseTheCoins: CoinValue = 0;
   if (hackman.moveable === Moveable.Yes) {
     switch (hackman.direction) {
       case Direction.Up: {
-        if (checkCoins(gameField, Direction.Up, hackman.getPosition)) {
-          increaseTheCoins = true;
-        }
+        increaseTheCoins = isEdible(gameField, Direction.Up, hackman.getPosition);
+
         gameField = hackmanMovesUp(gameField, hackman);
         break;
       }
       case Direction.Right: {
-        if (checkCoins(gameField, Direction.Right, hackman.getPosition)) {
-          increaseTheCoins = true;
-        }
+        increaseTheCoins = isEdible(gameField, Direction.Right, hackman.getPosition);
+
         gameField = hackmanMovesRight(gameField, hackman);
         break;
       }
       case Direction.Down: {
-        if (checkCoins(gameField, Direction.Down, hackman.getPosition)) {
-          increaseTheCoins = true;
-        }
+        increaseTheCoins = isEdible(gameField, Direction.Down, hackman.getPosition);
+        
         gameField = hackmanMovesDown(gameField, hackman);
         break;
       }
       case Direction.Left: {
-        if (checkCoins(gameField, Direction.Left, hackman.getPosition)) {
-          increaseTheCoins = true;
-        }
+        increaseTheCoins = isEdible(gameField, Direction.Left, hackman.getPosition); 
+
         gameField = hackmanMovesLeft(gameField, hackman);
         break;
       }
