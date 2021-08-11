@@ -1,0 +1,29 @@
+name: staging hackman
+
+on:
+  push:
+    branches:
+      - staging
+
+
+jobs:
+
+  build-and-deploy-to-staging:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.1
+        with:
+          ref: staging
+        
+      - name: Install and Build 
+        run: |
+          npm install
+          npm run build
+          
+      - name: Deploy
+        uses: JamesIves/github-pages-deploy-action@4.1.1
+        with:
+          branch: gh-pages
+          folder: ./build
