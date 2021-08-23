@@ -19,6 +19,7 @@ const App: React.FC = () => {
     return () => window.removeEventListener("resize", setStyleTag);
     //eslint-disable-next-line
   },[]);
+  
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
