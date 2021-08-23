@@ -1,4 +1,4 @@
-const Ghost1: React.FC<any> = () => {
+const Ghost1: React.FC<any> = (props) => {
     return (
         <div className="field">
             <div className="ghost">

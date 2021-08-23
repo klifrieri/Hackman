@@ -1,4 +1,5 @@
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
+import { Timer } from "../../UtilityFunctions/CustomInterval";
 import Character from "./Character";
 
 class GhostCharacter extends Character{
@@ -8,6 +9,18 @@ class GhostCharacter extends Character{
     }
     public get shallTick() : boolean{
       return this._shallTick;
+    }
+    private _isEdibleTimeout: Timer ;
+    private _isEdible:boolean;
+    public set isEdible(value:boolean){
+      this._isEdible = value;
+      if(this._isEdible){
+        //this._isEdibleTimeout.stop();
+        this._isEdibleTimeout.start();
+      }
+    }
+    public get isEdible() : boolean{
+      return this._isEdible;
     }
     private _declaredCount: number;
     public set declaredCount(value:number){
@@ -33,10 +46,12 @@ class GhostCharacter extends Character{
     }
     constructor(name:string,positionY:number,positionX:number){
       super(name,positionY,positionX);
+      this._isEdibleTimeout = new Timer(()=>this.isEdible =false,15000);
       this._shallTick = false;
       this._declaredCount = 0;
       this._count = 0;
       this._cachedField = Empty;
+      this._isEdible = false;
     }
   }
   export default GhostCharacter;

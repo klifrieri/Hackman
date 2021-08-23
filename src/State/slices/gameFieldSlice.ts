@@ -10,13 +10,14 @@ import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumb
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import React from 'react';
 import CoinValue from '../../Types/CoinValue';
+import { Timer } from '../../UtilityFunctions/CustomInterval';
 
 const initialStateHackman:Character = new Character("Hackman",12,10);
 const ghost1 = new GhostCharacter("Ghost1",7,9);
 const ghost2 = new GhostCharacter("Ghost2",7,11);
 const ghost3 = new GhostCharacter("Ghost3",9,9);
 const ghost4 = new GhostCharacter("Ghost4",9,11);
-const ghosts : GhostCharacter[]= [ghost1,ghost2,ghost3,ghost4];
+const ghosts : GhostCharacter[]= [ghost1, ghost2, ghost3, ghost4];
 
 const gameFieldSlice = createSlice({
     name: 'game',
@@ -26,16 +27,19 @@ const gameFieldSlice = createSlice({
         hackmanMoved:false,
         hackman:initialStateHackman,
         ghosts:ghosts,
+        ghostsAreEdible: false
     },
     reducers: {
       gameTick: (state) =>{
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
+
           if(state.hackman.moveable === Moveable.Yes){
             let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
             gameFieldForAll = gameField;
             increaseCoins = increaseTheCoins;    
           }
+          
           ghosts.forEach( ghost => {
               if(ghost.shallTick){
                 if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
@@ -43,15 +47,30 @@ const gameFieldSlice = createSlice({
                   ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
                 }
                 else{
-                  ghost.moveable = canMove(gameFieldForAll,ghost.getPosition,ghost.direction);
+                  ghost.moveable = canMove(gameFieldForAll, ghost.getPosition, ghost.direction);
                 }
                 gameFieldForAll = moveGhost(gameFieldForAll,ghost);
               }
           });
           if(increaseCoins === CoinValue.One) state.eatenCoins++;
-          else if (increaseCoins === CoinValue.Five) state.eatenCoins += 5;
+          else if (increaseCoins === CoinValue.Five)
+          {
+            state.eatenCoins += 5;
+            ghosts.forEach( ghost => {
+              ghost.isEdible = true;              
+            })
+            state.ghostsAreEdible = true;
+            let ghostsAreEdibleTimer = new Timer(() => {
+              ghosts.forEach( ghost => {
+                ghost.isEdible = false;
+              })
+            }, 15000);
+            ghostsAreEdibleTimer.stop();
+            ghostsAreEdibleTimer.start();
+          }
 
-          state.hackman.moveable = canMove(gameFieldForAll,state.hackman.getPosition,state.hackman.direction);
+
+          state.hackman.moveable = canMove(gameFieldForAll, state.hackman.getPosition, state.hackman.direction);
           state.gameField = gameFieldForAll;
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {

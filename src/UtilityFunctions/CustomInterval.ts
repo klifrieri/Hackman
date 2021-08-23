@@ -1,39 +1,42 @@
-  
-const CustomInterval = (funct:()=>void,mSec:number)=>{
-    let isSet:boolean = false;
-    let interval!:NodeJS.Timeout;
-    const start = ()=>{
-        if(!isSet){
-            interval = setInterval(funct, mSec);
-            isSet = true;
-        }
+const CustomInterval = (funct: () => void, mSec: number) => {
+  let isSet: boolean = false;
+  let interval!: NodeJS.Timeout;
+  const start = () => {
+    if (!isSet) {
+      interval = setInterval(funct, mSec);
+      isSet = true;
     }
-    const stop = ()=>{
-        if(isSet){
-            clearInterval(interval);
-            isSet = false;
-        }
+  };
+  const stop = () => {
+    if (isSet) {
+      clearInterval(interval);
+      isSet = false;
     }
-    return [start,stop]
+  };
+  return [start, stop];
+};
+
+class Timer {
+  private isSet: boolean = false;
+  private timeout!: NodeJS.Timeout;
+  private funct: ()=>void;
+  private mSec:number;
+  public start = () => {
+    if (!this.isSet) {
+        this.timeout = setTimeout(this.funct, this.mSec);
+        this.isSet = true;
+    }
+  };
+  public stop = () => {
+    if (this.isSet) {
+      clearTimeout(this.timeout);
+      this.isSet = false;
+    }
+  };
+  constructor(funct: () => void, mSec: number){
+    this.funct = funct;
+    this.mSec = mSec;
+  }
 }
-const CustomTimeout = (funct:()=>void,mSec:number)=>{
-    let isSet:boolean = false;
-    let timeout!:NodeJS.Timeout;
-    const start = ()=>{
-        if(!isSet){
-        timeout = setTimeout(funct, mSec);
-        isSet = true;
-    }
-    }
-    const stop = ()=>{
-        if(isSet){
-            clearTimeout(timeout);
-            isSet = false;
-        }
-    }
-    return [start,stop]
-}
 
-
-
-export {CustomInterval,CustomTimeout};
+export { CustomInterval, Timer };

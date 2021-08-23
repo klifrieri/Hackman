@@ -22,12 +22,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "../../State/store";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../State/slices/gameFieldSlice";
-import { CustomInterval, CustomTimeout } from "../../UtilityFunctions/CustomInterval";
 import './gameField.css';
 import Ghost1 from "./GhostComponents/Ghost1";
 import Ghost2 from "./GhostComponents/Ghost2";
 import Ghost3 from "./GhostComponents/Ghost3";
 import Ghost4 from "./GhostComponents/Ghost4";
+import { CustomInterval, Timer } from "../../UtilityFunctions/CustomInterval";
 
 
 const GameField: React.FC = () => {
@@ -36,28 +36,29 @@ const GameField: React.FC = () => {
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
-
+  
   useEffect(() => {
-    let [ghost1TimerStart,ghost1TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(1)),2500)
-    let [ghost2TimerStart,ghost2TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(2)),5000)
-    let [ghost3TimerStart,ghost3TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(3)),7500)
-    let [ghost4TimerStart,ghost4TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(4)),10000)
+    let ghost1Timer = new Timer( () =>store.dispatch(activateGhost(1)),2500);
+    let ghost2Timer = new Timer( () =>store.dispatch(activateGhost(2)),5000);
+    let ghost3Timer = new Timer( () =>store.dispatch(activateGhost(3)),7500);
+    let ghost4Timer = new Timer( () =>store.dispatch(activateGhost(4)),10000);
+
     if(hackmanMoved){
-    ghost1TimerStart();
-    ghost2TimerStart();
-    ghost3TimerStart();
-    ghost4TimerStart();
+    ghost1Timer.start();
+    ghost2Timer.start();
+    ghost3Timer.start();
+    ghost4Timer.start();
   }
   return () =>{
-    ghost1TimerStop();
-    ghost2TimerStop();
-    ghost3TimerStop();
-    ghost4TimerStop();
+    ghost1Timer.stop();
+    ghost2Timer.stop();
+    ghost3Timer.stop();
+    ghost4Timer.stop();
   }
   }, [hackmanMoved])
 
   useEffect(() => {
-    const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
+    const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 5000);
     intervalStart();
     return () => intervalStop();
   }, [])

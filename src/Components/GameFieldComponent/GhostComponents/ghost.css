@@ -12,6 +12,17 @@
     flex-direction: row;
     background: blue;
 }
+.ghost-head-edible{
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    width: 70%;
+    height: 70%;
+    border-radius: 50% !important;
+    display: flex;
+    flex-direction: row;
+    background: rgb(4, 4, 98);
+}
 /* 
 .ghost-head-fill{
 } */
@@ -37,6 +48,16 @@
     display: flex;
     flex-direction: row;
     background-color: blue;
+}
+.ghost-body-edible{
+    position: absolute;
+    width: 70%;
+    height: 40%;
+    top: 45%;
+    left: 10%;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(4, 4, 98);
 }
 
 /* .ghost-body-fill{
