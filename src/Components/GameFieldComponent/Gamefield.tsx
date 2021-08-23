@@ -58,7 +58,7 @@ const GameField: React.FC = () => {
   }, [hackmanMoved])
 
   useEffect(() => {
-    const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 5000);
+    const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
     intervalStart();
     return () => intervalStop();
   }, [])
