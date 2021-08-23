@@ -13,6 +13,7 @@ const App: React.FC = () => {
 
   const centerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
+    centerRef.current?.focus();
     setStyleTag();
     window.addEventListener("resize", setStyleTag);
     return () => window.removeEventListener("resize", setStyleTag);
