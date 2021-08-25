@@ -27,7 +27,8 @@ import Ghost1 from "./GhostComponents/Ghost1";
 import Ghost2 from "./GhostComponents/Ghost2";
 import Ghost3 from "./GhostComponents/Ghost3";
 import Ghost4 from "./GhostComponents/Ghost4";
-import { CustomInterval, Timer } from "../../UtilityFunctions/CustomInterval";
+import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
+import CustomTimerForActivatingGhost from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForActivatingGhost";
 
 
 const GameField: React.FC = () => {
@@ -36,29 +37,28 @@ const GameField: React.FC = () => {
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
-  
   useEffect(() => {
-    let ghost1Timer = new Timer( () =>store.dispatch(activateGhost(1)),2500);
-    let ghost2Timer = new Timer( () =>store.dispatch(activateGhost(2)),5000);
-    let ghost3Timer = new Timer( () =>store.dispatch(activateGhost(3)),7500);
-    let ghost4Timer = new Timer( () =>store.dispatch(activateGhost(4)),10000);
+    let [ghost1TimerStart,ghost1TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(1)),2500);
+    let [ghost2TimerStart,ghost2TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(2)),5000);
+    let [ghost3TimerStart,ghost3TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(3)),7500);
+    let [ghost4TimerStart,ghost4TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(4)),10000);
 
     if(hackmanMoved){
-    ghost1Timer.start();
-    ghost2Timer.start();
-    ghost3Timer.start();
-    ghost4Timer.start();
+    ghost1TimerStart();
+    ghost2TimerStart();
+    ghost3TimerStart();
+    ghost4TimerStart();
   }
   return () =>{
-    ghost1Timer.stop();
-    ghost2Timer.stop();
-    ghost3Timer.stop();
-    ghost4Timer.stop();
+    ghost1TimerStop();
+    ghost2TimerStop();
+    ghost3TimerStop();
+    ghost4TimerStop();
   }
   }, [hackmanMoved])
 
   useEffect(() => {
-    const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
+    const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => store.dispatch(gameTick), 250);
     intervalStart();
     return () => intervalStop();
   }, [])

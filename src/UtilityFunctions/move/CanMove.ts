@@ -12,67 +12,106 @@ import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackma
 import CoinValue from "../../Types/CoinValue";
 
 
-function canMoveUp(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
+function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate): Moveable {
   let positionValue = position.y - 1;
-  if (spielFeld[positionValue] === undefined) return Moveable.Portal;
+  if (spielFeld[positionValue] === undefined) {
+    return Moveable.Portal;
+  }
   else if (spielFeld[positionValue][position.x] === Empty ||
     spielFeld[positionValue][position.x] === Coin ||
-    spielFeld[positionValue][position.x] === Snack)    
+    spielFeld[positionValue][position.x] === Snack) {
     return Moveable.Yes;
-  else if (spielFeld[positionValue][position.x] === Ghost1 ||spielFeld[positionValue][position.x] === Ghost2 ||spielFeld[positionValue][position.x] === Ghost3 ||spielFeld[positionValue][position.x] === Ghost4 || spielFeld[positionValue][position.x] === Hackman) return Moveable.No;
-  
-  else return Moveable.No;
+  }
+  else if (spielFeld[positionValue][position.x] === Ghost1 ||
+    spielFeld[positionValue][position.x] === Ghost2 ||
+    spielFeld[positionValue][position.x] === Ghost3 ||
+    spielFeld[positionValue][position.x] === Ghost4 ||
+    spielFeld[positionValue][position.x] === Hackman) {
+    return Moveable.No;
+  }
+  else {
+    return Moveable.No;
+  }
 }
 
-function canMoveDown(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
+function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate): Moveable {
   let positionValue = position.y + 1;
-  if (spielFeld[positionValue] === undefined) return Moveable.Portal;
-  else if(spielFeld[positionValue][position.x] === Empty ||
+  if (spielFeld[positionValue] === undefined) {
+    return Moveable.Portal;
+  }
+  else if (spielFeld[positionValue][position.x] === Empty ||
     spielFeld[positionValue][position.x] === Coin ||
     spielFeld[positionValue][position.x] === Snack ||
-    spielFeld[positionValue][position.x] === Snack)
+    spielFeld[positionValue][position.x] === Snack) {
     return Moveable.Yes;
-  else if (spielFeld[positionValue][position.x] === Ghost1 ||spielFeld[positionValue][position.x] === Ghost2 ||spielFeld[positionValue][position.x] === Ghost3 ||spielFeld[positionValue][position.x] === Ghost4 || spielFeld[positionValue][position.y] === Hackman)return Moveable.No;
-  
-  else return Moveable.No;   
+  }
+  else if (spielFeld[positionValue][position.x] === Ghost1 ||
+    spielFeld[positionValue][position.x] === Ghost2 ||
+    spielFeld[positionValue][position.x] === Ghost3 ||
+    spielFeld[positionValue][position.x] === Ghost4 ||
+    spielFeld[positionValue][position.y] === Hackman) {
+    return Moveable.No;
+  }
+  else {
+    return Moveable.No;
+  }
 }
 
-function canMoveLeft(spielFeld:React.FC<{}>[][],position:Coordinate):Moveable{
+function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate): Moveable {
   let positionValue = position.x - 1;
-      if (spielFeld[position.y][positionValue] === undefined) return Moveable.Portal;
-      else if (spielFeld[position.y][positionValue] === Empty ||
-        spielFeld[position.y][positionValue] === Coin ||
-        spielFeld[position.y][positionValue] === Snack)
-        return Moveable.Yes;
-      else if (spielFeld[position.y][positionValue] === Ghost1 ||spielFeld[position.y][positionValue] === Ghost2 ||spielFeld[position.y][positionValue] === Ghost3 ||spielFeld[position.y][positionValue] === Ghost4 || spielFeld[position.y][positionValue] === Hackman)  return Moveable.No;
-      
-      else return Moveable.No;
-}
-
-function canMoveRight(spielFeld:React.FC<{}>[][], position:Coordinate):Moveable{
-  let positionValue = position.x + 1;
-if (spielFeld[position.y][positionValue] === undefined) return Moveable.Portal;
+  if (spielFeld[position.y][positionValue] === undefined) {
+    return Moveable.Portal;
+  }
   else if (spielFeld[position.y][positionValue] === Empty ||
     spielFeld[position.y][positionValue] === Coin ||
-    spielFeld[position.y][positionValue] === Snack)    
+    spielFeld[position.y][positionValue] === Snack) {
     return Moveable.Yes;
-  else if(spielFeld[position.y][positionValue] === Ghost1 ||spielFeld[position.y][positionValue] === Ghost2 ||spielFeld[position.y][positionValue] === Ghost3 ||spielFeld[position.y][positionValue] === Ghost4 || spielFeld[position.y][positionValue] === Hackman) return Moveable.No;
-  
-  else return Moveable.No;
+  }
+  else if (spielFeld[position.y][positionValue] === Ghost1 ||
+    spielFeld[position.y][positionValue] === Ghost2 ||
+    spielFeld[position.y][positionValue] === Ghost3 ||
+    spielFeld[position.y][positionValue] === Ghost4 ||
+    spielFeld[position.y][positionValue] === Hackman) {
+    return Moveable.No;
+  }
+  else {
+    return Moveable.No;
+  }
 }
 
-function canMove(gameField:React.FC<{}>[][], position:Coordinate, direction:Direction): Moveable{
-  switch(direction){
-    case Direction.Up:{
+function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate): Moveable {
+  let positionValue = position.x + 1;
+  if (spielFeld[position.y][positionValue] === undefined) {
+    return Moveable.Portal;
+  }
+  else if (spielFeld[position.y][positionValue] === Empty ||
+    spielFeld[position.y][positionValue] === Coin ||
+    spielFeld[position.y][positionValue] === Snack) {
+    return Moveable.Yes;
+  }
+  else if (spielFeld[position.y][positionValue] === Ghost1 ||
+    spielFeld[position.y][positionValue] === Ghost2 ||
+    spielFeld[position.y][positionValue] === Ghost3 ||
+    spielFeld[position.y][positionValue] === Ghost4 ||
+    spielFeld[position.y][positionValue] === Hackman) { return Moveable.No; }
+
+  else {
+    return Moveable.No;
+  }
+}
+
+function canMove(gameField: React.FC<{}>[][], position: Coordinate, direction: Direction): Moveable {
+  switch (direction) {
+    case Direction.Up: {
       return canMoveUp(gameField, position);
-      }
+    }
     case Direction.Left: {
       return canMoveLeft(gameField, position);
     }
-    case Direction.Down:{
+    case Direction.Down: {
       return canMoveDown(gameField, position);
     }
-    case Direction.Right:{
+    case Direction.Right: {
       return canMoveRight(gameField, position);
     }
     default:
@@ -80,36 +119,36 @@ function canMove(gameField:React.FC<{}>[][], position:Coordinate, direction:Dire
   }
 }
 
-function getPossibleDirections(spielFeld:React.FC<{}>[][],position:Coordinate):{direction: Direction;bewegungMoeglich: Moveable;}[]{
+function getPossibleDirections(spielFeld: React.FC<{}>[][], position: Coordinate): { direction: Direction; bewegungMoeglich: Moveable; }[] {
   let _canMoveUp = {
     direction: Direction.Up,
-    bewegungMoeglich: canMoveUp(spielFeld,position)
+    bewegungMoeglich: canMoveUp(spielFeld, position)
   }
   let _canMoveDown = {
     direction: Direction.Down,
-    bewegungMoeglich: canMoveDown(spielFeld,position)
+    bewegungMoeglich: canMoveDown(spielFeld, position)
   }
   let _canMoveLeft = {
     direction: Direction.Left,
-    bewegungMoeglich: canMoveLeft(spielFeld,position)
+    bewegungMoeglich: canMoveLeft(spielFeld, position)
   }
   let _canMoveRight = {
     direction: Direction.Right,
-    bewegungMoeglich: canMoveRight(spielFeld,position)
+    bewegungMoeglich: canMoveRight(spielFeld, position)
   }
 
-  let canMoveDirections: {direction: Direction;bewegungMoeglich: Moveable;}[] = [];
+  let canMoveDirections: { direction: Direction; bewegungMoeglich: Moveable; }[] = [];
 
-  if(_canMoveUp.bewegungMoeglich === Moveable.Yes || _canMoveUp.bewegungMoeglich === Moveable.Portal){
+  if (_canMoveUp.bewegungMoeglich === Moveable.Yes || _canMoveUp.bewegungMoeglich === Moveable.Portal) {
     canMoveDirections.push(_canMoveUp);
   }
-  if(_canMoveDown.bewegungMoeglich === Moveable.Yes || _canMoveDown.bewegungMoeglich === Moveable.Portal){
+  if (_canMoveDown.bewegungMoeglich === Moveable.Yes || _canMoveDown.bewegungMoeglich === Moveable.Portal) {
     canMoveDirections.push(_canMoveDown);
   }
-  if(_canMoveLeft.bewegungMoeglich === Moveable.Yes || _canMoveLeft.bewegungMoeglich === Moveable.Portal){
+  if (_canMoveLeft.bewegungMoeglich === Moveable.Yes || _canMoveLeft.bewegungMoeglich === Moveable.Portal) {
     canMoveDirections.push(_canMoveLeft);
   }
-  if(_canMoveRight.bewegungMoeglich === Moveable.Yes || _canMoveRight.bewegungMoeglich === Moveable.Portal){
+  if (_canMoveRight.bewegungMoeglich === Moveable.Yes || _canMoveRight.bewegungMoeglich === Moveable.Portal) {
     canMoveDirections.push(_canMoveRight);
   }
 
@@ -117,9 +156,9 @@ function getPossibleDirections(spielFeld:React.FC<{}>[][],position:Coordinate):{
 }
 
 // returns the written statistical Value of the next Field by Direction
-function isEdible(gameField:React.FC<{}>[][],direction:Direction,position:Coordinate): CoinValue{
-  switch(direction){
-    case Direction.Up:{
+function isEdible(gameField: React.FC<{}>[][], direction: Direction, position: Coordinate): CoinValue {
+  switch (direction) {
+    case Direction.Up: {
       if (gameField[position.y - 1][position.x] === Coin) return CoinValue.One;
       else if (gameField[position.y - 1][position.x] === Snack) return CoinValue.Five;
       else return CoinValue.Zero;
@@ -129,12 +168,12 @@ function isEdible(gameField:React.FC<{}>[][],direction:Direction,position:Coordi
       else if (gameField[position.y][position.x - 1] === Snack) return CoinValue.Five;
       else return CoinValue.Zero;
     }
-    case Direction.Down:{
+    case Direction.Down: {
       if (gameField[position.y + 1][position.x] === Coin) return CoinValue.One;
       else if (gameField[position.y + 1][position.x] === Snack) return CoinValue.Five;
       else return CoinValue.Zero;
     }
-    case Direction.Right:{
+    case Direction.Right: {
       if (gameField[position.y][position.x + 1] === Coin) return CoinValue.One;
       else if (gameField[position.y][position.x + 1] === Snack) return CoinValue.Five;
       else return CoinValue.Zero;
@@ -144,4 +183,4 @@ function isEdible(gameField:React.FC<{}>[][],direction:Direction,position:Coordi
   }
 }
 
-export {canMove,canMoveRight,canMoveLeft,canMoveDown,canMoveUp,getPossibleDirections,isEdible};
+export { canMove, canMoveRight, canMoveLeft, canMoveDown, canMoveUp, getPossibleDirections, isEdible };

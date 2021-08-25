@@ -10,7 +10,6 @@ import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumb
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import React from 'react';
 import CoinValue from '../../Types/CoinValue';
-import { Timer } from '../../UtilityFunctions/CustomInterval';
 
 const initialStateHackman:Character = new Character("Hackman",12,10);
 const ghost1 = new GhostCharacter("Ghost1",7,9);
@@ -26,8 +25,7 @@ const gameFieldSlice = createSlice({
         eatenCoins:0,
         hackmanMoved:false,
         hackman:initialStateHackman,
-        ghosts:ghosts,
-        ghostsAreEdible: false
+        ghosts:ghosts
     },
     reducers: {
       gameTick: (state) =>{
@@ -52,24 +50,16 @@ const gameFieldSlice = createSlice({
                 gameFieldForAll = moveGhost(gameFieldForAll,ghost);
               }
           });
-          if(increaseCoins === CoinValue.One) state.eatenCoins++;
+          if(increaseCoins === CoinValue.One) {
+            state.eatenCoins++;
+          }
           else if (increaseCoins === CoinValue.Five)
           {
             state.eatenCoins += 5;
             ghosts.forEach( ghost => {
               ghost.isEdible = true;              
-            })
-            state.ghostsAreEdible = true;
-            let ghostsAreEdibleTimer = new Timer(() => {
-              ghosts.forEach( ghost => {
-                ghost.isEdible = false;
-              })
-            }, 15000);
-            ghostsAreEdibleTimer.stop();
-            ghostsAreEdibleTimer.start();
+            });
           }
-
-
           state.hackman.moveable = canMove(gameFieldForAll, state.hackman.getPosition, state.hackman.direction);
           state.gameField = gameFieldForAll;
       },

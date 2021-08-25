@@ -1,4 +1,4 @@
-import {CustomInterval} from "./../../UtilityFunctions/CustomInterval";
+import {CustomInterval} from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
 
 const chai = require('chai');
 
