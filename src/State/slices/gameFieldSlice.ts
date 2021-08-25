@@ -38,7 +38,7 @@ const gameFieldSlice = createSlice({
             increaseCoins = increaseTheCoins;    
           }
           
-          ghosts.forEach( ghost => {
+          state.ghosts.forEach( ghost => {
               if(ghost.shallTick){
                 if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
                   const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameFieldForAll,ghost.getPosition);
@@ -56,16 +56,17 @@ const gameFieldSlice = createSlice({
           else if (increaseCoins === CoinValue.Five)
           {
             state.eatenCoins += 5;
-            ghosts.forEach( ghost => {
+            state.ghosts.forEach( ghost => {
               ghost.isEdible = true;              
             });
           }
-          state.hackman.moveable = canMove(gameFieldForAll, state.hackman.getPosition, state.hackman.direction);
+
+          state.hackman.moveable = canMove(gameFieldForAll, state.hackman.getPosition, state.hackman.direction, state.ghosts);
           state.gameField = gameFieldForAll;
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;
-        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload);
+        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload,state.ghosts);
         if(isMoveable === Moveable.Yes){
           if(state.hackmanMoved === false)
           state.hackmanMoved = true;

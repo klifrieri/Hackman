@@ -10,7 +10,7 @@
     border-radius: 50% !important;
     display: flex;
     flex-direction: row;
-    background: blue;
+    background: rgb(4, 4, 98);
 }
 .ghost-head-edible{
     position: absolute;
@@ -21,7 +21,7 @@
     border-radius: 50% !important;
     display: flex;
     flex-direction: row;
-    background: rgb(4, 4, 98);
+    background: blue;
 }
 /* 
 .ghost-head-fill{
@@ -47,7 +47,7 @@
     left: 10%;
     display: flex;
     flex-direction: row;
-    background-color: blue;
+    background-color: rgb(4, 4, 98);
 }
 .ghost-body-edible{
     position: absolute;
@@ -57,7 +57,7 @@
     left: 10%;
     display: flex;
     flex-direction: row;
-    background-color: rgb(4, 4, 98);
+    background-color: blue;
 }
 
 /* .ghost-body-fill{

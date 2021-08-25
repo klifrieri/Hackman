@@ -10,7 +10,8 @@ import Coordinate from "../../Types/Coordinate";
 import Direction from "../../Types/Direction";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import CoinValue from "../../Types/CoinValue";
-
+import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
+import GhostCharacter from "../../Types/Character/GhostCharacter";
 
 function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate): Moveable {
   let positionValue = position.y - 1;
@@ -100,7 +101,7 @@ function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate): Moveab
   }
 }
 
-function canMove(gameField: React.FC<{}>[][], position: Coordinate, direction: Direction): Moveable {
+function canMove(gameField: React.FC<{}>[][], position: Coordinate, direction: Direction,ghosts?:WritableDraft<GhostCharacter>[]): Moveable {
   switch (direction) {
     case Direction.Up: {
       return canMoveUp(gameField, position);

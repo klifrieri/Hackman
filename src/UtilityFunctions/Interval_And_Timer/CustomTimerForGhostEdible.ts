@@ -11,7 +11,7 @@ class CustomTimerForGhostsEdible {
       this.isSet = true;
     }
     this.timeout = setTimeout(()=>{
-      this.funct,
+      this.funct();
       this.isSet = false;
     }, this.mSec);
   };
