@@ -31,7 +31,7 @@ const gameFieldSlice = createSlice({
       gameTick: (state) =>{
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
-          if(state.hackman.moveable === Moveable.Yes){
+          if(state.hackman.moveable === Moveable.Yes || state.hackman.moveable === Moveable.Portal){
             let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
             gameFieldForAll = gameField;
             increaseCoins = increaseTheCoins;    
