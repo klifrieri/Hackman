@@ -7,6 +7,8 @@ class Character{
     public get name() : string{
       return this._name;
     }
+    private _initialPosition:Coordinate;
+
     private _position :Coordinate;
     public set setPositionX(value:number){
       this._position.x = value;
@@ -35,9 +37,13 @@ class Character{
       return this._moveable;
     }
   
+    public resetToStartPosition(){
+      this._position = this._initialPosition;
+    }
     constructor(name:string,positionY:number,positionX:number){
       this._name = name;
       this._position=  new Coordinate(positionY,positionX);
+      this._initialPosition = new Coordinate(positionY,positionX);
       this._direction = Direction.Nothing;
       this._moveable = Moveable.No;
     }

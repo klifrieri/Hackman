@@ -10,8 +10,13 @@ import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumb
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import React from 'react';
 import CoinValue from '../../Types/CoinValue';
+import Coordinate from '../../Types/Coordinate';
 
 const initialStateHackman:Character = new Character("Hackman",12,10);
+// const ghost1InitialCoordinate : Coordinate = new Coordinate(7,9);
+// const ghost2InitialCoordinate : Coordinate = new Coordinate(7,11);
+// const ghost3InitialCoordinate : Coordinate = new Coordinate(9,9);
+// const ghost4InitialCoordinate : Coordinate = new Coordinate(9,11);
 const ghost1 = new GhostCharacter("Ghost1",7,9);
 const ghost2 = new GhostCharacter("Ghost2",7,11);
 const ghost3 = new GhostCharacter("Ghost3",9,9);
@@ -32,20 +37,38 @@ const gameFieldSlice = createSlice({
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
 
-          if(state.hackman.moveable === Moveable.Yes){
+          if(state.hackman.moveable !== Moveable.No){
             let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
             gameFieldForAll = gameField;
-            increaseCoins = increaseTheCoins;    
+            increaseCoins = increaseTheCoins; 
+            if(increaseCoins === CoinValue.Ten){
+              state.eatenCoins += 10;
+              switch(state.hackman.moveable){
+                case Moveable.GhostEdible1:
+                  state.ghosts[0].resetToStartPosition()
+                  // setGhostToInitialPosition()
+                  break;
+                case Moveable.GhostEdible2:
+                  state.ghosts[1].resetToStartPosition();
+                  break;
+                case Moveable.GhostEdible3:
+                  state.ghosts[2].resetToStartPosition();
+                  break;
+                case Moveable.GhostEdible4:
+                  state.ghosts[3].resetToStartPosition();
+                  break;
+              }
+            }   
           }
           
           state.ghosts.forEach( ghost => {
               if(ghost.shallTick){
                 if(ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No){
-                  const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameFieldForAll,ghost.getPosition);
+                  const canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[] = getPossibleDirections(gameFieldForAll,ghost.getPosition,state.ghosts);
                   ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
                 }
                 else{
-                  ghost.moveable = canMove(gameFieldForAll, ghost.getPosition, ghost.direction);
+                  ghost.moveable = canMove(gameFieldForAll, ghost.getPosition, ghost.direction,state.ghosts);
                 }
                 gameFieldForAll = moveGhost(gameFieldForAll,ghost);
               }

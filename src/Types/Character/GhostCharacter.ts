@@ -17,6 +17,9 @@ class GhostCharacter extends Character{
       if(this._isEdible){
         this._isEdibleTimeout.start();
       }
+      else{
+        this._isEdibleTimeout.stop();
+      }
     };
     public get isEdible() : boolean{
       return this._isEdible;
@@ -43,6 +46,10 @@ class GhostCharacter extends Character{
     public set cachedField(value:React.FC<{}>){
     this._cachedField = value;
     };
+    public override resetToStartPosition(){
+      super.resetToStartPosition();
+      this.isEdible = false;
+    }
     constructor(name:string,positionY:number,positionX:number){
       super(name,positionY,positionX);
       this._isEdibleTimeout = new CustomTimerForGhostEdible(()=>this.isEdible = false,15000);

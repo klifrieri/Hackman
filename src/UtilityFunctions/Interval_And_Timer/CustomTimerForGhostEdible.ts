@@ -15,7 +15,7 @@ class CustomTimerForGhostsEdible {
       this.isSet = false;
     }, this.mSec);
   };
-  private stop = () => {
+  public stop = () => {
       clearTimeout(this.timeout);
   };
   constructor(funct: () => void, mSec: number) {

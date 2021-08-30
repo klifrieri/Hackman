@@ -67,28 +67,33 @@ function hackmanMovesDownTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: 
 
 function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>): { gameField: React.FC<{}>[][], increaseTheCoins: CoinValue } {
   let increaseTheCoins: CoinValue = 0;
-  if (hackman.moveable === Moveable.Yes) {
+  if (hackman.moveable !== Moveable.Portal) {
+    const ghostEdible:boolean = hackman.moveable === Moveable.GhostEdible1 ||
+                                hackman.moveable === Moveable.GhostEdible2 ||
+                                hackman.moveable === Moveable.GhostEdible3 ||
+                                hackman.moveable === Moveable.GhostEdible4;
+
     switch (hackman.direction) {
       case Direction.Up: {
-        increaseTheCoins = isEdible(gameField, Direction.Up, hackman.getPosition);
+        increaseTheCoins = ghostEdible ? CoinValue.Ten :  isEdible(gameField, Direction.Up, hackman.getPosition);
 
         gameField = hackmanMovesUp(gameField, hackman);
         break;
       }
       case Direction.Right: {
-        increaseTheCoins = isEdible(gameField, Direction.Right, hackman.getPosition);
+        increaseTheCoins = ghostEdible ? CoinValue.Ten : isEdible(gameField, Direction.Right, hackman.getPosition);
 
         gameField = hackmanMovesRight(gameField, hackman);
         break;
       }
       case Direction.Down: {
-        increaseTheCoins = isEdible(gameField, Direction.Down, hackman.getPosition);
+        increaseTheCoins = ghostEdible ? CoinValue.Ten : isEdible(gameField, Direction.Down, hackman.getPosition);
         
         gameField = hackmanMovesDown(gameField, hackman);
         break;
       }
       case Direction.Left: {
-        increaseTheCoins = isEdible(gameField, Direction.Left, hackman.getPosition); 
+        increaseTheCoins = ghostEdible ? CoinValue.Ten : isEdible(gameField, Direction.Left, hackman.getPosition); 
 
         gameField = hackmanMovesLeft(gameField, hackman);
         break;
