@@ -84,12 +84,12 @@ const gameFieldSlice = createSlice({
             });
           }
 
-          state.hackman.moveable = canMove(gameFieldForAll, state.hackman.getPosition, state.hackman.direction, state.ghosts);
+          state.hackman.moveable = canMove(gameFieldForAll, state.hackman.getPosition, state.hackman.direction, null);
           state.gameField = gameFieldForAll;
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;
-        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload,state.ghosts);
+        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload, null);
         if(isMoveable === Moveable.Yes){
           if(state.hackmanMoved === false)
           state.hackmanMoved = true;
