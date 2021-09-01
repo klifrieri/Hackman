@@ -10,7 +10,7 @@ import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumb
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import React from 'react';
 import CoinValue from '../../Types/CoinValue';
-import Coordinate from '../../Types/Coordinate';
+//import Coordinate from '../../Types/Coordinate';
 
 const initialStateHackman:Character = new Character("Hackman",12,10);
 // const ghost1InitialCoordinate : Coordinate = new Coordinate(7,9);
@@ -37,28 +37,28 @@ const gameFieldSlice = createSlice({
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
 
-          if(state.hackman.moveable !== Moveable.No){
+          if(state.hackman.moveable === Moveable.Yes || state.hackman.moveable === Moveable.Portal){
             let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
             gameFieldForAll = gameField;
             increaseCoins = increaseTheCoins; 
-            if(increaseCoins === CoinValue.Ten){
-              state.eatenCoins += 10;
-              switch(state.hackman.moveable){
-                case Moveable.GhostEdible1:
-                  state.ghosts[0].resetToStartPosition()
-                  // setGhostToInitialPosition()
-                  break;
-                case Moveable.GhostEdible2:
-                  state.ghosts[1].resetToStartPosition();
-                  break;
-                case Moveable.GhostEdible3:
-                  state.ghosts[2].resetToStartPosition();
-                  break;
-                case Moveable.GhostEdible4:
-                  state.ghosts[3].resetToStartPosition();
-                  break;
-              }
-            }   
+            // if(increaseCoins === CoinValue.Ten){
+            //   state.eatenCoins += 10;
+            //   switch(state.hackman.moveable){
+            //     case Moveable.GhostEdible1:
+            //       state.ghosts[0].resetToStartPosition()
+            //       // setGhostToInitialPosition()
+            //       break;
+            //     case Moveable.GhostEdible2:
+            //       state.ghosts[1].resetToStartPosition();
+            //       break;
+            //     case Moveable.GhostEdible3:
+            //       state.ghosts[2].resetToStartPosition();
+            //       break;
+            //     case Moveable.GhostEdible4:
+            //       state.ghosts[3].resetToStartPosition();
+            //       break;
+            //   }
+            // }   
           }
           
           state.ghosts.forEach( ghost => {
@@ -89,7 +89,7 @@ const gameFieldSlice = createSlice({
       },
       changeIsMoveableHackman: (state,payload:PayloadAction<Direction>) => {
         state.hackman.setBewegungsRichtung = payload.payload;
-        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload, null);
+        const isMoveable:Moveable = canMove(state.gameField,state.hackman.getPosition,payload.payload, state.ghosts);
         if(isMoveable === Moveable.Yes){
           if(state.hackmanMoved === false)
           state.hackmanMoved = true;
