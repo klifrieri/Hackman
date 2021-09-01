@@ -1,6 +1,7 @@
 import GhostCharacter from "../Types/Character/GhostCharacter";
 import Moveable from "../Types/Moveable";
 import Direction from "../Types/Direction";
+import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 
 function getRandomNumber(min:number,max:number){
     min = Math.ceil(min);
@@ -8,7 +9,7 @@ function getRandomNumber(min:number,max:number){
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
-function setRandomDirectionAndCount(ghost:GhostCharacter,canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[])
+function setRandomDirectionAndCount(ghost:WritableDraft<GhostCharacter>,canMoveDirections:{direction: Direction;bewegungMoeglich: Moveable;}[])
 {
   let max = 7,min =1;
   let tryBreakOutAfter:number = getRandomNumber(min,max);

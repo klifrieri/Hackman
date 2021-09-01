@@ -22,12 +22,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "../../State/store";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../State/slices/gameFieldSlice";
-import { CustomInterval, CustomTimeout } from "../../UtilityFunctions/CustomInterval";
 import './gameField.css';
 import Ghost1 from "./GhostComponents/Ghost1";
 import Ghost2 from "./GhostComponents/Ghost2";
 import Ghost3 from "./GhostComponents/Ghost3";
 import Ghost4 from "./GhostComponents/Ghost4";
+import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
+import CustomTimerForActivatingGhost from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForActivatingGhost";
 
 
 const GameField: React.FC = () => {
@@ -36,12 +37,12 @@ const GameField: React.FC = () => {
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
-
   useEffect(() => {
-    let [ghost1TimerStart,ghost1TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(1)),2500)
-    let [ghost2TimerStart,ghost2TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(2)),5000)
-    let [ghost3TimerStart,ghost3TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(3)),7500)
-    let [ghost4TimerStart,ghost4TimerStop] = CustomTimeout(()=>store.dispatch(activateGhost(4)),10000)
+    let [ghost1TimerStart,ghost1TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(1)),2500);
+    let [ghost2TimerStart,ghost2TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(2)),5000);
+    let [ghost3TimerStart,ghost3TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(3)),7500);
+    let [ghost4TimerStart,ghost4TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(4)),10000);
+
     if(hackmanMoved){
     ghost1TimerStart();
     ghost2TimerStart();
@@ -57,7 +58,7 @@ const GameField: React.FC = () => {
   }, [hackmanMoved])
 
   useEffect(() => {
-    const [intervalStart, intervalStop] = CustomInterval(() => store.dispatch(gameTick), 250);
+    const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => store.dispatch(gameTick), 250);
     intervalStart();
     return () => intervalStop();
   }, [])
