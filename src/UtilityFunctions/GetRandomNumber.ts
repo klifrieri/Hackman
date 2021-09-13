@@ -15,16 +15,16 @@ function setRandomDirectionAndCount(ghost:WritableDraft<GhostCharacter>,canMoveD
   let tryBreakOutAfter:number = getRandomNumber(min,max);
 
   if(canMoveDirections.length === 0){
-    ghost.setBewegungsRichtung = Direction.Nothing;
+    ghost.direction = Direction.Nothing;
     ghost.moveable = Moveable.No;
   }
   else if(canMoveDirections.length === 1){
-    ghost.setBewegungsRichtung = canMoveDirections[0].direction;
+    ghost.direction = canMoveDirections[0].direction;
     ghost.moveable = canMoveDirections[0].bewegungMoeglich;
   }
   else{
     let index = getRandomNumber(0,canMoveDirections.length);
-    ghost.setBewegungsRichtung = canMoveDirections[index].direction;
+    ghost.direction = canMoveDirections[index].direction;
     ghost.moveable = canMoveDirections[index].bewegungMoeglich;
   }
   ghost.declaredCount = tryBreakOutAfter;

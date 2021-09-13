@@ -19,7 +19,7 @@ describe('hackmanMovesUp',function(){
         chai.assert.strictEqual(testGameField[initialPositionY - 1][initialPositionX],Hackman);
     })
     it('should change the character Position.y to initial positionY - 1 ',function(){
-        chai.assert.strictEqual(hackman.getPosition.y,initialPositionY - 1);
+        chai.assert.strictEqual(hackman.position.y,initialPositionY - 1);
     })
 })
 
@@ -36,7 +36,7 @@ describe('hackmanMovesRight',function(){
         chai.assert.strictEqual(testGameField[initialPositionY][initialPositionX + 1],Hackman);
     })
     it('should change the character Position.X to initial positionX + 1 ',function(){
-        chai.assert.strictEqual(hackman.getPosition.x,initialPositionX + 1);
+        chai.assert.strictEqual(hackman.position.x,initialPositionX + 1);
     })
 })
 
@@ -53,7 +53,7 @@ describe('hackmanMovesLeft',function(){
         chai.assert.strictEqual(testGameField[initialPositionY][initialPositionX - 1],Hackman);
     })
     it('should change the character Position.X to initial positionX - 1 ',function(){
-        chai.assert.strictEqual(hackman.getPosition.x,initialPositionX - 1);
+        chai.assert.strictEqual(hackman.position.x,initialPositionX - 1);
     })
 })
 
@@ -70,7 +70,7 @@ describe('hackmanMovesDown',function(){
         chai.assert.strictEqual(testGameField[initialPositionY + 1][initialPositionX],Hackman);
     })
     it('should change the character Position.y to initial positionY + 1 ',function(){
-        chai.assert.strictEqual(hackman.getPosition.y,initialPositionY + 1);
+        chai.assert.strictEqual(hackman.position.y,initialPositionY + 1);
     })
 })
 

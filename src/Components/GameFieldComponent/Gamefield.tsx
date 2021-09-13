@@ -36,7 +36,7 @@ const GameField: React.FC = () => {
   const { gameTick, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
 
   const gameField = useSelector((state: State) => state.gameField);
-  const hackmanMoved = useSelector((state: State) => state.hackmanMoved);
+  const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
   useEffect(() => {
     let [ghost1TimerStart,ghost1TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(1)),2500);
     let [ghost2TimerStart,ghost2TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(2)),5000);
@@ -48,6 +48,12 @@ const GameField: React.FC = () => {
     ghost2TimerStart();
     ghost3TimerStart();
     ghost4TimerStart();
+  }
+  else{
+    ghost1TimerStop();
+    ghost2TimerStop();
+    ghost3TimerStop();
+    ghost4TimerStop();
   }
   return () =>{
     ghost1TimerStop();

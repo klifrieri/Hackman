@@ -6,6 +6,7 @@ enum Moveable {
     GhostEdible2,
     GhostEdible3,
     GhostEdible4,
+    Hackman
 }
 
 export default Moveable;

@@ -19,7 +19,7 @@ describe('hackmanMovesUpThroughPortal',function(){
         chai.assert.strictEqual(testGameField[testGameField.length-1][initialPositionX],Hackman);
     })
     it('should change the character Position.y to testGameField.length-1 ',function(){
-        chai.assert.strictEqual(hackman.getPosition.y,testGameField.length-1);
+        chai.assert.strictEqual(hackman.position.y,testGameField.length-1);
     })
 })
 
@@ -36,7 +36,7 @@ describe('hackmanMovesRightTroughPortal',function(){
         chai.assert.strictEqual(testGameField[initialPositionY][0],Hackman);
     })
     it('should change the character Position.x to 0 ',function(){
-        chai.assert.strictEqual(hackman.getPosition.x,0);
+        chai.assert.strictEqual(hackman.position.x,0);
     })
 })
 
@@ -53,7 +53,7 @@ describe('hackmanMovesLeftTroughPortal',function(){
         chai.assert.strictEqual(testGameField[initialPositionY][testGameField[initialPositionY].length - 1],Hackman);
     })
     it('should change the character Position.x to  testGameField[initialPositionY].length - 1',function(){
-        chai.assert.strictEqual(hackman.getPosition.x,testGameField[initialPositionY].length - 1);
+        chai.assert.strictEqual(hackman.position.x,testGameField[initialPositionY].length - 1);
     })
 })
 
@@ -71,6 +71,6 @@ describe('hackmanMovesDownTroughPortal',function(){
         chai.assert.strictEqual(testGameField[0][initialPositionX],Hackman);
     })
     it('should change the character Position.y to initial 0 ',function(){
-        chai.assert.strictEqual(hackman.getPosition.y,0);
+        chai.assert.strictEqual(hackman.position.y,0);
     })
 })

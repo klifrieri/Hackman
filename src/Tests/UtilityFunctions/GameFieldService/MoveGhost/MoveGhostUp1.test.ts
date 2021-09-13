@@ -23,7 +23,7 @@ describe('ghostMovesUp',function(){
         expect(testGameField[positionToTestY][initialPositionX].name).to.deep.equal(Ghost.name);
     })
     it('should change the character Position.y to initial positionY - 1 ',function(){
-        expect(ghost.getPosition.y).to.deep.equal(positionToTestY);
+        expect(ghost.position.y).to.deep.equal(positionToTestY);
     })
 })
 

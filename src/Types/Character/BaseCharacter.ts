@@ -2,7 +2,7 @@ import Moveable from "../Moveable";
 import Coordinate from "../Coordinate";
 import Direction from "../Direction";
 
-class Character {
+abstract class BaseCharacter {
   private _name: string;
   public get name(): string {
     return this._name;
@@ -10,17 +10,17 @@ class Character {
   private _initialPosition: Coordinate;
 
   private _position: Coordinate;
-  public set setPositionX(value: number) {
+  public set positionX(value: number) {
     this._position.x = value;
   }
   public set positionY(value: number) {
     this._position.y = value;
   }
-  public get getPosition(): Coordinate {
+  public get position(): Coordinate {
     return this._position;
   }
-  private _direction: Direction;
-  public set setBewegungsRichtung(value: Direction) {
+  protected _direction: Direction;
+  public set direction(value: Direction) {
     this._direction = value;
   }
   public get direction(): Direction {
@@ -49,4 +49,4 @@ class Character {
     this._moveable = Moveable.No;
   }
 } 
-  export default Character;
+  export default BaseCharacter;

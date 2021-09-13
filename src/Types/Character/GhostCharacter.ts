@@ -1,6 +1,6 @@
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import CustomTimerForGhostEdible from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
-import Character from "./Character";
+import Character from "./BaseCharacter";
 
 class GhostCharacter extends Character {
   private _shallTick: boolean;

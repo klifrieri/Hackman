@@ -1,7 +1,7 @@
-import Character from "../../Types/Character/Character";
+import HackmanCharacter from "../../Types/Character/HackmanCharacter";
 
-function GetHackmanByPosition(positionY:number,positionX:number): Character{
-    return new Character("Tester",positionY,positionX);
+function GetHackmanByPosition(positionY:number,positionX:number): HackmanCharacter{
+    return new HackmanCharacter("Tester",positionY,positionX);
 }
 
 export default GetHackmanByPosition;

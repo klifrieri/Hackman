@@ -19,13 +19,13 @@ describe('ghostMovesUp',function(){
     it('should mark ghosts second Position to Coin',function(){
 
         console.log(testGameField)
-        console.log("1 Cached" + ghost.cachedField.name + "  y" + ghost.getPosition.y + "  y" + ghost.getPosition.x);
+        console.log("1 Cached" + ghost.cachedField.name + "  y" + ghost.position.y + "  y" + ghost.position.x);
         testGameField = ghostMovesUp(testGameField,ghost)
         console.log(testGameField)
-        console.log("2 Cached" + ghost.cachedField.name + "  y" + ghost.getPosition.y + "  y" + ghost.getPosition.x);
+        console.log("2 Cached" + ghost.cachedField.name + "  y" + ghost.position.y + "  y" + ghost.position.x);
         testGameField = ghostMovesUp(testGameField,ghost)
         console.log(testGameField)
-        console.log("3 Cached" + ghost.cachedField.name + "  y" + ghost.getPosition.y + "  y" + ghost.getPosition.x);
+        console.log("3 Cached" + ghost.cachedField.name + "  y" + ghost.position.y + "  y" + ghost.position.x);
 
         console.log(testGameField)
         expect(testGameField[positionToTestY][initialPositionX].name).to.deep.equal(Coin.name);
