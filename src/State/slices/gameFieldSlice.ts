@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { canMove, getPossibleDirections} from '../../UtilityFunctions/move/CanMove';
 import SpielfeldLayout from '../../SpielfeldLayout'
 import Character from '../../Types/Character/Character';
-import { moveHackman } from '../../UtilityFunctions/move/MoveHackman';
+import { hackmanMovesDown, moveHackman } from '../../UtilityFunctions/move/MoveHackman';
 import Direction from '../../Types/Direction';
 import GhostCharacter from '../../Types/Character/GhostCharacter';
 import Moveable from '../../Types/Moveable';
@@ -36,28 +36,28 @@ const gameFieldSlice = createSlice({
       gameTick: (state) =>{
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
-          if(state.hackman.moveable === Moveable.Yes || state.hackman.moveable === Moveable.Portal){
+          if(state.hackman.moveable !== Moveable.No){
             let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
             gameFieldForAll = gameField;
             increaseCoins = increaseTheCoins; 
-            // if(increaseCoins === CoinValue.Ten){
-            //   state.eatenCoins += 10;
-            //   switch(state.hackman.moveable){
-            //     case Moveable.GhostEdible1:
-            //       state.ghosts[0].resetToStartPosition()
-            //       // setGhostToInitialPosition()
-            //       break;
-            //     case Moveable.GhostEdible2:
-            //       state.ghosts[1].resetToStartPosition();
-            //       break;
-            //     case Moveable.GhostEdible3:
-            //       state.ghosts[2].resetToStartPosition();
-            //       break;
-            //     case Moveable.GhostEdible4:
-            //       state.ghosts[3].resetToStartPosition();
-            //       break;
-            //   }
-            // }   
+            if(increaseCoins === CoinValue.Ten){
+              state.eatenCoins += 10;
+              switch(state.hackman.moveable){
+                case Moveable.GhostEdible1:
+                  state.ghosts[0].resetToStartPosition()
+                  // setGhostToInitialPosition()
+                  break;
+                case Moveable.GhostEdible2:
+                  state.ghosts[1].resetToStartPosition();
+                  break;
+                case Moveable.GhostEdible3:
+                  state.ghosts[2].resetToStartPosition();
+                  break;
+                case Moveable.GhostEdible4:
+                  state.ghosts[3].resetToStartPosition();
+                  break;
+              }
+            }   
           }
           
           state.ghosts.forEach( ghost => {
