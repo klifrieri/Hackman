@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { canMove, getPossibleDirections} from '../../UtilityFunctions/move/CanMove';
 import SpielfeldLayout from '../../SpielfeldLayout'
 import Character from '../../Types/Character/Character';
-import { hackmanMovesDown, moveHackman } from '../../UtilityFunctions/move/MoveHackman';
+import { moveHackman } from '../../UtilityFunctions/move/MoveHackman';
 import Direction from '../../Types/Direction';
 import GhostCharacter from '../../Types/Character/GhostCharacter';
 import Moveable from '../../Types/Moveable';
