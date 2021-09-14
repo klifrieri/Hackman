@@ -7,7 +7,77 @@ import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal
 import React from "react";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import CoinValue from "../../Types/CoinValue";
+import GhostCharacter from "../../Types/Character/GhostCharacter";
+import Ghost1 from "../../Components/GameFieldComponent/GhostComponents/Ghost1";
+import Ghost2 from "../../Components/GameFieldComponent/GhostComponents/Ghost2";
+import Ghost3 from "../../Components/GameFieldComponent/GhostComponents/Ghost3";
+import Ghost4 from "../../Components/GameFieldComponent/GhostComponents/Ghost4";
 
+function resetGhostAndItsPosition(gameField: React.FC<{}>[][],whichGhost:Moveable, ghost: WritableDraft<GhostCharacter>[]): React.FC<{}>[][] {
+  switch (whichGhost) {
+    case Moveable.GhostEdible1:
+      if (gameField[7][9] === Empty) {
+        ghost[0].resetToStartPosition(0, 0);
+      }
+      else if (gameField[8][9] === Empty) {
+        ghost[0].resetToStartPosition(1, 0);
+      }
+      else if (gameField[7][10] === Empty) {
+        ghost[0].resetToStartPosition(0, 1);
+      }
+      else if (gameField[8][10] === Empty) {
+        ghost[0].resetToStartPosition(1, 1);
+      }
+      gameField[ghost[0].position.y][ghost[0].position.x] = Ghost1;
+      break;
+    case Moveable.GhostEdible2:
+      if (gameField[7][11] === Empty) {
+        ghost[1].resetToStartPosition(0, 0);
+      }
+      else if (gameField[7][10] === Empty) {
+        ghost[1].resetToStartPosition(0, -1);
+      }
+      else if (gameField[8][11] === Empty) {
+        ghost[1].resetToStartPosition(1, 0);
+      }
+      else if (gameField[8][10] === Empty) {
+        ghost[1].resetToStartPosition(1, -1);
+      }
+      gameField[ghost[1].position.y][ghost[1].position.x] = Ghost2;
+      break;
+    case Moveable.GhostEdible3:
+      if (gameField[9][9] === Empty) {
+        ghost[2].resetToStartPosition(0, 0);
+      }
+      else if (gameField[8][9] === Empty) {
+        ghost[2].resetToStartPosition(-1, 0);
+      }
+      else if (gameField[9][10] === Empty) {
+        ghost[2].resetToStartPosition(0, 1);
+      }
+      else if (gameField[8][10] === Empty) {
+        ghost[2].resetToStartPosition(-1, 1);
+      }
+      gameField[ghost[2].position.y][ghost[2].position.x] = Ghost3;
+      break;
+    case Moveable.GhostEdible4:
+      if (gameField[9][11] === Empty) {
+        ghost[3].resetToStartPosition(0, 0);
+      }
+      else if (gameField[8][11] === Empty) {
+        ghost[3].resetToStartPosition(-1, 0);
+      }
+      else if (gameField[9][10] === Empty) {
+        ghost[3].resetToStartPosition(0, -1);
+      }
+      else if (gameField[8][10] === Empty) {
+        ghost[3].resetToStartPosition(-1, -1);
+      }
+      gameField[ghost[3].position.y][ghost[3].position.x] = Ghost4;
+      break;
+  }
+  return gameField;
+}
 
 function hackmanMovesUp(spielFeldCopy: React.FC<{}>[][], hackman: WritableDraft<Character>): React.FC<{}>[][] {
   spielFeldCopy[hackman.position.y][hackman.position.x] = Empty;
@@ -65,40 +135,44 @@ function hackmanMovesDownTroughPortal(spielFeldCopy: React.FC<{}>[][], hackman: 
   return spielFeldCopy;
 }
 
-function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>): { gameField: React.FC<{}>[][], increaseTheCoins: CoinValue } {
-  let increaseTheCoins: CoinValue = 0;
-  if (hackman.moveable !== Moveable.Portal) {
-    const ghostEdible:boolean = hackman.moveable === Moveable.GhostEdible1 ||
-                                hackman.moveable === Moveable.GhostEdible2 ||
-                                hackman.moveable === Moveable.GhostEdible3 ||
-                                hackman.moveable === Moveable.GhostEdible4;
-
-    switch (hackman.direction) {
-      case Direction.Up: {
-        increaseTheCoins = ghostEdible ? CoinValue.Ten :  isEdible(gameField, Direction.Up, hackman.position);
-
-        gameField = hackmanMovesUp(gameField, hackman);
-        break;
-      }
-      case Direction.Right: {
-        increaseTheCoins = ghostEdible ? CoinValue.Ten : isEdible(gameField, Direction.Right, hackman.position);
-
-        gameField = hackmanMovesRight(gameField, hackman);
-        break;
-      }
-      case Direction.Down: {
-        increaseTheCoins = ghostEdible ? CoinValue.Ten : isEdible(gameField, Direction.Down, hackman.position);
-        
-        gameField = hackmanMovesDown(gameField, hackman);
-        break;
-      }
-      case Direction.Left: {
-        increaseTheCoins = ghostEdible ? CoinValue.Ten : isEdible(gameField, Direction.Left, hackman.position); 
-
-        gameField = hackmanMovesLeft(gameField, hackman);
-        break;
-      }
+function InvokeMoveHackmanByDirection(hackman: WritableDraft<Character>, gameField: React.FC<{}>[][]) {
+  switch (hackman.direction) {
+    case Direction.Up: {
+      gameField = hackmanMovesUp(gameField, hackman);
+      break;
     }
+    case Direction.Right: {
+      gameField = hackmanMovesRight(gameField, hackman);
+      break;
+    }
+    case Direction.Down: {
+      gameField = hackmanMovesDown(gameField, hackman);
+      break;
+    }
+    case Direction.Left: {
+      gameField = hackmanMovesLeft(gameField, hackman);
+      break;
+    }
+  }
+  return gameField;
+}
+
+
+function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>, ghosts: WritableDraft<GhostCharacter>[]): { gameField: React.FC<{}>[][], increaseTheCoins: CoinValue } {
+  let increaseTheCoins: CoinValue = CoinValue.Zero;
+  const ghostEdible: boolean = hackman.moveable === Moveable.GhostEdible1 ||
+    hackman.moveable === Moveable.GhostEdible2 ||
+    hackman.moveable === Moveable.GhostEdible3 ||
+    hackman.moveable === Moveable.GhostEdible4;
+
+  if (hackman.moveable === Moveable.Yes) {
+    increaseTheCoins = isEdible(gameField, hackman.direction, hackman.position)
+    gameField = InvokeMoveHackmanByDirection(hackman, gameField);
+  }
+  else if (ghostEdible) {
+    gameField = InvokeMoveHackmanByDirection(hackman, gameField);
+    gameField = resetGhostAndItsPosition(gameField,hackman.moveable,ghosts);
+    increaseTheCoins = CoinValue.Ten;
   }
   else if (hackman.moveable === Moveable.Portal) {
     switch (hackman.direction) {

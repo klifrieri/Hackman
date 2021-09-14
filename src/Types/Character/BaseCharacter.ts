@@ -40,6 +40,8 @@ abstract class BaseCharacter {
   public resetToStartPosition(y: number, x: number) {
     this._position.x = this._initialPosition.x + x;
     this._position.y = this._initialPosition.y + y;
+    this.moveable = Moveable.No;
+    this._direction = Direction.Nothing;
   }
   constructor(name: string, positionY: number, positionX: number) {
     this._name = name;

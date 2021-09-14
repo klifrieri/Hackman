@@ -247,7 +247,6 @@ function moveGhost(gameField: React.FC<any>[][], actualGhost: WritableDraft<Ghos
     gameField = InvokeMoveGhostByDirection(gameField, actualGhost);
 
     ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
-      ghost.shallTick = false;
       gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
       ghost.resetToStartPosition(0, 0);
       switch (ghost.name) {
@@ -266,7 +265,7 @@ function moveGhost(gameField: React.FC<any>[][], actualGhost: WritableDraft<Ghos
       }
     });
     hackman.hackmanMoved = false;
-    hackman.resetToStartPosition(0, 0);
+    hackman.resetToStartAndDecreaseLife();
     if (hackman.remainingLifes > 0) {
       gameField[hackman.position.y][hackman.position.x] = Hackman;
     }
@@ -274,8 +273,6 @@ function moveGhost(gameField: React.FC<any>[][], actualGhost: WritableDraft<Ghos
       gameField = SpielfeldLayout();
     }
   }
-
-
   else if (actualGhost.moveable === Moveable.Portal) {
     switch (actualGhost.direction) {
       case Direction.Up: {

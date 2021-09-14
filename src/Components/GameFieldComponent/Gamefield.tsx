@@ -37,6 +37,14 @@ const GameField: React.FC = () => {
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
+
+  const ghost1ShallTick = useSelector((state: State) => state.ghosts[0].shallTick);
+  const ghost2ShallTick = useSelector((state: State) => state.ghosts[1].shallTick);
+  const ghost3ShallTick = useSelector((state: State) => state.ghosts[2].shallTick);
+  const ghost4ShallTick = useSelector((state: State) => state.ghosts[3].shallTick);
+
+  // The game "starts" when hackman moved the first time.
+  // if hackman got eaten the timer will stop.
   useEffect(() => {
     let [ghost1TimerStart,ghost1TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(1)),2500);
     let [ghost2TimerStart,ghost2TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(2)),5000);
@@ -63,6 +71,63 @@ const GameField: React.FC = () => {
   }
   }, [hackmanMoved])
 
+  //If a ghost gets eaten its shalltick sets to false.It needs to get reactivated after a delay
+  //Only if Hackman already moved indicating that the game is in running mode and its only a single ghost
+  //If hackman dies and all ghost are set to shalltick = false the following useeffect wont trigger
+  //But the one above
+  useEffect(() => {
+    let [ghost1TimerStart,ghost1TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(1)),2500);
+    if(!ghost1ShallTick && hackmanMoved){
+    ghost1TimerStart();
+  }
+  else{
+    ghost1TimerStop();
+  }
+  return () =>{
+    ghost1TimerStop();
+  }
+  }, [ghost1ShallTick,hackmanMoved])
+
+  useEffect(() => {
+    let [ghost2TimerStart,ghost2TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(2)),2500);
+    if(!ghost2ShallTick && hackmanMoved){
+    ghost2TimerStart();
+  }
+  else{
+    ghost2TimerStop();
+  }
+  return () =>{
+    ghost2TimerStop();
+  }
+  }, [ghost2ShallTick,hackmanMoved])
+
+  useEffect(() => {
+    let [ghost3TimerStart,ghost3TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(3)),2500);
+    if(!ghost3ShallTick && hackmanMoved){
+    ghost3TimerStart();
+  }
+  else{
+    ghost3TimerStop();
+  }
+  return () =>{
+    ghost3TimerStop();
+  }
+  }, [ghost3ShallTick,hackmanMoved])
+
+  useEffect(() => {
+    let [ghost4TimerStart,ghost4TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(4)),2500);
+    if(!ghost4ShallTick && hackmanMoved){
+    ghost4TimerStart();
+  }
+  else{
+    ghost4TimerStop();
+  }
+  return () =>{
+    ghost4TimerStop();
+  }
+  }, [ghost4ShallTick,hackmanMoved])
+
+  //Gametick interval
   useEffect(() => {
     const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => store.dispatch(gameTick), 250);
     intervalStart();

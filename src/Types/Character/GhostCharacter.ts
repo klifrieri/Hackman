@@ -48,6 +48,11 @@ class GhostCharacter extends Character {
   public override resetToStartPosition(y: number, x: number) {
     super.resetToStartPosition(y, x);
     this.isEdible = false;
+    this._cachedField = Empty;
+    this.resetCount();
+    this.declaredCount = 0;
+    this.shallTick = false;
+    this._isEdibleTimeout.stop();
   }
   constructor(name: string, positionY: number, positionX: number) {
     super(name, positionY, positionX);

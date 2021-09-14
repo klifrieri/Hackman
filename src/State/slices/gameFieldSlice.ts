@@ -9,7 +9,6 @@ import { setRandomDirectionAndCount } from '../../UtilityFunctions/GetRandomNumb
 import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import React from 'react';
 import CoinValue from '../../Types/CoinValue';
-import Empty from '../../Components/GameFieldComponent/FieldComponents/Path/Empty';
 import HackmanCharacter from '../../Types/Character/HackmanCharacter';
 
 const initialStateHackman:HackmanCharacter = new HackmanCharacter("Hackman",12,10);
@@ -32,98 +31,12 @@ const gameFieldSlice = createSlice({
         let gameFieldForAll:React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
           if(state.hackman.moveable !== Moveable.No){
-            let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman);
+            let {gameField,increaseTheCoins} = moveHackman(state.gameField,state.hackman,ghosts);
             gameFieldForAll = gameField;
             increaseCoins = increaseTheCoins; 
             if(increaseCoins === CoinValue.Ten){
               state.eatenCoins += 10;
-              switch(state.hackman.moveable){
-                case Moveable.GhostEdible1:
-                  if(gameFieldForAll[7][9] === Empty){
-                    state.ghosts[0].resetToStartPosition(0, 0)
-                    break
-                  }
-                  else if(gameFieldForAll[8][9] === Empty){
-                    state.ghosts[0].resetToStartPosition(1, 0)
-                    break
-                  }
-                  else if(gameFieldForAll[7][10] === Empty){
-                    state.ghosts[0].resetToStartPosition(0, 1)
-                    break
-                  }
-                  else if(gameFieldForAll[8][10] === Empty){
-                    state.ghosts[0].resetToStartPosition(1, 1)
-                    break
-                  }
-                  else{
-                    console.log("Das geht doch nicht " + state.ghosts[0].name)
-                    break
-                  }
-                  case Moveable.GhostEdible2:
-                    if(gameFieldForAll[7][11] === Empty){
-                      state.ghosts[1].resetToStartPosition(0, 0)
-                      break
-                    }
-                    else if(gameFieldForAll[7][10] === Empty){
-                      state.ghosts[1].resetToStartPosition(0, -1)
-                      break
-                    }
-                    else if(gameFieldForAll[8][11] === Empty){
-                      state.ghosts[1].resetToStartPosition(1, 0)
-                      break
-                    }
-                    else if(gameFieldForAll[8][10] === Empty){
-                      state.ghosts[1].resetToStartPosition(1, -1)
-                      break
-                    }
-                    else{
-                      console.log("Das geht doch nicht " + state.ghosts[1].name)
-                      break
-                    }
-                case Moveable.GhostEdible3:
-                  if(gameFieldForAll[9][9] === Empty){
-                    state.ghosts[2].resetToStartPosition(0, 0)
-                    break
-                  }
-                  else if(gameFieldForAll[8][9] === Empty){
-                    state.ghosts[2].resetToStartPosition(-1, 0)
-                    break
-                  }
-                  else if(gameFieldForAll[9][10] === Empty){
-                    state.ghosts[2].resetToStartPosition(0, 1)
-                    break
-                  }
-                  else if(gameFieldForAll[8][10] === Empty){
-                    state.ghosts[2].resetToStartPosition(-1, 1)
-                    break
-                  }
-                  else{
-                    console.log("Das geht doch nicht " + state.ghosts[2].name)
-                    break
-                  }
-                case Moveable.GhostEdible4:
-                  if(gameFieldForAll[9][11] === Empty){
-                    state.ghosts[3].resetToStartPosition(0, 0)
-                    break
-                  }
-                  else if(gameFieldForAll[8][11] === Empty){
-                    state.ghosts[3].resetToStartPosition(-1, 0)
-                    break
-                  }
-                  else if(gameFieldForAll[9][10] === Empty){
-                    state.ghosts[3].resetToStartPosition(0, -1)
-                    break
-                  }
-                  else if(gameFieldForAll[8][10] === Empty){
-                    state.ghosts[3].resetToStartPosition(-1, -1)
-                    break
-                  }
-                  else{
-                    console.log("Das geht doch nicht " + state.ghosts[3].name)
-                    break
-                  }
-              }
-            }   
+            }
           }
           
           state.ghosts.forEach( ghost => {
@@ -133,7 +46,7 @@ const gameFieldSlice = createSlice({
                   ghost = setRandomDirectionAndCount(ghost,canMoveDirections);
                 }
                 else{
-                  ghost.moveable = canMove(gameFieldForAll, ghost.position, ghost.direction);
+                  ghost.moveable = canMove(gameFieldForAll, ghost.position, ghost.direction,undefined,ghost.isEdible);
                 }
                 gameFieldForAll = moveGhost(gameFieldForAll,ghost,ghosts,state.hackman);
               }

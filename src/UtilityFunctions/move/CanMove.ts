@@ -13,9 +13,8 @@ import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal
 import GhostCharacter from "../../Types/Character/GhostCharacter";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 
-function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[]): Moveable {
+function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   let positionValue = position.y - 1;
-
   if (spielFeld[positionValue] === undefined) {
     return Moveable.Portal;
   }
@@ -41,15 +40,20 @@ function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: W
       return Moveable.No;
     }
   }
-  else if (spielFeld[positionValue][position.x] === Hackman) {
-    return Moveable.Hackman;
+  else if (isEdibleGhost !== undefined) {
+    if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
+      return Moveable.Hackman;
+    }
+    else {
+      return Moveable.No;
+    }
   }
   else {
     return Moveable.No;
   }
 }
 
-function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[]): Moveable {
+function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   let positionValue = position.y + 1;
   if (spielFeld[positionValue] === undefined) {
     return Moveable.Portal;
@@ -76,15 +80,20 @@ function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?:
       return Moveable.No;
     }
   }
-  else if (spielFeld[positionValue][position.x] === Hackman) {
-    return Moveable.Hackman;
+  else if (isEdibleGhost !== undefined) {
+    if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
+      return Moveable.Hackman;
+    }
+    else {
+      return Moveable.No;
+    }
   }
   else {
     return Moveable.No;
   }
 }
 
-function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[]): Moveable {
+function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   let positionValue = position.x - 1;
   if (spielFeld[position.y][positionValue] === undefined) {
     return Moveable.Portal;
@@ -111,15 +120,20 @@ function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?:
       return Moveable.No;
     }
   }
-  else if (spielFeld[position.y][positionValue] === Hackman) {
-    return Moveable.Hackman;
+  else if (isEdibleGhost !== undefined) {
+    if (spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
+      return Moveable.Hackman;
+    }
+    else {
+      return Moveable.No;
+    }
   }
   else {
     return Moveable.No;
   }
 }
 
-function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[]): Moveable {
+function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   let positionValue = position.x + 1;
   if (spielFeld[position.y][positionValue] === undefined) {
     return Moveable.Portal;
@@ -146,27 +160,33 @@ function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?
       return Moveable.No;
     }
   }
-  else if (spielFeld[position.y][positionValue] === Hackman) {
-    return Moveable.Hackman;
+  else if (isEdibleGhost !== undefined) {
+    
+    if (spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
+      return Moveable.Hackman;
+    }
+    else {
+      return Moveable.No;
+    }
   }
   else {
     return Moveable.No;
   }
 }
 
-function canMove(gameField: React.FC<{}>[][], position: Coordinate, direction: Direction, ghosts?: WritableDraft<GhostCharacter>[]): Moveable {
+function canMove(gameField: React.FC<{}>[][], position: Coordinate, direction: Direction, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   switch (direction) {
     case Direction.Up: {
-      return canMoveUp(gameField, position, ghosts);
+      return canMoveUp(gameField, position, ghosts, isEdibleGhost);
     }
     case Direction.Left: {
-      return canMoveLeft(gameField, position, ghosts);
+      return canMoveLeft(gameField, position, ghosts, isEdibleGhost);
     }
     case Direction.Down: {
-      return canMoveDown(gameField, position, ghosts);
+      return canMoveDown(gameField, position, ghosts, isEdibleGhost);
     }
     case Direction.Right: {
-      return canMoveRight(gameField, position, ghosts);
+      return canMoveRight(gameField, position, ghosts, isEdibleGhost);
     }
     default:
       return Moveable.No;
