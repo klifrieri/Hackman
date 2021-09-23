@@ -11,8 +11,9 @@ html {
     height: 100%;
   }
 div#root {
-    height: 100%;
+    height: 100vh;
     background-color: black;
+    
 }
 /* Main */
 body {
@@ -22,11 +23,15 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-y: hidden;
 }
 
 .center {
     width: 100%;
-    height: 100%;
-    position: relative;
+    height: 100vh;
     display: block;
+}
+
+.center:first-child{
+    padding-top: 5.25%;
 }
