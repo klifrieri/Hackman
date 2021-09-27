@@ -1,12 +1,7 @@
 import React from "react"
-import { useSelector } from "react-redux"
 import Block from "../Components/GameFieldComponent/FieldComponents/Path/Block"
 import Empty from "../Components/GameFieldComponent/FieldComponents/Path/Empty"
-import Ghost1 from "../Components/GameFieldComponent/GhostComponents/Ghost1"
-import Ghost2 from "../Components/GameFieldComponent/GhostComponents/Ghost2"
-import Ghost3 from "../Components/GameFieldComponent/GhostComponents/Ghost3"
-import Ghost4 from "../Components/GameFieldComponent/GhostComponents/Ghost4"
-import { State } from "../State/store"
+
 
 
 const noGhost = (blockY:number, blockX:number, gameField:React.FC<{}>[][]):boolean => {
