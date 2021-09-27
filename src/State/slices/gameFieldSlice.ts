@@ -15,11 +15,9 @@ import CoinValue from "../../Types/CoinValue";
 import HackmanCharacter from "../../Types/Character/HackmanCharacter";
 import {
   generateBlockOnGameField,
-  resetBlockTimer,
   setGameField,
 } from "../../UtilityFunctions/SpecialActions";
-import CustomTimerForBlock from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForBlock";
-import Coordinate from "../../Types/Coordinate";
+import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   "Hackman",
@@ -141,55 +139,57 @@ const gameFieldSlice = createSlice({
       let direction: Direction = state.hackman.direction;
       switch (direction) {
         case 0:
-          state.gameField = generateBlockOnGameField(
-            state.hackman.position.y + 1,
-            state.hackman.position.x,
-            state.hackman.canSetBlock,
-            state.gameField
-          );
-          if (state.hackman.canSetBlock) {
+          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y + 1][state.hackman.position.x] === Empty) {
+            state.gameField = generateBlockOnGameField(
+              state.hackman.position.y + 1,
+              state.hackman.position.x,
+              state.gameField
+            );
+    
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y + 1;
             state.block[1] = state.hackman.position.x;
+            
           }
           break;
         case 1:
-          state.gameField = generateBlockOnGameField(
-            state.hackman.position.y - 1,
-            state.hackman.position.x,
-            state.hackman.canSetBlock,
-            state.gameField
-          );
-          if (state.hackman.canSetBlock) {
+          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y - 1][state.hackman.position.x] === Empty) {
+            state.gameField = generateBlockOnGameField(
+              state.hackman.position.y - 1,
+              state.hackman.position.x,
+              state.gameField
+            );
+            
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y - 1;
             state.block[1] = state.hackman.position.x;
+            
           }
           break;
         case 2:
-          state.gameField = generateBlockOnGameField(
-            state.hackman.position.y,
-            state.hackman.position.x + 1,
-            state.hackman.canSetBlock,
-            state.gameField
-          );
-          if (state.hackman.canSetBlock) {
+          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x + 1] === Empty) {
+            state.gameField = generateBlockOnGameField(
+              state.hackman.position.y,
+              state.hackman.position.x + 1,
+              state.gameField
+            );
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y;
-            state.block[1] = state.hackman.position.x + 1;
+            state.block[1] = state.hackman.position.x + 1;            
           }
           break;
         case 3:
-          state.gameField = generateBlockOnGameField(
-            state.hackman.position.y,
-            state.hackman.position.x - 1,
-            state.hackman.canSetBlock,
-            state.gameField
-          );
-          if (state.hackman.canSetBlock) {
+          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x - 1] === Empty) {
+            state.gameField = generateBlockOnGameField(
+              state.hackman.position.y,
+              state.hackman.position.x - 1,
+              state.gameField
+            );
+
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y;
             state.block[1] = state.hackman.position.x - 1;
+
           }
           break;
       }
