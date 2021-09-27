@@ -120,3 +120,15 @@
     background: white;
     border-radius: 50% !important;
 } 
+
+
+/* Special */
+.block{
+
+    position: relative;
+    background-color: gray; 
+    height: 80%;
+    width: 80%;
+    border: 3px solid white;
+
+}

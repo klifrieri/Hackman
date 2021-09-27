@@ -28,15 +28,17 @@ import Ghost2 from "./GhostComponents/Ghost2";
 import Ghost3 from "./GhostComponents/Ghost3";
 import Ghost4 from "./GhostComponents/Ghost4";
 import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
-import CustomTimerForActivatingGhost from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForActivatingGhost";
+import CustomTimeOut from "../../UtilityFunctions/Interval_And_Timer/CustomTimeOut";
+import Block from "./FieldComponents/Path/Block";
 
 
 const GameField: React.FC = () => {
   const dispatch = useDispatch();
-  const { gameTick, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
+  const { gameTick, activateGhost, deleteBlock } = bindActionCreators(gameFieldSlice.actions, dispatch)
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
+  const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock)
 
   const ghost1ShallTick = useSelector((state: State) => state.ghosts[0].shallTick);
   const ghost2ShallTick = useSelector((state: State) => state.ghosts[1].shallTick);
@@ -46,10 +48,10 @@ const GameField: React.FC = () => {
   // The game "starts" when hackman moved the first time.
   // if hackman got eaten the timer will stop.
   useEffect(() => {
-    let [ghost1TimerStart,ghost1TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(1)),2500);
-    let [ghost2TimerStart,ghost2TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(2)),5000);
-    let [ghost3TimerStart,ghost3TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(3)),7500);
-    let [ghost4TimerStart,ghost4TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(4)),10000);
+    let [ghost1TimerStart,ghost1TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(1)),2500);
+    let [ghost2TimerStart,ghost2TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(2)),5000);
+    let [ghost3TimerStart,ghost3TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(3)),7500);
+    let [ghost4TimerStart,ghost4TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(4)),10000);
 
     if(hackmanMoved){
     ghost1TimerStart();
@@ -76,7 +78,7 @@ const GameField: React.FC = () => {
   //If hackman dies and all ghost are set to shalltick = false the following useeffect wont trigger
   //But the one above
   useEffect(() => {
-    let [ghost1TimerStart,ghost1TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(1)),2500);
+    let [ghost1TimerStart,ghost1TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(1)),2500);
     if(!ghost1ShallTick && hackmanMoved){
     ghost1TimerStart();
   }
@@ -89,7 +91,7 @@ const GameField: React.FC = () => {
   }, [ghost1ShallTick,hackmanMoved])
 
   useEffect(() => {
-    let [ghost2TimerStart,ghost2TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(2)),2500);
+    let [ghost2TimerStart,ghost2TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(2)),2500);
     if(!ghost2ShallTick && hackmanMoved){
     ghost2TimerStart();
   }
@@ -102,7 +104,7 @@ const GameField: React.FC = () => {
   }, [ghost2ShallTick,hackmanMoved])
 
   useEffect(() => {
-    let [ghost3TimerStart,ghost3TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(3)),2500);
+    let [ghost3TimerStart,ghost3TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(3)),2500);
     if(!ghost3ShallTick && hackmanMoved){
     ghost3TimerStart();
   }
@@ -115,7 +117,7 @@ const GameField: React.FC = () => {
   }, [ghost3ShallTick,hackmanMoved])
 
   useEffect(() => {
-    let [ghost4TimerStart,ghost4TimerStop] = CustomTimerForActivatingGhost( () =>store.dispatch(activateGhost(4)),2500);
+    let [ghost4TimerStart,ghost4TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(4)),2500);
     if(!ghost4ShallTick && hackmanMoved){
     ghost4TimerStart();
   }
@@ -134,6 +136,19 @@ const GameField: React.FC = () => {
     return () => intervalStop();
   }, [])
 
+  useEffect(() => {
+    let [blockTimerStart, blockTimerStop] = CustomTimeOut( () => store.dispatch(deleteBlock), 5000);
+    if(!canSetBlock){
+      blockTimerStart()
+    }
+    else{
+      blockTimerStop()
+    }
+
+    return () =>{
+      blockTimerStop();
+    }
+  }, [canSetBlock])
 
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === HorizontalWall) return <HorizontalWall key={key} />;
@@ -170,6 +185,7 @@ const GameField: React.FC = () => {
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
+    else if (component === Block) return <Block key={key} /> 
     else return undefined;
   };
   

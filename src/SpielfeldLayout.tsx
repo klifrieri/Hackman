@@ -20,6 +20,8 @@ import Gei1 from "./Components/GameFieldComponent/GhostComponents/Ghost1";
 import Gei2 from "./Components/GameFieldComponent/GhostComponents/Ghost2";
 import Gei3 from "./Components/GameFieldComponent/GhostComponents/Ghost3";
 import Gei4 from "./Components/GameFieldComponent/GhostComponents/Ghost4";
+// import Bloc from "./Components/GameFieldComponent/FieldComponents/Path/Block";
+
 import React from 'react';
 
 const SpielfeldLayout = () => {
