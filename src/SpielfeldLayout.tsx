@@ -32,7 +32,7 @@ const SpielfeldLayout = () => {
         [Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vwts, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell],
         [Tpls, Cort, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Hwls, Tpto, Hwrs, Coin, Hwls, Holl, Holl, Holl, Hwrs, Coin, Colt, Tprs],
         [Vell, Vell, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Snac, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Coin, Vell, Vell],
-        [Colb, Corb, Coin, Vwts, Coin, Colt, Cort, Coin, Colt, Hwrs, Bloc, Hwls, Cort, Coin, Colt, Cort, Coin, Vwts, Coin, Colb, Corb],
+        [Colb, Corb, Coin, Vwts, Coin, Colt, Cort, Coin, Colt, Hwrs, Coin, Hwls, Cort, Coin, Colt, Cort, Coin, Vwts, Coin, Colb, Corb],
         [Empy, Empy, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Gei1, Empy, Gei2, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Empy, Empy],
         [Hwls, Hwrs, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Empy, Empy, Empy, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Hwls, Hwrs],
         [Empy, Empy, Coin, Vell, Coin, Vell, Vell, Coin, Vell, Gei3, Empy, Gei4, Vell, Coin, Vell, Vell, Coin, Vell, Coin, Empy, Empy],

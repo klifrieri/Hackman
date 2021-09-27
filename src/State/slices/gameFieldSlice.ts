@@ -10,6 +10,8 @@ import { moveGhost } from '../../UtilityFunctions/move/MoveGhost';
 import React from 'react';
 import CoinValue from '../../Types/CoinValue';
 import HackmanCharacter from '../../Types/Character/HackmanCharacter';
+import { stat } from 'fs';
+import { generateBlockOnGameField } from '../../UtilityFunctions/SpecialActions';
 
 const initialStateHackman:HackmanCharacter = new HackmanCharacter("Hackman",12,10);
 const ghost1 = new GhostCharacter("Ghost1",7,9);
@@ -91,6 +93,31 @@ const gameFieldSlice = createSlice({
           case 4:
             state.ghosts[3].shallTick = true;
             break;
+        }
+      },
+      setBlock:(state) => {
+        let direction: Direction = state.hackman.direction
+        switch(direction){
+          case 0:
+            state.gameField = generateBlockOnGameField(state.hackman.position.y + 1, state.hackman.position.x, state.hackman.canSetBlock, state.gameField)
+            state.hackman.canSetBlock = false
+            //startBlockTimer()
+            break
+          case 1:
+            state.gameField = generateBlockOnGameField(state.hackman.position.y -1, state.hackman.position.x, state.hackman.canSetBlock, state.gameField)
+            state.hackman.canSetBlock = false
+            //startBlockTimer()
+            break
+          case 2:
+            state.gameField = generateBlockOnGameField(state.hackman.position.y, state.hackman.position.x + 1, state.hackman.canSetBlock, state.gameField)
+            state.hackman.canSetBlock = false
+            //startBlockTimer()
+            break
+          case 3:
+            state.gameField = generateBlockOnGameField(state.hackman.position.y, state.hackman.position.x - 1, state.hackman.canSetBlock, state.gameField)
+            state.hackman.canSetBlock = false
+            //startBlockTimer()
+            break
         }
       }
     },

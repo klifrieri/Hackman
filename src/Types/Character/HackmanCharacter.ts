@@ -15,6 +15,14 @@ class HackmanCharacter extends BaseCharacter {
   public set hackmanMoved(value: boolean) {
     this._hackmanMoved = value;
   }
+  private _canSetBlock: boolean
+  public set canSetBlock(value: boolean) {
+    this._canSetBlock = value
+  }
+  public get canSetBlock(): boolean {
+    return this._canSetBlock
+  }
+
   public override resetToStartPosition(y: number, x: number) {
     super.resetToStartPosition(y, x);
     this.hackmanMoved = false;
@@ -27,6 +35,7 @@ class HackmanCharacter extends BaseCharacter {
     super(name, positionY, positionX);
     this._hackmanMoved = false;
     this._remainingLifes = 3;
+    this._canSetBlock = true;
   }
 }
 export default HackmanCharacter;

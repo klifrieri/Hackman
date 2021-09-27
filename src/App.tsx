@@ -9,7 +9,10 @@ import Direction from "./Types/Direction";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { changeIsMoveableHackman, } = bindActionCreators(gameFieldSlice.actions, dispatch)
+  const { changeIsMoveableHackman, setBlock } = bindActionCreators(
+    gameFieldSlice.actions,
+    dispatch
+  );
 
   const centerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -18,24 +21,21 @@ const App: React.FC = () => {
     window.addEventListener("resize", setStyleTag);
     return () => window.removeEventListener("resize", setStyleTag);
     //eslint-disable-next-line
-  },[]);
-  
+  }, []);
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
-      store.dispatch(changeIsMoveableHackman(Direction.Up))
-    }
-    else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
-      store.dispatch(changeIsMoveableHackman(Direction.Right))
-    }
-    else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown") {
-      store.dispatch(changeIsMoveableHackman(Direction.Down))
-    }
-    else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft") {
-      store.dispatch(changeIsMoveableHackman(Direction.Left))
-    }
-    else
-      return;
+      store.dispatch(changeIsMoveableHackman(Direction.Up));
+    } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
+      store.dispatch(changeIsMoveableHackman(Direction.Right));
+    } else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown") {
+      store.dispatch(changeIsMoveableHackman(Direction.Down));
+    } else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft") {
+      store.dispatch(changeIsMoveableHackman(Direction.Left));
+    } else if (e.code === "Space") {
+      console.log("Space pressed");
+      store.dispatch(setBlock);
+    } else return;
   };
 
   const setStyleTag = () => {

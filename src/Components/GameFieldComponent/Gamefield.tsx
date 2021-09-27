@@ -29,6 +29,7 @@ import Ghost3 from "./GhostComponents/Ghost3";
 import Ghost4 from "./GhostComponents/Ghost4";
 import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
 import CustomTimerForActivatingGhost from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForActivatingGhost";
+import Block from "./FieldComponents/Path/Block";
 
 
 const GameField: React.FC = () => {
@@ -37,6 +38,7 @@ const GameField: React.FC = () => {
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
+  
 
   const ghost1ShallTick = useSelector((state: State) => state.ghosts[0].shallTick);
   const ghost2ShallTick = useSelector((state: State) => state.ghosts[1].shallTick);
@@ -170,6 +172,7 @@ const GameField: React.FC = () => {
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
+    else if (component === Block) return <Block key={key} /> 
     else return undefined;
   };
   
