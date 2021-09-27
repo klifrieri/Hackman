@@ -30,15 +30,16 @@ import Ghost4 from "./GhostComponents/Ghost4";
 import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
 import CustomTimerForActivatingGhost from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForActivatingGhost";
 import Block from "./FieldComponents/Path/Block";
+import CustomTimerForBlock from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForBlock";
 
 
 const GameField: React.FC = () => {
   const dispatch = useDispatch();
-  const { gameTick, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
+  const { gameTick, activateGhost, deleteBlock } = bindActionCreators(gameFieldSlice.actions, dispatch)
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
-  
+  const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock)
 
   const ghost1ShallTick = useSelector((state: State) => state.ghosts[0].shallTick);
   const ghost2ShallTick = useSelector((state: State) => state.ghosts[1].shallTick);
@@ -136,6 +137,19 @@ const GameField: React.FC = () => {
     return () => intervalStop();
   }, [])
 
+  useEffect(() => {
+    let [blockTimerStart, blockTimerStop] = CustomTimerForBlock( () => store.dispatch(deleteBlock), 5000);
+    if(!canSetBlock){
+      blockTimerStart()
+    }
+    else{
+      blockTimerStop()
+    }
+
+    return () =>{
+      blockTimerStop();
+    }
+  }, [canSetBlock])
 
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === HorizontalWall) return <HorizontalWall key={key} />;
