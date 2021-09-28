@@ -15,13 +15,6 @@
     z-index: 99;
 }
 
-.ghost-head-fill{
-    background: rgb(4, 4, 98);
-}
-
-.ghost-edible-head-fill{
-    background: blue;
-} 
 
 .ghost-eye{
     margin-left: 15%;
@@ -44,11 +37,11 @@
     z-index: 99;
 }
 
-.ghost-body-fill{
+.ghost-fill{
     background-color: rgb(4, 4, 98);
 }
 
-.ghost-edible-body-fill{
+.ghost-edible-fill{
     background-color: blue;
 }
 

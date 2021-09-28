@@ -13,9 +13,9 @@ const Hackman: React.FC<any> = () => {
     (state: State) => state.hackman.direction
   );
   const [hackmanAnimationClassName, setHackmanAnimationClassName] =
-    useState("hackmanFill");
+    useState("");
   const [viewDirectionClassName, setViewDirectionClassName] =
-    useState("leftView");
+    useState("");
 
   useEffect(() => {
     setHackmanAnimationClassName(

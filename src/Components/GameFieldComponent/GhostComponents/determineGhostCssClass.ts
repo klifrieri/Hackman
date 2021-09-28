@@ -18,19 +18,19 @@ const getGhostAnimationClassName = (ghostDirection: Direction): string => {
 
 const getGhostHeadClassName = (isEdible: boolean): string => {
   if (isEdible) {
-    return "ghost-head ghost-edible-head-fill "
+    return "ghost-head ghost-edible-fill"
   }
   else {
-    return "ghost-head ghost-head-fill "
+    return "ghost-head ghost-fill"
   }
 }
 
 const getGhostBodyClassName = (isEdible: boolean): string => {
   if (isEdible) {
-    return "ghost-body ghost-edible-body-fill "
+    return "ghost-body ghost-edible-fill"
   }
   else {
-    return "ghost-body ghost-body-fill "
+    return "ghost-body ghost-fill"
   }
 }
 

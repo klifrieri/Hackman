@@ -61,7 +61,6 @@ const gameFieldSlice = createSlice({
               ghost.isEdible = true;              
             });
           }
-
           state.hackman.moveable = canMove(gameFieldForAll, state.hackman.position, state.hackman.direction,state.ghosts);
           state.gameField = gameFieldForAll;
       },

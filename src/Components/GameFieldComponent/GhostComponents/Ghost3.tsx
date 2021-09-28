@@ -8,8 +8,8 @@ const Ghost3: React.FC<any> = () => {
     const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[2]);
 
 
-    const [ghostHeadClassName, setGhostHeadClassName] = useState("ghost-head ghost-head-fill");
-    const [ghostBodyClassName, setGhostBodyClassName] = useState("ghost-body ghost-body-fill ghost-body-position");
+    const [ghostHeadClassName, setGhostHeadClassName] = useState("");
+    const [ghostBodyClassName, setGhostBodyClassName] = useState("");
     const [ghostAnimationClassName, setGhostAnimationClassName] = useState("ghost");
 
 
