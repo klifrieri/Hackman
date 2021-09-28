@@ -40,6 +40,7 @@ const Ghost4: React.FC<any> = () => {
                     <div className="ghost-spikes"></div>
                 </div>
             </div>
+
         </div>
     );
 }

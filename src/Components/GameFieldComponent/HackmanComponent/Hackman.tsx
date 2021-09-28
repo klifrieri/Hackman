@@ -3,32 +3,44 @@ import Direction from "../../../Types/Direction";
 import { useSelector } from "react-redux";
 import { State } from "../../../State/store";
 import { useState } from "react";
-import { getHackmanAnimationClassName, getViewDirectionClassName } from "./determineHackmanCssClass";
+import {
+  getHackmanAnimationClassName,
+  getViewDirectionClassName,
+} from "./determineHackmanCssClass";
 
 const Hackman: React.FC<any> = () => {
-  const hackmanDirection = useSelector((state: State) => state.hackman.direction);
-  const [hackmanAnimationClassName,setHackmanAnimationClassName] = useState("hackmanFill");
-  const [viewDirectionClassName,setViewDirectionClassName] = useState("leftView");
-
+  const hackmanDirection = useSelector(
+    (state: State) => state.hackman.direction
+  );
+  const [hackmanAnimationClassName, setHackmanAnimationClassName] =
+    useState("hackmanFill");
+  const [viewDirectionClassName, setViewDirectionClassName] =
+    useState("leftView");
 
   useEffect(() => {
-    setHackmanAnimationClassName(getHackmanAnimationClassName(hackmanDirection))
+    setHackmanAnimationClassName(
+      getHackmanAnimationClassName(hackmanDirection)
+    );
     const timeout = setTimeout(() => {
       setHackmanAnimationClassName("hackmanFill");
     }, 250);
 
-    return ()=> clearTimeout(timeout);
-    //eslint-disable-next-line   
-  },[]);
+    return () => clearTimeout(timeout);
+    //eslint-disable-next-line
+  }, []);
 
-  useEffect(()=>{
+  useEffect(() => {
     setViewDirectionClassName(getViewDirectionClassName(hackmanDirection));
-  },[hackmanDirection])
+  }, [hackmanDirection]);
 
   return (
     <div className="field">
-      <div  className={"hackmanForm" + viewDirectionClassName + hackmanAnimationClassName}>
-      <div className="eye"></div>
+      <div
+        className={
+          "hackmanForm" + viewDirectionClassName + hackmanAnimationClassName
+        }
+      >
+        <div className="eye"></div>
       </div>
     </div>
   );

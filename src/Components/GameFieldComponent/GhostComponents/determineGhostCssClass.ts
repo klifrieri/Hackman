@@ -3,13 +3,13 @@ import Direction from "../../../Types/Direction";
 const getGhostAnimationClassName = (ghostDirection: Direction): string => {
   switch (ghostDirection) {
     case Direction.Up:
-      return 'ghost move-ghost-from-bottom-to-up';
+      return 'move-ghost-from-bottom-to-up ghost';
     case Direction.Left:
-      return 'ghost move-ghost-from-right-to-left';
+      return 'move-ghost-from-right-to-left ghost';
     case Direction.Down:
-      return 'ghost move-ghost-from-up-to-bottom';
+      return 'move-ghost-from-up-to-bottom ghost';
     case Direction.Right:
-      return 'ghost move-ghost-from-left-to-right';
+      return 'move-ghost-from-left-to-right ghost';
     default:
       return 'ghost';
   }
