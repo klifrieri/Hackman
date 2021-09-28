@@ -8,7 +8,7 @@ const Ghost1: React.FC<any> = () => {
     const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[0]);
 
     const [ghostHeadClassName, setGhostHeadClassName] = useState("ghost-head ghost-head-fill");
-    const [ghostBodyClassName, setGhostBodyClassName] = useState("ghost-body ghost-body-fill ghost-body-position");
+    const [ghostBodyClassName, setGhostBodyClassName] = useState("ghost-body ghost-body-fill");
     const [ghostAnimationClassName, setGhostAnimationClassName] = useState("ghost");
 
 
@@ -19,12 +19,6 @@ const Ghost1: React.FC<any> = () => {
 
     useEffect(() => {
         setGhostAnimationClassName(getGhostAnimationClassName(ghostCharacter.direction))
-        const timeout = setTimeout(() => {
-            setGhostAnimationClassName("ghost");
-        }, 1000);
-
-        return () => clearTimeout(timeout);
-        //eslint-disable-next-line   
     }, []);
 
     return (
