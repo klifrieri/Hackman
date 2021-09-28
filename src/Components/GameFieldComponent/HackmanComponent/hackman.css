@@ -33,24 +33,28 @@
 
 .move-hackman-from-right-to-left{
     animation-name: move-hackman-from-right-to-left;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
     -webkit-animation-name: move-hackman-from-right-to-left; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
 .move-hackman-from-left-to-right{
     animation-name: move-hackman-from-left-to-right;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
     -webkit-animation-name: move-hackman-from-left-to-right; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
 .move-hackman-from-up-to-bottom{
     animation-name: move-hackman-from-up-to-bottom;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
     -webkit-animation-name: move-hackman-from-up-to-bottom; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */ 
 }
 .move-hackman-from-bottom-to-up{
     animation-name: move-hackman-from-bottom-to-up;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
     -webkit-animation-name: move-hackman-from-bottom-to-up; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */

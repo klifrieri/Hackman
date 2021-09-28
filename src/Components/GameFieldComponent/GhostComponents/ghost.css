@@ -1,14 +1,14 @@
 .ghost{
     position: relative;
     z-index: 9999;
-    height: 100%;
-    width: 100%;
+    height: 90%;
+    width: 90%;
     transform: translate(15%, 10%);
 }
 .ghost-head {
     position: relative;    
-    width: 70%;
-    height: 70%;
+    width: 80%;
+    height: 80%;
     border-radius: 50%;
     display: flex;
     flex-direction: row;
@@ -36,8 +36,8 @@
 
 .ghost-body {
     position: relative;
-    transform: translateY(-70%);
-    width: 70%;
+    transform: translateY(-80%);
+    width: 80%;
     height: 40%;
     display: flex;
     flex-direction: row;
@@ -63,24 +63,28 @@
 
 .move-ghost-from-right-to-left{
     animation-name: move-ghost-from-right-to-left;
-    animation-duration: 0.25s;   
+    animation-delay: 0s; 
+    animation-duration: 0.25s; 
     -webkit-animation-name: move-ghost-from-right-to-left; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
 .move-ghost-from-left-to-right{
     animation-name: move-ghost-from-left-to-right;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
     -webkit-animation-name: move-ghost-from-left-to-right; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
 .move-ghost-from-up-to-bottom{
     animation-name: move-ghost-from-up-to-bottom;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
     -webkit-animation-name: move-ghost-from-up-to-bottom; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
 .move-ghost-from-bottom-to-up{
     animation-name: move-ghost-from-bottom-to-up;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
     -webkit-animation-name: move-ghost-from-bottom-to-up; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
