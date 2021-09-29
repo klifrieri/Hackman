@@ -39,7 +39,7 @@ const gameFieldSlice = createSlice({
     hackman: initialStateHackman,
     ghosts: ghosts,
     block: block,
-    isPaused: false
+    isPaused: false,
   },
   reducers: {
     gameTick: (state) => {
@@ -142,35 +142,48 @@ const gameFieldSlice = createSlice({
       let direction: Direction = state.hackman.direction;
       switch (direction) {
         case 0:
-          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y + 1][state.hackman.position.x] === Empty) {
+          if (
+            state.hackman.canSetBlock &&
+            state.gameField[state.hackman.position.y + 1][
+              state.hackman.position.x
+            ] === Empty
+          ) {
             state.gameField = generateBlockOnGameField(
               state.hackman.position.y + 1,
               state.hackman.position.x,
               state.gameField
             );
-    
+
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y + 1;
             state.block[1] = state.hackman.position.x;
-            
           }
           break;
         case 1:
-          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y - 1][state.hackman.position.x] === Empty) {
+          if (
+            state.hackman.canSetBlock &&
+            state.gameField[state.hackman.position.y - 1][
+              state.hackman.position.x
+            ] === Empty
+          ) {
             state.gameField = generateBlockOnGameField(
               state.hackman.position.y - 1,
               state.hackman.position.x,
               state.gameField
             );
-            
+
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y - 1;
             state.block[1] = state.hackman.position.x;
-            
           }
           break;
         case 2:
-          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x + 1] === Empty) {
+          if (
+            state.hackman.canSetBlock &&
+            state.gameField[state.hackman.position.y][
+              state.hackman.position.x + 1
+            ] === Empty
+          ) {
             state.gameField = generateBlockOnGameField(
               state.hackman.position.y,
               state.hackman.position.x + 1,
@@ -178,11 +191,16 @@ const gameFieldSlice = createSlice({
             );
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y;
-            state.block[1] = state.hackman.position.x + 1;            
+            state.block[1] = state.hackman.position.x + 1;
           }
           break;
         case 3:
-          if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x - 1] === Empty) {
+          if (
+            state.hackman.canSetBlock &&
+            state.gameField[state.hackman.position.y][
+              state.hackman.position.x - 1
+            ] === Empty
+          ) {
             state.gameField = generateBlockOnGameField(
               state.hackman.position.y,
               state.hackman.position.x - 1,
@@ -192,11 +210,11 @@ const gameFieldSlice = createSlice({
             state.hackman.canSetBlock = false;
             state.block[0] = state.hackman.position.y;
             state.block[1] = state.hackman.position.x - 1;
-
           }
           break;
       }
     },
+
     pauseGame: (state, payload: PayloadAction<boolean>) => {
       state.isPaused = payload.payload;
     },
