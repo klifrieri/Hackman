@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Direction from "../../../Types/Direction";
 import { useSelector } from "react-redux";
 import { State } from "../../../State/store";
 import { useState } from "react";
@@ -14,8 +13,7 @@ const Hackman: React.FC<any> = () => {
   );
   const [hackmanAnimationClassName, setHackmanAnimationClassName] =
     useState("");
-  const [viewDirectionClassName, setViewDirectionClassName] =
-    useState("");
+  const [viewDirectionClassName, setViewDirectionClassName] = useState("");
 
   useEffect(() => {
     setHackmanAnimationClassName(
