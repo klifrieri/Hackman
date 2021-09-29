@@ -48,29 +48,29 @@ const GameField: React.FC = () => {
   // The game "starts" when hackman moved the first time.
   // if hackman got eaten the timer will stop.
   useEffect(() => {
-    let [ghost1TimerStart,ghost1TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(1)),2500);
-    let [ghost2TimerStart,ghost2TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(2)),5000);
-    let [ghost3TimerStart,ghost3TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(3)),7500);
-    let [ghost4TimerStart,ghost4TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(4)),10000);
+    let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(1)), 2500);
+    let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(2)), 5000);
+    let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(3)), 7500);
+    let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(4)), 10000);
 
-    if(hackmanMoved){
-    ghost1TimerStart();
-    ghost2TimerStart();
-    ghost3TimerStart();
-    ghost4TimerStart();
-  }
-  else{
-    ghost1TimerStop();
-    ghost2TimerStop();
-    ghost3TimerStop();
-    ghost4TimerStop();
-  }
-  return () =>{
-    ghost1TimerStop();
-    ghost2TimerStop();
-    ghost3TimerStop();
-    ghost4TimerStop();
-  }
+    if (hackmanMoved) {
+      ghost1TimerStart();
+      ghost2TimerStart();
+      ghost3TimerStart();
+      ghost4TimerStart();
+    }
+    else {
+      ghost1TimerStop();
+      ghost2TimerStop();
+      ghost3TimerStop();
+      ghost4TimerStop();
+    }
+    return () => {
+      ghost1TimerStop();
+      ghost2TimerStop();
+      ghost3TimerStop();
+      ghost4TimerStop();
+    }
   }, [hackmanMoved])
 
   //If a ghost gets eaten its shalltick sets to false.It needs to get reactivated after a delay
@@ -78,56 +78,56 @@ const GameField: React.FC = () => {
   //If hackman dies and all ghost are set to shalltick = false the following useeffect wont trigger
   //But the one above
   useEffect(() => {
-    let [ghost1TimerStart,ghost1TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(1)),2500);
-    if(!ghost1ShallTick && hackmanMoved){
-    ghost1TimerStart();
-  }
-  else{
-    ghost1TimerStop();
-  }
-  return () =>{
-    ghost1TimerStop();
-  }
-  }, [ghost1ShallTick,hackmanMoved])
+    let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(1)), 2500);
+    if (!ghost1ShallTick && hackmanMoved) {
+      ghost1TimerStart();
+    }
+    else {
+      ghost1TimerStop();
+    }
+    return () => {
+      ghost1TimerStop();
+    }
+  }, [ghost1ShallTick, hackmanMoved])
 
   useEffect(() => {
-    let [ghost2TimerStart,ghost2TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(2)),2500);
-    if(!ghost2ShallTick && hackmanMoved){
-    ghost2TimerStart();
-  }
-  else{
-    ghost2TimerStop();
-  }
-  return () =>{
-    ghost2TimerStop();
-  }
-  }, [ghost2ShallTick,hackmanMoved])
+    let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(2)), 2500);
+    if (!ghost2ShallTick && hackmanMoved) {
+      ghost2TimerStart();
+    }
+    else {
+      ghost2TimerStop();
+    }
+    return () => {
+      ghost2TimerStop();
+    }
+  }, [ghost2ShallTick, hackmanMoved])
 
   useEffect(() => {
-    let [ghost3TimerStart,ghost3TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(3)),2500);
-    if(!ghost3ShallTick && hackmanMoved){
-    ghost3TimerStart();
-  }
-  else{
-    ghost3TimerStop();
-  }
-  return () =>{
-    ghost3TimerStop();
-  }
-  }, [ghost3ShallTick,hackmanMoved])
+    let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(3)), 2500);
+    if (!ghost3ShallTick && hackmanMoved) {
+      ghost3TimerStart();
+    }
+    else {
+      ghost3TimerStop();
+    }
+    return () => {
+      ghost3TimerStop();
+    }
+  }, [ghost3ShallTick, hackmanMoved])
 
   useEffect(() => {
-    let [ghost4TimerStart,ghost4TimerStop] = CustomTimeOut( () =>store.dispatch(activateGhost(4)),2500);
-    if(!ghost4ShallTick && hackmanMoved){
-    ghost4TimerStart();
-  }
-  else{
-    ghost4TimerStop();
-  }
-  return () =>{
-    ghost4TimerStop();
-  }
-  }, [ghost4ShallTick,hackmanMoved])
+    let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(() => store.dispatch(activateGhost(4)), 2500);
+    if (!ghost4ShallTick && hackmanMoved) {
+      ghost4TimerStart();
+    }
+    else {
+      ghost4TimerStop();
+    }
+    return () => {
+      ghost4TimerStop();
+    }
+  }, [ghost4ShallTick, hackmanMoved])
 
   //Gametick interval
   useEffect(() => {
@@ -137,15 +137,15 @@ const GameField: React.FC = () => {
   }, [])
 
   useEffect(() => {
-    let [blockTimerStart, blockTimerStop] = CustomTimeOut( () => store.dispatch(deleteBlock), 5000);
-    if(!canSetBlock){
+    let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => store.dispatch(deleteBlock), 5000);
+    if (!canSetBlock) {
       blockTimerStart()
     }
-    else{
+    else {
       blockTimerStop()
     }
 
-    return () =>{
+    return () => {
       blockTimerStop();
     }
   }, [canSetBlock])
@@ -170,25 +170,25 @@ const GameField: React.FC = () => {
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
       return <Hackman key={key} />;
-    else if (component === Ghost1){     
-      return <Ghost1 key={key}/>;
+    else if (component === Ghost1) {
+      return <Ghost1 key={key} />;
     }
-    else if (component === Ghost2){     
-      return <Ghost2 key={key}/>;
+    else if (component === Ghost2) {
+      return <Ghost2 key={key} />;
     }
-    else if (component === Ghost3){     
-      return <Ghost3 key={key}/>;
+    else if (component === Ghost3) {
+      return <Ghost3 key={key} />;
     }
-    else if (component === Ghost4){     
-      return <Ghost4 key={key}/>;
+    else if (component === Ghost4) {
+      return <Ghost4 key={key} />;
     }
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
     else if (component === Gate) return <Gate key={key} />;
-    else if (component === Block) return <Block key={key} /> 
+    else if (component === Block) return <Block key={key} />
     else return undefined;
   };
-  
+
   return (
     <>
       {gameField.map((row, x) => {

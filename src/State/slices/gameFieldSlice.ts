@@ -39,68 +39,71 @@ const gameFieldSlice = createSlice({
     hackman: initialStateHackman,
     ghosts: ghosts,
     block: block,
+    isPaused: false
   },
   reducers: {
     gameTick: (state) => {
-      let gameFieldForAll: React.FC<any>[][] = state.gameField.slice();
-      let increaseCoins: CoinValue = 0;
-      if (state.hackman.moveable !== Moveable.No) {
-        let { gameField, increaseTheCoins } = moveHackman(
-          state.gameField,
-          state.hackman,
-          ghosts
-        );
-        gameFieldForAll = gameField;
-        increaseCoins = increaseTheCoins;
-        if (increaseCoins === CoinValue.Ten) {
-          state.eatenCoins += 10;
+      if (!state.isPaused) {
+        let gameFieldForAll: React.FC<any>[][] = state.gameField.slice();
+        let increaseCoins: CoinValue = 0;
+        if (state.hackman.moveable !== Moveable.No) {
+          let { gameField, increaseTheCoins } = moveHackman(
+            state.gameField,
+            state.hackman,
+            ghosts
+          );
+          gameFieldForAll = gameField;
+          increaseCoins = increaseTheCoins;
+          if (increaseCoins === CoinValue.Ten) {
+            state.eatenCoins += 10;
+          }
         }
-      }
 
-      state.ghosts.forEach((ghost) => {
-        if (ghost.shallTick) {
-          if (
-            ghost.needsNewCountDeclaration() ||
-            ghost.moveable === Moveable.No
-          ) {
-            const canMoveDirections: {
-              direction: Direction;
-              bewegungMoeglich: Moveable;
-            }[] = getPossibleDirections(gameFieldForAll, ghost.position);
-            ghost = setRandomDirectionAndCount(ghost, canMoveDirections);
-          } else {
-            ghost.moveable = canMove(
+        state.ghosts.forEach((ghost) => {
+          if (ghost.shallTick) {
+            if (
+              ghost.needsNewCountDeclaration() ||
+              ghost.moveable === Moveable.No
+            ) {
+              const canMoveDirections: {
+                direction: Direction;
+                bewegungMoeglich: Moveable;
+              }[] = getPossibleDirections(gameFieldForAll, ghost.position);
+              ghost = setRandomDirectionAndCount(ghost, canMoveDirections);
+            } else {
+              ghost.moveable = canMove(
+                gameFieldForAll,
+                ghost.position,
+                ghost.direction,
+                undefined,
+                ghost.isEdible
+              );
+            }
+            gameFieldForAll = moveGhost(
               gameFieldForAll,
-              ghost.position,
-              ghost.direction,
-              undefined,
-              ghost.isEdible
+              ghost,
+              ghosts,
+              state.hackman
             );
           }
-          gameFieldForAll = moveGhost(
-            gameFieldForAll,
-            ghost,
-            ghosts,
-            state.hackman
-          );
-        }
-      });
-      if (increaseCoins === CoinValue.One) {
-        state.eatenCoins++;
-      } else if (increaseCoins === CoinValue.Five) {
-        state.eatenCoins += 5;
-        state.ghosts.forEach((ghost) => {
-          ghost.isEdible = true;
         });
-      }
+        if (increaseCoins === CoinValue.One) {
+          state.eatenCoins++;
+        } else if (increaseCoins === CoinValue.Five) {
+          state.eatenCoins += 5;
+          state.ghosts.forEach((ghost) => {
+            ghost.isEdible = true;
+          });
+        }
 
-      state.hackman.moveable = canMove(
-        gameFieldForAll,
-        state.hackman.position,
-        state.hackman.direction,
-        state.ghosts
-      );
-      state.gameField = gameFieldForAll;
+        state.hackman.moveable = canMove(
+          gameFieldForAll,
+          state.hackman.position,
+          state.hackman.direction,
+          state.ghosts
+        );
+        state.gameField = gameFieldForAll;
+      }
     },
     changeIsMoveableHackman: (state, payload: PayloadAction<Direction>) => {
       state.hackman.direction = payload.payload;
@@ -193,6 +196,9 @@ const gameFieldSlice = createSlice({
           }
           break;
       }
+    },
+    pauseGame: (state, payload: PayloadAction<boolean>) => {
+      state.isPaused = payload.payload;
     },
     deleteBlock: (state) => {
       state.gameField = setGameField(
