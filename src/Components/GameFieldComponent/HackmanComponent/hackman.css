@@ -31,34 +31,38 @@
     transform: rotateY(-180deg) translateX(-10%) translateY(12%);
 }
 
-.move-from-right-to-left{
-    animation-name: move-from-right-to-left;
+.move-hackman-from-right-to-left{
+    animation-name: move-hackman-from-right-to-left;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
-    -webkit-animation-name: move-from-right-to-left; /* Chrome, Safari, Opera */
+    -webkit-animation-name: move-hackman-from-right-to-left; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
-.move-from-left-to-right{
-    animation-name: move-from-left-to-right;
+.move-hackman-from-left-to-right{
+    animation-name: move-hackman-from-left-to-right;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
-    -webkit-animation-name: move-from-left-to-right; /* Chrome, Safari, Opera */
+    -webkit-animation-name: move-hackman-from-left-to-right; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
-.move-from-up-to-bottom{
-    animation-name: move-from-up-to-bottom;
+.move-hackman-from-up-to-bottom{
+    animation-name: move-hackman-from-up-to-bottom;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
-    -webkit-animation-name: move-from-up-to-bottom; /* Chrome, Safari, Opera */
+    -webkit-animation-name: move-hackman-from-up-to-bottom; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */ 
 }
-.move-from-bottom-to-up{
-    animation-name: move-from-bottom-to-up;
+.move-hackman-from-bottom-to-up{
+    animation-name: move-hackman-from-bottom-to-up;
+    animation-delay: 0s;
     animation-duration: 0.25s;   
-    -webkit-animation-name: move-from-bottom-to-up; /* Chrome, Safari, Opera */
+    -webkit-animation-name: move-hackman-from-bottom-to-up; /* Chrome, Safari, Opera */
     -webkit-animation-duration: 0.25s; /* Chrome, Safari, Opera */
 }
 
 
 
-@keyframes move-from-right-to-left {
+@keyframes move-hackman-from-right-to-left {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform: translateX(100%) translateY(12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform: translateX(92.9%) translateY(12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform: translateX(85.75%) translateY(12%);}
@@ -75,7 +79,7 @@
     92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform: translateX(7.15%) translateY(12%);}
     100%  {background:conic-gradient(#ff9000 0deg 360deg);transform: translateX(0%) translateY(12%);} 
   } 
-@-webkit-keyframes move-from-right-to-left {
+@-webkit-keyframes move-hackman-from-right-to-left {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform: translateX(100%) translateY(12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform: translateX(92.9%) translateY(12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform: translateX(85.75%) translateY(12%);}
@@ -93,7 +97,7 @@
     100%  {background:conic-gradient(#ff9000 0deg 360deg);transform: translateX(0%) translateY(12%);} 
   } 
 
-@keyframes move-from-left-to-right {
+@keyframes move-hackman-from-left-to-right {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateY(-180deg) translateX(100%) translateY(12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateY(-180deg) translateX(92.9%) translateY(12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateY(-180deg) translateX(85.75%) translateY(12%);}
@@ -110,7 +114,7 @@
     92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateY(-180deg) translateX(7.15%) translateY(12%);}
     100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateY(-180deg) translateX(0%) translateY(12%);} 
   } 
-@-webkit-keyframes move-from-left-to-right {
+@-webkit-keyframes move-hackman-from-left-to-right {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateY(-180deg) translateX(100%) translateY(12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateY(-180deg) translateX(92.9%) translateY(12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateY(-180deg) translateX(85.75%) translateY(12%);}
@@ -128,7 +132,7 @@
     100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateY(-180deg) translateX(0%) translateY(12%);} 
   } 
 
-@keyframes move-from-up-to-bottom {
+@keyframes move-hackman-from-up-to-bottom {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(-90deg) translateX(100%) translateY(12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(-90deg) translateX(92.9%) translateY(12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(-90deg) translateX(85.75%) translateY(12%);}
@@ -145,7 +149,7 @@
     92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(-90deg) translateX(7.15%) translateY(12%);}
     100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(-90deg) translateX(0%) translateY(12%);} 
   } 
-@-webkit-keyframes move-from-up-to-bottom {
+@-webkit-keyframes move-hackman-from-up-to-bottom {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(-90deg) translateX(100%) translateY(12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(-90deg) translateX(92.9%) translateY(12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(-90deg) translateX(85.75%) translateY(12%);}
@@ -163,7 +167,7 @@
     100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(-90deg) translateX(0%) translateY(12%);} 
   } 
 
-@keyframes move-from-bottom-to-up {
+@keyframes move-hackman-from-bottom-to-up {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(100%) translateY(-12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(92.9%) translateY(-12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(85.75%) translateY(-12%);}
@@ -180,7 +184,7 @@
     92.9%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(7.15%) translateY(-12%);}
     100%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(0%) translateY(-12%);} 
   } 
-@-webkit-keyframes move-from-bottom-to-up {
+@-webkit-keyframes move-hackman-from-bottom-to-up {
     0%  {background:conic-gradient(#ff9000 0deg 360deg);transform:rotateZ(90deg) translateX(100%) translateY(-12%);}
     7.15%   {background:conic-gradient(#ff9000 265deg, #000 265deg 275deg,#ff9000 275deg 360deg);transform:rotateZ(90deg) translateX(92.9%) translateY(-12%);}
     14.3%   {background:conic-gradient(#ff9000 260deg, #000 260deg 280deg,#ff9000 280deg 360deg);transform:rotateZ(90deg) translateX(85.75%) translateY(-12%);}

@@ -111,6 +111,7 @@
     height: 20%;
     background: white;
     border-radius: 50% !important;
+    z-index:1;
 }
 .snack {
     position: relative;
@@ -120,3 +121,15 @@
     background: white;
     border-radius: 50% !important;
 } 
+
+
+/* Special */
+.block{
+
+    position: relative;
+    background-color: gray; 
+    height: 80%;
+    width: 80%;
+    border: 3px solid white;
+
+}
