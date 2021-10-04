@@ -142,7 +142,7 @@ const gameFieldSlice = createSlice({
     setBlock: (state) => {
       let direction: Direction = state.hackman.direction;
       switch (direction) {
-        case 0:
+        case Direction.Up:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y + 1][
@@ -160,7 +160,7 @@ const gameFieldSlice = createSlice({
             state.block[1] = state.hackman.position.x;
           }
           break;
-        case 1:
+        case Direction.Down:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y - 1][
@@ -178,7 +178,7 @@ const gameFieldSlice = createSlice({
             state.block[1] = state.hackman.position.x;
           }
           break;
-        case 2:
+        case Direction.Left:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][
@@ -195,7 +195,7 @@ const gameFieldSlice = createSlice({
             state.block[1] = state.hackman.position.x + 1;
           }
           break;
-        case 3:
+        case Direction.Right:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][

@@ -38,10 +38,10 @@ const App: React.FC = () => {
     } else if (e.key.toLowerCase() === "p") {
       store.dispatch(pauseGame(!isPaused));
     } else if (e.code === "Space") {
-      console.log("Space pressed");
       store.dispatch(setBlock);
     } else if(e.code === "Escape"){
       store.dispatch(openOptions)
+      store.dispatch(pauseGame(!isPaused))
     } 
     
     else return;
