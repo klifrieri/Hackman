@@ -40,6 +40,7 @@ const gameFieldSlice = createSlice({
     ghosts: ghosts,
     block: block,
     isPaused: false,
+    options: false
   },
   reducers: {
     gameTick: (state) => {
@@ -217,6 +218,12 @@ const gameFieldSlice = createSlice({
 
     pauseGame: (state, payload: PayloadAction<boolean>) => {
       state.isPaused = payload.payload;
+    },
+    openOptions: (state) => {
+      if(state.options)
+        state.options = false
+      else
+        state.options = true
     },
     deleteBlock: (state) => {
       state.gameField = setGameField(
