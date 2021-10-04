@@ -6,10 +6,11 @@ import gameFieldSlice from "./State/slices/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
 import Direction from "./Types/Direction";
+import GameOverlay from "./Components/GameFieldComponent/GameOverlay";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { changeIsMoveableHackman, setBlock, pauseGame } = bindActionCreators(
+  const { changeIsMoveableHackman, setBlock, pauseGame, openOptions } = bindActionCreators(
     gameFieldSlice.actions,
     dispatch
   );
@@ -37,9 +38,13 @@ const App: React.FC = () => {
     } else if (e.key.toLowerCase() === "p") {
       store.dispatch(pauseGame(!isPaused));
     } else if (e.code === "Space") {
-      console.log("Space pressed");
       store.dispatch(setBlock);
-    } else return;
+    } else if(e.code === "Escape"){
+      store.dispatch(openOptions)
+      store.dispatch(pauseGame(!isPaused))
+    } 
+    
+    else return;
   };
 
   const setStyleTag = () => {
@@ -98,8 +103,10 @@ const App: React.FC = () => {
     <div ref={centerRef} className="center" onKeyDown={handleKeyDown} tabIndex={0}>
       <GameField />
       <Stats />
+      <GameOverlay/>
     </div>
   )
 };
 
 export default App;
+

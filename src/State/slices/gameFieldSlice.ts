@@ -40,6 +40,7 @@ const gameFieldSlice = createSlice({
     ghosts: ghosts,
     block: block,
     isPaused: false,
+    options: false
   },
   reducers: {
     gameTick: (state) => {
@@ -141,7 +142,7 @@ const gameFieldSlice = createSlice({
     setBlock: (state) => {
       let direction: Direction = state.hackman.direction;
       switch (direction) {
-        case 0:
+        case Direction.Up:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y + 1][
@@ -159,7 +160,7 @@ const gameFieldSlice = createSlice({
             state.block[1] = state.hackman.position.x;
           }
           break;
-        case 1:
+        case Direction.Down:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y - 1][
@@ -177,7 +178,7 @@ const gameFieldSlice = createSlice({
             state.block[1] = state.hackman.position.x;
           }
           break;
-        case 2:
+        case Direction.Left:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][
@@ -194,7 +195,7 @@ const gameFieldSlice = createSlice({
             state.block[1] = state.hackman.position.x + 1;
           }
           break;
-        case 3:
+        case Direction.Right:
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][
@@ -217,6 +218,12 @@ const gameFieldSlice = createSlice({
 
     pauseGame: (state, payload: PayloadAction<boolean>) => {
       state.isPaused = payload.payload;
+    },
+    openOptions: (state) => {
+      if(state.options)
+        state.options = false
+      else
+        state.options = true
     },
     deleteBlock: (state) => {
       state.gameField = setGameField(
