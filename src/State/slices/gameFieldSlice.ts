@@ -233,6 +233,10 @@ const gameFieldSlice = createSlice({
       );
       state.hackman.canSetBlock = true;
     },
+    resetStats: (state) => {
+      state.eatenCoins = 0
+      state.hackman.remainingLifes = 3
+    }
   },
 });
 

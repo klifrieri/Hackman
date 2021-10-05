@@ -10,6 +10,9 @@ import HackmanCharacter from "../../Types/Character/HackmanCharacter";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import SpielfeldLayout from "../../SpielfeldLayout";
+import EventEmitter from "events";
+
+const emitter = new EventEmitter();
 
 function ghostMovesRight(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>): React.FC<any>[][] {
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
@@ -306,4 +309,5 @@ export {
   ghostMovesUp,
   ghostMovesUpTroughPortal,
   moveGhost,
+  emitter
 };
