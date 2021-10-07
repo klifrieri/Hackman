@@ -13,7 +13,6 @@ import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal
 import GhostCharacter from "../../Types/Character/GhostCharacter";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import MovementDirection from "../../Types/MovementDirection";
-import { Dir } from "fs";
 
 export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   let positionValue = position.y - 1;
