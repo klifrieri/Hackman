@@ -20,6 +20,9 @@ export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, gho
   if (spielFeld[positionValue] === undefined) {
     return Moveable.Portal;
   }
+  else if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
+    return Moveable.Hackman;
+  }  
   else if (spielFeld[positionValue][position.x] === Empty ||
     spielFeld[positionValue][position.x] === Coin ||
     spielFeld[positionValue][position.x] === Snack) {
@@ -37,14 +40,6 @@ export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, gho
     }
     else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === Ghost4) {
       return Moveable.GhostEdible4;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
-  else if (isEdibleGhost !== undefined) {
-    if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
-      return Moveable.Hackman;
     }
     else {
       return Moveable.No;
@@ -60,6 +55,9 @@ export function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, g
   if (spielFeld[positionValue] === undefined) {
     return Moveable.Portal;
   }
+  else if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
+    return Moveable.Hackman;
+  }  
   else if (spielFeld[positionValue][position.x] === Empty ||
     spielFeld[positionValue][position.x] === Coin ||
     spielFeld[positionValue][position.x] === Snack) {
@@ -82,14 +80,6 @@ export function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, g
       return Moveable.No;
     }
   }
-  else if (isEdibleGhost !== undefined) {
-    if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
-      return Moveable.Hackman;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
   else {
     return Moveable.No;
   }
@@ -99,6 +89,9 @@ export function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, g
   let positionValue = position.x - 1;
   if (spielFeld[position.y][positionValue] === undefined) {
     return Moveable.Portal;
+  }
+  else if (spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
+    return Moveable.Hackman;
   }
   else if (spielFeld[position.y][positionValue] === Empty ||
     spielFeld[position.y][positionValue] === Coin ||
@@ -117,14 +110,6 @@ export function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, g
     }
     else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === Ghost4) {
       return Moveable.GhostEdible4;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
-  else if (isEdibleGhost !== undefined) {
-    if (spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
-      return Moveable.Hackman;
     }
     else {
       return Moveable.No;
@@ -140,6 +125,9 @@ export function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, 
   if (spielFeld[position.y][positionValue] === undefined) {
     return Moveable.Portal;
   }
+  else if(spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
+    return Moveable.Hackman;
+  }    
   else if (spielFeld[position.y][positionValue] === Empty ||
     spielFeld[position.y][positionValue] === Coin ||
     spielFeld[position.y][positionValue] === Snack) {
@@ -157,15 +145,6 @@ export function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, 
     }
     else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === Ghost4) {
       return Moveable.GhostEdible4;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
-  else if (isEdibleGhost !== undefined) {
-    
-    if (spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
-      return Moveable.Hackman;
     }
     else {
       return Moveable.No;
