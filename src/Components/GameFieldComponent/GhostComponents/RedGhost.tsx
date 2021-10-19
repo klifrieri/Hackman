@@ -13,8 +13,8 @@ const Ghost4: React.FC<any> = () => {
 
 
     useEffect(() => {
-        setGhostHeadClassName(getGhostHeadClassName(ghostCharacter.isEdible));
-        setGhostBodyClassName(getGhostBodyClassName(ghostCharacter.isEdible));
+        setGhostHeadClassName(getGhostHeadClassName(ghostCharacter.isEdible,ghostCharacter.name));
+        setGhostBodyClassName(getGhostBodyClassName(ghostCharacter.isEdible,ghostCharacter.name));
     }, [ghostCharacter.isEdible]);
 
     useEffect(() => {

@@ -4,8 +4,8 @@ import { State } from "../../../State/store";
 import GhostCharacter from "../../../Types/Character/GhostCharacter";
 import {  getGhostAnimationClassName, getGhostBodyClassName, getGhostHeadClassName } from "./determineGhostCssClass";
 
-const Ghost2: React.FC<any> = () => {
-    const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[1]);
+const Ghost1: React.FC<any> = () => {
+    const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[0]);
 
     const [ghostHeadClassName, setGhostHeadClassName] = useState("");
     const [ghostBodyClassName, setGhostBodyClassName] = useState("");
@@ -13,18 +13,12 @@ const Ghost2: React.FC<any> = () => {
 
 
     useEffect(() => {
-        setGhostHeadClassName(getGhostHeadClassName(ghostCharacter.isEdible));
-        setGhostBodyClassName(getGhostBodyClassName(ghostCharacter.isEdible));
+        setGhostHeadClassName(getGhostHeadClassName(ghostCharacter.isEdible,ghostCharacter.name));
+        setGhostBodyClassName(getGhostBodyClassName(ghostCharacter.isEdible,ghostCharacter.name));
     }, [ghostCharacter.isEdible]);
 
     useEffect(() => {
         setGhostAnimationClassName(getGhostAnimationClassName(ghostCharacter.direction))
-        const timeout = setTimeout(() => {
-            setGhostAnimationClassName("ghost");
-        }, 1000);
-
-        return () => clearTimeout(timeout);
-        //eslint-disable-next-line   
     }, []);
 
     return (
@@ -44,4 +38,4 @@ const Ghost2: React.FC<any> = () => {
     );
 }
 
-export default Ghost2;
+export default Ghost1;

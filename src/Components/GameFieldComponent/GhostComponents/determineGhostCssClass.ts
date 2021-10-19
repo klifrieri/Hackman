@@ -16,23 +16,80 @@ const getGhostAnimationClassName = (ghostDirection: Direction): string => {
 }
 
 
-const getGhostHeadClassName = (isEdible: boolean): string => {
+const getGhostHeadClassName = (isEdible: boolean, name: string): string => {
+  let resultingCss: string = "ghost-head ";
+
   if (isEdible) {
-    return "ghost-head ghost-edible-fill"
+    switch (name) {
+      case "GreenGhost":
+        resultingCss += "ghost-green-edible";
+        break;
+      case "BlueGhost":
+        resultingCss += "ghost-blue-edible";
+        break;
+      case "OrangeGhost":
+        resultingCss += "ghost-orange-edible";
+        break;
+      case "RedGhost":
+        resultingCss += "ghost-red-edible";
+        break;
+    }
   }
   else {
-    return "ghost-head ghost-fill"
+    switch (name) {
+      case "GreenGhost":
+        resultingCss += "ghost-green";
+        break;
+      case "BlueGhost":
+        resultingCss += "ghost-blue";
+        break;
+      case "OrangeGhost":
+        resultingCss += "ghost-orange";
+        break;
+      case "RedGhost":
+        resultingCss += "ghost-red";
+        break;
+    }
   }
+  return resultingCss;
 }
 
-const getGhostBodyClassName = (isEdible: boolean): string => {
+const getGhostBodyClassName = (isEdible: boolean, name: string): string => {
+  let resultingCss: string = "ghost-body ";
+
   if (isEdible) {
-    return "ghost-body ghost-edible-fill"
+    switch (name) {
+      case "GreenGhost":
+        resultingCss += "ghost-green-edible";
+        break;
+      case "BlueGhost":
+        resultingCss += "ghost-blue-edible";
+        break;
+      case "OrangeGhost":
+        resultingCss += "ghost-orange-edible";
+        break;
+      case "RedGhost":
+        resultingCss += "ghost-red-edible";
+        break;
+    }
   }
   else {
-    return "ghost-body ghost-fill"
+    switch (name) {
+      case "GreenGhost":
+        resultingCss += "ghost-green";
+        break;
+      case "BlueGhost":
+        resultingCss += "ghost-blue";
+        break;
+      case "OrangeGhost":
+        resultingCss += "ghost-orange";
+        break;
+      case "RedGhost":
+        resultingCss += "ghost-red";
+        break;
+    }
   }
+  return resultingCss;
 }
 
-
-export { getGhostAnimationClassName,getGhostHeadClassName,getGhostBodyClassName }
+export { getGhostAnimationClassName, getGhostHeadClassName, getGhostBodyClassName }

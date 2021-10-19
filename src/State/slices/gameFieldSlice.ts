@@ -24,10 +24,10 @@ const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   12,
   10
 );
-const ghost1 = new GhostCharacter("Ghost1", 7, 9);
-const ghost2 = new GhostCharacter("Ghost2", 7, 11);
-const ghost3 = new GhostCharacter("Ghost3", 9, 9);
-const ghost4 = new GhostCharacter("Ghost4", 9, 11);
+const ghost1 = new GhostCharacter("GreenGhost", 7, 9);
+const ghost2 = new GhostCharacter("RedGhost", 7, 11);
+const ghost3 = new GhostCharacter("OrangeGhost", 9, 9);
+const ghost4 = new GhostCharacter("BlueGhost", 9, 11);
 const ghosts: GhostCharacter[] = [ghost1, ghost2, ghost3, ghost4];
 let block: number[] = [];
 

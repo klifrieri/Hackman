@@ -1,8 +1,8 @@
 import GhostCharacter from "../../Types/Character/GhostCharacter";
-import Ghost1 from "../../Components/GameFieldComponent/GhostComponents/Ghost1";
-import Ghost2 from "../../Components/GameFieldComponent/GhostComponents/Ghost2";
-import Ghost3 from "../../Components/GameFieldComponent/GhostComponents/Ghost3";
-import Ghost4 from "../../Components/GameFieldComponent/GhostComponents/Ghost4";
+import Ghost1 from "../../Components/GameFieldComponent/GhostComponents/GreenGhost";
+import Ghost2 from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
+import Ghost3 from "../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
+import Ghost4 from "../../Components/GameFieldComponent/GhostComponents/RedGhost";
 import Moveable from "../../Types/Moveable";
 import Direction from "../../Types/Direction";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
