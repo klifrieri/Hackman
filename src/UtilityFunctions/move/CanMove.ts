@@ -1,9 +1,9 @@
 import Coin from "./../../Components/GameFieldComponent/FieldComponents/Path/Coin";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import Ghost1 from "../../Components/GameFieldComponent/GhostComponents/GreenGhost";
-import Ghost2 from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
-import Ghost3 from "../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
-import Ghost4 from "../../Components/GameFieldComponent/GhostComponents/RedGhost";
+import GreenGhost from "../../Components/GameFieldComponent/GhostComponents/GreenGhost";
+import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
+import OrangeGhost from "../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
+import RedGhost from "../../Components/GameFieldComponent/GhostComponents/RedGhost";
 import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
 import Moveable from "../../Types/Moveable";
 import Coordinate from "../../Types/Coordinate";
@@ -24,16 +24,16 @@ function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: W
     return Moveable.Yes;
   }
   else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === Ghost1) {
+    if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === GreenGhost) {
       return Moveable.GhostEdible1;
     }
-    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === Ghost2) {
+    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
       return Moveable.GhostEdible2;
     }
-    else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === Ghost3) {
+    else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === OrangeGhost) {
       return Moveable.GhostEdible3;
     }
-    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === Ghost4) {
+    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
       return Moveable.GhostEdible4;
     }
     else {
@@ -64,16 +64,16 @@ function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?:
     return Moveable.Yes;
   }
   else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === Ghost1) {
+    if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === GreenGhost) {
       return Moveable.GhostEdible1;
     }
-    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === Ghost2) {
+    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
       return Moveable.GhostEdible2;
     }
-    else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === Ghost3) {
+    else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === OrangeGhost) {
       return Moveable.GhostEdible3;
     }
-    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === Ghost4) {
+    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
       return Moveable.GhostEdible4;
     }
     else {
@@ -104,16 +104,16 @@ function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?:
     return Moveable.Yes;
   }
   else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === Ghost1) {
+    if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === GreenGhost) {
       return Moveable.GhostEdible1;
     }
-    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === Ghost2) {
+    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
       return Moveable.GhostEdible2;
     }
-    else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === Ghost3) {
+    else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === OrangeGhost) {
       return Moveable.GhostEdible3;
     }
-    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === Ghost4) {
+    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
       return Moveable.GhostEdible4;
     }
     else {
@@ -144,16 +144,16 @@ function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?
     return Moveable.Yes;
   }
   else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === Ghost1) {
+    if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === GreenGhost) {
       return Moveable.GhostEdible1;
     }
-    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === Ghost2) {
+    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
       return Moveable.GhostEdible2;
     }
-    else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === Ghost3) {
+    else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === OrangeGhost) {
       return Moveable.GhostEdible3;
     }
-    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === Ghost4) {
+    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
       return Moveable.GhostEdible4;
     }
     else {

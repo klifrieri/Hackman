@@ -23,10 +23,10 @@ import { State, store } from "../../State/store";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../State/slices/gameFieldSlice";
 import './gameField.css';
-import Ghost1 from "./GhostComponents/GreenGhost";
-import Ghost2 from "./GhostComponents/BlueGhost";
-import Ghost3 from "./GhostComponents/OrangeGhost";
-import Ghost4 from "./GhostComponents/RedGhost";
+import GreenGhost from "./GhostComponents/GreenGhost";
+import BlueGhost from "./GhostComponents/BlueGhost";
+import OrangeGhost from "./GhostComponents/OrangeGhost";
+import RedGhost from "./GhostComponents/RedGhost";
 import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
 import CustomTimeOut from "../../UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 import Block from "./FieldComponents/Path/Block";
@@ -170,17 +170,17 @@ const GameField: React.FC = () => {
     else if (component === Coin) return <Coin key={key} />;
     else if (component === Hackman)
       return <Hackman key={key} />;
-    else if (component === Ghost1) {
-      return <Ghost1 key={key} />;
+    else if (component === GreenGhost) {
+      return <GreenGhost key={key} />;
     }
-    else if (component === Ghost2) {
-      return <Ghost2 key={key} />;
+    else if (component === BlueGhost) {
+      return <BlueGhost key={key} />;
     }
-    else if (component === Ghost3) {
-      return <Ghost3 key={key} />;
+    else if (component === OrangeGhost) {
+      return <OrangeGhost key={key} />;
     }
-    else if (component === Ghost4) {
-      return <Ghost4 key={key} />;
+    else if (component === RedGhost) {
+      return <RedGhost key={key} />;
     }
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;

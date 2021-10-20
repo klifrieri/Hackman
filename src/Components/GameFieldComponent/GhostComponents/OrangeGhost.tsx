@@ -4,7 +4,7 @@ import { State } from "../../../State/store";
 import GhostCharacter from "../../../Types/Character/GhostCharacter";
 import {  getGhostAnimationClassName, getGhostBodyClassName, getGhostHeadClassName } from "./determineGhostCssClass";
 
-const Ghost3: React.FC<any> = () => {
+const OrangeGhost: React.FC<any> = () => {
     const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[2]);
 
 
@@ -45,4 +45,4 @@ const Ghost3: React.FC<any> = () => {
     );
 }
 
-export default Ghost3;
+export default OrangeGhost;

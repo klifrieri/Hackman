@@ -4,7 +4,7 @@ import { State } from "../../../State/store";
 import GhostCharacter from "../../../Types/Character/GhostCharacter";
 import {  getGhostAnimationClassName, getGhostBodyClassName, getGhostHeadClassName } from "./determineGhostCssClass";
 
-const Ghost4: React.FC<any> = () => {
+const RedGhost: React.FC<any> = () => {
     const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[3]);
 
     const [ghostHeadClassName, setGhostHeadClassName] = useState("");
@@ -45,7 +45,7 @@ const Ghost4: React.FC<any> = () => {
     );
 }
 
-export default Ghost4;
+export default RedGhost;
 
 // .ghost{
 //     z-index: 99;

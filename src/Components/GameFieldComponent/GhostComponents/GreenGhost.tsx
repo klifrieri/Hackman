@@ -4,7 +4,7 @@ import { State } from "../../../State/store";
 import GhostCharacter from "../../../Types/Character/GhostCharacter";
 import {  getGhostAnimationClassName, getGhostBodyClassName, getGhostHeadClassName } from "./determineGhostCssClass";
 
-const Ghost1: React.FC<any> = () => {
+const GreenGhost: React.FC<any> = () => {
     const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[0]);
 
     const [ghostHeadClassName, setGhostHeadClassName] = useState("");
@@ -18,7 +18,13 @@ const Ghost1: React.FC<any> = () => {
     }, [ghostCharacter.isEdible]);
 
     useEffect(() => {
-        setGhostAnimationClassName(getGhostAnimationClassName(ghostCharacter.direction))
+        setGhostAnimationClassName(getGhostAnimationClassName(ghostCharacter.direction));
+        const timeout = setTimeout(() => {
+            setGhostAnimationClassName("ghost");
+        }, 1000);
+
+        return () => clearTimeout(timeout);
+        //eslint-disable-next-line   
     }, []);
 
     return (
@@ -38,4 +44,4 @@ const Ghost1: React.FC<any> = () => {
     );
 }
 
-export default Ghost1;
+export default GreenGhost;
