@@ -18,16 +18,17 @@ import {
   setGameField,
 } from "../../UtilityFunctions/SpecialActions";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
+import CharacterIdentifier from "../../Types/CharacterIdentifier";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
-  "Hackman",
+  CharacterIdentifier.Hackman,
   12,
   10
 );
-const ghost1 = new GhostCharacter("Ghost1", 7, 9);
-const ghost2 = new GhostCharacter("Ghost2", 7, 11);
-const ghost3 = new GhostCharacter("Ghost3", 9, 9);
-const ghost4 = new GhostCharacter("Ghost4", 9, 11);
+const ghost1 = new GhostCharacter(CharacterIdentifier.GreenGhost, 7, 9);
+const ghost2 = new GhostCharacter(CharacterIdentifier.RedGhost, 7, 11);
+const ghost3 = new GhostCharacter(CharacterIdentifier.OrangeGhost, 9, 9);
+const ghost4 = new GhostCharacter(CharacterIdentifier.BlueGhost, 9, 11);
 const ghosts: GhostCharacter[] = [ghost1, ghost2, ghost3, ghost4];
 let block: number[] = [];
 
