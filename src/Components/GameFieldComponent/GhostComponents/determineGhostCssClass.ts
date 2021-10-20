@@ -1,3 +1,4 @@
+import CharacterIdentifier from "../../../Types/CharacterIdentifier";
 import Direction from "../../../Types/Direction";
 
 const getGhostAnimationClassName = (ghostDirection: Direction): string => {
@@ -16,76 +17,76 @@ const getGhostAnimationClassName = (ghostDirection: Direction): string => {
 }
 
 
-const getGhostHeadClassName = (isEdible: boolean, name: string): string => {
+const getGhostHeadClassName = (isEdible: boolean, name: CharacterIdentifier): string => {
   let resultingCss: string = "ghost-head ";
 
   if (isEdible) {
     switch (name) {
-      case "GreenGhost":
+      case CharacterIdentifier.GreenGhost:
         resultingCss += "ghost-green-edible";
         break;
-      case "BlueGhost":
-        resultingCss += "ghost-blue-edible";
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red-edible";
         break;
-      case "OrangeGhost":
+      case CharacterIdentifier.OrangeGhost:
         resultingCss += "ghost-orange-edible";
         break;
-      case "RedGhost":
-        resultingCss += "ghost-red-edible";
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue-edible";
         break;
     }
   }
   else {
     switch (name) {
-      case "GreenGhost":
+      case CharacterIdentifier.GreenGhost:
         resultingCss += "ghost-green";
         break;
-      case "BlueGhost":
-        resultingCss += "ghost-blue";
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red";
         break;
-      case "OrangeGhost":
+      case CharacterIdentifier.OrangeGhost:
         resultingCss += "ghost-orange";
         break;
-      case "RedGhost":
-        resultingCss += "ghost-red";
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue";
         break;
     }
   }
   return resultingCss;
 }
 
-const getGhostBodyClassName = (isEdible: boolean, name: string): string => {
+const getGhostBodyClassName = (isEdible: boolean, name: CharacterIdentifier): string => {
   let resultingCss: string = "ghost-body ";
 
   if (isEdible) {
     switch (name) {
-      case "GreenGhost":
+      case CharacterIdentifier.GreenGhost:
         resultingCss += "ghost-green-edible";
         break;
-      case "BlueGhost":
-        resultingCss += "ghost-blue-edible";
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red-edible";
         break;
-      case "OrangeGhost":
+      case CharacterIdentifier.OrangeGhost:
         resultingCss += "ghost-orange-edible";
         break;
-      case "RedGhost":
-        resultingCss += "ghost-red-edible";
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue-edible";
         break;
     }
   }
   else {
     switch (name) {
-      case "GreenGhost":
+      case CharacterIdentifier.GreenGhost:
         resultingCss += "ghost-green";
         break;
-      case "BlueGhost":
-        resultingCss += "ghost-blue";
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red";
         break;
-      case "OrangeGhost":
+      case CharacterIdentifier.OrangeGhost:
         resultingCss += "ghost-orange";
         break;
-      case "RedGhost":
-        resultingCss += "ghost-red";
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue";
         break;
     }
   }

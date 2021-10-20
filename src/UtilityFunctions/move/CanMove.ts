@@ -25,16 +25,16 @@ function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: W
   }
   else if (ghosts) {
     if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === GreenGhost) {
-      return Moveable.GhostEdible1;
+      return Moveable.GreenGhostEdible;
     }
-    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
-      return Moveable.GhostEdible2;
+    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
+      return Moveable.RedGhostEdible;
     }
     else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === OrangeGhost) {
-      return Moveable.GhostEdible3;
+      return Moveable.OrangeGhostEdible;
     }
-    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
-      return Moveable.GhostEdible4;
+    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
+      return Moveable.BlueGhostEdible;
     }
     else {
       return Moveable.No;
@@ -65,16 +65,16 @@ function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?:
   }
   else if (ghosts) {
     if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === GreenGhost) {
-      return Moveable.GhostEdible1;
+      return Moveable.GreenGhostEdible;
     }
-    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
-      return Moveable.GhostEdible2;
+    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
+      return Moveable.RedGhostEdible;
     }
     else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === OrangeGhost) {
-      return Moveable.GhostEdible3;
+      return Moveable.OrangeGhostEdible;
     }
-    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
-      return Moveable.GhostEdible4;
+    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
+      return Moveable.BlueGhostEdible;
     }
     else {
       return Moveable.No;
@@ -105,16 +105,16 @@ function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?:
   }
   else if (ghosts) {
     if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === GreenGhost) {
-      return Moveable.GhostEdible1;
+      return Moveable.GreenGhostEdible;
     }
-    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
-      return Moveable.GhostEdible2;
+    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
+      return Moveable.RedGhostEdible;
     }
     else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === OrangeGhost) {
-      return Moveable.GhostEdible3;
+      return Moveable.OrangeGhostEdible;
     }
-    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
-      return Moveable.GhostEdible4;
+    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
+      return Moveable.BlueGhostEdible;
     }
     else {
       return Moveable.No;
@@ -145,16 +145,16 @@ function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?
   }
   else if (ghosts) {
     if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === GreenGhost) {
-      return Moveable.GhostEdible1;
+      return Moveable.GreenGhostEdible;
     }
-    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
-      return Moveable.GhostEdible2;
+    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
+      return Moveable.RedGhostEdible;
     }
     else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === OrangeGhost) {
-      return Moveable.GhostEdible3;
+      return Moveable.OrangeGhostEdible;
     }
-    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
-      return Moveable.GhostEdible4;
+    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
+      return Moveable.BlueGhostEdible;
     }
     else {
       return Moveable.No;

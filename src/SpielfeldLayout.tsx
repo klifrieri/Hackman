@@ -17,9 +17,9 @@ import Corb from "./Components/GameFieldComponent/FieldComponents/Corners/Corner
 import Snac from "./Components/GameFieldComponent/FieldComponents/Path/Snack";
 import Hack from "./Components/GameFieldComponent/HackmanComponent/Hackman";
 import Gei1 from "./Components/GameFieldComponent/GhostComponents/GreenGhost";
-import Gei2 from "./Components/GameFieldComponent/GhostComponents/BlueGhost";
+import Gei2 from "./Components/GameFieldComponent/GhostComponents/RedGhost";
 import Gei3 from "./Components/GameFieldComponent/GhostComponents/OrangeGhost";
-import Gei4 from "./Components/GameFieldComponent/GhostComponents/RedGhost";
+import Gei4 from "./Components/GameFieldComponent/GhostComponents/BlueGhost";
 // import Bloc from "./Components/GameFieldComponent/FieldComponents/Path/Block";
 
 import React from 'react';

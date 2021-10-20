@@ -1,5 +1,6 @@
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import CustomTimerForGhostEdible from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
+import CharacterIdentifier from "../CharacterIdentifier";
 import Character from "./BaseCharacter";
 
 class GhostCharacter extends Character {
@@ -54,7 +55,7 @@ class GhostCharacter extends Character {
     this.shallTick = false;
     this._isEdibleTimeout.stop();
   }
-  constructor(name: string, positionY: number, positionX: number) {
+  constructor(name: CharacterIdentifier, positionY: number, positionX: number) {
     super(name, positionY, positionX);
     this._isEdibleTimeout = new CustomTimerForGhostEdible(
       () => (this.isEdible = false),

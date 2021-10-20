@@ -24,9 +24,9 @@ import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../State/slices/gameFieldSlice";
 import './gameField.css';
 import GreenGhost from "./GhostComponents/GreenGhost";
-import BlueGhost from "./GhostComponents/BlueGhost";
-import OrangeGhost from "./GhostComponents/OrangeGhost";
 import RedGhost from "./GhostComponents/RedGhost";
+import OrangeGhost from "./GhostComponents/OrangeGhost";
+import BlueGhost from "./GhostComponents/BlueGhost";
 import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
 import CustomTimeOut from "../../UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 import Block from "./FieldComponents/Path/Block";
@@ -173,14 +173,14 @@ const GameField: React.FC = () => {
     else if (component === GreenGhost) {
       return <GreenGhost key={key} />;
     }
-    else if (component === BlueGhost) {
-      return <BlueGhost key={key} />;
+    else if (component === RedGhost) {
+      return <RedGhost key={key} />;
     }
     else if (component === OrangeGhost) {
       return <OrangeGhost key={key} />;
     }
-    else if (component === RedGhost) {
-      return <RedGhost key={key} />;
+    else if (component === BlueGhost) {
+      return <BlueGhost key={key} />;
     }
     else if (component === Snack) return <Snack key={key} />;
     else if (component === Empty) return <Empty key={key} />;
