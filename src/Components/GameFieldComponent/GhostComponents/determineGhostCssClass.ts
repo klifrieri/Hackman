@@ -1,3 +1,4 @@
+import CharacterIdentifier from "../../../Types/CharacterIdentifier";
 import Direction from "../../../Types/Direction";
 
 const getGhostAnimationClassName = (ghostDirection: Direction): string => {
@@ -16,23 +17,80 @@ const getGhostAnimationClassName = (ghostDirection: Direction): string => {
 }
 
 
-const getGhostHeadClassName = (isEdible: boolean): string => {
+const getGhostHeadClassName = (isEdible: boolean, name: CharacterIdentifier): string => {
+  let resultingCss: string = "ghost-head ";
+
   if (isEdible) {
-    return "ghost-head ghost-edible-fill"
+    switch (name) {
+      case CharacterIdentifier.GreenGhost:
+        resultingCss += "ghost-green-edible";
+        break;
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red-edible";
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        resultingCss += "ghost-orange-edible";
+        break;
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue-edible";
+        break;
+    }
   }
   else {
-    return "ghost-head ghost-fill"
+    switch (name) {
+      case CharacterIdentifier.GreenGhost:
+        resultingCss += "ghost-green";
+        break;
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red";
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        resultingCss += "ghost-orange";
+        break;
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue";
+        break;
+    }
   }
+  return resultingCss;
 }
 
-const getGhostBodyClassName = (isEdible: boolean): string => {
+const getGhostBodyClassName = (isEdible: boolean, name: CharacterIdentifier): string => {
+  let resultingCss: string = "ghost-body ";
+
   if (isEdible) {
-    return "ghost-body ghost-edible-fill"
+    switch (name) {
+      case CharacterIdentifier.GreenGhost:
+        resultingCss += "ghost-green-edible";
+        break;
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red-edible";
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        resultingCss += "ghost-orange-edible";
+        break;
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue-edible";
+        break;
+    }
   }
   else {
-    return "ghost-body ghost-fill"
+    switch (name) {
+      case CharacterIdentifier.GreenGhost:
+        resultingCss += "ghost-green";
+        break;
+      case CharacterIdentifier.RedGhost:
+        resultingCss += "ghost-red";
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        resultingCss += "ghost-orange";
+        break;
+      case CharacterIdentifier.BlueGhost:
+        resultingCss += "ghost-blue";
+        break;
+    }
   }
+  return resultingCss;
 }
 
-
-export { getGhostAnimationClassName,getGhostHeadClassName,getGhostBodyClassName }
+export { getGhostAnimationClassName, getGhostHeadClassName, getGhostBodyClassName }

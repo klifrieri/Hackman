@@ -1,10 +1,11 @@
 import Moveable from "../Moveable";
 import Coordinate from "../Coordinate";
 import Direction from "../Direction";
+import CharacterIdentifier from "../CharacterIdentifier";
 
 abstract class BaseCharacter {
-  private _name: string;
-  public get name(): string {
+  private _name: CharacterIdentifier;
+  public get name(): CharacterIdentifier {
     return this._name;
   }
   private _initialPosition: Coordinate;
@@ -43,7 +44,7 @@ abstract class BaseCharacter {
     this.moveable = Moveable.No;
     this._direction = Direction.Nothing;
   }
-  constructor(name: string, positionY: number, positionX: number) {
+  constructor(name: CharacterIdentifier, positionY: number, positionX: number) {
     this._name = name;
     this._position = new Coordinate(positionY, positionX);
     this._initialPosition = new Coordinate(positionY, positionX);

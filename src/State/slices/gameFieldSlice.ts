@@ -21,16 +21,17 @@ import {
 } from "../../UtilityFunctions/SpecialActions";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import MovementDirection from "../../Types/MovementDirection";
+import CharacterIdentifier from "../../Types/CharacterIdentifier";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
-  "Hackman",
+  CharacterIdentifier.Hackman,
   12,
   10
 );
-const ghost1 = new GhostCharacter("Ghost1", 7, 9, MovementDirection.NorthEast);
-const ghost2 = new GhostCharacter("Ghost2", 7, 11, MovementDirection.NorthWest);
-const ghost3 = new GhostCharacter("Ghost3", 9, 9, MovementDirection.NorthEast);
-const ghost4 = new GhostCharacter("Ghost4", 9, 11, MovementDirection.NorthWest, true);
+const ghost1 = new GhostCharacter(CharacterIdentifier.GreenGhost, 7, 9, MovementDirection.NorthEast);
+const ghost2 = new GhostCharacter(CharacterIdentifier.RedGhost, 7, 11, MovementDirection.NorthWest);
+const ghost3 = new GhostCharacter(CharacterIdentifier.OrangeGhost, 9, 9, MovementDirection.NorthEast);
+const ghost4 = new GhostCharacter(CharacterIdentifier.BlueGhost, 9, 11, MovementDirection.NorthWest, true);
 const ghosts: GhostCharacter[] = [ghost1, ghost2, ghost3, ghost4];
 let block: number[] = [];
 
@@ -48,10 +49,10 @@ const gameFieldSlice = createSlice({
   reducers: {
     gameTick: (state) => {
       if (!state.isPaused) {
-        
+
         let gameFieldForAll: React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
-        
+
         // move Hackman
         if (state.hackman.moveable !== Moveable.No) {
           let { gameField, increaseTheCoins } = moveHackman(
@@ -71,27 +72,27 @@ const gameFieldSlice = createSlice({
           if (ghost.shallTick) {
 
             if (ghost.isSmart) {
-				
-				ghost.movementDirection = getMovementDirectionByPosition(
-					state.hackman.position,
-					ghost.position
-				);
-				ghost.direction = getDirectionByMovementDirection(
-					ghost.movementDirection,
-					gameFieldForAll,
-					ghost,
-					ghosts
-				);
-              	gameFieldForAll = moveGhostSmart(
-                	gameFieldForAll,
-                	ghost,
-                	ghosts,
-                	state.hackman
-              	);
+
+              ghost.movementDirection = getMovementDirectionByPosition(
+                state.hackman.position,
+                ghost.position
+              );
+              ghost.direction = getDirectionByMovementDirection(
+                ghost.movementDirection,
+                gameFieldForAll,
+                ghost,
+                ghosts
+              );
+              gameFieldForAll = moveGhostSmart(
+                gameFieldForAll,
+                ghost,
+                ghosts,
+                state.hackman
+              );
 
             } else {
               // dumb move
-              if ( ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No) {
+              if (ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No) {
                 const canMoveDirections: { direction: Direction; bewegungMoeglich: Moveable; }[] = getPossibleDirections(gameFieldForAll, ghost.position);
                 ghost = setRandomDirectionAndCount(ghost, canMoveDirections);
               }
@@ -177,7 +178,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y + 1][
-              state.hackman.position.x
+            state.hackman.position.x
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -195,7 +196,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y - 1][
-              state.hackman.position.x
+            state.hackman.position.x
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -213,7 +214,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][
-              state.hackman.position.x + 1
+            state.hackman.position.x + 1
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -230,7 +231,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][
-              state.hackman.position.x - 1
+            state.hackman.position.x - 1
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -251,7 +252,7 @@ const gameFieldSlice = createSlice({
       state.isPaused = payload.payload;
     },
     openOptions: (state) => {
-      if(state.options)
+      if (state.options)
         state.options = false
       else
         state.options = true

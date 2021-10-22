@@ -1,6 +1,7 @@
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import CustomTimerForGhostEdible from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
 import MovementDirection from "../MovementDirection";
+import CharacterIdentifier from "../CharacterIdentifier";
 import Character from "./BaseCharacter";
 
 class GhostCharacter extends Character {
@@ -9,10 +10,10 @@ class GhostCharacter extends Character {
   public set isSmart(value: boolean) {
     this._isSmart = value;
   }
-  public get isSmart():boolean {
+  public get isSmart(): boolean {
     return this._isSmart;
   }
-  
+
   private _shallTick: boolean;
   public set shallTick(value: boolean) {
     this._shallTick = value;
@@ -83,7 +84,8 @@ class GhostCharacter extends Character {
     this._isEdibleTimeout.stop();
   }
 
-  constructor(name: string, positionY: number, positionX: number, movementDirection: MovementDirection = MovementDirection.None, isSmart: boolean = false) {
+  constructor(name: CharacterIdentifier, positionY: number, positionX: number, movementDirection: MovementDirection = MovementDirection.None, isSmart: boolean = false) {
+
     super(name, positionY, positionX);
     this._isEdibleTimeout = new CustomTimerForGhostEdible(
       () => (this.isEdible = false),

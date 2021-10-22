@@ -37,12 +37,36 @@
     z-index: 99;
 }
 
-.ghost-fill{
-    background-color: rgb(4, 4, 98);
+.ghost-green{
+    background: #067314;
 }
 
-.ghost-edible-fill{
-    background-color: blue;
+.ghost-green-edible{
+    background:#25f55d;
+}
+
+.ghost-blue{
+    background: #17077a;
+}
+
+.ghost-blue-edible{
+    background:#3225f5;
+}
+
+.ghost-red{
+    background: #a61b1b;
+}
+
+.ghost-red-edible{
+    background: #ff2626;
+}
+
+.ghost-orange{
+    background: #ff9d0a;
+}
+
+.ghost-orange-edible{
+    background: #ffe81c;
 }
 
 .ghost-spikes{

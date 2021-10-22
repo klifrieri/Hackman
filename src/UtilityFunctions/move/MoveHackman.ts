@@ -8,14 +8,14 @@ import React from "react";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import CoinValue from "../../Types/CoinValue";
 import GhostCharacter from "../../Types/Character/GhostCharacter";
-import Ghost1 from "../../Components/GameFieldComponent/GhostComponents/Ghost1";
-import Ghost2 from "../../Components/GameFieldComponent/GhostComponents/Ghost2";
-import Ghost3 from "../../Components/GameFieldComponent/GhostComponents/Ghost3";
-import Ghost4 from "../../Components/GameFieldComponent/GhostComponents/Ghost4";
+import GreenGhost from "../../Components/GameFieldComponent/GhostComponents/GreenGhost";
+import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
+import OrangeGhost from "../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
+import RedGhost from "../../Components/GameFieldComponent/GhostComponents/RedGhost";
 
-function resetGhostAndItsPosition(gameField: React.FC<{}>[][],whichGhost:Moveable, ghost: WritableDraft<GhostCharacter>[]): React.FC<{}>[][] {
+function resetGhostAndItsPosition(gameField: React.FC<{}>[][], whichGhost: Moveable, ghost: WritableDraft<GhostCharacter>[]): React.FC<{}>[][] {
   switch (whichGhost) {
-    case Moveable.GhostEdible1:
+    case Moveable.GreenGhostEdible:
       if (gameField[7][9] === Empty) {
         ghost[0].resetToStartPosition(0, 0);
       }
@@ -28,26 +28,26 @@ function resetGhostAndItsPosition(gameField: React.FC<{}>[][],whichGhost:Moveabl
       else if (gameField[8][10] === Empty) {
         ghost[0].resetToStartPosition(1, 1);
       }
-      gameField[ghost[0].position.y][ghost[0].position.x] = Ghost1;
+      gameField[ghost[0].position.y][ghost[0].position.x] = GreenGhost;
       break;
-    case Moveable.GhostEdible2:
-      if (gameField[7][11] === Empty) {
-        ghost[1].resetToStartPosition(0, 0);
-      }
-      else if (gameField[7][10] === Empty) {
-        ghost[1].resetToStartPosition(0, -1);
-      }
-      else if (gameField[8][11] === Empty) {
-        ghost[1].resetToStartPosition(1, 0);
-      }
-      else if (gameField[8][10] === Empty) {
-        ghost[1].resetToStartPosition(1, -1);
-      }
-      gameField[ghost[1].position.y][ghost[1].position.x] = Ghost2;
-      break;
-    case Moveable.GhostEdible3:
-      if (gameField[9][9] === Empty) {
-        ghost[2].resetToStartPosition(0, 0);
+      case Moveable.RedGhostEdible:
+        if (gameField[7][11] === Empty) {
+          ghost[1].resetToStartPosition(0, 0);
+        }
+        else if (gameField[7][10] === Empty) {
+          ghost[1].resetToStartPosition(0, -1);
+        }
+        else if (gameField[8][11] === Empty) {
+          ghost[1].resetToStartPosition(1, 0);
+        }
+        else if (gameField[8][10] === Empty) {
+          ghost[1].resetToStartPosition(1, -1);
+        }
+        gameField[ghost[1].position.y][ghost[1].position.x] = RedGhost;
+        break;
+      case Moveable.OrangeGhostEdible:
+        if (gameField[9][9] === Empty) {
+          ghost[2].resetToStartPosition(0, 0);
       }
       else if (gameField[8][9] === Empty) {
         ghost[2].resetToStartPosition(-1, 0);
@@ -58,23 +58,23 @@ function resetGhostAndItsPosition(gameField: React.FC<{}>[][],whichGhost:Moveabl
       else if (gameField[8][10] === Empty) {
         ghost[2].resetToStartPosition(-1, 1);
       }
-      gameField[ghost[2].position.y][ghost[2].position.x] = Ghost3;
+      gameField[ghost[2].position.y][ghost[2].position.x] = OrangeGhost;
       break;
-    case Moveable.GhostEdible4:
-      if (gameField[9][11] === Empty) {
-        ghost[3].resetToStartPosition(0, 0);
-      }
-      else if (gameField[8][11] === Empty) {
-        ghost[3].resetToStartPosition(-1, 0);
-      }
-      else if (gameField[9][10] === Empty) {
-        ghost[3].resetToStartPosition(0, -1);
-      }
-      else if (gameField[8][10] === Empty) {
-        ghost[3].resetToStartPosition(-1, -1);
-      }
-      gameField[ghost[3].position.y][ghost[3].position.x] = Ghost4;
-      break;
+      case Moveable.BlueGhostEdible:
+        if (gameField[9][11] === Empty) {
+          ghost[3].resetToStartPosition(0, 0);
+        }
+        else if (gameField[8][11] === Empty) {
+          ghost[3].resetToStartPosition(-1, 0);
+        }
+        else if (gameField[9][10] === Empty) {
+          ghost[3].resetToStartPosition(0, -1);
+        }
+        else if (gameField[8][10] === Empty) {
+          ghost[3].resetToStartPosition(-1, -1);
+        }
+        gameField[ghost[3].position.y][ghost[3].position.x] = BlueGhost;
+        break;
   }
   return gameField;
 }
@@ -160,10 +160,10 @@ function InvokeMoveHackmanByDirection(hackman: WritableDraft<Character>, gameFie
 
 function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Character>, ghosts: WritableDraft<GhostCharacter>[]): { gameField: React.FC<{}>[][], increaseTheCoins: CoinValue } {
   let increaseTheCoins: CoinValue = CoinValue.Zero;
-  const ghostEdible: boolean = hackman.moveable === Moveable.GhostEdible1 ||
-    hackman.moveable === Moveable.GhostEdible2 ||
-    hackman.moveable === Moveable.GhostEdible3 ||
-    hackman.moveable === Moveable.GhostEdible4;
+  const ghostEdible: boolean = hackman.moveable === Moveable.GreenGhostEdible ||
+    hackman.moveable === Moveable.BlueGhostEdible ||
+    hackman.moveable === Moveable.OrangeGhostEdible ||
+    hackman.moveable === Moveable.RedGhostEdible;
 
   if (hackman.moveable === Moveable.Yes) {
     increaseTheCoins = isEdible(gameField, hackman.direction, hackman.position)
@@ -171,7 +171,7 @@ function moveHackman(gameField: React.FC<{}>[][], hackman: WritableDraft<Charact
   }
   else if (ghostEdible) {
     gameField = InvokeMoveHackmanByDirection(hackman, gameField);
-    gameField = resetGhostAndItsPosition(gameField,hackman.moveable,ghosts);
+    gameField = resetGhostAndItsPosition(gameField, hackman.moveable, ghosts);
     increaseTheCoins = CoinValue.Ten;
   }
   else if (hackman.moveable === Moveable.Portal) {

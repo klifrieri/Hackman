@@ -1,3 +1,4 @@
+import CharacterIdentifier from "../CharacterIdentifier";
 import BaseCharacter from "./BaseCharacter";
 
 class HackmanCharacter extends BaseCharacter {
@@ -31,7 +32,7 @@ class HackmanCharacter extends BaseCharacter {
     this.resetToStartPosition(0, 0);
     --this._remainingLifes;
   }
-  constructor(name: string, positionY: number, positionX: number) {
+  constructor(name: CharacterIdentifier, positionY: number, positionX: number) {
     super(name, positionY, positionX);
     this._hackmanMoved = false;
     this._remainingLifes = 3;
