@@ -13,6 +13,7 @@ import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal
 import GhostCharacter from "../../Types/Character/GhostCharacter";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import MovementDirection from "../../Types/MovementDirection";
+import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
 
 export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   let positionValue = position.y - 1;
@@ -40,6 +41,9 @@ export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, gho
     else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
       return Moveable.BlueGhostEdible;
     }
+    else if (spielFeld[positionValue][position.x] === Gate && (ghosts[0].inCage || ghosts[1].inCage || ghosts[2].inCage || ghosts[3].inCage)){
+      return Moveable.Yes
+    }
     else {
       return Moveable.No;
     }
@@ -54,6 +58,7 @@ export function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, g
   if (spielFeld[positionValue] === undefined) {
     return Moveable.Portal;
   }
+
   else if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
     return Moveable.Hackman;
   }  
@@ -74,6 +79,9 @@ export function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, g
     }
     else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
       return Moveable.BlueGhostEdible;
+    }
+    else if(!ghosts[0].inCage || !ghosts[1].inCage || !ghosts[2].inCage || !ghosts[3].inCage){
+      return Moveable.No
     }
     else {
       return Moveable.No;

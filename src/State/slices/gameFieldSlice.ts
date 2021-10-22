@@ -28,10 +28,10 @@ const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   12,
   10
 );
-const ghost1 = new GhostCharacter(CharacterIdentifier.GreenGhost, 7, 9, MovementDirection.NorthEast);
-const ghost2 = new GhostCharacter(CharacterIdentifier.RedGhost, 7, 11, MovementDirection.NorthWest);
-const ghost3 = new GhostCharacter(CharacterIdentifier.OrangeGhost, 9, 9, MovementDirection.NorthEast);
-const ghost4 = new GhostCharacter(CharacterIdentifier.BlueGhost, 9, 11, MovementDirection.NorthWest, true);
+const ghost1 = new GhostCharacter(CharacterIdentifier.GreenGhost, 7, 9, MovementDirection.NorthEast, true);
+const ghost2 = new GhostCharacter(CharacterIdentifier.RedGhost, 7, 11, MovementDirection.NorthWest, false);
+const ghost3 = new GhostCharacter(CharacterIdentifier.OrangeGhost, 9, 9, MovementDirection.NorthEast, true);
+const ghost4 = new GhostCharacter(CharacterIdentifier.BlueGhost, 9, 11, MovementDirection.NorthWest, false);
 const ghosts: GhostCharacter[] = [ghost1, ghost2, ghost3, ghost4];
 let block: number[] = [];
 
