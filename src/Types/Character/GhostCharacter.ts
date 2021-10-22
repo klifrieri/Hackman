@@ -14,6 +14,14 @@ class GhostCharacter extends Character {
     return this._isSmart;
   }
 
+  private _inCage: boolean;
+  public set inCage(value:boolean){
+    this._inCage = value;
+  }
+  public get inCage(){
+    return this._inCage;
+  }
+
   private _shallTick: boolean;
   public set shallTick(value: boolean) {
     this._shallTick = value;
@@ -81,6 +89,7 @@ class GhostCharacter extends Character {
     this.resetCount();
     this.declaredCount = 0;
     this.shallTick = false;
+    this._inCage = true;
     this._isEdibleTimeout.stop();
   }
 
@@ -98,6 +107,7 @@ class GhostCharacter extends Character {
     this._isEdible = false;
     this._movementDirection = movementDirection;
     this._isSmart = isSmart;
+    this._inCage = true;
   }
 }
 
