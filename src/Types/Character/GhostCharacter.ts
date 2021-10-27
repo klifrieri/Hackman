@@ -80,17 +80,25 @@ class GhostCharacter extends Character {
   public set movementDirection(value: MovementDirection) {
     this._movementDirection = value;
   }
+  private _gotEaten: boolean;
+  public get gotEaten(){
+    return this._gotEaten
+  }
+  public set gotEaten(value: boolean){
+    this._gotEaten = value;
+  }
 
 
   public override resetToStartPosition(y: number, x: number) {
     super.resetToStartPosition(y, x);
     this.isEdible = false;
-    this._cachedField = Empty;
+    this.cachedField = Empty;
     this.resetCount();
     this.declaredCount = 0;
     this.shallTick = false;
-    this._inCage = true;
+    this.inCage = true;
     this._isEdibleTimeout.stop();
+    this.gotEaten = true;
   }
 
   constructor(name: CharacterIdentifier, positionY: number, positionX: number, movementDirection: MovementDirection = MovementDirection.None, isSmart: boolean = false) {
@@ -108,6 +116,7 @@ class GhostCharacter extends Character {
     this._movementDirection = movementDirection;
     this._isSmart = isSmart;
     this._inCage = true;
+    this._gotEaten = false;
   }
 }
 

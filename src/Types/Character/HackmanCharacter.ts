@@ -24,9 +24,18 @@ class HackmanCharacter extends BaseCharacter {
     return this._canSetBlock
   }
 
+  private _gotEaten: boolean;
+  public get gotEaten ():boolean{
+    return this._gotEaten
+  }
+  public set gotEaten(value:boolean){
+    this._gotEaten = value
+  }
+
   public override resetToStartPosition(y: number, x: number) {
     super.resetToStartPosition(y, x);
     this.hackmanMoved = false;
+    this.gotEaten = false;
   }
   public resetToStartAndDecreaseLife() {
     this.resetToStartPosition(0, 0);
@@ -37,6 +46,7 @@ class HackmanCharacter extends BaseCharacter {
     this._hackmanMoved = false;
     this._remainingLifes = 3;
     this._canSetBlock = true;
+    this._gotEaten = false;
   }
 }
 export default HackmanCharacter;
