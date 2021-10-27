@@ -57,7 +57,6 @@ const GameField: React.FC = () => {
   let ghost2GotEaten = useSelector((state: State) => state.ghosts[1].gotEaten);
   let ghost3GotEaten = useSelector((state: State) => state.ghosts[2].gotEaten);
   let ghost4GotEaten = useSelector((state: State) => state.ghosts[3].gotEaten);
-  //let hackmanGotEaten = useSelector((state:State) => state.hackman.gotEaten);
 
 
   // The game "starts" when hackman moved the first time.
