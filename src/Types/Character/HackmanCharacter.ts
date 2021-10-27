@@ -24,6 +24,7 @@ class HackmanCharacter extends BaseCharacter {
     return this._canSetBlock
   }
 
+
   public override resetToStartPosition(y: number, x: number) {
     super.resetToStartPosition(y, x);
     this.hackmanMoved = false;
