@@ -15,6 +15,9 @@ import { canMoveDown, canMoveLeft, canMoveRight, canMoveUp } from "./CanMove";
 import Coordinate from "../../Types/Coordinate";
 import React from "react";
 import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
+import EventEmitter from "events";
+
+const emitter = new EventEmitter()
 
 function ghostMovesRight(
   gameField: React.FC<any>[][],
@@ -358,6 +361,7 @@ function ghostEatsHackman(
     gameFieldCopy[hackman.position.y][hackman.position.x] = Hackman;
     gameFieldCopy[cachedHackmanPositionY][cachedHackmanPositionX] = Empty;
   } else {
+    emitter.emit("OPENGAMEOVER")
     gameFieldCopy = SpielfeldLayout();
   }
 
@@ -536,4 +540,5 @@ export {
   ghostMovesUpTroughPortal,
   moveGhostDumb,
   moveGhostSmart,
+  emitter
 };
