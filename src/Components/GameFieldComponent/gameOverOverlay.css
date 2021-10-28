@@ -41,7 +41,8 @@
 }
 #restart-game:hover{
     color: rgb(36, 35, 35);
-    border-color: rgb(36, 35, 35);
+    border-color: rgb(255, 230, 0);
+    cursor: pointer;
 }
 
 .go-show-overlay{
