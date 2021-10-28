@@ -344,11 +344,8 @@ const gameFieldSlice = createSlice({
     pauseGame: (state, payload: PayloadAction<boolean>) => {
       state.isPaused = payload.payload;
     },
-    openOptions: (state) => {
-      if (state.options)
-        state.options = false
-      else
-        state.options = true
+    openOptions: (state, payload:PayloadAction<boolean>) => {
+      state.options = payload.payload
     },
     deleteBlock: (state) => {
       state.gameField = setGameField(

@@ -4,7 +4,7 @@
     width: 80%;
     height: 80%;
     border-radius: 50%;
-    z-index: 99;
+    z-index: 9999;
 }
 .hackmanFill{
     background:conic-gradient(#ff9000 0deg 360deg);
