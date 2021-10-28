@@ -6,7 +6,8 @@ import gameFieldSlice from "./State/slices/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
 import Direction from "./Types/Direction";
-import GameOverlay from "./Components/GameFieldComponent/GameOverlay";
+import SettingsOverlay from "./Components/GameFieldComponent/SettingsOverlay";
+import GameOver from "./Components/GameFieldComponent/GameOverOverlay";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -103,7 +104,8 @@ const App: React.FC = () => {
     <div ref={centerRef} className="center" onKeyDown={handleKeyDown} tabIndex={0}>
       <GameField />
       <Stats />
-      <GameOverlay/>
+      <SettingsOverlay/>
+      <GameOver/>
     </div>
   )
 };

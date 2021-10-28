@@ -22,6 +22,7 @@ import {
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import MovementDirection from "../../Types/MovementDirection";
 import CharacterIdentifier from "../../Types/CharacterIdentifier";
+import Result from "../../Types/Result";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   CharacterIdentifier.Hackman,
@@ -44,7 +45,8 @@ const gameFieldSlice = createSlice({
     ghosts: ghosts,
     block: block,
     isPaused: false,
-    options: false
+    options: false,
+    result: Result.None
   },
   reducers: {
     gameTick: (state) => {
@@ -268,6 +270,16 @@ const gameFieldSlice = createSlice({
     resetStats: (state) => {
       state.eatenCoins = 0
       state.hackman.remainingLifes = 3
+    },
+    getResult: (state) => {
+      if(state.eatenCoins > 130)
+          state.result = Result.Good
+      else if(91 < state.eatenCoins && state.eatenCoins < 130)
+          state.result = Result.Better
+      else if(state.eatenCoins < 90)
+          state.result = Result.Bad
+      else
+          state.result = Result.Bad
     }
   },
 });
