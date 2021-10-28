@@ -29,7 +29,7 @@ import OrangeGhost from "../../Components/GameFieldComponent/GhostComponents/Ora
 import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
 import Coordinate from "../../Types/Coordinate";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
-import { resetGhostAndItsPosition, resetGreenGhost } from "../../UtilityFunctions/resetGhosts";
+import { resetBlueGhost, resetGreenGhost, resetOrangeGhost, resetRedGhost } from "../../UtilityFunctions/resetGhosts";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   CharacterIdentifier.Hackman,
@@ -308,7 +308,7 @@ const gameFieldSlice = createSlice({
             }
             else if (state.gameField[positionToCheck.y][positionToCheck.x] === RedGhost) {
               if (greenGhost.isEdible) {
-                resetGreenGhost(state.gameField, state.ghosts[1]);
+                resetRedGhost(state.gameField, state.ghosts[1]);
                 state.eatenCoins += 10;
               }
               else {
@@ -318,7 +318,7 @@ const gameFieldSlice = createSlice({
             }
             else if (state.gameField[positionToCheck.y][positionToCheck.x] === OrangeGhost) {
               if (greenGhost.isEdible) {
-                resetGreenGhost(state.gameField, state.ghosts[2]);
+                resetOrangeGhost(state.gameField, state.ghosts[2]);
                 state.eatenCoins += 10;
               }
               else {
@@ -328,7 +328,7 @@ const gameFieldSlice = createSlice({
             }
             else if (state.gameField[positionToCheck.y][positionToCheck.x] === BlueGhost) {
               if (greenGhost.isEdible) {
-                resetGreenGhost(state.gameField, state.ghosts[3]);
+                resetBlueGhost(state.gameField, state.ghosts[3]);
                 state.eatenCoins += 10;
               }
               else {
