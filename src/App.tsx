@@ -8,10 +8,13 @@ import { State, store } from "./State/store";
 import Direction from "./Types/Direction";
 import SettingsOverlay from "./Components/GameFieldComponent/SettingsOverlay";
 import GameOver from "./Components/GameFieldComponent/GameOverOverlay";
+import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
+
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { changeIsMoveableHackman, setBlock, pauseGame, openOptions, openGameOver} = bindActionCreators(
+  const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature, pauseGame, openOptions, openGameOver } = bindActionCreators(
     gameFieldSlice.actions,
     dispatch
   );
@@ -19,6 +22,9 @@ const App: React.FC = () => {
   const isPaused = useSelector((state: State) => state.isPaused);
   const remainingLives = useSelector((state: State) => state.hackman.remainingLifes)
   const gameOver = useSelector((state: State) => state.gameOver)
+  const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
+  const canJump = useSelector((state: State) => state.hackman.canJump);
+  const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if(remainingLives === 0){
@@ -26,7 +32,6 @@ const App: React.FC = () => {
     }
   }, [remainingLives])
 
-  const centerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     centerRef.current?.focus();
     setStyleTag();
@@ -34,6 +39,26 @@ const App: React.FC = () => {
     return () => window.removeEventListener("resize", setStyleTag);
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => store.dispatch(deleteBlock), 5000);
+    if (!canSetBlock) {
+      blockTimerStart()
+    }
+    return () => {
+      blockTimerStop();
+    }
+  }, [canSetBlock])
+
+  useEffect(() => {
+    let [canJumpTimerStart, canJumpTimerStop] = CustomTimeOut(() => store.dispatch(enableJumpingFeature), 5000);
+    if (!canJump) {
+      canJumpTimerStart()
+    }
+    return () => {
+      canJumpTimerStop();
+    }
+  }, [canJump])
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
@@ -51,7 +76,9 @@ const App: React.FC = () => {
     } else if(e.code === "Escape"){
       store.dispatch(openOptions)
       store.dispatch(pauseGame(!isPaused))
-    } 
+    } else if(e.code === "ShiftLeft"){
+      store.dispatch(hackmanJump)
+    }
     
     else return;
   };
