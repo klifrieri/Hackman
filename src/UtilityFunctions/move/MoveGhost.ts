@@ -536,4 +536,5 @@ export {
   ghostMovesUpTroughPortal,
   moveGhostDumb,
   moveGhostSmart,
+  ghostEatsHackman
 };

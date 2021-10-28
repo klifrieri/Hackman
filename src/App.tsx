@@ -7,15 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
 import Direction from "./Types/Direction";
 import GameOverlay from "./Components/GameFieldComponent/GameOverlay";
+import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { changeIsMoveableHackman, setBlock, pauseGame, openOptions } = bindActionCreators(
+  const { changeIsMoveableHackman, setBlock,deleteBlock,hackmanJump,enableJumpingFeature, pauseGame, openOptions } = bindActionCreators(
     gameFieldSlice.actions,
     dispatch
   );
 
   const isPaused = useSelector((state: State) => state.isPaused);
+  const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
+  const canJump = useSelector((state: State) => state.hackman.canJump);
 
   const centerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -25,6 +28,26 @@ const App: React.FC = () => {
     return () => window.removeEventListener("resize", setStyleTag);
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => store.dispatch(deleteBlock), 5000);
+    if (!canSetBlock) {
+      blockTimerStart()
+    }
+    return () => {
+      blockTimerStop();
+    }
+  }, [canSetBlock])
+
+  useEffect(() => {
+    let [canJumpTimerStart, canJumpTimerStop] = CustomTimeOut(() => store.dispatch(enableJumpingFeature), 5000);
+    if (!canJump) {
+      canJumpTimerStart()
+    }
+    return () => {
+      canJumpTimerStop();
+    }
+  }, [canJump])
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
     if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
@@ -42,7 +65,9 @@ const App: React.FC = () => {
     } else if(e.code === "Escape"){
       store.dispatch(openOptions)
       store.dispatch(pauseGame(!isPaused))
-    } 
+    } else if(e.code === "ShiftLeft"){
+      store.dispatch(hackmanJump)
+    }
     
     else return;
   };
