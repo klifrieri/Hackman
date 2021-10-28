@@ -14,7 +14,7 @@
 .overlay-box{
     width: 30%;
     height: 70%;
-    background-color: grey;
+    background-color: rgb(32, 31, 31);
     border-radius: 25px;
     box-shadow: 0px 0px 50px silver;
 }

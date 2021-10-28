@@ -9,15 +9,12 @@ import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal
 import HackmanCharacter from "../../Types/Character/HackmanCharacter";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import SpielfeldLayout from "../../SpielfeldLayout";
 import CharacterIdentifier from "../../Types/CharacterIdentifier";
 import { canMoveDown, canMoveLeft, canMoveRight, canMoveUp } from "./CanMove";
 import Coordinate from "../../Types/Coordinate";
 import React from "react";
 import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
-import EventEmitter from "events";
 
-const emitter = new EventEmitter()
 
 function ghostMovesRight(
   gameField: React.FC<any>[][],
@@ -361,8 +358,7 @@ function ghostEatsHackman(
     gameFieldCopy[hackman.position.y][hackman.position.x] = Hackman;
     gameFieldCopy[cachedHackmanPositionY][cachedHackmanPositionX] = Empty;
   } else {
-    emitter.emit("OPENGAMEOVER")
-    gameFieldCopy = SpielfeldLayout();
+    //gameField = SpielfeldLayout();
   }
 
   return gameFieldCopy;
@@ -403,7 +399,7 @@ function moveGhostDumb(gameField: React.FC<{}>[][], actualGhost: WritableDraft<G
 	  }
 	  else if (actualGhost.moveable === Moveable.Hackman) {
 		gameField = InvokeMoveGhostByDirection(gameField, actualGhost);
-		gameField = ghostEatsHackman(gameField, ghosts, hackman);
+		//gameField = ghostEatsHackman(gameField, ghosts, hackman);
 	
 		ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
 		  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
@@ -429,7 +425,7 @@ function moveGhostDumb(gameField: React.FC<{}>[][], actualGhost: WritableDraft<G
 		  gameField[hackman.position.y][hackman.position.x] = Hackman;
 		}
 		else {
-		  gameField = SpielfeldLayout();
+		  //gameField = SpielfeldLayout();
 		}
 	  }
 	  else if (actualGhost.moveable === Moveable.Portal) {
@@ -540,5 +536,4 @@ export {
   ghostMovesUpTroughPortal,
   moveGhostDumb,
   moveGhostSmart,
-  emitter
 };

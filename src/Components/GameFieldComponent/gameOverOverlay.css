@@ -14,7 +14,7 @@
 .go-overlay-box{
     width: 50%;
     height: 30%;
-    background-color: grey;
+    background-color: rgb(32, 31, 31);
     border-radius: 25px;
     box-shadow: 0px 0px 50px silver;
     display: flex;

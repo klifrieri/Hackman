@@ -1,6 +1,6 @@
 .ghost{
     position: relative;
-    z-index: 9999;
+    z-index: 999;
     height: 89%;
     width: 89%;
     transform: translate(15%, 10%);
@@ -70,6 +70,7 @@
 }
 
 .ghost-spikes{
+    position: relative;
     width: 60%;
     height: 80%;
     border-radius: 50%;

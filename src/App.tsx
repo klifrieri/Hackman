@@ -11,12 +11,20 @@ import GameOver from "./Components/GameFieldComponent/GameOverOverlay";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { changeIsMoveableHackman, setBlock, pauseGame, openOptions } = bindActionCreators(
+  const { changeIsMoveableHackman, setBlock, pauseGame, openOptions, openGameOver} = bindActionCreators(
     gameFieldSlice.actions,
     dispatch
   );
 
   const isPaused = useSelector((state: State) => state.isPaused);
+  const remainingLives = useSelector((state: State) => state.hackman.remainingLifes)
+  const gameOver = useSelector((state: State) => state.gameOver)
+
+  useEffect(() => {
+    if(remainingLives === 0){
+      store.dispatch(openGameOver(!gameOver))
+    }
+  }, [remainingLives])
 
   const centerRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
