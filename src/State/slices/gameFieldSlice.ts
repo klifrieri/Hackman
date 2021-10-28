@@ -365,6 +365,9 @@ const gameFieldSlice = createSlice({
       state.eatenCoins = 0
       state.hackman.remainingLifes = 3
       state.gameOver = false
+      for(let i = 0; i < ghosts.length; i++){
+        ghosts[i].resetToStartPosition(0,0)
+      }
       state.gameField = SpielfeldLayout()
     }
     
