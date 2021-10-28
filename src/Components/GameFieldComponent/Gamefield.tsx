@@ -34,11 +34,11 @@ import Block from "./FieldComponents/Path/Block";
 
 const GameField: React.FC = () => {
   const dispatch = useDispatch();
-  const { gameTick, activateGhost, deleteBlock } = bindActionCreators(gameFieldSlice.actions, dispatch)
+  const { gameTick, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch)
 
   const gameField = useSelector((state: State) => state.gameField);
   const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
-  const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock)
+  
 
   const ghost1ShallTick = useSelector(
     (state: State) => state.ghosts[0].shallTick
@@ -172,20 +172,6 @@ const GameField: React.FC = () => {
     intervalStart();
     return () => intervalStop();
   }, [])
-
-  useEffect(() => {
-    let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => store.dispatch(deleteBlock), 5000);
-    if (!canSetBlock) {
-      blockTimerStart()
-    }
-    else {
-      blockTimerStop()
-    }
-
-    return () => {
-      blockTimerStop();
-    }
-  }, [canSetBlock])
 
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === HorizontalWall) return <HorizontalWall key={key} />;
