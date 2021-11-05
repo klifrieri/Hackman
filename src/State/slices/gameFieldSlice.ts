@@ -342,7 +342,7 @@ const gameFieldSlice = createSlice({
       }
     },
     pauseGame: (state, payload: PayloadAction<boolean>) => {
-      state.isPaused = payload.payload;
+      state.isPaused = payload.payload;      
     },
     openOptions: (state, payload:PayloadAction<boolean>) => {
       state.options = payload.payload
