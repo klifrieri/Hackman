@@ -6,21 +6,32 @@ import gameFieldSlice from "./State/slices/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
 import Direction from "./Types/Direction";
-import GameOverlay from "./Components/GameFieldComponent/GameOverlay";
+import SettingsOverlay from "./Components/GameFieldComponent/SettingsOverlay";
+import GameOver from "./Components/GameFieldComponent/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
+
+
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { changeIsMoveableHackman, setBlock,deleteBlock,hackmanJump,enableJumpingFeature, pauseGame, openOptions } = bindActionCreators(
+  const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature, pauseGame, openOptions, openGameOver } = bindActionCreators(
     gameFieldSlice.actions,
     dispatch
   );
 
   const isPaused = useSelector((state: State) => state.isPaused);
+  const remainingLives = useSelector((state: State) => state.hackman.remainingLifes)
+  const gameOver = useSelector((state: State) => state.gameOver)
   const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
   const canJump = useSelector((state: State) => state.hackman.canJump);
-
   const centerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if(remainingLives === 0){
+      store.dispatch(openGameOver(!gameOver))
+    }
+  }, [remainingLives])
+
   useEffect(() => {
     centerRef.current?.focus();
     setStyleTag();
@@ -128,7 +139,8 @@ const App: React.FC = () => {
     <div ref={centerRef} className="center" onKeyDown={handleKeyDown} tabIndex={0}>
       <GameField />
       <Stats />
-      <GameOverlay/>
+      <SettingsOverlay/>
+      <GameOver/>
     </div>
   )
 };

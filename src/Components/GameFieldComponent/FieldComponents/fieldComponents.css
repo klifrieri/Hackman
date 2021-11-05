@@ -131,5 +131,5 @@
     height: 80%;
     width: 80%;
     border: 3px solid white;
-
+    z-index: 9999;
 }

@@ -52,7 +52,8 @@ const gameFieldSlice = createSlice({
     ghosts: ghosts,
     block: block,
     isPaused: false,
-    options: false
+    options: false,
+    gameOver: false
   },
   reducers: {
     gameTick: (state) => {
@@ -360,10 +361,16 @@ const gameFieldSlice = createSlice({
     enableJumpingFeature: (state) => {
       state.hackman.canJump = true;
     },
-    resetStats: (state) => {
+    openGameOver: (state, payload: PayloadAction<boolean>) => {
+      state.gameOver = payload.payload
+    },
+    restartGame: (state) => {
       state.eatenCoins = 0
       state.hackman.remainingLifes = 3
+      state.gameOver = false
+      state.gameField = SpielfeldLayout()
     }
+    
   },
 });
 

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
 import { State } from "../../State/store";
-import './gameOverlay.css';
+import './settingsOverlay.css';
 
 
 const Overlay: React.FC = () => {
