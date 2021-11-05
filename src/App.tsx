@@ -24,6 +24,8 @@ const App: React.FC = () => {
   const gameOver = useSelector((state: State) => state.gameOver)
   const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
   const canJump = useSelector((state: State) => state.hackman.canJump);
+  const options = useSelector((state:State) => state.options)
+
   const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -61,27 +63,40 @@ const App: React.FC = () => {
   }, [canJump])
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
-    if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
-      store.dispatch(changeIsMoveableHackman(Direction.Up));
-    } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
-      store.dispatch(changeIsMoveableHackman(Direction.Right));
-    } else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown") {
-      store.dispatch(changeIsMoveableHackman(Direction.Down));
-    } else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft") {
-      store.dispatch(changeIsMoveableHackman(Direction.Left));
-    } else if (e.key.toLowerCase() === "p") {
-      store.dispatch(pauseGame(!isPaused));
-    } else if (e.code === "Space") {
-      store.dispatch(setBlock);
-    } else if(e.code === "Escape"){
-      store.dispatch(openOptions)
-      store.dispatch(pauseGame(!isPaused))
-    } else if(e.code === "ShiftLeft"){
-      store.dispatch(hackmanJump)
+      if(!isPaused){
+        if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
+          store.dispatch(changeIsMoveableHackman(Direction.Up));
+        } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
+          store.dispatch(changeIsMoveableHackman(Direction.Right));
+        } else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown") {
+          store.dispatch(changeIsMoveableHackman(Direction.Down));
+        } else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft") {
+          store.dispatch(changeIsMoveableHackman(Direction.Left));
+        } else if (e.key.toLowerCase() === "p") {
+          store.dispatch(pauseGame(!isPaused));
+        } else if (e.code === "Space") {
+          store.dispatch(setBlock);
+        } else if(e.code === "Escape"){
+          store.dispatch(openOptions(!options))
+          store.dispatch(pauseGame(!isPaused))
+        } else if(e.code === "ShiftLeft"){
+          store.dispatch(hackmanJump)
+        }       
+        else return;
+      }
+      else if(isPaused && !options){
+        if (e.key.toLowerCase() === "p") {
+          store.dispatch(pauseGame(!isPaused));
+        }
+      }
+      else if(options){
+        if(e.code === "Escape"){
+          store.dispatch(openOptions(!options))
+          store.dispatch(pauseGame(!isPaused))
+        }
+      }
     }
-    
-    else return;
-  };
+  
 
   const setStyleTag = () => {
     setRowHeightStyleTag();

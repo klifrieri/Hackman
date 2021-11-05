@@ -344,11 +344,8 @@ const gameFieldSlice = createSlice({
     pauseGame: (state, payload: PayloadAction<boolean>) => {
       state.isPaused = payload.payload;
     },
-    openOptions: (state) => {
-      if (state.options)
-        state.options = false
-      else
-        state.options = true
+    openOptions: (state, payload:PayloadAction<boolean>) => {
+      state.options = payload.payload
     },
     deleteBlock: (state) => {
       state.gameField = setGameField(
@@ -368,6 +365,9 @@ const gameFieldSlice = createSlice({
       state.eatenCoins = 0
       state.hackman.remainingLifes = 3
       state.gameOver = false
+      for(let i = 0; i < ghosts.length; i++){
+        ghosts[i].resetToStartPosition(0,0)
+      }
       state.gameField = SpielfeldLayout()
     }
     
