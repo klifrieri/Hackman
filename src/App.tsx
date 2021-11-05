@@ -44,13 +44,18 @@ const App: React.FC = () => {
 
   useEffect(() => {
     let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => store.dispatch(deleteBlock), 5000);
-    if (!canSetBlock) {
-      blockTimerStart()
+    if(!isPaused){
+      if (!canSetBlock) {
+        blockTimerStart()
+      }
+    }
+    else if(isPaused){
+      blockTimerStop()
     }
     return () => {
       blockTimerStop();
     }
-  }, [canSetBlock])
+  }, [canSetBlock, isPaused])
 
   useEffect(() => {
     let [canJumpTimerStart, canJumpTimerStop] = CustomTimeOut(() => store.dispatch(enableJumpingFeature), 5000);
