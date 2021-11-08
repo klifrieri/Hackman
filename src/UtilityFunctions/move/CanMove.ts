@@ -232,6 +232,26 @@ export function getMovementDirectionByPosition(directionComponent: Coordinate, m
   } else return MovementDirection.None;
 }
 
+export function getMovementDirectionByPositionRevert(directionComponent: Coordinate, movingComponent: Coordinate): MovementDirection {
+  if (directionComponent.x === movingComponent.x && directionComponent.y < movingComponent.y) {
+    return MovementDirection.South;
+  } else if (directionComponent.x > movingComponent.x && directionComponent.y < movingComponent.y) {
+    return MovementDirection.SouthWest;
+  } else if (directionComponent.x < movingComponent.x && directionComponent.y < movingComponent.y) {
+    return MovementDirection.SouthEast;
+  } else if (directionComponent.x === movingComponent.x && directionComponent.y > movingComponent.y) {
+    return MovementDirection.North;
+  } else if (directionComponent.x > movingComponent.x && directionComponent.y > movingComponent.y) {
+    return MovementDirection.NorthWest;
+  } else if (directionComponent.x < movingComponent.x && directionComponent.y > movingComponent.y) {
+    return MovementDirection.NorthEast;
+  } else if (directionComponent.x < movingComponent.x && directionComponent.y === movingComponent.y) {
+    return MovementDirection.East;
+  } else if (directionComponent.x > movingComponent.x && directionComponent.y === movingComponent.y) {
+    return MovementDirection.West;
+  } else return MovementDirection.None;
+}
+
 export function getDirectionByMovementDirection(movementDirection: MovementDirection, gameField: React.FC<{}>[][], actualGhost: WritableDraft<GhostCharacter>, ghosts: WritableDraft<GhostCharacter>[]) {
   switch (movementDirection) {
     case MovementDirection.North:
