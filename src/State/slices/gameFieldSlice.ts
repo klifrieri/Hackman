@@ -3,6 +3,7 @@ import {
   canMove,
   getDirectionByMovementDirection,
   getMovementDirectionByPosition,
+  getMovementDirectionByPositionRevert,
   getPossibleDirections,
 } from "../../UtilityFunctions/move/CanMove";
 import SpielfeldLayout from "../../SpielfeldLayout";
@@ -80,7 +81,7 @@ const gameFieldSlice = createSlice({
         state.ghosts.forEach((ghost) => {
           if (ghost.shallTick) {
 
-            if (ghost.isSmart) {
+            if (ghost.isSmart && !ghost.isEdible) {
 
               ghost.movementDirection = getMovementDirectionByPosition(
                 state.hackman.position,
@@ -99,7 +100,26 @@ const gameFieldSlice = createSlice({
                 state.hackman
               );
 
-            } else {
+            }
+            else if(ghost.isSmart && ghost.isEdible){
+              ghost.movementDirection = getMovementDirectionByPositionRevert(
+                state.hackman.position,
+                ghost.position
+              );
+              ghost.direction = getDirectionByMovementDirection(
+                ghost.movementDirection,
+                gameFieldForAll,
+                ghost,
+                ghosts
+              );
+              gameFieldForAll = moveGhostSmart(
+                gameFieldForAll,
+                ghost,
+                ghosts,
+                state.hackman
+              );
+            }
+            else {
               // dumb move
               if (ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No) {
                 const canMoveDirections: { direction: Direction; bewegungMoeglich: Moveable; }[] = getPossibleDirections(gameFieldForAll, ghost.position);

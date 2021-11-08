@@ -16,6 +16,7 @@ import React from "react";
 import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
 
 
+
 function ghostMovesRight(
   gameField: React.FC<any>[][],
   ghost: WritableDraft<GhostCharacter>
@@ -398,35 +399,35 @@ function moveGhostDumb(gameField: React.FC<{}>[][], actualGhost: WritableDraft<G
 		gameField = InvokeMoveGhostByDirection(gameField, actualGhost);
 	  }
 	  else if (actualGhost.moveable === Moveable.Hackman) {
-		gameField = InvokeMoveGhostByDirection(gameField, actualGhost);
-		//gameField = ghostEatsHackman(gameField, ghosts, hackman);
-	
-		ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
-		  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-		  ghost.resetToStartPosition(0, 0);
-		  switch (ghost.name) {
-			case CharacterIdentifier.GreenGhost:
-			  gameField[ghost.position.y][ghost.position.x] = GreenGhost;
-			  break;
-			case CharacterIdentifier.RedGhost:
-			  gameField[ghost.position.y][ghost.position.x] = RedGhost;
-			  break;
-			case CharacterIdentifier.OrangeGhost:
-			  gameField[ghost.position.y][ghost.position.x] = OrangeGhost;
-			  break;
-			case CharacterIdentifier.BlueGhost:
-			  gameField[ghost.position.y][ghost.position.x] = BlueGhost;
-			  break;
-		  }
-		});
-		hackman.hackmanMoved = false;
-		hackman.resetToStartAndDecreaseLife();
-		if (hackman.remainingLifes > 0) {
-		  gameField[hackman.position.y][hackman.position.x] = Hackman;
-		}
-		else {
-		  //gameField = SpielfeldLayout();
-		}
+  		gameField = InvokeMoveGhostByDirection(gameField, actualGhost);
+  		//gameField = ghostEatsHackman(gameField, ghosts, hackman);
+  	
+  		ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
+  		  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
+  		  ghost.resetToStartPosition(0, 0);
+  		  switch (ghost.name) {
+  			case CharacterIdentifier.GreenGhost:
+  			  gameField[ghost.position.y][ghost.position.x] = GreenGhost;
+  			  break;
+  			case CharacterIdentifier.RedGhost:
+  			  gameField[ghost.position.y][ghost.position.x] = RedGhost;
+  			  break;
+  			case CharacterIdentifier.OrangeGhost:
+  			  gameField[ghost.position.y][ghost.position.x] = OrangeGhost;
+  			  break;
+  			case CharacterIdentifier.BlueGhost:
+  			  gameField[ghost.position.y][ghost.position.x] = BlueGhost;
+  			  break;
+  		  }
+  		});
+  		hackman.hackmanMoved = false;
+  		hackman.resetToStartAndDecreaseLife();
+  		if (hackman.remainingLifes > 0) {
+  		  gameField[hackman.position.y][hackman.position.x] = Hackman;
+  		}
+  		else {
+  		  //gameField = SpielfeldLayout();
+  		}
 	  }
 	  else if (actualGhost.moveable === Moveable.Portal) {
 		switch (actualGhost.direction) {
