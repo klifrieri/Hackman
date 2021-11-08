@@ -248,22 +248,22 @@ export function getMovementDirectionByPositionRevert(directionComponent: Coordin
     else
       return MovementDirection.SouthWest;
   } else if (directionComponent.x < movingComponent.x && directionComponent.y < movingComponent.y) {
-    if((directionComponent.y - movingComponent.y) < -5 || (movingComponent.x - directionComponent.x > 5))
+    if((directionComponent.y - movingComponent.y) < -4 || (movingComponent.x - directionComponent.x > 5))
       return MovementDirection.NorthWest
     else
       return MovementDirection.SouthEast;
   } else if (directionComponent.x === movingComponent.x && directionComponent.y > movingComponent.y) {
-    if((directionComponent.y - movingComponent.y) > 5)
+    if((directionComponent.y - movingComponent.y) > 4)
       return MovementDirection.South
     else
       return MovementDirection.North;
   } else if (directionComponent.x > movingComponent.x && directionComponent.y > movingComponent.y) {
-    if((directionComponent.y - movingComponent.y) > 5 || (directionComponent.x - movingComponent.x) > 5)
+    if((directionComponent.y - movingComponent.y) > 4 || (directionComponent.x - movingComponent.x) > 5)
       return MovementDirection.SouthEast
     else
       return MovementDirection.NorthWest;
   } else if (directionComponent.x < movingComponent.x && directionComponent.y > movingComponent.y) {
-    if((directionComponent.y - movingComponent.y) > 5 || (movingComponent.x - directionComponent.x) > 5)
+    if((directionComponent.y - movingComponent.y) > 4 || (movingComponent.x - directionComponent.x) > 5)
       return MovementDirection.SouthWest
     else
       return MovementDirection.NorthEast;
@@ -273,7 +273,7 @@ export function getMovementDirectionByPositionRevert(directionComponent: Coordin
     else
       return MovementDirection.East;
   } else if (directionComponent.x > movingComponent.x && directionComponent.y === movingComponent.y) {
-    if((directionComponent.y - movingComponent.y) > 5)
+    if((directionComponent.y - movingComponent.y) > 4)
       return MovementDirection.East
     else
       return MovementDirection.West;
