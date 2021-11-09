@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../State/slices/gameFieldSlice";
 import { State, store } from "../../State/store";
+import HighscoreTable from "../StatsComponent/HighscoreTable";
 import './winOverlay.css';
 
 
@@ -39,7 +40,8 @@ const WinOverlay: React.FC = () => {
     return(
         <div className={DisplayOverlay}>
             <div className="win-overlay-box">
-                <h2>Win! Win! Win!</h2>
+                <h2>Gewonnen!</h2>
+                <HighscoreTable/>
                 <h4>Deine Punktzahl: {eatenCoins}</h4>
                 <button id="win-restart-game">
                     Neues Spiel

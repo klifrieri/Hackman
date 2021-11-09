@@ -42,7 +42,7 @@ const App: React.FC = () => {
   const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (points >= allPoints) {
+    if (points >= allPoints-120) {
       store.dispatch(winGame);
     }
   }, [points]);

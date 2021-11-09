@@ -1,16 +1,17 @@
-{
-    "player": [
-        {
-            "name": "Maurice",
-            "score": 213
-        },
-        {
-            "name": "Andre",
-            "score": 123
-        },
-        {
-            "name": "Drachenlord",
-            "score": 666
-        }
-    ]
-}
+[
+    {
+        "name": "Maurice",
+        "score": 213,
+        "ranking": 0
+    },
+    {
+        "name": "Andre",
+        "score": 123,
+        "ranking": 0          
+    },
+    {
+        "name": "Drachenlord",
+        "score": 666,
+        "ranking": 0
+    }
+]

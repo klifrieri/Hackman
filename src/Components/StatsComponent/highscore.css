@@ -1,0 +1,17 @@
+.hs-wrapper{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+.hs-element{
+    display: flex;
+    flex-direction: row;
+    color: white;
+    width: 100%;
+    justify-content: space-between;
+}
+.hs-element p {
+    width: 33%;
+    text-align: center;
+    font-size: 1.25rem;
+}
