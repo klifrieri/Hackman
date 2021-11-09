@@ -389,15 +389,18 @@ const gameFieldSlice = createSlice({
       state.eatenCoins = 0
       state.hackman.remainingLifes = 3
       state.gameOver = false
+      state.win = false
+      state.isPaused = false
+      state.points = 0
+      state.hackman.resetToStartPosition(0, 0)
       for(let i = 0; i < ghosts.length; i++){
         ghosts[i].resetToStartPosition(0,0)
       }
-      state.win = false;
       state.gameField = SpielfeldLayout()
     },
     winGame: (state) => {
       state.win = true;
-      state.isPaused = !state.isPaused
+      state.isPaused = true
     }
     
   },
