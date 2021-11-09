@@ -54,7 +54,9 @@ const gameFieldSlice = createSlice({
     block: block,
     isPaused: false,
     options: false,
-    gameOver: false
+    gameOver: false,
+    win: false,
+    points: 0
   },
   reducers: {
     gameTick: (state) => {
@@ -148,9 +150,11 @@ const gameFieldSlice = createSlice({
         // increase eaten coins
         if (increaseCoins === CoinValue.One) {
           state.eatenCoins++;
+          state.points++
         }
         else if (increaseCoins === CoinValue.Five) {
           state.eatenCoins += 5;
+          state.points++
           state.ghosts.forEach((ghost) => {
             ghost.isEdible = true;
           });
@@ -388,7 +392,12 @@ const gameFieldSlice = createSlice({
       for(let i = 0; i < ghosts.length; i++){
         ghosts[i].resetToStartPosition(0,0)
       }
+      state.win = false;
       state.gameField = SpielfeldLayout()
+    },
+    winGame: (state) => {
+      state.win = true;
+      state.isPaused = !state.isPaused
     }
     
   },

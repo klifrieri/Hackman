@@ -1,0 +1,61 @@
+.win-overlay-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 9999;
+}
+
+.win-overlay-box{
+    width: 30%;
+    height: 70%;
+    background-color: rgb(32, 31, 31);
+    border-radius: 25px;
+    box-shadow: 0px 0px 50px silver;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.win-overlay-box h2{
+    text-align: center;
+    padding: 10% 20%;
+    font-size: 300%;
+    color: white;
+}
+.win-overlay-box h4{
+    text-align: center;
+    font-size: 200%;
+    color: darkorange;
+}
+
+.show-overlay{
+    display: flex;
+}
+
+.hide-overlay{
+    display: none;
+}
+
+#win-restart-game{
+    color: white;
+    font-family: "Montserrat";
+    background-color: orange;
+
+    border-radius: 25px;
+    border: 2px solid white;
+    font-size: 125%;
+    font-weight: 600;
+    padding: 1.25% 2.5%;
+    transition: all 0.25s;
+}
+#win-restart-game:hover{
+    color: rgb(36, 35, 35);
+    border-color: rgb(255, 230, 0);
+    cursor: pointer;
+}
