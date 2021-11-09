@@ -8,24 +8,13 @@ const CalculateAllCoins = (spielfeld:React.FC<any>[][]):number => {
     for(let i = 0; i < spielfeld.length; i++){
         let row = spielfeld[i]
         for(let j = 0; j < row.length; j++){
-            if(row[j] === Coin){
+            if(row[j] === Coin || row[j] === Snack){
                 coinsCount++
             }
         }
     }
     return coinsCount
 }
-const CalculateAllSnacks = (spielfeld:React.FC<any>[][]):number => {
-    let snacksCount:number = 0
-    for(let i = 0; i < spielfeld.length; i++){
-        let row = spielfeld[i]
-        for(let j = 0; j < row.length; j++){
-            if(row[j] === Snack){
-                snacksCount++
-            }
-        }
-    }
-    return snacksCount
-}
 
-export {CalculateAllCoins, CalculateAllSnacks}
+
+export {CalculateAllCoins}
