@@ -6,8 +6,11 @@ import HighscoreElement from "./HighscoreElement";
 import "./highscore.css";
 
 const HighscoreTable: React.FC<any> = () => {
-  const Players:Player[] = useSelector((state: State) => state.players);
-  let playersSorted:Player[] = [...Players]
+
+
+
+  const Players = useSelector((state: State) => state.players);
+  let playersSorted = [...Players]
   let bestPlayers:Player[] = [];
   
   playersSorted.sort((a, b) => b.score - a.score)
@@ -19,6 +22,7 @@ const HighscoreTable: React.FC<any> = () => {
 
   return (
     <div className="hs-wrapper">
+      <h2 className="hs-header">HIGHSCORE</h2>
       {bestPlayers.map((player) => (
         <HighscoreElement player={player} />
       ))}

@@ -40,7 +40,7 @@ const WinOverlay: React.FC = () => {
     return(
         <div className={DisplayOverlay}>
             <div className="win-overlay-box">
-                <h2>Gewonnen!</h2>
+                <h2 className="win-overlay-header">Gewonnen!</h2>
                 <HighscoreTable/>
                 <h4>Deine Punktzahl: {eatenCoins}</h4>
                 <button id="win-restart-game">
