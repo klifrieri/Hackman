@@ -1,0 +1,29 @@
+.hs-wrapper{
+    display: block;
+    width: 100%;    
+}
+.hs-element{
+    display: flex;
+    flex-direction: row;
+    color: white;
+    width: 99%;
+    justify-content: space-between;
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+}
+.hs-element:last-of-type{
+    border-bottom: 2px solid white;
+}
+.hs-element p {
+    width: 33%;
+    text-align: center;
+    font-size: 1.25rem;
+}
+.hs-header{
+    margin: 10% 0 7.5% 0;    
+    font-size: 2.25rem;
+    color: white;
+    text-align: center;
+    text-decoration: underline;
+}

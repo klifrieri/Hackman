@@ -31,6 +31,7 @@ import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueG
 import Coordinate from "../../Types/Coordinate";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import { resetBlueGhost, resetGreenGhost, resetOrangeGhost, resetRedGhost } from "../../UtilityFunctions/resetGhosts";
+import data from "../../data.json"
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   CharacterIdentifier.Hackman,
@@ -44,6 +45,8 @@ const blueGhost = new GhostCharacter(CharacterIdentifier.BlueGhost, 9, 11, Movem
 const ghosts: GhostCharacter[] = [greenGhost, redGhost, orangeGhost, blueGhost];
 let block: number[] = [];
 
+
+
 const gameFieldSlice = createSlice({
   name: "game",
   initialState: {
@@ -56,12 +59,12 @@ const gameFieldSlice = createSlice({
     options: false,
     gameOver: false,
     win: false,
-    points: 0
+    points: 0,
+    players: data
   },
   reducers: {
     gameTick: (state) => {
       if (!state.isPaused) {
-
         let gameFieldForAll: React.FC<any>[][] = state.gameField.slice();
         let increaseCoins: CoinValue = 0;
 
@@ -82,9 +85,7 @@ const gameFieldSlice = createSlice({
         // move Ghosts
         state.ghosts.forEach((ghost) => {
           if (ghost.shallTick) {
-
             if (ghost.isSmart && !ghost.isEdible) {
-
               ghost.movementDirection = getMovementDirectionByPosition(
                 state.hackman.position,
                 ghost.position
@@ -101,9 +102,7 @@ const gameFieldSlice = createSlice({
                 ghosts,
                 state.hackman
               );
-
-            }
-            else if(ghost.isSmart && ghost.isEdible){
+            } else if (ghost.isSmart && ghost.isEdible) {
               ghost.movementDirection = getMovementDirectionByPositionRevert(
                 state.hackman.position,
                 ghost.position
@@ -120,14 +119,18 @@ const gameFieldSlice = createSlice({
                 ghosts,
                 state.hackman
               );
-            }
-            else {
+            } else {
               // dumb move
-              if (ghost.needsNewCountDeclaration() || ghost.moveable === Moveable.No) {
-                const canMoveDirections: { direction: Direction; bewegungMoeglich: Moveable; }[] = getPossibleDirections(gameFieldForAll, ghost.position);
+              if (
+                ghost.needsNewCountDeclaration() ||
+                ghost.moveable === Moveable.No
+              ) {
+                const canMoveDirections: {
+                  direction: Direction;
+                  bewegungMoeglich: Moveable;
+                }[] = getPossibleDirections(gameFieldForAll, ghost.position);
                 ghost = setRandomDirectionAndCount(ghost, canMoveDirections);
-              }
-              else {
+              } else {
                 ghost.moveable = canMove(
                   gameFieldForAll,
                   ghost.position,
@@ -150,11 +153,10 @@ const gameFieldSlice = createSlice({
         // increase eaten coins
         if (increaseCoins === CoinValue.One) {
           state.eatenCoins++;
-          state.points++
-        }
-        else if (increaseCoins === CoinValue.Five) {
+          state.points++;
+        } else if (increaseCoins === CoinValue.Five) {
           state.eatenCoins += 5;
-          state.points++
+          state.points++;
           state.ghosts.forEach((ghost) => {
             ghost.isEdible = true;
           });
@@ -168,7 +170,6 @@ const gameFieldSlice = createSlice({
           state.ghosts
         );
         state.gameField = gameFieldForAll;
-
       }
     },
     changeIsMoveableHackman: (state, payload: PayloadAction<Direction>) => {
@@ -211,7 +212,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y + 1][
-            state.hackman.position.x
+              state.hackman.position.x
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -229,7 +230,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y - 1][
-            state.hackman.position.x
+              state.hackman.position.x
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -247,7 +248,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][
-            state.hackman.position.x + 1
+              state.hackman.position.x + 1
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -264,7 +265,7 @@ const gameFieldSlice = createSlice({
           if (
             state.hackman.canSetBlock &&
             state.gameField[state.hackman.position.y][
-            state.hackman.position.x - 1
+              state.hackman.position.x - 1
             ] === Empty
           ) {
             state.gameField = generateBlockOnGameField(
@@ -282,31 +283,51 @@ const gameFieldSlice = createSlice({
     },
     hackmanJump: (state) => {
       if (state.hackman.canJump) {
-        if (state.hackman.moveable !== Moveable.No && state.hackman.moveable !== Moveable.Gate) {
+        if (
+          state.hackman.moveable !== Moveable.No &&
+          state.hackman.moveable !== Moveable.Gate
+        ) {
           let positionToCheck: Coordinate = new Coordinate(100, 100);
           switch (state.hackman.direction) {
             case Direction.Up: {
-              positionToCheck = new Coordinate(state.hackman.position.y - 2, state.hackman.position.x);
+              positionToCheck = new Coordinate(
+                state.hackman.position.y - 2,
+                state.hackman.position.x
+              );
               break;
             }
             case Direction.Right: {
-              positionToCheck = new Coordinate(state.hackman.position.y, state.hackman.position.x + 2);
+              positionToCheck = new Coordinate(
+                state.hackman.position.y,
+                state.hackman.position.x + 2
+              );
               break;
             }
             case Direction.Down: {
-              positionToCheck = new Coordinate(state.hackman.position.y + 2, state.hackman.position.x);
+              positionToCheck = new Coordinate(
+                state.hackman.position.y + 2,
+                state.hackman.position.x
+              );
               break;
             }
             case Direction.Left: {
-              positionToCheck = new Coordinate(state.hackman.position.y, state.hackman.position.x - 2);
+              positionToCheck = new Coordinate(
+                state.hackman.position.y,
+                state.hackman.position.x - 2
+              );
               break;
             }
             default:
               break;
           }
           if (positionToCheck.x !== 100) {
-            if (state.gameField[positionToCheck.y][positionToCheck.x] === Coin || state.gameField[positionToCheck.y][positionToCheck.x] === Empty) {
-              state.gameField[state.hackman.position.y][state.hackman.position.x] = Empty;
+            if (
+              state.gameField[positionToCheck.y][positionToCheck.x] === Coin ||
+              state.gameField[positionToCheck.y][positionToCheck.x] === Empty
+            ) {
+              state.gameField[state.hackman.position.y][
+                state.hackman.position.x
+              ] = Empty;
               state.gameField[positionToCheck.y][positionToCheck.x] = Hackman;
               state.hackman.positionY = positionToCheck.y;
               state.hackman.positionX = positionToCheck.x;
@@ -316,47 +337,52 @@ const gameFieldSlice = createSlice({
                 state.hackman.direction,
                 state.ghosts
               );
-              if (state.gameField[positionToCheck.y][positionToCheck.x] === Coin) {
+              if (
+                state.gameField[positionToCheck.y][positionToCheck.x] === Coin
+              ) {
                 state.eatenCoins++;
               }
               state.hackman.canJump = false;
-            }
-            else if (state.gameField[positionToCheck.y][positionToCheck.x] === GreenGhost) {
+            } else if (
+              state.gameField[positionToCheck.y][positionToCheck.x] ===
+              GreenGhost
+            ) {
               if (greenGhost.isEdible) {
                 resetGreenGhost(state.gameField, state.ghosts[0]);
                 state.eatenCoins += 10;
-              }
-              else {
+              } else {
                 ghostEatsHackman(state.gameField, state.ghosts, state.hackman);
               }
               state.hackman.canJump = false;
-            }
-            else if (state.gameField[positionToCheck.y][positionToCheck.x] === RedGhost) {
+            } else if (
+              state.gameField[positionToCheck.y][positionToCheck.x] === RedGhost
+            ) {
               if (greenGhost.isEdible) {
                 resetRedGhost(state.gameField, state.ghosts[1]);
                 state.eatenCoins += 10;
-              }
-              else {
+              } else {
                 ghostEatsHackman(state.gameField, state.ghosts, state.hackman);
               }
               state.hackman.canJump = false;
-            }
-            else if (state.gameField[positionToCheck.y][positionToCheck.x] === OrangeGhost) {
+            } else if (
+              state.gameField[positionToCheck.y][positionToCheck.x] ===
+              OrangeGhost
+            ) {
               if (greenGhost.isEdible) {
                 resetOrangeGhost(state.gameField, state.ghosts[2]);
                 state.eatenCoins += 10;
-              }
-              else {
+              } else {
                 ghostEatsHackman(state.gameField, state.ghosts, state.hackman);
               }
               state.hackman.canJump = false;
-            }
-            else if (state.gameField[positionToCheck.y][positionToCheck.x] === BlueGhost) {
+            } else if (
+              state.gameField[positionToCheck.y][positionToCheck.x] ===
+              BlueGhost
+            ) {
               if (greenGhost.isEdible) {
                 resetBlueGhost(state.gameField, state.ghosts[3]);
                 state.eatenCoins += 10;
-              }
-              else {
+              } else {
                 ghostEatsHackman(state.gameField, state.ghosts, state.hackman);
               }
               state.hackman.canJump = false;
@@ -366,10 +392,10 @@ const gameFieldSlice = createSlice({
       }
     },
     pauseGame: (state, payload: PayloadAction<boolean>) => {
-      state.isPaused = payload.payload;      
+      state.isPaused = payload.payload;
     },
-    openOptions: (state, payload:PayloadAction<boolean>) => {
-      state.options = payload.payload
+    openOptions: (state, payload: PayloadAction<boolean>) => {
+      state.options = payload.payload;
     },
     deleteBlock: (state) => {
       state.gameField = setGameField(
@@ -383,26 +409,25 @@ const gameFieldSlice = createSlice({
       state.hackman.canJump = true;
     },
     openGameOver: (state, payload: PayloadAction<boolean>) => {
-      state.gameOver = payload.payload
+      state.gameOver = payload.payload;
     },
     restartGame: (state) => {
-      state.eatenCoins = 0
-      state.hackman.remainingLifes = 3
-      state.gameOver = false
-      state.win = false
-      state.isPaused = false
-      state.points = 0
-      state.hackman.resetToStartPosition(0, 0)
-      for(let i = 0; i < ghosts.length; i++){
-        ghosts[i].resetToStartPosition(0,0)
+      state.eatenCoins = 0;
+      state.hackman.remainingLifes = 3;
+      state.gameOver = false;
+      state.win = false;
+      state.isPaused = false;
+      state.points = 0;
+      state.hackman.resetToStartPosition(0, 0);
+      for (let i = 0; i < ghosts.length; i++) {
+        ghosts[i].resetToStartPosition(0, 0);
       }
-      state.gameField = SpielfeldLayout()
+      state.gameField = SpielfeldLayout();
     },
     winGame: (state) => {
       state.win = true;
-      state.isPaused = true
-    }
-    
+      state.isPaused = true;
+    },
   },
 });
 

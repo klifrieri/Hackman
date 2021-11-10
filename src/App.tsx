@@ -38,11 +38,12 @@ const App: React.FC = () => {
   const canJump = useSelector((state: State) => state.hackman.canJump);
   const options = useSelector((state: State) => state.options);
   const points = useSelector((state: State) => state.points);
+  const win = useSelector((state:State) => state.win)
 
   const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (points >= allPoints) {
+    if (points === allPoints - 1) {
       store.dispatch(winGame);
     }
   }, [points]);
@@ -92,7 +93,7 @@ const App: React.FC = () => {
   }, [canJump]);
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
-    if (!isPaused) {
+    if (!isPaused && !win) {
       if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
         store.dispatch(changeIsMoveableHackman(Direction.Up));
       } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
@@ -111,7 +112,7 @@ const App: React.FC = () => {
       } else if (e.code === "ShiftLeft") {
         store.dispatch(hackmanJump);
       } else return;
-    } else if (isPaused && !options) {
+    } else if (isPaused && !options && !win) {
       if (e.key.toLowerCase() === "p") {
         store.dispatch(pauseGame(!isPaused));
       }
