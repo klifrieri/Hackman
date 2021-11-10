@@ -1,9 +1,9 @@
 import "./gameOverOverlay.css"
 import { useDispatch, useSelector } from "react-redux"
-import { State, store } from "../../State/store"
+import { State, store } from "../../../State/store"
 import { useEffect, useState } from "react"
 import { bindActionCreators } from "redux"
-import gameFieldSlice from "../../State/slices/gameFieldSlice"
+import gameFieldSlice from "../../../State/slices/gameFieldSlice"
 
 
 const GameOver:React.FC = () => {
