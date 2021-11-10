@@ -1,4 +1,3 @@
-
 import Coin from "../Components/GameFieldComponent/FieldComponents/Path/Coin";
 import Snack from "../Components/GameFieldComponent/FieldComponents/Path/Snack";
 

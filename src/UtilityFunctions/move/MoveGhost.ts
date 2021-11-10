@@ -17,10 +17,7 @@ import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate"
 
 
 
-function ghostMovesRight(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesRight( gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   if (gameField[ghost.position.y][ghost.position.x + 1] === Hackman) {
     ghost.cachedField = Empty;
@@ -44,17 +41,13 @@ function ghostMovesRight(
       break;
   }
   ghost.positionX = ghost.position.x + 1;
-  return gameField;
 }
 
-function ghostMovesDown(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesDown(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>) {
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   if (gameField[ghost.position.y + 1][ghost.position.x] === Hackman) {
     ghost.cachedField = Empty;
-  } 
+  }
   else {
     ghost.cachedField = gameField[ghost.position.y + 1][ghost.position.x];
   }
@@ -75,13 +68,9 @@ function ghostMovesDown(
       break;
   }
   ghost.positionY = ghost.position.y + 1;
-  return gameField;
 }
 
-function ghostMovesLeft(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesLeft(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   if (gameField[ghost.position.y][ghost.position.x - 1] === Hackman) {
     ghost.cachedField = Empty;
@@ -105,13 +94,9 @@ function ghostMovesLeft(
       break;
   }
   ghost.positionX = ghost.position.x - 1;
-  return gameField;
 }
 
-function ghostMovesUp(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesUp(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   if (gameField[ghost.position.y - 1][ghost.position.x] === Hackman) {
     ghost.cachedField = Empty;
@@ -135,13 +120,9 @@ function ghostMovesUp(
       break;
   }
   ghost.positionY = ghost.position.y - 1;
-  return gameField;
 }
 
-function ghostMovesRightTroughPortal(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesRightTroughPortal(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
   ghost.cachedField = gameField[ghost.position.y][0];
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   switch (ghost.name) {
@@ -161,13 +142,9 @@ function ghostMovesRightTroughPortal(
       break;
   }
   ghost.positionX = 0;
-  return gameField;
 }
 
-function ghostMovesDownTroughPortal(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesDownTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>){
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   ghost.cachedField = gameField[0][ghost.position.x];
   switch (ghost.name) {
@@ -187,13 +164,9 @@ function ghostMovesDownTroughPortal(
       break;
   }
   ghost.positionY = 0;
-  return gameField;
 }
 
-function ghostMovesLeftTroughPortal(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesLeftTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>) {
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   ghost.cachedField = gameField[ghost.position.y][gameField[0].length - 1];
   switch (ghost.name) {
@@ -213,13 +186,9 @@ function ghostMovesLeftTroughPortal(
       break;
   }
   ghost.positionX = gameField[0].length - 1;
-  return gameField;
 }
 
-function ghostMovesUpTroughPortal(
-  gameField: React.FC<any>[][],
-  ghost: WritableDraft<GhostCharacter>
-): React.FC<any>[][] {
+function ghostMovesUpTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>){
   gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
   ghost.cachedField = gameField[gameField.length - 1][ghost.position.x];
   switch (ghost.name) {
@@ -239,289 +208,235 @@ function ghostMovesUpTroughPortal(
       break;
   }
   ghost.positionY = gameField.length - 1;
-  return gameField;
 }
 
-function ghostGoOutOfCage(ghost:WritableDraft<GhostCharacter>, gamefield:React.FC<{}>[][], ghosts:WritableDraft<GhostCharacter>[]){
+function ghostGoOutOfCage(ghost: WritableDraft<GhostCharacter>, gamefield: React.FC<{}>[][], ghosts: WritableDraft<GhostCharacter>[]) {
   let destination = new Coordinate(5, 10)
-  if(ghost.position.y === destination.y){
-	  ghost.inCage = false
+  if (ghost.position.y === destination.y) {
+    ghost.inCage = false
   }
-  else if(canMoveUp(gamefield, ghost.position, ghosts) === Moveable.Yes){
-	  ghost.position.y -= 1 
-	  ghost.direction = Direction.Up
-	  switch (ghost.name) {
-        case CharacterIdentifier.GreenGhost:
-          gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
-          break;
-        case CharacterIdentifier.RedGhost:
-          gamefield[ghost.position.y][ghost.position.x] = RedGhost;
-          break;
-        case CharacterIdentifier.OrangeGhost:
-          gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
-          break;
-        case CharacterIdentifier.BlueGhost:
-          gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
-          break;
-      }
-	  gamefield[ghost.position.y + 1][ghost.position.x] = Empty;
-  }
-  else if (canMoveLeft(gamefield, ghost.position, ghosts) === Moveable.Yes){
-	  ghost.position.x -= 1
-	  ghost.direction = Direction.Left
-	  switch (ghost.name) {
-        case CharacterIdentifier.GreenGhost:
-          gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
-          break;
-        case CharacterIdentifier.RedGhost:
-          gamefield[ghost.position.y][ghost.position.x] = RedGhost;
-          break;
-        case CharacterIdentifier.OrangeGhost:
-          gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
-          break;
-        case CharacterIdentifier.BlueGhost:
-          gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
-          break;
-      }
-	  gamefield[ghost.position.y][ghost.position.x + 1] = Empty;
-  }
-  else if (canMoveRight(gamefield, ghost.position, ghosts) === Moveable.Yes){
-	  ghost.position.x += 1
-	  ghost.direction = Direction.Right
-	  switch (ghost.name) {
-        case CharacterIdentifier.GreenGhost:
-          gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
-          break;
-        case CharacterIdentifier.RedGhost:
-          gamefield[ghost.position.y][ghost.position.x] = RedGhost;
-          break;
-        case CharacterIdentifier.OrangeGhost:
-          gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
-          break;
-        case CharacterIdentifier.BlueGhost:
-          gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
-          break;
-      }
-	  gamefield[ghost.position.y][ghost.position.x - 1] = Empty;
-  }
-  else if (canMoveDown(gamefield, ghost.position, ghosts) === Moveable.Yes){
-	ghost.position.y += 1
-	ghost.direction = Direction.Down
-	switch (ghost.name) {
-        case CharacterIdentifier.GreenGhost:
-          gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
-          break;
-        case CharacterIdentifier.RedGhost:
-          gamefield[ghost.position.y][ghost.position.x] = RedGhost;
-          break;
-        case CharacterIdentifier.OrangeGhost:
-          gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
-          break;
-        case CharacterIdentifier.BlueGhost:
-          gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
-          break;
-      }
-	  gamefield[ghost.position.y - 1][ghost.position.x] = Empty;
-  }
-  gamefield[destination.y + 1][destination.x] = Gate  
-}
-
-function ghostEatsHackman(
-  gameField: React.FC<any>[][],
-  ghosts: WritableDraft<GhostCharacter>[],
-  hackman: WritableDraft<HackmanCharacter>
-) {
-  let gameFieldCopy = gameField.slice();
-
-  ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
-    gameFieldCopy[ghost.position.y][ghost.position.x] = ghost.cachedField;
-    ghost.resetToStartPosition(0, 0);
+  else if (canMoveUp(gamefield, ghost.position, ghosts) === Moveable.Yes) {
+    ghost.position.y -= 1
+    ghost.direction = Direction.Up
     switch (ghost.name) {
       case CharacterIdentifier.GreenGhost:
-        gameFieldCopy[ghost.position.y][ghost.position.x] = GreenGhost;
+        gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
         break;
       case CharacterIdentifier.RedGhost:
-        gameFieldCopy[ghost.position.y][ghost.position.x] = RedGhost;
+        gamefield[ghost.position.y][ghost.position.x] = RedGhost;
         break;
       case CharacterIdentifier.OrangeGhost:
-        gameFieldCopy[ghost.position.y][ghost.position.x] = OrangeGhost;
+        gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
         break;
       case CharacterIdentifier.BlueGhost:
-        gameFieldCopy[ghost.position.y][ghost.position.x] = BlueGhost;
+        gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
+        break;
+    }
+    gamefield[ghost.position.y + 1][ghost.position.x] = Empty;
+  }
+  else if (canMoveLeft(gamefield, ghost.position, ghosts) === Moveable.Yes) {
+    ghost.position.x -= 1
+    ghost.direction = Direction.Left
+    switch (ghost.name) {
+      case CharacterIdentifier.GreenGhost:
+        gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
+        break;
+      case CharacterIdentifier.RedGhost:
+        gamefield[ghost.position.y][ghost.position.x] = RedGhost;
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
+        break;
+      case CharacterIdentifier.BlueGhost:
+        gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
+        break;
+    }
+    gamefield[ghost.position.y][ghost.position.x + 1] = Empty;
+  }
+  else if (canMoveRight(gamefield, ghost.position, ghosts) === Moveable.Yes) {
+    ghost.position.x += 1
+    ghost.direction = Direction.Right
+    switch (ghost.name) {
+      case CharacterIdentifier.GreenGhost:
+        gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
+        break;
+      case CharacterIdentifier.RedGhost:
+        gamefield[ghost.position.y][ghost.position.x] = RedGhost;
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
+        break;
+      case CharacterIdentifier.BlueGhost:
+        gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
+        break;
+    }
+    gamefield[ghost.position.y][ghost.position.x - 1] = Empty;
+  }
+  else if (canMoveDown(gamefield, ghost.position, ghosts) === Moveable.Yes) {
+    ghost.position.y += 1
+    ghost.direction = Direction.Down
+    switch (ghost.name) {
+      case CharacterIdentifier.GreenGhost:
+        gamefield[ghost.position.y][ghost.position.x] = GreenGhost;
+        break;
+      case CharacterIdentifier.RedGhost:
+        gamefield[ghost.position.y][ghost.position.x] = RedGhost;
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        gamefield[ghost.position.y][ghost.position.x] = OrangeGhost;
+        break;
+      case CharacterIdentifier.BlueGhost:
+        gamefield[ghost.position.y][ghost.position.x] = BlueGhost;
+        break;
+    }
+    gamefield[ghost.position.y - 1][ghost.position.x] = Empty;
+  }
+  gamefield[destination.y + 1][destination.x] = Gate
+}
+
+function ghostEatsHackman(gameField: React.FC<any>[][], ghosts: WritableDraft<GhostCharacter>[], hackman: WritableDraft<HackmanCharacter>) {
+  ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
+    gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
+    ghost.resetToStartPosition();
+    switch (ghost.name) {
+      case CharacterIdentifier.GreenGhost:
+        gameField[ghost.position.y][ghost.position.x] = GreenGhost;
+        break;
+      case CharacterIdentifier.RedGhost:
+        gameField[ghost.position.y][ghost.position.x] = RedGhost;
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        gameField[ghost.position.y][ghost.position.x] = OrangeGhost;
+        break;
+      case CharacterIdentifier.BlueGhost:
+        gameField[ghost.position.y][ghost.position.x] = BlueGhost;
         break;
     }
   });
-  let cachedHackmanPositionX: number = hackman.position.x;
-  let cachedHackmanPositionY: number = hackman.position.y;
   hackman.hackmanMoved = false;
+  gameField[hackman.lastPosition.y][hackman.lastPosition.x] = Empty;
   hackman.resetToStartAndDecreaseLife();
-  if (hackman.remainingLifes > 0) {
-    gameFieldCopy[hackman.position.y][hackman.position.x] = Hackman;
-    gameFieldCopy[cachedHackmanPositionY][cachedHackmanPositionX] = Empty;
-  } else {
-    //gameField = SpielfeldLayout();
-  }
-
-  return gameFieldCopy;
+  // if (hackman.remainingLifes > 0) {
+    gameField[hackman.position.y][hackman.position.x] = Hackman;
+  // }
 }
 
-function InvokeMoveGhostByDirection(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>,) {
+function InvokeMoveGhostByDirection(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>) {
   switch (ghost.direction) {
     case Direction.Up: {
-      gameField = ghostMovesUp(gameField, ghost);
+      ghostMovesUp(gameField, ghost);
       break;
     }
     case Direction.Down: {
-      gameField = ghostMovesDown(gameField, ghost);
+      ghostMovesDown(gameField, ghost);
       break;
     }
     case Direction.Left: {
-      gameField = ghostMovesLeft(gameField, ghost);
+      ghostMovesLeft(gameField, ghost);
       break;
     }
     case Direction.Right: {
-      gameField = ghostMovesRight(gameField, ghost);
+      ghostMovesRight(gameField, ghost);
       break;
     }
   }
-  return gameField;
 }
 
 //#region move ghost methods
 function moveGhostDumb(gameField: React.FC<{}>[][], actualGhost: WritableDraft<GhostCharacter>, ghosts: WritableDraft<GhostCharacter>[], hackman: WritableDraft<HackmanCharacter>) {
   actualGhost.incrementCount();
-  if(actualGhost.inCage){
+  if (actualGhost.inCage) {
     ghostGoOutOfCage(actualGhost, gameField, ghosts)
   }
-  else{
-
-	  if (actualGhost.moveable === Moveable.Yes) {
-		gameField = InvokeMoveGhostByDirection(gameField, actualGhost);
-	  }
-	  else if (actualGhost.moveable === Moveable.Hackman) {
-  		gameField = InvokeMoveGhostByDirection(gameField, actualGhost);
-  		//gameField = ghostEatsHackman(gameField, ghosts, hackman);
-  	
-  		ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
-  		  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  		  ghost.resetToStartPosition(0, 0);
-  		  switch (ghost.name) {
-  			case CharacterIdentifier.GreenGhost:
-  			  gameField[ghost.position.y][ghost.position.x] = GreenGhost;
-  			  break;
-  			case CharacterIdentifier.RedGhost:
-  			  gameField[ghost.position.y][ghost.position.x] = RedGhost;
-  			  break;
-  			case CharacterIdentifier.OrangeGhost:
-  			  gameField[ghost.position.y][ghost.position.x] = OrangeGhost;
-  			  break;
-  			case CharacterIdentifier.BlueGhost:
-  			  gameField[ghost.position.y][ghost.position.x] = BlueGhost;
-  			  break;
-  		  }
-  		});
-  		hackman.hackmanMoved = false;
-  		hackman.resetToStartAndDecreaseLife();
-  		if (hackman.remainingLifes > 0) {
-  		  gameField[hackman.position.y][hackman.position.x] = Hackman;
-  		}
-  		else {
-  		  //gameField = SpielfeldLayout();
-  		}
-	  }
-	  else if (actualGhost.moveable === Moveable.Portal) {
-		switch (actualGhost.direction) {
-		  case Direction.Up: {
-			gameField = ghostMovesUpTroughPortal(gameField, actualGhost);
-			break;
-		  }
-		  case Direction.Down: {
-			gameField = ghostMovesDownTroughPortal(gameField, actualGhost);
-			break;
-		  }
-		  case Direction.Left: {
-			gameField = ghostMovesLeftTroughPortal(gameField, actualGhost);
-			break;
-		  }
-		  case Direction.Right: {
-			gameField = ghostMovesRightTroughPortal(gameField, actualGhost);
-			break;
-		  }
-		}
-	  }
+  else {
+    if (actualGhost.moveable === Moveable.Yes) {
+      InvokeMoveGhostByDirection(gameField, actualGhost);
+    }
+    else if (actualGhost.moveable === Moveable.Hackman) {
+      InvokeMoveGhostByDirection(gameField, actualGhost);
+      ghostEatsHackman(gameField, ghosts, hackman);
+    }
+    else if (actualGhost.moveable === Moveable.Portal) {
+      switch (actualGhost.direction) {
+        case Direction.Up: {
+          ghostMovesUpTroughPortal(gameField, actualGhost);
+          break;
+        }
+        case Direction.Down: {
+          ghostMovesDownTroughPortal(gameField, actualGhost);
+          break;
+        }
+        case Direction.Left: {
+          ghostMovesLeftTroughPortal(gameField, actualGhost);
+          break;
+        }
+        case Direction.Right: {
+          ghostMovesRightTroughPortal(gameField, actualGhost);
+          break;
+        }
+      }
+    }
   }
-  return gameField;
 }
 
 
 function moveGhostSmart(gameField: React.FC<{}>[][], actualGhost: WritableDraft<GhostCharacter>, ghosts: WritableDraft<GhostCharacter>[], hackman: WritableDraft<HackmanCharacter>) {
-  let gameFieldCopy: React.FC<{}>[][] = gameField.slice();
   let canMove: Moveable;
-
-  if(actualGhost.inCage){
+  if (actualGhost.inCage) {
     ghostGoOutOfCage(actualGhost, gameField, ghosts)
   }
-  else{
-	  switch (actualGhost.direction) {
-		case Direction.Up:
-	
-		  canMove = canMoveUp(gameFieldCopy, actualGhost.position, ghosts, actualGhost.isEdible);
-		  if (canMove === Moveable.Yes) {
-			gameFieldCopy = ghostMovesUp(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Portal) {
-			gameFieldCopy = ghostMovesUpTroughPortal(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Hackman) {
-			gameFieldCopy = ghostEatsHackman(gameFieldCopy, ghosts, hackman);
-		  }
-		  console.debug(canMove);
-	
-		  break;
-	
-		case Direction.Down:
-	
-		  canMove = canMoveDown(gameFieldCopy, actualGhost.position, ghosts, actualGhost.isEdible);
-		  if (canMove === Moveable.Yes) {
-			gameFieldCopy = ghostMovesDown(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Portal) {
-			gameFieldCopy = ghostMovesDownTroughPortal(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Hackman) {
-			gameFieldCopy = ghostEatsHackman(gameFieldCopy, ghosts, hackman);
-		  }
-		  console.debug(canMove);
-	
-		  break;
-	
-		case Direction.Right:
-	
-		  canMove = canMoveRight(gameFieldCopy, actualGhost.position, ghosts, actualGhost.isEdible);
-		  if (canMove === Moveable.Yes) {
-			gameFieldCopy = ghostMovesRight(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Portal) {
-			gameFieldCopy = ghostMovesRightTroughPortal(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Hackman) {
-			gameFieldCopy = ghostEatsHackman(gameFieldCopy, ghosts, hackman);
-		  }
-		  console.debug(canMove);
-	
-		  break;
-	
-		case Direction.Left:
-	
-		  canMove = canMoveLeft(gameFieldCopy, actualGhost.position, ghosts, actualGhost.isEdible);
-		  if (canMove === Moveable.Yes) {
-			gameFieldCopy = ghostMovesLeft(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Portal) {
-			gameFieldCopy = ghostMovesLeftTroughPortal(gameFieldCopy, actualGhost);
-		  } else if (canMove === Moveable.Hackman) {
-			gameFieldCopy = ghostEatsHackman(gameFieldCopy, ghosts, hackman);
-		  }
-		  console.debug(canMove);
-	
-		  break;
-	  }
+  else {
+    switch (actualGhost.direction) {
+      case Direction.Up:
+        canMove = canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        if (canMove === Moveable.Yes) {
+          ghostMovesUp(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Portal) {
+          ghostMovesUpTroughPortal(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Hackman) {
+          ghostEatsHackman(gameField, ghosts, hackman);
+        }
+        break;
+      case Direction.Down:
+        canMove = canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        if (canMove === Moveable.Yes) {
+          ghostMovesDown(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Portal) {
+          ghostMovesDownTroughPortal(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Hackman) {
+          ghostEatsHackman(gameField, ghosts, hackman);
+        }
+        break;
+      case Direction.Right:
+        canMove = canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        if (canMove === Moveable.Yes) {
+          ghostMovesRight(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Portal) {
+          ghostMovesRightTroughPortal(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Hackman) {
+          ghostEatsHackman(gameField, ghosts, hackman);
+        }
+        break;
+      case Direction.Left:
+        canMove = canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        if (canMove === Moveable.Yes) {
+          ghostMovesLeft(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Portal) {
+          ghostMovesLeftTroughPortal(gameField, actualGhost);
+        }
+        else if (canMove === Moveable.Hackman) {
+          ghostEatsHackman(gameField, ghosts, hackman);
+        }
+        break;
+    }
   }
-
-  return gameFieldCopy;
 }
 
 //#endregion

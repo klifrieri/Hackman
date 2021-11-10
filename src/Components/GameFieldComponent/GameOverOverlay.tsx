@@ -9,7 +9,7 @@ import gameFieldSlice from "../../State/slices/gameFieldSlice"
 const GameOver:React.FC = () => {
     
     const gameOver: boolean = useSelector((state: State) => state.gameOver);
-    const eatenCoins: number = useSelector((state:State) => state.eatenCoins)
+    const score: number = useSelector((state:State) => state.score)
     const [Message, SetMessage] = useState("Game Over")
     const [DisplayOverlay, SetDisplayOverlay] = useState("go-overlay-wrapper go-hide-overlay")
 
@@ -25,15 +25,15 @@ const GameOver:React.FC = () => {
     restartButton?.addEventListener("click", () => {
         store.dispatch(restartGame)
     })
-
+//Score
     useEffect(() => {        
         if(gameOver){
             SetDisplayOverlay("go-overlay-wrapper go-show-overlay")
-            if(eatenCoins > 130)
+            if(score > 130)
             SetMessage("Game Over")
-            else if(eatenCoins < 130 && eatenCoins > 91)
+            else if(score < 130 && score > 91)
                 SetMessage("Das kannst du besser!")
-            else if(eatenCoins < 90)
+            else if(score < 90)
                 SetMessage("Du hast Nachrang. Noob.")
         }
         else

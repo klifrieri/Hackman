@@ -89,8 +89,8 @@ class GhostCharacter extends Character {
   }
 
 
-  public override resetToStartPosition(y: number, x: number) {
-    super.resetToStartPosition(y, x);
+  public override resetToStartPosition() {
+    super.resetToStartPosition();
     this.isEdible = false;
     this.cachedField = Empty;
     this.resetCount();

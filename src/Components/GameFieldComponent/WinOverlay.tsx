@@ -9,7 +9,7 @@ import './winOverlay.css';
 const WinOverlay: React.FC = () => {
 
     const win: boolean = useSelector((state: State) => state.win);
-    const eatenCoins: number = useSelector((state:State) => state.eatenCoins)
+    const score: number = useSelector((state:State) => state.score)
 
     const [DisplayOverlay, SetDisplayOverlay] = useState("win-overlay-wrapper show-overlay")
 
@@ -40,7 +40,7 @@ const WinOverlay: React.FC = () => {
         <div className={DisplayOverlay}>
             <div className="win-overlay-box">
                 <h2>Win! Win! Win!</h2>
-                <h4>Deine Punktzahl: {eatenCoins}</h4>
+                <h4>Deine Punktzahl: {score}</h4>
                 <button id="win-restart-game">
                     Neues Spiel
                 </button>

@@ -168,10 +168,15 @@ const GameField: React.FC = () => {
 
   //Gametick interval
   useEffect(() => {
-    const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => store.dispatch(gameTick), 250);
-    intervalStart();
+    const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => store.dispatch(gameTick), 1000);
+    if(hackmanMoved){
+      intervalStart();
+    }
+    else{
+      intervalStop();
+    }
     return () => intervalStop();
-  }, [])
+  }, [hackmanMoved])
 
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === HorizontalWall) return <HorizontalWall key={key} />;

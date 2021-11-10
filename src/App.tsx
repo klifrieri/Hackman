@@ -37,15 +37,15 @@ const App: React.FC = () => {
   const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
   const canJump = useSelector((state: State) => state.hackman.canJump);
   const options = useSelector((state: State) => state.options);
-  const points = useSelector((state: State) => state.points);
+  const eatenCoins = useSelector((state: State) => state.eatenCoins);
 
   const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (points >= allPoints) {
+    if (eatenCoins >= allPoints) {
       store.dispatch(winGame);
     }
-  }, [points]);
+  }, [eatenCoins]);
 
   useEffect(() => {
     if (remainingLives === 0) {

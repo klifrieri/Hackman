@@ -7,6 +7,7 @@ enum Moveable {
     OrangeGhostEdible,
     RedGhostEdible,
     Hackman,
+    Ghost,
     Gate
 }
 

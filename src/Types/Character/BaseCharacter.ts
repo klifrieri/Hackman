@@ -10,7 +10,7 @@ abstract class BaseCharacter {
   }
   private _initialPosition: Coordinate;
 
-  private _position: Coordinate;
+  protected _position: Coordinate;
   public set positionX(value: number) {
     this._position.x = value;
   }
@@ -38,9 +38,9 @@ abstract class BaseCharacter {
     return this._moveable;
   }
 
-  public resetToStartPosition(y: number, x: number) {
-    this._position.x = this._initialPosition.x + x;
-    this._position.y = this._initialPosition.y + y;
+  public resetToStartPosition() {
+    this._position.x = this._initialPosition.x;
+    this._position.y = this._initialPosition.y;
     this.moveable = Moveable.No;
     this._direction = Direction.Nothing;
   }
