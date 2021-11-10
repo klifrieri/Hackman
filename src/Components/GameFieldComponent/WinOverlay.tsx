@@ -11,7 +11,7 @@ const WinOverlay: React.FC = () => {
     const win: boolean = useSelector((state: State) => state.win);
     const eatenCoins: number = useSelector((state:State) => state.eatenCoins)
 
-    const [DisplayOverlay, SetDisplayOverlay] = useState("win-overlay-wrapper show-overlay")
+    const [DisplayOverlay, SetDisplayOverlay] = useState("win-overlay-wrapper hide-overlay")
 
     let restartButton = document.getElementById("win-restart-game")
 
