@@ -14,6 +14,7 @@ import { canMoveDown, canMoveLeft, canMoveRight, canMoveUp } from "./CanMove";
 import Coordinate from "../../Types/Coordinate";
 import React from "react";
 import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
+import { getHackmanIndex } from "../../State/slices/gameFieldSliceHelper";
 
 
 
@@ -314,7 +315,9 @@ function ghostEatsHackman(gameField: React.FC<any>[][], ghosts: WritableDraft<Gh
     }
   });
   hackman.hackmanMoved = false;
-  gameField[hackman.lastPosition.y][hackman.lastPosition.x] = Empty;
+  const {y,x}=getHackmanIndex(gameField);
+    gameField[y][x] = Empty;
+
   hackman.resetToStartAndDecreaseLife();
   // if (hackman.remainingLifes > 0) {
     gameField[hackman.position.y][hackman.position.x] = Hackman;

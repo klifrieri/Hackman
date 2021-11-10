@@ -15,15 +15,15 @@ import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackma
 import MovementDirection from "../../Types/MovementDirection";
 import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
 
+const moveableYesComponents = [Coin,Empty,Snack];
+const moveableGhostComponents = [GreenGhost,BlueGhost,RedGhost,OrangeGhost];
+
 export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
   let positionValue = position.y - 1;
   if (spielFeld[positionValue] === undefined) {
     return Moveable.Portal;
   }
-
-  else if (spielFeld[positionValue][position.x] === Empty ||
-    spielFeld[positionValue][position.x] === Coin ||
-    spielFeld[positionValue][position.x] === Snack) {
+  else if (moveableYesComponents.includes(spielFeld[positionValue][position.x])) {
     return Moveable.Yes;
   }
   else if (ghosts) {
@@ -42,7 +42,7 @@ export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, gho
     else if (spielFeld[positionValue][position.x] === Gate && (ghosts[0].inCage || ghosts[1].inCage || ghosts[2].inCage || ghosts[3].inCage)) {
       return Moveable.Yes
     }
-    else if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
+    else if (spielFeld[positionValue][position.x] === Hackman) {
       return Moveable.Hackman;
     }
     else {
@@ -59,11 +59,7 @@ export function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, g
   if (spielFeld[positionValue] === undefined) {
     return Moveable.Portal;
   }
-
-
-  else if (spielFeld[positionValue][position.x] === Empty ||
-    spielFeld[positionValue][position.x] === Coin ||
-    spielFeld[positionValue][position.x] === Snack) {
+  else if (moveableYesComponents.includes(spielFeld[positionValue][position.x])) {
     return Moveable.Yes;
   }
   else if (ghosts) {
@@ -79,10 +75,10 @@ export function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, g
     else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
       return Moveable.BlueGhostEdible;
     }
-    else if (!ghosts[0].inCage || !ghosts[1].inCage || !ghosts[2].inCage || !ghosts[3].inCage) {
+    else if (spielFeld[positionValue][position.x] === Gate) {
       return Moveable.No
     }
-    else if (spielFeld[positionValue][position.x] === Hackman && !isEdibleGhost) {
+    else if (spielFeld[positionValue][position.x] === Hackman) {
       return Moveable.Hackman;
     }
     else {
@@ -100,9 +96,7 @@ export function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, g
     return Moveable.Portal;
   }
 
-  else if (spielFeld[position.y][positionValue] === Empty ||
-    spielFeld[position.y][positionValue] === Coin ||
-    spielFeld[position.y][positionValue] === Snack) {
+  else if (moveableYesComponents.includes(spielFeld[position.y][positionValue])) {
     return Moveable.Yes;
   }
   else if (ghosts) {
@@ -118,7 +112,7 @@ export function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, g
     else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
       return Moveable.BlueGhostEdible;
     }
-    else if (spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
+    else if (spielFeld[position.y][positionValue] === Hackman) {
       return Moveable.Hackman;
     }
     else {
@@ -136,9 +130,7 @@ export function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, 
     return Moveable.Portal;
   }
 
-  else if (spielFeld[position.y][positionValue] === Empty ||
-    spielFeld[position.y][positionValue] === Coin ||
-    spielFeld[position.y][positionValue] === Snack) {
+  else if (moveableYesComponents.includes(spielFeld[position.y][positionValue])) {
     return Moveable.Yes;
   }
   else if (ghosts) {
@@ -154,7 +146,7 @@ export function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, 
     else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
       return Moveable.BlueGhostEdible;
     }
-    else if (spielFeld[position.y][positionValue] === Hackman && !isEdibleGhost) {
+    else if (spielFeld[position.y][positionValue] === Hackman) {
       return Moveable.Hackman;
     }
     else {

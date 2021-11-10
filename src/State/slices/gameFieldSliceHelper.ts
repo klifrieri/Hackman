@@ -187,4 +187,4 @@ function getHackmanIndex(gameField:React.FC<any>[][]):{y:number,x:number} {
     return {y:0,x:0};
   }
 
-export { hackmanTick, ghostsTick, increaseScoreAndEatenCoins, mergeGameFields }
+export { hackmanTick, ghostsTick, increaseScoreAndEatenCoins, mergeGameFields,getHackmanIndex }
