@@ -15,170 +15,6 @@ import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackma
 import MovementDirection from "../../Types/MovementDirection";
 import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
 
-const moveableYesComponents = [Coin,Empty,Snack];
-const moveableGhostComponents = [GreenGhost,BlueGhost,RedGhost,OrangeGhost];
-
-export function canMoveUp(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
-  let positionValue = position.y - 1;
-  if (spielFeld[positionValue] === undefined) {
-    return Moveable.Portal;
-  }
-  else if (moveableYesComponents.includes(spielFeld[positionValue][position.x])) {
-    return Moveable.Yes;
-  }
-  else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === GreenGhost) {
-      return Moveable.GreenGhostEdible;
-    }
-    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
-      return Moveable.RedGhostEdible;
-    }
-    else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === OrangeGhost) {
-      return Moveable.OrangeGhostEdible;
-    }
-    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
-      return Moveable.BlueGhostEdible;
-    }
-    else if (spielFeld[positionValue][position.x] === Gate && (ghosts[0].inCage || ghosts[1].inCage || ghosts[2].inCage || ghosts[3].inCage)) {
-      return Moveable.Yes
-    }
-    else if (spielFeld[positionValue][position.x] === Hackman) {
-      return Moveable.Hackman;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
-  else {
-    return Moveable.No;
-  }
-}
-
-export function canMoveDown(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
-  let positionValue = position.y + 1;
-  if (spielFeld[positionValue] === undefined) {
-    return Moveable.Portal;
-  }
-  else if (moveableYesComponents.includes(spielFeld[positionValue][position.x])) {
-    return Moveable.Yes;
-  }
-  else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[positionValue][position.x] === GreenGhost) {
-      return Moveable.GreenGhostEdible;
-    }
-    else if (ghosts[1].isEdible && spielFeld[positionValue][position.x] === RedGhost) {
-      return Moveable.RedGhostEdible;
-    }
-    else if (ghosts[2].isEdible && spielFeld[positionValue][position.x] === OrangeGhost) {
-      return Moveable.OrangeGhostEdible;
-    }
-    else if (ghosts[3].isEdible && spielFeld[positionValue][position.x] === BlueGhost) {
-      return Moveable.BlueGhostEdible;
-    }
-    else if (spielFeld[positionValue][position.x] === Gate) {
-      return Moveable.No
-    }
-    else if (spielFeld[positionValue][position.x] === Hackman) {
-      return Moveable.Hackman;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
-  else {
-    return Moveable.No;
-  }
-}
-
-export function canMoveLeft(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
-  let positionValue = position.x - 1;
-  if (spielFeld[position.y][positionValue] === undefined) {
-    return Moveable.Portal;
-  }
-
-  else if (moveableYesComponents.includes(spielFeld[position.y][positionValue])) {
-    return Moveable.Yes;
-  }
-  else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === GreenGhost) {
-      return Moveable.GreenGhostEdible;
-    }
-    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
-      return Moveable.RedGhostEdible;
-    }
-    else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === OrangeGhost) {
-      return Moveable.OrangeGhostEdible;
-    }
-    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
-      return Moveable.BlueGhostEdible;
-    }
-    else if (spielFeld[position.y][positionValue] === Hackman) {
-      return Moveable.Hackman;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
-  else {
-    return Moveable.No;
-  }
-}
-
-export function canMoveRight(spielFeld: React.FC<{}>[][], position: Coordinate, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
-  let positionValue = position.x + 1;
-  if (spielFeld[position.y][positionValue] === undefined) {
-    return Moveable.Portal;
-  }
-
-  else if (moveableYesComponents.includes(spielFeld[position.y][positionValue])) {
-    return Moveable.Yes;
-  }
-  else if (ghosts) {
-    if (ghosts[0].isEdible && spielFeld[position.y][positionValue] === GreenGhost) {
-      return Moveable.GreenGhostEdible;
-    }
-    else if (ghosts[1].isEdible && spielFeld[position.y][positionValue] === RedGhost) {
-      return Moveable.RedGhostEdible;
-    }
-    else if (ghosts[2].isEdible && spielFeld[position.y][positionValue] === OrangeGhost) {
-      return Moveable.OrangeGhostEdible;
-    }
-    else if (ghosts[3].isEdible && spielFeld[position.y][positionValue] === BlueGhost) {
-      return Moveable.BlueGhostEdible;
-    }
-    else if (spielFeld[position.y][positionValue] === Hackman) {
-      return Moveable.Hackman;
-    }
-    else {
-      return Moveable.No;
-    }
-  }
-  else {
-    return Moveable.No;
-  }
-}
-
-export function canMove(gameField: React.FC<{}>[][], position: Coordinate, direction: Direction, ghosts?: WritableDraft<GhostCharacter>[], isEdibleGhost?: boolean): Moveable {
-  switch (direction) {
-    case Direction.Up: {
-      return canMoveUp(gameField, position, ghosts, isEdibleGhost);
-    }
-    case Direction.Left: {
-      return canMoveLeft(gameField, position, ghosts, isEdibleGhost);
-    }
-    case Direction.Down: {
-      return canMoveDown(gameField, position, ghosts, isEdibleGhost);
-    }
-    case Direction.Right: {
-      return canMoveRight(gameField, position, ghosts, isEdibleGhost);
-    }
-    default:
-      return Moveable.No;
-  }
-}
-
-
-
 // returns the written statistical Value of the next Field by Direction
 export function isEdible(gameField: React.FC<{}>[][], direction: Direction, position: Coordinate): CoinValue {
   switch (direction) {
@@ -283,104 +119,104 @@ export function getMovementDirectionByPositionRevert(directionComponent: Coordin
 export function getDirectionByMovementDirection(movementDirection: MovementDirection, gameField: React.FC<{}>[][], actualGhost: WritableDraft<GhostCharacter>, ghosts: WritableDraft<GhostCharacter>[]) {
   switch (movementDirection) {
     case MovementDirection.North:
-      if (canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveUp(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Up;
       }
-      else if (canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveRight(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Right;
       }
-      else if (canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveLeft(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Left;
       }
       else {
         return Direction.Nothing;
       }
     case MovementDirection.NorthEast:
-      if (canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveRight(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Right;
       }
-      else if (canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveUp(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Up;
       }
-      else if (canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveDown(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Down;
       }
       else {
         return Direction.Nothing;
       }
     case MovementDirection.NorthWest:
-      if (canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveUp(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Up;
       }
-      else if (canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveLeft(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Left;
       }
-      else if (canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveRight(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Right;
       }
       else {
         return Direction.Nothing;
       }
     case MovementDirection.South:
-      if (canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveDown(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Down;
       }
-      else if (canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveLeft(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Left;
       }
-      else if (canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveRight(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Right;
       }
       else {
         return Direction.Nothing;
       }
     case MovementDirection.SouthEast:
-      if (canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveDown(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Down;
       }
-      else if (canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveRight(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Right;
       }
-      else if (canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveLeft(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Left;
       }
       else {
         return Direction.Nothing;
       }
     case MovementDirection.SouthWest:
-      if (canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveLeft(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Left;
       }
-      else if (canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveDown(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Down;
       }
-      else if (canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveUp(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Up;
       }
       else {
         return Direction.Nothing;
       }
     case MovementDirection.East:
-      if (canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveRight(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Right;
       }
-      else if (canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveDown(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Down;
       }
-      else if (canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveUp(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Up;
       }
       else {
         return Direction.Nothing;
       }
     case MovementDirection.West:
-      if (canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      if (canMoveLeft(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Left;
       }
-      else if (canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveUp(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Up;
       }
-      else if (canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible) !== Moveable.No) {
+      else if (canMoveDown(gameField, actualGhost.position) !== Moveable.No) {
         return Direction.Down;
       }
       else {

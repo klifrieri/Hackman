@@ -4,7 +4,7 @@ import MovementDirection from "../MovementDirection";
 import CharacterIdentifier from "../CharacterIdentifier";
 import Character from "./BaseCharacter";
 
-class GhostCharacter extends Character {
+abstract class GhostCharacter extends Character {
 
   private _isSmart: boolean;
   public set isSmart(value: boolean) {

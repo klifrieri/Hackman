@@ -3,9 +3,8 @@ import HackmanCharacter from "../../Types/Character/HackmanCharacter";
 import CoinValue from "../../Types/CoinValue";
 import Moveable from "../../Types/Moveable";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
-import { moveHackman } from "../../UtilityFunctions/move/MoveHackman";
 import { setRandomDirectionAndCount } from "../../UtilityFunctions/GetRandomNumber";
-import { getMovementDirectionByPosition, getDirectionByMovementDirection, getMovementDirectionByPositionRevert, getPossibleDirections, canMove } from "../../UtilityFunctions/move/CanMove";
+import { getMovementDirectionByPosition, getDirectionByMovementDirection, getMovementDirectionByPositionRevert, getPossibleDirections } from "../../UtilityFunctions/move/CanMove";
 import { moveGhostSmart, moveGhostDumb, ghostEatsHackman } from "../../UtilityFunctions/move/MoveGhost";
 import Direction from "../../Types/Direction";
 import Coordinate from "../../Types/Coordinate";
@@ -18,13 +17,6 @@ import CharacterIdentifier from "../../Types/CharacterIdentifier";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 
-const hackmanTick = (gameField: React.FC<any>[][], hackman: WritableDraft<HackmanCharacter>, ghosts: WritableDraft<GhostCharacter>[]):CoinValue => {
-    let increaseCoins: CoinValue = 0;
-    if (hackman.moveable !== Moveable.No) {
-        increaseCoins = moveHackman(gameField, hackman, ghosts);
-    }
-    return increaseCoins;
-}
 
 const ghostsTick = (gameFieldForGhosts: React.FC<any>[][], hackman: WritableDraft<HackmanCharacter>, ghosts: WritableDraft<GhostCharacter>[]) => {
     ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {

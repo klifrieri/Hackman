@@ -1,6 +1,6 @@
 import CharacterIdentifier from "../CharacterIdentifier";
 import Coordinate from "../Coordinate";
-import BaseCharacter from "./BaseCharacter";
+import BaseCharacter from "./base/BaseCharacter";
 
 class HackmanCharacter extends BaseCharacter {
   private _remainingLifes: number;
@@ -31,20 +31,27 @@ class HackmanCharacter extends BaseCharacter {
   public get canJump(): boolean {
     return this._canJump
   }
-  public set positionX(value: number) {
-    this._lastPosition.x = this._position.x;
-    this._lastPosition.y = this._position.y;
-    this._position.x = value;
-  }
-  public set positionY(value: number) {
-    this._lastPosition.x = this._position.x;
-    this._lastPosition.y = this._position.y;
-    this._position.y = value;
-  }
+  // public set positionX(value: number) {
+  //   this._lastPosition.x = this._position.x;
+  //   this._lastPosition.y = this._position.y;
+  //   this._position.x = value;
+  // }
+  // public set positionY(value: number) {
+  //   this._lastPosition.x = this._position.x;
+  //   this._lastPosition.y = this._position.y;
+  //   this._position.y = value;
+  // }
 
-  private _lastPosition:Coordinate;
-  public get lastPosition():Coordinate{
-    return this._lastPosition
+  // private _lastPosition:Coordinate;
+  // public get lastPosition():Coordinate{
+  //   return this._lastPosition
+  // }
+  constructor(name: CharacterIdentifier, positionY: number, positionX: number) {
+    super(name, positionY, positionX);
+    this._hackmanMoved = false;
+    this._remainingLifes = 3;
+    this._canSetBlock = true;
+    this._canJump = true;
   }
   public override resetToStartPosition() {
     super.resetToStartPosition();
@@ -53,14 +60,6 @@ class HackmanCharacter extends BaseCharacter {
   public resetToStartAndDecreaseLife() {
     this.resetToStartPosition();
     --this._remainingLifes;
-  }
-  constructor(name: CharacterIdentifier, positionY: number, positionX: number) {
-    super(name, positionY, positionX);
-    this._lastPosition = new Coordinate(positionY,positionX);
-    this._hackmanMoved = false;
-    this._remainingLifes = 3;
-    this._canSetBlock = true;
-    this._canJump = true;
   }
 }
 export default HackmanCharacter;

@@ -10,206 +10,11 @@ import HackmanCharacter from "../../Types/Character/HackmanCharacter";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import CharacterIdentifier from "../../Types/CharacterIdentifier";
-import { canMoveDown, canMoveLeft, canMoveRight, canMoveUp } from "./CanMove";
 import Coordinate from "../../Types/Coordinate";
 import React from "react";
 import Gate from "../../Components/GameFieldComponent/FieldComponents/Path/Gate";
 import { getHackmanIndex } from "../../State/slices/gameFieldSliceHelper";
 
-
-
-function ghostMovesRight( gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  if (gameField[ghost.position.y][ghost.position.x + 1] === Hackman) {
-    ghost.cachedField = Empty;
-  } else {
-    ghost.cachedField = gameField[ghost.position.y][ghost.position.x + 1];
-  }
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[ghost.position.y][ghost.position.x + 1] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[ghost.position.y][ghost.position.x + 1] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[ghost.position.y][ghost.position.x + 1] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[ghost.position.y][ghost.position.x + 1] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionX = ghost.position.x + 1;
-}
-
-function ghostMovesDown(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>) {
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  if (gameField[ghost.position.y + 1][ghost.position.x] === Hackman) {
-    ghost.cachedField = Empty;
-  }
-  else {
-    ghost.cachedField = gameField[ghost.position.y + 1][ghost.position.x];
-  }
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[ghost.position.y + 1][ghost.position.x] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[ghost.position.y + 1][ghost.position.x] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[ghost.position.y + 1][ghost.position.x] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[ghost.position.y + 1][ghost.position.x] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionY = ghost.position.y + 1;
-}
-
-function ghostMovesLeft(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  if (gameField[ghost.position.y][ghost.position.x - 1] === Hackman) {
-    ghost.cachedField = Empty;
-  } else {
-    ghost.cachedField = gameField[ghost.position.y][ghost.position.x - 1];
-  }
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[ghost.position.y][ghost.position.x - 1] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[ghost.position.y][ghost.position.x - 1] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[ghost.position.y][ghost.position.x - 1] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[ghost.position.y][ghost.position.x - 1] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionX = ghost.position.x - 1;
-}
-
-function ghostMovesUp(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  if (gameField[ghost.position.y - 1][ghost.position.x] === Hackman) {
-    ghost.cachedField = Empty;
-  } else {
-    ghost.cachedField = gameField[ghost.position.y - 1][ghost.position.x];
-  }
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[ghost.position.y - 1][ghost.position.x] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[ghost.position.y - 1][ghost.position.x] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[ghost.position.y - 1][ghost.position.x] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[ghost.position.y - 1][ghost.position.x] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionY = ghost.position.y - 1;
-}
-
-function ghostMovesRightTroughPortal(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>){
-  ghost.cachedField = gameField[ghost.position.y][0];
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[ghost.position.y][0] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[ghost.position.y][0] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[ghost.position.y][0] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[ghost.position.y][0] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionX = 0;
-}
-
-function ghostMovesDownTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>){
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  ghost.cachedField = gameField[0][ghost.position.x];
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[0][ghost.position.x] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[0][ghost.position.x] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[0][ghost.position.x] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[0][ghost.position.x] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionY = 0;
-}
-
-function ghostMovesLeftTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>) {
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  ghost.cachedField = gameField[ghost.position.y][gameField[0].length - 1];
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[ghost.position.y][gameField[0].length - 1] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[ghost.position.y][gameField[0].length - 1] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[ghost.position.y][gameField[0].length - 1] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[ghost.position.y][gameField[0].length - 1] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionX = gameField[0].length - 1;
-}
-
-function ghostMovesUpTroughPortal(gameField: React.FC<any>[][],ghost: WritableDraft<GhostCharacter>){
-  gameField[ghost.position.y][ghost.position.x] = ghost.cachedField;
-  ghost.cachedField = gameField[gameField.length - 1][ghost.position.x];
-  switch (ghost.name) {
-    case CharacterIdentifier.GreenGhost:
-      gameField[gameField.length - 1][ghost.position.x] = GreenGhost;
-      break;
-    case CharacterIdentifier.RedGhost:
-      gameField[gameField.length - 1][ghost.position.x] = RedGhost;
-      break;
-    case CharacterIdentifier.OrangeGhost:
-      gameField[gameField.length - 1][ghost.position.x] = OrangeGhost;
-      break;
-    case CharacterIdentifier.BlueGhost:
-      gameField[gameField.length - 1][ghost.position.x] = BlueGhost;
-      break;
-    default:
-      break;
-  }
-  ghost.positionY = gameField.length - 1;
-}
 
 function ghostGoOutOfCage(ghost: WritableDraft<GhostCharacter>, gamefield: React.FC<{}>[][], ghosts: WritableDraft<GhostCharacter>[]) {
   let destination = new Coordinate(5, 10)
@@ -324,27 +129,6 @@ function ghostEatsHackman(gameField: React.FC<any>[][], ghosts: WritableDraft<Gh
   // }
 }
 
-function InvokeMoveGhostByDirection(gameField: React.FC<any>[][], ghost: WritableDraft<GhostCharacter>) {
-  switch (ghost.direction) {
-    case Direction.Up: {
-      ghostMovesUp(gameField, ghost);
-      break;
-    }
-    case Direction.Down: {
-      ghostMovesDown(gameField, ghost);
-      break;
-    }
-    case Direction.Left: {
-      ghostMovesLeft(gameField, ghost);
-      break;
-    }
-    case Direction.Right: {
-      ghostMovesRight(gameField, ghost);
-      break;
-    }
-  }
-}
-
 //#region move ghost methods
 function moveGhostDumb(gameField: React.FC<{}>[][], actualGhost: WritableDraft<GhostCharacter>, ghosts: WritableDraft<GhostCharacter>[], hackman: WritableDraft<HackmanCharacter>) {
   actualGhost.incrementCount();
@@ -391,52 +175,52 @@ function moveGhostSmart(gameField: React.FC<{}>[][], actualGhost: WritableDraft<
   else {
     switch (actualGhost.direction) {
       case Direction.Up:
-        canMove = canMoveUp(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        canMove = canMoveUp(gameField, actualGhost.position);
         if (canMove === Moveable.Yes) {
-          ghostMovesUp(gameField, actualGhost);
+          ghostMovesUp(actualGhost);
         }
         else if (canMove === Moveable.Portal) {
-          ghostMovesUpTroughPortal(gameField, actualGhost);
+          ghostMovesUpTroughPortal(actualGhost);
         }
-        else if (canMove === Moveable.Hackman) {
-          ghostEatsHackman(gameField, ghosts, hackman);
-        }
+        // else if (canMove === Moveable.Hackman) {
+        //   ghostEatsHackman(gameField, ghosts, hackman);
+        // }
         break;
       case Direction.Down:
-        canMove = canMoveDown(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        canMove = canMoveDown(gameField, actualGhost.position);
         if (canMove === Moveable.Yes) {
           ghostMovesDown(gameField, actualGhost);
         }
         else if (canMove === Moveable.Portal) {
           ghostMovesDownTroughPortal(gameField, actualGhost);
         }
-        else if (canMove === Moveable.Hackman) {
-          ghostEatsHackman(gameField, ghosts, hackman);
-        }
+        // else if (canMove === Moveable.Hackman) {
+        //   ghostEatsHackman(gameField, ghosts, hackman);
+        // }
         break;
       case Direction.Right:
-        canMove = canMoveRight(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        canMove = canMoveRight(gameField, actualGhost.position);
         if (canMove === Moveable.Yes) {
           ghostMovesRight(gameField, actualGhost);
         }
         else if (canMove === Moveable.Portal) {
           ghostMovesRightTroughPortal(gameField, actualGhost);
         }
-        else if (canMove === Moveable.Hackman) {
-          ghostEatsHackman(gameField, ghosts, hackman);
-        }
+        // else if (canMove === Moveable.Hackman) {
+        //   ghostEatsHackman(gameField, ghosts, hackman);
+        // }
         break;
       case Direction.Left:
-        canMove = canMoveLeft(gameField, actualGhost.position, ghosts, actualGhost.isEdible);
+        canMove = canMoveLeft(gameField, actualGhost.position);
         if (canMove === Moveable.Yes) {
           ghostMovesLeft(gameField, actualGhost);
         }
         else if (canMove === Moveable.Portal) {
           ghostMovesLeftTroughPortal(gameField, actualGhost);
         }
-        else if (canMove === Moveable.Hackman) {
-          ghostEatsHackman(gameField, ghosts, hackman);
-        }
+        // else if (canMove === Moveable.Hackman) {
+        //   ghostEatsHackman(gameField, ghosts, hackman);
+        // }
         break;
     }
   }
@@ -445,14 +229,6 @@ function moveGhostSmart(gameField: React.FC<{}>[][], actualGhost: WritableDraft<
 //#endregion
 
 export {
-  ghostMovesDown,
-  ghostMovesDownTroughPortal,
-  ghostMovesLeft,
-  ghostMovesLeftTroughPortal,
-  ghostMovesRight,
-  ghostMovesRightTroughPortal,
-  ghostMovesUp,
-  ghostMovesUpTroughPortal,
   moveGhostDumb,
   moveGhostSmart,
   ghostEatsHackman

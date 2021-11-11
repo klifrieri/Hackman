@@ -31,9 +31,10 @@ import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueG
 import Coordinate from "../../Types/Coordinate";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import { ghostsTick, hackmanTick, increaseScoreAndEatenCoins, mergeGameFields } from "./gameFieldSliceHelper";
-import {   WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
-import {original} from "immer";
-import {cloneDeep} from 'lodash';
+import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
+import { original } from "immer";
+import { cloneDeep } from 'lodash';
+import { changeCharacterPosition } from "../../UtilityFunctions/move/CharacterMoveDeterminer";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   CharacterIdentifier.Hackman,
@@ -64,29 +65,29 @@ const gameFieldSlice = createSlice({
   reducers: {
     gameTick: (state) => {
       if (!state.isPaused) {
-
-        //move Hackman
-        let gameFieldForHackman = cloneDeep(state.gameField);
-        let increaseCoins:CoinValue = CoinValue.Zero;
-        increaseCoins  = hackmanTick(gameFieldForHackman, state.hackman, state.ghosts);
+      
+        if (state.hackman.moveable !== Moveable.No) {
+          changeCharacterPosition(state.hackman);
+        }
+        // let gameFieldForHackman = cloneDeep(state.gameField);
 
         // move Ghosts
         let gameFieldForGhosts = cloneDeep(state.gameField);
         ghostsTick(gameFieldForGhosts, state.hackman, state.ghosts);
 
-        const newGameField:React.FC<any>[][] = mergeGameFields(state.hackman,state.ghosts,gameFieldForHackman,gameFieldForGhosts)
+        const newGameField: React.FC<any>[][] = mergeGameFields(state.hackman, state.ghosts, gameFieldForHackman, gameFieldForGhosts)
         // determine eatenCoins and points
-        if(state.hackman.hackmanMoved){
+        if (state.hackman.hackmanMoved) {
           const { shallIncreaseEatenCoins, increaseScoreBy } = increaseScoreAndEatenCoins(increaseCoins);
-  
+
           if (shallIncreaseEatenCoins) {
             state.eatenCoins++;
           }
           state.score += increaseScoreBy;
-  
+
           //Set all ghosts to edible after their movements but before canMove of hackman for the next tick
           if (increaseCoins === CoinValue.Five) {
-            state. ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
+            state.ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
               ghost.isEdible = true;
             });
           }
