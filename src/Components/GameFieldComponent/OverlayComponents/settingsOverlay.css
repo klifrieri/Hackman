@@ -25,10 +25,36 @@
     color: white;
 }
 
+.overlay-controls{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 30%;
+}
+
 .show-overlay{
     display: flex;
 }
 
 .hide-overlay{
     display: none;
+}
+
+.btn-game{
+    color: white;
+    font-family: "Montserrat";
+    width: 50%;
+    background-color: orange;
+    border-radius: 25px;
+    border: 2px solid white;
+    font-size: 125%;
+    font-weight: 600;
+    padding: 1.25% 2.5%;
+    transition: all 0.25s;
+}
+.btn-game:hover{
+    color: rgb(36, 35, 35);
+    border-color: rgb(255, 230, 0);
+    cursor: pointer;
 }

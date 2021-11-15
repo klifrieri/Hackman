@@ -17,10 +17,17 @@
 #gc-element-right{
     position: absolute;
     display: flex;
-    align-items: center;
     flex-direction: row;
     justify-content: space-between;    
     margin-right: 10px;
+}
+#gc-element-bottom{
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .mid{
@@ -31,12 +38,20 @@
 
 
 .gc-icon{
-
     border-radius: 2px;
     display: flex;
     justify-content: center;
     align-items: center;
-    box-shadow: 1px 1px 5px silver;
+    box-shadow: 1px 1px 10px silver;
+    background-color: rgb(58, 58, 45);
+}
+
+.gc-control{
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rgb(58, 58, 45);
 }
 

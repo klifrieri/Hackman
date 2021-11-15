@@ -1,5 +1,5 @@
 import GameField from "./Components/GameFieldComponent/Gamefield";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Stats from "./Components/StatsComponent/Stats";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "./State/slices/gameFieldSlice";
@@ -10,7 +10,7 @@ import SettingsOverlay from "./Components/GameFieldComponent/OverlayComponents/S
 import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/WinOverlay";
-import { CalculateAllCoins } from "./UtilityFunctions/CalcHelper";
+import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
 import SpielfeldLayout from "./SpielfeldLayout";
 import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
 
@@ -41,6 +41,7 @@ const App: React.FC = () => {
   const options = useSelector((state: State) => state.options);
   const points = useSelector((state: State) => state.points);
   const win = useSelector((state:State) => state.win)
+  const [ScreenSize, SetScreenSize] = useState(GetScreenSize())
 
   const centerRef = useRef<HTMLDivElement>(null);
 
@@ -127,6 +128,7 @@ const App: React.FC = () => {
   };
 
   const setStyleTag = () => {
+    SetScreenSize(GetScreenSize())
     setRowHeightStyleTag();
     let headTag = document.getElementsByTagName("head");
     let row = centerRef.current?.firstElementChild;
@@ -175,6 +177,7 @@ const App: React.FC = () => {
     headTag[0].appendChild(styleRow);
   };
 
+
   return (
     <div
       ref={centerRef}
@@ -188,7 +191,9 @@ const App: React.FC = () => {
       <SettingsOverlay />
       <GameOver />
       <WinOverlay />
-      <GameController />
+      {(ScreenSize.width < 1300 && ScreenSize.width/ScreenSize.height > 1.65) && 
+        <GameController />      
+      }
     </div>
   );
 };

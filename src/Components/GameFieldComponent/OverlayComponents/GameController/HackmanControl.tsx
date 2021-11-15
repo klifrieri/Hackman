@@ -15,17 +15,16 @@ const Control:React.FC<IControlProps> = (props) => {
 
     const dispatch = useDispatch();
     const { changeIsMoveableHackman, setBlock, hackmanJump, } = bindActionCreators(gameFieldSlice.actions, dispatch);
-
     const action = props.action
     const [FontSize, SetFontSize] = useState(CalcFontSize(GetScreenSize()))
-    const [ButtonSize, SetButtonSize] = useState(FontSize * 2)
+    const [ButtonSize, SetButtonSize] = useState(FontSize * 2.5)
 
     const RenderAll = ():any => {
         SetFontSize(CalcFontSize(GetScreenSize()))
-        SetButtonSize(FontSize * 2)
+        SetButtonSize(FontSize * 2.5)
     }
 
-    const Move = () => {
+    const playerAction = ():any => {
         switch(action){
             case "up":
                 store.dispatch(changeIsMoveableHackman(Direction.Up))
@@ -53,29 +52,29 @@ const Control:React.FC<IControlProps> = (props) => {
         return () => {
             window.removeEventListener("resize", RenderAll)
         }
-    }, [FontSize])
+    }, [FontSize, ButtonSize])
 
 
     return(
-
-        <div id={action} className="gc-icon" style={{width: ButtonSize, height: ButtonSize, marginTop: FontSize/4, marginBottom: FontSize/4}}>
+        
+        <div id={action} className="gc-icon" style={{width: ButtonSize, height: ButtonSize, marginTop: FontSize/4, marginBottom: FontSize/4, color: "white"}} onClick={playerAction}>
             {action === "up" &&
-                <FaChevronUp fontSize={FontSize} color="white" onClick={Move} />                  
+                <FaChevronUp fontSize={FontSize}/>                  
             }
             {action === "down" &&
-                <FaChevronDown fontSize={FontSize} color="white" onClick={Move} />
+                <FaChevronDown fontSize={FontSize}/>
             }
             {action === "left" &&
-                <FaChevronLeft fontSize={FontSize} color="white" onClick={Move}/>
+                <FaChevronLeft fontSize={FontSize}/>
             }
             {action === "right" &&
-                <FaChevronRight fontSize={FontSize} color="white" onClick={Move}/>
+                <FaChevronRight fontSize={FontSize}/>
             }
             {action === "jump" &&
-                <div style={{fontSize: FontSize/1.75, color: "white"}} onClick={Move}>JUMP</div>
+                <div style={{fontSize: FontSize/1.75, fontWeight: 500}}>JUMP</div>
             }
             {action === "block" &&
-                <div style={{fontSize: FontSize/1.75, color: "white"}} onClick={Move}>BLOCK</div>
+                <div style={{fontSize: FontSize/1.75, fontWeight: 500}}>BLOCK</div>
             }
         </div>
 
