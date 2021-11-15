@@ -10,9 +10,10 @@ import SettingsOverlay from "./Components/GameFieldComponent/OverlayComponents/S
 import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/WinOverlay";
-import { CalculateAllCoins } from "./UtilityFunctions/GameLogix";
+import { CalculateAllCoins } from "./UtilityFunctions/CalcHelper";
 import SpielfeldLayout from "./SpielfeldLayout";
-import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController";
+import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
+
 
 const allPoints: number = CalculateAllCoins(SpielfeldLayout());
 
@@ -134,7 +135,6 @@ const App: React.FC = () => {
     var styleTag = document.createElement("style");
     styleTag.type = "text/css";
     styleTag.id = "styleTag";
-
     styleTag.innerHTML = `div.center > div.row > div.field {width: ${rowHeightInPx};}`;
     let styleSheetTest = document.getElementById("styleTag");
     if (styleSheetTest) {
@@ -181,6 +181,7 @@ const App: React.FC = () => {
       className="center"
       onKeyDown={handleKeyDown}
       tabIndex={0}
+      id="game"
     >
       <GameField />
       <Stats />

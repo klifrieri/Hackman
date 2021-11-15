@@ -1,0 +1,44 @@
+#gc-wrapper{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+}
+
+
+#gc-element-left{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 10px;
+}
+#gc-element-right{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;    
+    margin-right: 10px;
+}
+
+.mid{
+    display: flex;
+    justify-content: space-between;
+}
+
+
+
+.gc-icon{
+
+    border-radius: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 5px silver;
+    background-color: rgb(58, 58, 45);
+}
+
+
+
