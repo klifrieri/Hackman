@@ -13,6 +13,7 @@ import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOv
 import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
 import SpielfeldLayout from "./SpielfeldLayout";
 import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
+import Start from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/StartOverlay";
 
 
 const allPoints: number = CalculateAllCoins(SpielfeldLayout());
@@ -187,6 +188,7 @@ const App: React.FC = () => {
       id="game"
     >
       <GameField />
+      <Start/>
       <Stats />
       <SettingsOverlay />
       <GameOver />

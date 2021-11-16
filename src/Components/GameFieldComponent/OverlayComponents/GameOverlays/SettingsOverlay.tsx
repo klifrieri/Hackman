@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
 import { State, store } from "../../../../State/store";
-import './settingsOverlay.css';
+import './css/settingsOverlay.css';
 
 
 const Overlay: React.FC = () => {

@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
 import { State, store } from "../../../../State/store";
 import HighscoreTable from "../../../StatsComponent/HighscoreTable";
-import './winOverlay.css';
+import './css/winOverlay.css';
 
 
 const WinOverlay: React.FC = () => {

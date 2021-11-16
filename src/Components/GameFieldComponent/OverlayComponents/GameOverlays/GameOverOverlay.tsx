@@ -1,4 +1,4 @@
-import "./gameOverOverlay.css"
+import "./css/gameOverOverlay.css"
 import { useDispatch, useSelector } from "react-redux"
 import { State, store } from "../../../../State/store"
 import { useEffect, useState } from "react"
