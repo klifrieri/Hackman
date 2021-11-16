@@ -43,6 +43,9 @@ const Overlay: React.FC = () => {
                     <button id="restart-game-options" className="btn-game">
                         Neues Spiel
                     </button>
+                    <button id="options" className="btn-game">
+                        Einstellungen
+                    </button>
                     <button id="close-overlay" className="btn-game">
                         Schließen
                     </button>
