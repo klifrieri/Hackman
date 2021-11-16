@@ -24,8 +24,13 @@
 }
 .go-overlay-box p{
     text-align: center;
-    font-size: 200%;
+    font-size: 2rem;
     color: white;
+}
+.go-overlay-box h2{
+    text-align: center;
+    font-size: 2rem;
+    color: darkorange;
 }
 
 #restart-game{
@@ -34,7 +39,7 @@
     background-color: orange;
     border-radius: 25px;
     border: 2px solid white;
-    font-size: 125%;
+    font-size: 1.25rem;
     font-weight: 600;
     padding: 1.25% 2.5%;
     transition: all 0.25s;
@@ -55,25 +60,90 @@
 
 
 @media only screen and (max-width: 600px) {
-
+    .go-overlay-box{
+        height: 50%;
+    }
+    .go-overlay-box p {
+        font-size: 1.25rem;
+    }
+    .go-overlay-box h2 {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+    #restart-game{
+        font-size: 0.75rem;
+        border: 1px solid white;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
+    .go-overlay-box{
+        height: 50%;
+    }
+    .go-overlay-box p {
+        font-size: 1.4rem;
+    }
+    .go-overlay-box h2 {
+        font-size: 1.25rem;
+        margin: 0;
+    }
+    #restart-game{
+        font-size: 1rem;
+        border: 1px solid white;
+    }
 }
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px){
-
+    .go-overlay-box{
+        height: 45%;
+    }
+    .go-overlay-box p {
+        font-size: 1.4rem;
+    }
+    .go-overlay-box h2 {
+        font-size: 1.4rem;
+        margin: 0;
+    }
+    #restart-game{
+        font-size: 1rem;
+        border: 2px solid white;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-
+    .go-overlay-box{
+        height: 35%;
+    }
+    .go-overlay-box p {
+        font-size: 1.8rem;
+    }
+    .go-overlay-box h2 {
+        font-size: 2rem;
+        margin: 0;
+    }
+    #restart-game{
+        font-size: 1.25rem;
+        border: 2px solid white;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-
+    .go-overlay-box{
+        height: 35%;
+    }
+    .go-overlay-box p {
+        font-size: 1.8rem;
+    }
+    .go-overlay-box h2 {
+        font-size: 2rem;
+        margin: 0;
+    }
+    #restart-game{
+        font-size: 1.25rem;
+        border: 2px solid white;
+    }
 }

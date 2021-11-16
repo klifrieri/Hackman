@@ -45,6 +45,7 @@ const GameOver:React.FC = () => {
     return(
         <div className={DisplayOverlay}>
             <div className="go-overlay-box">
+                <h2>GAME OVER</h2>
                 <p>{Message}</p>
                 <button id="restart-game">
                     Neues Spiel

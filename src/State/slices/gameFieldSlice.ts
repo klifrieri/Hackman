@@ -56,8 +56,8 @@ const gameFieldSlice = createSlice({
     ghosts: ghosts,
     block: block,
     isPaused: false,
-    options: true,
-    gameOver: false,
+    options: false,
+    gameOver: true,
     win: false,
     points: 0,
     players: data
