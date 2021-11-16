@@ -13,9 +13,8 @@ const Start:React.FC = () => {
     const dispatch = useDispatch();
     const { startGame } = bindActionCreators(gameFieldSlice.actions, dispatch);
     const [Options, SetOptions] = useState(false)
-    const [Help, SetHelp] = useState(true)
-    const [Main, SetMain] = useState(false)
-
+    const [Help, SetHelp] = useState(false)
+    const [Main, SetMain] = useState(true)
 
 
     return (

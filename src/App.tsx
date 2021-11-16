@@ -48,6 +48,11 @@ const App: React.FC = () => {
   const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if(gameStarted)
+      centerRef.current?.focus()
+  }, [gameStarted])
+
+  useEffect(() => {
     if (points === allPoints - 1) {
       store.dispatch(winGame);
     }
