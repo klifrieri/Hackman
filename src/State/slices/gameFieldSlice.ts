@@ -60,6 +60,7 @@ const gameFieldSlice = createSlice({
     gameOver: false,
     win: false,
     points: 0,
+    gameStarted: false,
     players: data
   },
   reducers: {
@@ -428,6 +429,9 @@ const gameFieldSlice = createSlice({
       state.win = true;
       state.isPaused = true;
     },
+    startGame: (state) => {
+      state.gameStarted = true
+    }
   },
 });
 

@@ -42,6 +42,7 @@ const App: React.FC = () => {
   const options = useSelector((state: State) => state.options);
   const points = useSelector((state: State) => state.points);
   const win = useSelector((state:State) => state.win)
+  const gameStarted = useSelector((state:State) => state.gameStarted)
   const [ScreenSize, SetScreenSize] = useState(GetScreenSize())
 
   const centerRef = useRef<HTMLDivElement>(null);
@@ -188,7 +189,9 @@ const App: React.FC = () => {
       id="game"
     >
       <GameField />
-      <Start/>
+      {!gameStarted &&
+        <Start/>
+      }
       <Stats />
       <SettingsOverlay />
       <GameOver />
