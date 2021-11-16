@@ -57,8 +57,8 @@ const gameFieldSlice = createSlice({
     block: block,
     isPaused: false,
     options: false,
-    gameOver: true,
-    win: false,
+    gameOver: false,
+    win: true,
     points: 0,
     players: data
   },

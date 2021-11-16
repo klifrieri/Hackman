@@ -80,12 +80,12 @@
 @media only screen and (min-width: 600px) {
     .btn-game{
         border: 1px solid white;
-        font-size: 0.75rem;
-        margin-top: 5%;
+        font-size: 0.7rem;
+        margin-top: 3%;
     }
     .overlay-box h2{
         font-size: 1.5rem;
-        padding: 5% 20%;
+        padding: 3% 20% 0% 20%;
     }
     .overlay-box{
         width: 50%;
@@ -97,11 +97,11 @@
     .btn-game{
         border: 1px solid white;
         font-size: 0.9rem;
-        margin-top: 5%;
+        margin-top: 3%;
     }
     .overlay-box h2{
         font-size: 2rem;
-        padding: 7.5% 20%;
+        padding: 3% 20%;
     }
     .overlay-box{
         width: 50%;
@@ -117,7 +117,7 @@
     }
     .overlay-box h2{
         font-size: 3rem;
-        padding: 7.5% 20%;
+        padding: 5% 20%;
     }
     .overlay-box{
         width: 40%;
@@ -132,8 +132,8 @@
         margin-top: 7.5%;
     }
     .overlay-box h2{
-        font-size: 3rem;
-        padding: 7.5% 20%;
+        font-size: 4rem;
+        padding: 5% 20%;
     }
     .overlay-box{
         width: 45%;
