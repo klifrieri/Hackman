@@ -10,6 +10,7 @@ import GhostCharacter from "../../Types_Classes/Character/Base/GhostCharacter";
 import HackmanCharacter from "../../Types_Classes/Character/HackmanCharacter";
 import CharacterIdentifier from "../../Types_Classes/Character/Models/CharacterIdentifier";
 import CoinValue from "../../Types_Classes/Models/CoinValue";
+import Block from "../../Components/GameFieldComponent/FieldComponents/Path/Block";
 import Coordinate from "../../Types_Classes/Character/Models/Coordinate";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import { FC } from "react";
@@ -85,7 +86,9 @@ const mergeGameField = (gameField: FC<any>[][], hackman: WritableDraft<HackmanCh
         shallIncreaseEatenCoins = true;
         increaseScoreBy = CoinValue.Five;
     }
-    setSingleGameField(gameField, hackman.lastPosition, Empty);
+    if(gameField[hackman.lastPosition.y][hackman.lastPosition.x] !== Block){
+        setSingleGameField(gameField, hackman.lastPosition, Empty);
+    }
     setSingleGameField(gameField, hackman.position, Hackman);
 
     return { shallIncreaseEatenCoins, increaseScoreBy };

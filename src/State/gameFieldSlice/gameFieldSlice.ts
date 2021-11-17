@@ -13,7 +13,6 @@ import RedGhost from "../../Components/GameFieldComponent/GhostComponents/RedGho
 import OrangeGhost from "../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
 import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
 import Coordinate from "../../Types_Classes/Character/Models/Coordinate";
-import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import Block from "../../Components/GameFieldComponent/FieldComponents/Path/Block";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import { cloneDeep } from "lodash";
