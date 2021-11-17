@@ -21,7 +21,7 @@ import Gate from "./FieldComponents/Path/Gate";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "../../State/store";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../State/slices/gameFieldSlice";
+import gameFieldSlice from "../../State/gameFieldSlice/gameFieldSlice";
 import './gameField.css';
 import GreenGhost from "./GhostComponents/GreenGhost";
 import RedGhost from "./GhostComponents/RedGhost";
@@ -40,18 +40,10 @@ const GameField: React.FC = () => {
   const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
   
 
-  const ghost1ShallTick = useSelector(
-    (state: State) => state.ghosts[0].shallTick
-  );
-  const ghost2ShallTick = useSelector(
-    (state: State) => state.ghosts[1].shallTick
-  );
-  const ghost3ShallTick = useSelector(
-    (state: State) => state.ghosts[2].shallTick
-  );
-  const ghost4ShallTick = useSelector(
-    (state: State) => state.ghosts[3].shallTick
-  );
+  const ghost1ShallTick = useSelector((state: State) => state.ghosts[0].shallTick);
+  const ghost2ShallTick = useSelector(  (state: State) => state.ghosts[1].shallTick);
+  const ghost3ShallTick = useSelector(   (state: State) => state.ghosts[2].shallTick  ); 
+   const ghost4ShallTick = useSelector(    (state: State) => state.ghosts[3].shallTick  );
 
   let ghost1GotEaten = useSelector((state: State) => state.ghosts[0].gotEaten);
   let ghost2GotEaten = useSelector((state: State) => state.ghosts[1].gotEaten);
@@ -169,9 +161,14 @@ const GameField: React.FC = () => {
   //Gametick interval
   useEffect(() => {
     const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => store.dispatch(gameTick), 250);
-    intervalStart();
+    if(hackmanMoved){
+      intervalStart();
+    }
+    else{
+      intervalStop();
+    }
     return () => intervalStop();
-  }, [])
+  }, [hackmanMoved])
 
   const renderComponent = (component: React.FC<any>, key: number) => {
     if (component === HorizontalWall) return <HorizontalWall key={key} />;

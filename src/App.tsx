@@ -2,20 +2,20 @@ import GameField from "./Components/GameFieldComponent/Gamefield";
 import React, { useEffect, useRef, useState } from "react";
 import Stats from "./Components/StatsComponent/Stats";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "./State/slices/gameFieldSlice";
+import gameFieldSlice from "./State/gameFieldSlice/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
-import Direction from "./Types/Direction";
-import SettingsOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/SettingsOverlay";
-import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/GameOverOverlay";
+import Direction from "./Types_Classes/Character/Models/Direction";
+import SettingsOverlay from "./Components/OverlayComponents/GameOverlays/SettingsOverlay";
+import GameOver from "./Components/OverlayComponents/GameOverlays/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
-import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/WinOverlay";
+import WinOverlay from "./Components/OverlayComponents/GameOverlays/WinOverlay";
 import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
-import SpielfeldLayout from "./SpielfeldLayout";
-import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
+import createGameField from "./UtilityFunctions/createGameField";
+import GameController from "./Components/OverlayComponents/GameController/GameController";
 
 
-const allPoints: number = CalculateAllCoins(SpielfeldLayout());
+const allPoints: number = CalculateAllCoins(createGameField());
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -39,17 +39,19 @@ const App: React.FC = () => {
   const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
   const canJump = useSelector((state: State) => state.hackman.canJump);
   const options = useSelector((state: State) => state.options);
-  const points = useSelector((state: State) => state.points);
+
+  const eatenCoins = useSelector((state: State) => state.eatenCoins);
   const win = useSelector((state:State) => state.win)
   const [ScreenSize, SetScreenSize] = useState(GetScreenSize())
+
 
   const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (points === allPoints - 1) {
+    if (eatenCoins === allPoints - 1) {
       store.dispatch(winGame);
     }
-  }, [points]);
+  }, [eatenCoins]);
 
   useEffect(() => {
     if (remainingLives === 0) {
@@ -153,8 +155,6 @@ const App: React.FC = () => {
       width -= 50;
     }
 
-    console.debug("Height" + height);
-    console.debug("\nWidth" + width);
     var styleRow = document.createElement("style");
     styleRow.type = "text/css";
     styleRow.id = "rowStyleTag";

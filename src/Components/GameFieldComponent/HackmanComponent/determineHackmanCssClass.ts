@@ -1,4 +1,4 @@
-import Direction from "../../../Types/Direction";
+import Direction from "../../../Types_Classes/Character/Models/Direction";
 
 const getHackmanAnimationClassName = (hackmanDirection:Direction): string => {   
     switch (hackmanDirection) {
