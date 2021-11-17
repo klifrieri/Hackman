@@ -6,13 +6,13 @@ import gameFieldSlice from "./State/gameFieldSlice/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
 import Direction from "./Types_Classes/Character/Models/Direction";
-import SettingsOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/SettingsOverlay";
-import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/GameOverOverlay";
+import SettingsOverlay from "./Components/OverlayComponents/GameOverlays/SettingsOverlay";
+import GameOver from "./Components/OverlayComponents/GameOverlays/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
-import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/WinOverlay";
+import WinOverlay from "./Components/OverlayComponents/GameOverlays/WinOverlay";
 import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
 import createGameField from "./UtilityFunctions/createGameField";
-import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
+import GameController from "./Components/OverlayComponents/GameController/GameController";
 
 
 const allPoints: number = CalculateAllCoins(createGameField());

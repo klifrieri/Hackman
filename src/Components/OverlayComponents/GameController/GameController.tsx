@@ -1,7 +1,7 @@
 import "./gameController.css"
 import HackControl from "./HackmanControl";
 import { useEffect, useState } from "react";
-import { CalcFontSize, GetScreenSize } from "../../../../UtilityFunctions/CalcHelper";
+import { CalcFontSize, GetScreenSize } from "../../../UtilityFunctions/CalcHelper";
 import GameControl from "./GameControl";
 
 const GameController:React.FC<any> = () => {

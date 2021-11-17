@@ -24,6 +24,7 @@ import { mergeGameField, ghostEatsHackman, setSingleGameField } from "./gameTick
 import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
 import data from "../../data.json";
 import { eatGhost, getTargetCoordinate, letHackmanJump } from "./hackmanJumpHelper";
+import activateGhostByIndex from "./activateGhostByIndex";
 
 const initialStateHackman = new HackmanCharacter(CharacterIdentifier.Hackman, 12, 10);
 const greenGhost = new EasyGhostCharacter(CharacterIdentifier.GreenGhost, 7, 9);
@@ -93,20 +94,7 @@ const gameFieldSlice = createSlice({
 			}
 		},
 		activateGhost: (state, payload: PayloadAction<number>) => {
-			switch (payload.payload) {
-				case 1:
-					state.ghosts[0].shallTick = true;
-					break;
-				case 2:
-					state.ghosts[1].shallTick = true;
-					break;
-				case 3:
-					state.ghosts[2].shallTick = true;
-					break;
-				case 4:
-					state.ghosts[3].shallTick = true;
-					break;
-			}
+			activateGhostByIndex(payload.payload,state.ghosts);
 		},
 		setBlock: (state) => {
 			let direction: Direction = state.hackman.direction;
