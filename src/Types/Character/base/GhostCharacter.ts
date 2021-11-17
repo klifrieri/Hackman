@@ -7,7 +7,6 @@ import RedGhost from "../../../Components/GameFieldComponent/GhostComponents/Red
 import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import CustomTimerForGhostEdible from "../../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
 import CharacterIdentifier from "../../CharacterIdentifier";
-import Coordinate from "../../Coordinate";
 import Direction from "../../Direction";
 import Moveable from "../../Moveable";
 import BaseCharacter from "./BaseCharacter";

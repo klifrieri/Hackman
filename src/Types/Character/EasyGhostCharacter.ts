@@ -1,7 +1,6 @@
 import { FC } from "react";
 import getRandomNumber from "../../UtilityFunctions/GetRandomNumber";
 import CharacterIdentifier from "../CharacterIdentifier";
-import Coordinate from "../Coordinate";
 import Direction from "../Direction";
 import Moveable from "../Moveable";
 import GhostCharacter from "./base/GhostCharacter";

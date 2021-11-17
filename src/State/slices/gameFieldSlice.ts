@@ -20,7 +20,7 @@ import { cloneDeep } from 'lodash';
 import EasyGhostCharacter from "../../Types/Character/EasyGhostCharacter";
 import HardGhostCharacter from "../../Types/Character/HardGhostCharacter";
 import GhostCharacter from "../../Types/Character/base/GhostCharacter";
-import { mergeGameField, ghostEatsHackman } from "../../UtilityFunctions/move/mergeGameFieldHelper";
+import { mergeGameField, ghostEatsHackman } from "../../UtilityFunctions/gameFieldSliceHelper/mergeGameFieldHelper";
 import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
 import data from "../../data.json"
 

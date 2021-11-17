@@ -1,5 +1,5 @@
 import Coordinate from '../../../../Types/Coordinate';
-import {getPossibleDirections} from '../../../../UtilityFunctions/move/CanMove';
+import {getPossibleDirections} from '../../../../UtilityFunctions/gameFieldSliceHelper/CanMove';
 import { testGameFieldEmpty, testGameFieldPortalEverywhere } from '../../../Mock/TestField.Mock';
 
 const chai = require('chai');

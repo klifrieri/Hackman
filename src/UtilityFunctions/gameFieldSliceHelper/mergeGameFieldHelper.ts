@@ -54,7 +54,7 @@ const mergeGameField = (gameField: FC<any>[][], hackman: WritableDraft<HackmanCh
 
     ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
         if (ghost.shallTick) {
-            if (hackman.position.y === ghost.position.y && hackman.position.x === ghost.position.x || hackman.lastPosition.y === ghost.position.y && hackman.lastPosition.x === ghost.position.x) {
+            if ((hackman.position.y === ghost.position.y && hackman.position.x === ghost.position.x) || (hackman.lastPosition.y === ghost.position.y && hackman.lastPosition.x === ghost.position.x)) {
                 if (ghost.isEdible) {
                     if (ghost.cachedField === Coin || ghost.cachedField === Snack) {
                         shallIncreaseEatenCoins = true;

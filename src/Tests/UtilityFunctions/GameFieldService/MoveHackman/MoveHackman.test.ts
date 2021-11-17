@@ -1,6 +1,6 @@
 import Empty from '../../../../Components/GameFieldComponent/FieldComponents/Path/Empty';
 import Hackman from '../../../../Components/GameFieldComponent/HackmanComponent/Hackman';
-import { hackmanMovesDown, hackmanMovesLeft, hackmanMovesRight, hackmanMovesUp } from '../../../../UtilityFunctions/move/MoveHackman';
+import { hackmanMovesDown, hackmanMovesLeft, hackmanMovesRight, hackmanMovesUp } from '../../../../UtilityFunctions/gameFieldSliceHelper/MoveHackman';
 import GetHackmanByPosition from '../../../Mock/Character.Mock';
 import { testGameFieldCoinHackmanMiddle } from '../../../Mock/TestField.Mock';
 

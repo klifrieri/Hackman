@@ -1,5 +1,4 @@
 import CharacterIdentifier from "../CharacterIdentifier";
-import Coordinate from "../Coordinate";
 import BaseCharacter from "./base/BaseCharacter";
 import Observer from "./Observer/Observer";
 import Subject from "./Observer/Subject";
