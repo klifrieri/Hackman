@@ -40,18 +40,10 @@ const GameField: React.FC = () => {
   const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
   
 
-  const ghost1ShallTick = useSelector(
-    (state: State) => state.ghosts[0].shallTick
-  );
-  const ghost2ShallTick = useSelector(
-    (state: State) => state.ghosts[1].shallTick
-  );
-  const ghost3ShallTick = useSelector(
-    (state: State) => state.ghosts[2].shallTick
-  );
-  const ghost4ShallTick = useSelector(
-    (state: State) => state.ghosts[3].shallTick
-  );
+  const ghost1ShallTick = useSelector((state: State) => state.ghosts[0].shallTick);
+  const ghost2ShallTick = useSelector(  (state: State) => state.ghosts[1].shallTick);
+  const ghost3ShallTick = useSelector(   (state: State) => state.ghosts[2].shallTick  ); 
+   const ghost4ShallTick = useSelector(    (state: State) => state.ghosts[3].shallTick  );
 
   let ghost1GotEaten = useSelector((state: State) => state.ghosts[0].gotEaten);
   let ghost2GotEaten = useSelector((state: State) => state.ghosts[1].gotEaten);

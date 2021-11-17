@@ -1,24 +1,24 @@
-import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import CustomTimerForGhostEdible from "../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
-import MovementDirection from "../MovementDirection";
-import CharacterIdentifier from "../CharacterIdentifier";
-import Character from "./BaseCharacter";
+import { FC } from "react";
+import Empty from "../../../Components/GameFieldComponent/FieldComponents/Path/Empty";
+import BlueGhost from "../../../Components/GameFieldComponent/GhostComponents/BlueGhost";
+import GreenGhost from "../../../Components/GameFieldComponent/GhostComponents/GreenGhost";
+import OrangeGhost from "../../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
+import RedGhost from "../../../Components/GameFieldComponent/GhostComponents/RedGhost";
+import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import CustomTimerForGhostEdible from "../../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
+import CharacterIdentifier from "../../CharacterIdentifier";
+import Coordinate from "../../Coordinate";
+import Direction from "../../Direction";
+import Moveable from "../../Moveable";
+import BaseCharacter from "./BaseCharacter";
+import IGhostAI from "./IGhostAI";
 
-abstract class GhostCharacter extends Character {
-
-  private _isSmart: boolean;
-  public set isSmart(value: boolean) {
-    this._isSmart = value;
-  }
-  public get isSmart(): boolean {
-    return this._isSmart;
-  }
-
-  private _inCage: boolean;
-  public set inCage(value:boolean){
+abstract class GhostCharacter extends BaseCharacter implements IGhostAI {
+  protected _inCage: boolean;
+  public set inCage(value: boolean) {
     this._inCage = value;
   }
-  public get inCage(){
+  public get inCage() {
     return this._inCage;
   }
 
@@ -30,8 +30,11 @@ abstract class GhostCharacter extends Character {
     return this._shallTick;
   }
 
+  protected _isEdible: boolean;
   private _isEdibleTimeout: CustomTimerForGhostEdible;
-  private _isEdible: boolean;
+  public get isEdible(): boolean {
+    return this._isEdible;
+  }
   public set isEdible(value: boolean) {
     this._isEdible = value;
     if (this._isEdible)
@@ -39,85 +42,104 @@ abstract class GhostCharacter extends Character {
     else
       this._isEdibleTimeout.stop();
   }
-  public get isEdible(): boolean {
-    return this._isEdible;
-  }
 
-  // smart move properties
-
-
-  // dumb move properties
-  private _declaredCount: number;
-  public set declaredCount(value: number) {
-    this._declaredCount = value;
-    this.resetCount();
-  }
-
-  private _count: number;
-  public incrementCount() {
-    this._count++;
-  }
-  private resetCount() {
-    this._count = 0;
-  }
-  public needsNewCountDeclaration(): boolean {
-    return this._declaredCount === this._count;
-  }
-
-
-  private _cachedField: React.FC<{}>;
-  public get cachedField() {
-    return this._cachedField;
-  }
-  public set cachedField(value: React.FC<{}>) {
-    this._cachedField = value;
-  }
-
-  private _movementDirection: MovementDirection;
-  public get movementDirection() {
-    return this._movementDirection;
-  }
-  public set movementDirection(value: MovementDirection) {
-    this._movementDirection = value;
-  }
   private _gotEaten: boolean;
-  public get gotEaten(){
+  public get gotEaten() {
     return this._gotEaten
   }
-  public set gotEaten(value: boolean){
+  public set gotEaten(value: boolean) {
     this._gotEaten = value;
   }
 
-
-  public override resetToStartPosition() {
-    super.resetToStartPosition();
-    this.isEdible = false;
-    this.cachedField = Empty;
-    this.resetCount();
-    this.declaredCount = 0;
-    this.shallTick = false;
-    this.inCage = true;
-    this._isEdibleTimeout.stop();
-    this.gotEaten = true;
+  protected _lastCachedField: FC<any>;
+  public get lastCachedField() {
+    return this._lastCachedField;
   }
-
-  constructor(name: CharacterIdentifier, positionY: number, positionX: number, movementDirection: MovementDirection = MovementDirection.None, isSmart: boolean = false) {
-
+  protected _cachedField: FC<any>;
+  public get cachedField() {
+    return this._cachedField;
+  }
+  constructor(name: CharacterIdentifier, positionY: number, positionX: number) {
     super(name, positionY, positionX);
+    this._inCage = true;
+    this._shallTick = false;
+    this._isEdible = false;
     this._isEdibleTimeout = new CustomTimerForGhostEdible(
       () => (this.isEdible = false),
       15000
     );
-    this._shallTick = false;
-    this._declaredCount = 0;
-    this._count = 0;
-    this._cachedField = Empty;
-    this._isEdible = false;
-    this._movementDirection = movementDirection;
-    this._isSmart = isSmart;
-    this._inCage = true;
     this._gotEaten = false;
+    this._lastCachedField = Empty;
+    this._cachedField = Empty;
   }
+
+  public override resetToStartPosition(): void {
+    super.resetToStartPosition();
+    this._inCage = true;
+    this._shallTick = false;
+    this._isEdible = false;
+    this._isEdibleTimeout.stop();
+    this._gotEaten = true;
+    this._lastCachedField = Empty;
+    this._cachedField = Empty;
+  }
+
+  protected goOutOfCage(gameField: FC<any>[][]): void {
+    let outsideOfTheCagePositionY = 5;
+    this._lastPosition.y = this._position.y;
+    this._lastPosition.x = this._position.x;
+    if (this._position.y === outsideOfTheCagePositionY) {
+      this.inCage = false;
+    }
+    let middleOfCagePositionX = 10;
+    if (this._position.x !== middleOfCagePositionX) {
+      if (this.canMoveLeft(gameField) === Moveable.Yes) {
+        this._direction = Direction.Left;
+        this.moveLeft();
+      }
+      else if (this.canMoveRight(gameField) === Moveable.Yes) {
+        this._direction = Direction.Right;
+        this.moveRight()
+      }
+      else if (this.canMoveUp(gameField) === Moveable.Yes) {
+        this._direction = Direction.Up;
+        this.moveUp();
+      }
+      else if (this.canMoveDown(gameField) === Moveable.Yes) {
+        this._direction = Direction.Down;
+        this.moveDown();
+      }
+    }
+    else {
+      if (this.canMoveUp(gameField) === Moveable.Yes) {
+        this._direction = Direction.Up;
+        this.moveUp();
+      }
+    }
+  }
+  protected setTemporaryGameField(gameField: FC<any>[][]): FC<any>[][] {
+    gameField[this._lastPosition.y][this._lastPosition.x] = this._cachedField;
+    this._lastCachedField = this._cachedField;
+    if (gameField[this._position.y][this._position.x] !== Hackman) {
+      this._cachedField = gameField[this._position.y][this._position.x];
+    }
+    switch (this._name) {
+      case CharacterIdentifier.GreenGhost:
+        gameField[this._position.y][this._position.x] = GreenGhost;
+        break;
+      case CharacterIdentifier.RedGhost:
+        gameField[this._position.y][this._position.x] = RedGhost;
+        break;
+      case CharacterIdentifier.OrangeGhost:
+        gameField[this._position.y][this._position.x] = OrangeGhost;
+        break;
+      case CharacterIdentifier.BlueGhost:
+        gameField[this._position.y][this._position.x] = BlueGhost;
+        break;
+    }
+    return gameField;
+  }
+  public abstract determineNextMove(gameField: FC<any>[][]): FC<any>[][];
 }
 
 export default GhostCharacter;

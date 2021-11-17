@@ -1,22 +1,18 @@
-import Coordinate from "../Coordinate";
+import Coordinate from "../../Coordinate";
 
 abstract class CoordinateHandler {
-    private _initialPosition: Coordinate;
+    protected _initialPosition: Coordinate;
 
     protected _position: Coordinate;
-    public set positionY(value: number) {
-        this._position.y = value;
-    }
-    public set positionX(value: number) {
-        this._position.x = value;
-    }
     public get positionY(): number {
         return this._position.y;
     }
     public get positionX(): number {
         return this._position.x;
     }
-
+    public get position():Coordinate{
+        return this._position;
+    }
     constructor(positionY: number, positionX: number) {
         this._position = new Coordinate(positionY, positionX);
         this._initialPosition = new Coordinate(positionY, positionX);
@@ -35,7 +31,7 @@ abstract class CoordinateHandler {
     public moveDown() {
         this._position.y++;
     }
-    public movesLeft() {
+    public moveLeft() {
         this._position.x--;
     }
     public moveRightTroughPortal() {
@@ -45,4 +41,5 @@ abstract class CoordinateHandler {
         this._position.x = 20;
     }
 }
+
 export default CoordinateHandler;
