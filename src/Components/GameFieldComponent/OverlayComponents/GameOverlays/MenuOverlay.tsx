@@ -11,26 +11,26 @@ const Overlay: React.FC = () => {
 
     const dispatch = useDispatch();
     const { pauseGame, openOptions, restartGame} = bindActionCreators(gameFieldSlice.actions, dispatch);
-    const options: boolean = useSelector((state: State) => state.options);
+    const menu: boolean = useSelector((state: State) => state.menu);
     const isPaused: boolean = useSelector((state:State) => state.isPaused)
     const [DisplayOverlay, SetDisplayOverlay] = useState("overlay-wrapper show-overlay")
     let close = document.getElementById("close-overlay") as HTMLButtonElement
     let newGame = document.getElementById("restart-game-options") as HTMLButtonElement
 
     useEffect(() => {        
-        if(options)
+        if(menu)
             SetDisplayOverlay("overlay-wrapper show-overlay")
         else
             SetDisplayOverlay("overlay-wrapper hide-overlay")
-    }, [options])
+    }, [menu])
 
 
     close?.addEventListener("click", () => {
-        store.dispatch(openOptions(!options));
+        store.dispatch(openOptions(!menu));
         store.dispatch(pauseGame(!isPaused));
     })
     newGame?.addEventListener("click", () => {
-        store.dispatch(openOptions(!options));
+        store.dispatch(openOptions(!menu));
         store.dispatch(pauseGame(!isPaused));
         store.dispatch(restartGame)
     })

@@ -6,7 +6,7 @@ import gameFieldSlice from "./State/slices/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
 import Direction from "./Types/Direction";
-import SettingsOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/SettingsOverlay";
+import MenuOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/MenuOverlay";
 import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/WinOverlay";
@@ -39,7 +39,7 @@ const App: React.FC = () => {
   const gameOver = useSelector((state: State) => state.gameOver);
   const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
   const canJump = useSelector((state: State) => state.hackman.canJump);
-  const options = useSelector((state: State) => state.options);
+  const menu = useSelector((state: State) => state.menu);
   const points = useSelector((state: State) => state.points);
   const win = useSelector((state:State) => state.win)
   const gameStarted = useSelector((state:State) => state.gameStarted)
@@ -117,18 +117,18 @@ const App: React.FC = () => {
       } else if (e.code === "Space") {
         store.dispatch(setBlock);
       } else if (e.code === "Escape") {
-        store.dispatch(openOptions(!options));
+        store.dispatch(openOptions(!menu));
         store.dispatch(pauseGame(!isPaused));
       } else if (e.code === "ShiftLeft") {
         store.dispatch(hackmanJump);
       } else return;
-    } else if (isPaused && !options && !win) {
+    } else if (isPaused && !menu && !win) {
       if (e.key.toLowerCase() === "p") {
         store.dispatch(pauseGame(!isPaused));
       }
-    } else if (options) {
+    } else if (menu) {
       if (e.code === "Escape") {
-        store.dispatch(openOptions(!options));
+        store.dispatch(openOptions(!menu));
         store.dispatch(pauseGame(!isPaused));
       }
     }
@@ -198,7 +198,7 @@ const App: React.FC = () => {
         <Start/>
       }
       <Stats />
-      <SettingsOverlay />
+      <MenuOverlay />
       <GameOver />
       <WinOverlay />
       {(ScreenSize.width < 1300 && ScreenSize.width/ScreenSize.height > 1.65) && 
