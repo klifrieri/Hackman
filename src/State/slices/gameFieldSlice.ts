@@ -12,7 +12,11 @@ import Direction from "../../Types/Direction";
 import GhostCharacter from "../../Types/Character/GhostCharacter";
 import Moveable from "../../Types/Moveable";
 import { setRandomDirectionAndCount } from "../../UtilityFunctions/GetRandomNumber";
-import { ghostEatsHackman, moveGhostDumb, moveGhostSmart } from "../../UtilityFunctions/move/MoveGhost";
+import {
+  ghostEatsHackman,
+  moveGhostDumb,
+  moveGhostSmart,
+} from "../../UtilityFunctions/move/MoveGhost";
 import React from "react";
 import CoinValue from "../../Types/CoinValue";
 import HackmanCharacter from "../../Types/Character/HackmanCharacter";
@@ -30,28 +34,57 @@ import OrangeGhost from "../../Components/GameFieldComponent/GhostComponents/Ora
 import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
 import Coordinate from "../../Types/Coordinate";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
-import { resetBlueGhost, resetGreenGhost, resetOrangeGhost, resetRedGhost } from "../../UtilityFunctions/resetGhosts";
-import data from "../../data.json"
+import {
+  resetBlueGhost,
+  resetGreenGhost,
+  resetOrangeGhost,
+  resetRedGhost,
+} from "../../UtilityFunctions/resetGhosts";
+import data from "../../data.json";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(
   CharacterIdentifier.Hackman,
   12,
   10
 );
-const greenGhost = new GhostCharacter(CharacterIdentifier.GreenGhost, 7, 9, MovementDirection.NorthEast, true);
-const redGhost = new GhostCharacter(CharacterIdentifier.RedGhost, 7, 11, MovementDirection.NorthWest, false);
-const orangeGhost = new GhostCharacter(CharacterIdentifier.OrangeGhost, 9, 9, MovementDirection.NorthEast, true);
-const blueGhost = new GhostCharacter(CharacterIdentifier.BlueGhost, 9, 11, MovementDirection.NorthWest, false);
+const greenGhost = new GhostCharacter(
+  CharacterIdentifier.GreenGhost,
+  7,
+  9,
+  MovementDirection.NorthEast,
+  true
+);
+const redGhost = new GhostCharacter(
+  CharacterIdentifier.RedGhost,
+  7,
+  11,
+  MovementDirection.NorthWest,
+  false
+);
+const orangeGhost = new GhostCharacter(
+  CharacterIdentifier.OrangeGhost,
+  9,
+  9,
+  MovementDirection.NorthEast,
+  true
+);
+const blueGhost = new GhostCharacter(
+  CharacterIdentifier.BlueGhost,
+  9,
+  11,
+  MovementDirection.NorthWest,
+  false
+);
 const ghosts: GhostCharacter[] = [greenGhost, redGhost, orangeGhost, blueGhost];
 let block: number[] = [];
-
-
 
 const gameFieldSlice = createSlice({
   name: "game",
   initialState: {
     gameField: SpielfeldLayout(),
     eatenCoins: 0,
+    playerName: "Guest",
+	playerHand: false,
     hackman: initialStateHackman,
     ghosts: ghosts,
     block: block,
@@ -60,8 +93,9 @@ const gameFieldSlice = createSlice({
     gameOver: false,
     win: false,
     points: 0,
+    difficult: 1,
     gameStarted: false,
-    players: data
+    players: data,
   },
   reducers: {
     gameTick: (state) => {
@@ -430,8 +464,21 @@ const gameFieldSlice = createSlice({
       state.isPaused = true;
     },
     startGame: (state) => {
-      state.gameStarted = true
-    }
+      state.gameStarted = true;
+    },
+    changePlayerName: (state, payload: PayloadAction<string>) => {
+      state.playerName = payload.payload;
+    },
+    changeDifficult: (state, payload: PayloadAction<string>) => {
+		if(payload.payload === "plus")
+			state.difficult += 1
+		else if(payload.payload === "minus")
+			state.difficult -= 1
+	},
+	changePlayingHand: (state) => {
+		state.playerHand = !state.playerHand
+		console.log(state.playerHand)
+	}
   },
 });
 
