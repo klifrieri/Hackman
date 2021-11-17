@@ -8,12 +8,10 @@ import { FaCheck, FaMinus, FaPlus, FaRegHandPointLeft, FaRegHandPointRight } fro
 
 const Options: React.FC = () => {
     const dispatch = useDispatch();
-    const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu } = bindActionCreators(
-        gameFieldSlice.actions,
-        dispatch
-    );
+    const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
     const difficult = useSelector((state: State) => state.difficult);
     const playerName = useSelector((state: State) => state.playerName);
+    const gameStarted = useSelector((state: State) => state.gameStarted);
     let name = document.getElementById("s-opt-name-i") as HTMLInputElement;
     const [BtnPlus, SetBtnPlus] = useState(false);
     const [BtnMinus, SetBtnMinus] = useState(false);
@@ -43,28 +41,20 @@ const Options: React.FC = () => {
                     </button>
                 </div>
             </div>
-            <div className="s-opt-el">
-                <div className="s-opt-t">Difficult:</div>
-                <div className="s-opt-w">
-                    <button
-                        disabled={BtnMinus}
-                        id="s-minus"
-                        className="s-opt-dif-btn minus"
-                        onClick={() => changeDifficult("minus")}
-                    >
-                        <FaMinus />
-                    </button>
-                    <div className="s-opt-t">{difficult}</div>
-                    <button
-                        disabled={BtnPlus}
-                        id="s-plus"
-                        className="s-opt-dif-btn plus"
-                        onClick={() => changeDifficult("plus")}
-                    >
-                        <FaPlus />
-                    </button>
+            {!gameStarted && (
+                <div className="s-opt-el">
+                    <div className="s-opt-t">Difficult:</div>
+                    <div className="s-opt-w">
+                        <button disabled={BtnMinus} id="s-minus" className="s-opt-dif-btn minus" onClick={() => changeDifficult("minus")}>
+                            <FaMinus />
+                        </button>
+                        <div className="s-opt-t">{difficult}</div>
+                        <button disabled={BtnPlus} id="s-plus" className="s-opt-dif-btn plus" onClick={() => changeDifficult("plus")}>
+                            <FaPlus />
+                        </button>
+                    </div>
                 </div>
-            </div>
+            )}
             <div className="s-opt-el">
                 <div className="s-opt-t">Handed:</div>
                 <div className="s-opt-w">
@@ -83,10 +73,7 @@ const Options: React.FC = () => {
                 </div>
             </div>
             <div className="s-overlay-buttons">
-                <button
-                    id="s-opt-back-btn"
-                    className="s-overlay-button"
-                    onClick={() => backToStartMenu("options")}>
+                <button id="s-opt-back-btn" className="s-overlay-button" onClick={() => backToStartMenu("options")}>
                     BACK
                 </button>
             </div>
