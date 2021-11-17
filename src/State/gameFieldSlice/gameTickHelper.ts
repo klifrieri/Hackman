@@ -91,4 +91,4 @@ const mergeGameField = (gameField: FC<any>[][], hackman: WritableDraft<HackmanCh
     return { shallIncreaseEatenCoins, increaseScoreBy };
 }
 
-export { mergeGameField, ghostEatsHackman, setSingleGameField };
+export { mergeGameField,setGameFieldByGhostName, ghostEatsHackman, setSingleGameField };

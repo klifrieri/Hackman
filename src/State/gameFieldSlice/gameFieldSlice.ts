@@ -23,14 +23,15 @@ import GhostCharacter from "../../Types_Classes/Character/Base/GhostCharacter";
 import { mergeGameField, ghostEatsHackman, setSingleGameField } from "./gameTickHelper";
 import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
 import data from "../../data.json";
+import { eatGhost, getTargetCoordinate, letHackmanJump } from "./hackmanJumpHelper";
 
-const initialStateHackman: HackmanCharacter = new HackmanCharacter(CharacterIdentifier.Hackman, 12, 10);
+const initialStateHackman = new HackmanCharacter(CharacterIdentifier.Hackman, 12, 10);
 const greenGhost = new EasyGhostCharacter(CharacterIdentifier.GreenGhost, 7, 9);
 const redGhost = new EasyGhostCharacter(CharacterIdentifier.RedGhost, 7, 11);
 const orangeGhost = new HardGhostCharacter(CharacterIdentifier.OrangeGhost, 9, 9, 12, 10);
 const blueGhost = new HardGhostCharacter(CharacterIdentifier.BlueGhost, 9, 11, 12, 10);
 const ghosts: GhostCharacter[] = [greenGhost, redGhost, orangeGhost, blueGhost];
-let block: number[] = [];
+let block = new Coordinate(0, 0);
 initialStateHackman.attach(orangeGhost);
 initialStateHackman.attach(blueGhost);
 
@@ -42,7 +43,7 @@ const gameFieldSlice = createSlice({
 		score: 0,
 		hackman: initialStateHackman,
 		ghosts: ghosts,
-		block: block,
+		blockPosition: block,
 		isPaused: false,
 		options: false,
 		gameOver: false,
@@ -114,32 +115,28 @@ const gameFieldSlice = createSlice({
 					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y + 1][state.hackman.position.x] === Empty) {
 						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y + 1, state.hackman.position.x), Block);
 						state.hackman.canSetBlock = false;
-						state.block[0] = state.hackman.position.y + 1;
-						state.block[1] = state.hackman.position.x;
+						state.blockPosition = new Coordinate(state.hackman.position.y + 1, state.hackman.position.x);
 					}
 					break;
 				case Direction.Down:
 					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y - 1][state.hackman.position.x] === Empty) {
 						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y - 1, state.hackman.position.x), Block);
 						state.hackman.canSetBlock = false;
-						state.block[0] = state.hackman.position.y - 1;
-						state.block[1] = state.hackman.position.x;
+						state.blockPosition = new Coordinate(state.hackman.position.y - 1, state.hackman.position.x);
 					}
 					break;
 				case Direction.Left:
 					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x + 1] === Empty) {
 						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y, state.hackman.position.x + 1), Block);
 						state.hackman.canSetBlock = false;
-						state.block[0] = state.hackman.position.y;
-						state.block[1] = state.hackman.position.x + 1;
+						state.blockPosition = new Coordinate(state.hackman.position.y, state.hackman.position.x + 1);
 					}
 					break;
 				case Direction.Right:
 					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x - 1] === Empty) {
 						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y, state.hackman.position.x - 1), Block);
 						state.hackman.canSetBlock = false;
-						state.block[0] = state.hackman.position.y;
-						state.block[1] = state.hackman.position.x - 1;
+						state.blockPosition = new Coordinate(state.hackman.position.y, state.hackman.position.x - 1);
 					}
 					break;
 			}
@@ -147,113 +144,45 @@ const gameFieldSlice = createSlice({
 		hackmanJump: (state) => {
 			if (state.hackman.canJump) {
 				if (state.hackman.moveable !== Moveable.No) {
-					let positionToCheck: Coordinate = new Coordinate(100, 100);
-					switch (state.hackman.direction) {
-						case Direction.Up: {
-							positionToCheck = new Coordinate(state.hackman.position.y - 2, state.hackman.position.x);
-							break;
-						}
-						case Direction.Right: {
-							positionToCheck = new Coordinate(state.hackman.position.y, state.hackman.position.x + 2);
-							break;
-						}
-						case Direction.Down: {
-							positionToCheck = new Coordinate(state.hackman.position.y + 2, state.hackman.position.x);
-							break;
-						}
-						case Direction.Left: {
-							positionToCheck = new Coordinate(state.hackman.position.y, state.hackman.position.x - 2);
-							break;
-						}
-						default:
-							break;
-					}
-					if (positionToCheck.x !== 100) {
-						if (state.gameField[positionToCheck.y][positionToCheck.x] === Coin || state.gameField[positionToCheck.y][positionToCheck.x] === Snack || state.gameField[positionToCheck.y][positionToCheck.x] === Empty) {
-							state.gameField[state.hackman.position.y][state.hackman.position.x] = Empty;
-							state.gameField[positionToCheck.y][positionToCheck.x] = Hackman;
-							state.hackman.position.y = positionToCheck.y;
-							state.hackman.position.x = positionToCheck.x;
-							state.hackman.determineIfMoveable(state.gameField);
-							if (state.gameField[positionToCheck.y][positionToCheck.x] === Coin) {
+					let targetCoordinate: Coordinate | undefined = getTargetCoordinate(state.hackman.direction, state.hackman.position);
+					if (targetCoordinate) {
+						if (state.gameField[targetCoordinate.y][targetCoordinate.x] === Coin || state.gameField[targetCoordinate.y][targetCoordinate.x] === Snack || state.gameField[targetCoordinate.y][targetCoordinate.x] === Empty) {
+							letHackmanJump(state.gameField, state.hackman, targetCoordinate);
+							if (state.gameField[targetCoordinate.y][targetCoordinate.x] === Coin) {
 								state.eatenCoins++;
 								state.score += 1;
-							} else if (state.gameField[positionToCheck.y][positionToCheck.x] === Snack) {
+							} else if (state.gameField[targetCoordinate.y][targetCoordinate.x] === Snack) {
 								state.eatenCoins++;
 								state.score += 5;
 							}
 							state.hackman.canJump = false;
-						} else if (state.gameField[positionToCheck.y][positionToCheck.x] === GreenGhost) {
-							if (greenGhost.isEdible) {
-								if (greenGhost.cachedField === Coin || greenGhost.cachedField === Snack) {
-									state.eatenCoins++;
-								}
-								state.gameField[state.hackman.position.y][state.hackman.position.x] = Empty;
-								state.gameField[positionToCheck.y][positionToCheck.x] = Hackman;
-								state.hackman.position.y = positionToCheck.y;
-								state.hackman.position.x = positionToCheck.x;
-								state.hackman.determineIfMoveable(state.gameField);
-								state.ghosts[0].resetToStartPosition();
-								state.gameField[ghosts[0].position.y][ghosts[0].position.x] = GreenGhost;
-								state.score += 10;
-							} else {
-								ghostEatsHackman(state.gameField, state.hackman, state.ghosts);
-							}
-							state.hackman.canJump = false;
-						} else if (state.gameField[positionToCheck.y][positionToCheck.x] === RedGhost) {
-							if (redGhost.isEdible) {
-								if (redGhost.cachedField === Coin || redGhost.cachedField === Snack) {
-									state.eatenCoins++;
-								}
-								state.gameField[state.hackman.position.y][state.hackman.position.x] = Empty;
-								state.gameField[positionToCheck.y][positionToCheck.x] = Hackman;
-								state.hackman.position.y = positionToCheck.y;
-								state.hackman.position.x = positionToCheck.x;
-								state.hackman.determineIfMoveable(state.gameField);
-								state.ghosts[1].resetToStartPosition();
-								state.gameField[ghosts[1].position.y][ghosts[1].position.x] = RedGhost;
-								state.score += 10;
-							} else {
-								ghostEatsHackman(state.gameField, state.hackman, state.ghosts);
-							}
-							state.hackman.canJump = false;
-						} else if (state.gameField[positionToCheck.y][positionToCheck.x] === OrangeGhost) {
-							if (orangeGhost.isEdible) {
-								if (orangeGhost.cachedField === Coin || orangeGhost.cachedField === Snack) {
-									state.eatenCoins++;
-								}
-								state.gameField[state.hackman.position.y][state.hackman.position.x] = Empty;
-								state.gameField[positionToCheck.y][positionToCheck.x] = Hackman;
-								state.hackman.position.y = positionToCheck.y;
-								state.hackman.position.x = positionToCheck.x;
-								state.hackman.determineIfMoveable(state.gameField);
-								state.ghosts[2].resetToStartPosition();
-								state.gameField[ghosts[2].position.y][ghosts[2].position.x] = OrangeGhost;
-								state.score += 10;
-							} else {
-								ghostEatsHackman(state.gameField, state.hackman, state.ghosts);
-							}
-							state.hackman.canJump = false;
-						} else if (state.gameField[positionToCheck.y][positionToCheck.x] === BlueGhost) {
-							if (blueGhost.isEdible) {
-								if (blueGhost.cachedField === Coin || blueGhost.cachedField === Snack) {
-									state.eatenCoins++;
-								}
-								state.gameField[state.hackman.position.y][state.hackman.position.x] = Empty;
-								state.gameField[positionToCheck.y][positionToCheck.x] = Hackman;
-								state.hackman.position.y = positionToCheck.y;
-								state.hackman.position.x = positionToCheck.x;
-								state.hackman.determineIfMoveable(state.gameField);
-								state.ghosts[3].resetToStartPosition();
-								state.gameField[ghosts[3].position.y][ghosts[3].position.x] = BlueGhost;
-								state.score += 10;
-							} else {
-								ghostEatsHackman(state.gameField, state.hackman, state.ghosts);
-							}
-							state.hackman.canJump = false;
+						} else if (state.gameField[targetCoordinate.y][targetCoordinate.x] === GreenGhost) {
+							ghostGetsJumped(state.ghosts[0], targetCoordinate);
+						} else if (state.gameField[targetCoordinate.y][targetCoordinate.x] === RedGhost) {
+							ghostGetsJumped(state.ghosts[1], targetCoordinate);
+						} else if (state.gameField[targetCoordinate.y][targetCoordinate.x] === OrangeGhost) {
+							ghostGetsJumped(state.ghosts[2], targetCoordinate);
+						} else if (state.gameField[targetCoordinate.y][targetCoordinate.x] === BlueGhost) {
+							ghostGetsJumped(state.ghosts[3], targetCoordinate);
 						}
 					}
 				}
+			}
+			function ghostGetsJumped(ghost: WritableDraft<GhostCharacter>, targetCoordinate: Coordinate) {
+				if (ghost.isEdible) {
+					increaseScoreAfterGhostEaten(ghost);
+					letHackmanJump(state.gameField, state.hackman, targetCoordinate);
+					eatGhost(state.gameField, ghost);
+				} else {
+					ghostEatsHackman(state.gameField, state.hackman, state.ghosts);
+				}
+				state.hackman.canJump = false;
+			}
+			function increaseScoreAfterGhostEaten(ghost: WritableDraft<GhostCharacter>) {
+				if (ghost.cachedField === Coin || ghost.cachedField === Snack) {
+					state.eatenCoins++;
+				}
+				state.score += 10;
 			}
 		},
 		pauseGame: (state, payload: PayloadAction<boolean>) => {
@@ -263,7 +192,7 @@ const gameFieldSlice = createSlice({
 			state.options = payload.payload;
 		},
 		deleteBlock: (state) => {
-			setSingleGameField(state.gameField, new Coordinate(state.block[0], state.block[1]), Empty);
+			setSingleGameField(state.gameField, new Coordinate(state.blockPosition.y, state.blockPosition.x), Empty);
 			state.hackman.canSetBlock = true;
 		},
 		enableJumpingFeature: (state) => {
