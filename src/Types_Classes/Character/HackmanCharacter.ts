@@ -1,5 +1,5 @@
-import CharacterIdentifier from "../CharacterIdentifier";
-import BaseCharacter from "./base/BaseCharacter";
+import CharacterIdentifier from "./Models/CharacterIdentifier";
+import BaseCharacter from "./Base/BaseCharacter";
 import Observer from "./Observer/Observer";
 import Subject from "./Observer/Subject";
 

@@ -6,9 +6,9 @@ import OrangeGhost from "../../../Components/GameFieldComponent/GhostComponents/
 import RedGhost from "../../../Components/GameFieldComponent/GhostComponents/RedGhost";
 import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import CustomTimerForGhostEdible from "../../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
-import CharacterIdentifier from "../../CharacterIdentifier";
-import Direction from "../../Direction";
-import Moveable from "../../Moveable";
+import CharacterIdentifier from "../Models/CharacterIdentifier";
+import Direction from "../Models/Direction";
+import Moveable from "../Models/Moveable";
 import BaseCharacter from "./BaseCharacter";
 import IGhostAI from "./IGhostAI";
 

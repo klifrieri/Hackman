@@ -6,11 +6,11 @@ import GreenGhost from "../../Components/GameFieldComponent/GhostComponents/Gree
 import OrangeGhost from "../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
 import RedGhost from "../../Components/GameFieldComponent/GhostComponents/RedGhost";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
-import GhostCharacter from "../../Types/Character/base/GhostCharacter";
-import HackmanCharacter from "../../Types/Character/HackmanCharacter";
-import CharacterIdentifier from "../../Types/CharacterIdentifier";
-import CoinValue from "../../Types/CoinValue";
-import Coordinate from "../../Types/Coordinate";
+import GhostCharacter from "../../Types_Classes/Character/Base/GhostCharacter";
+import HackmanCharacter from "../../Types_Classes/Character/HackmanCharacter";
+import CharacterIdentifier from "../../Types_Classes/Character/Models/CharacterIdentifier";
+import CoinValue from "../../Types_Classes/Models/CoinValue";
+import Coordinate from "../../Types_Classes/Character/Models/Coordinate";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import { FC } from "react";
 
@@ -91,4 +91,4 @@ const mergeGameField = (gameField: FC<any>[][], hackman: WritableDraft<HackmanCh
     return { shallIncreaseEatenCoins, increaseScoreBy };
 }
 
-export { mergeGameField, ghostEatsHackman };
+export { mergeGameField, ghostEatsHackman, setSingleGameField };

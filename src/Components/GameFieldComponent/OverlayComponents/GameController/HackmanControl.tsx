@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
+import gameFieldSlice from "../../../../State/gameFieldSlice/gameFieldSlice";
 import { store } from "../../../../State/store";
-import Direction from "../../../../Types/Direction";
+import Direction from "../../../../Types_Classes/Character/Models/Direction";
 import { CalcFontSize, GetScreenSize } from "../../../../UtilityFunctions/CalcHelper";
 
 interface IControlProps{

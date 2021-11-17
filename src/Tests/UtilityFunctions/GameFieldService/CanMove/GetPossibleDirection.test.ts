@@ -1,4 +1,4 @@
-import Coordinate from '../../../../Types/Coordinate';
+import Coordinate from '../../../../Types_Classes/Character/Models/Coordinate';
 import {getPossibleDirections} from '../../../../UtilityFunctions/gameFieldSliceHelper/CanMove';
 import { testGameFieldEmpty, testGameFieldPortalEverywhere } from '../../../Mock/TestField.Mock';
 

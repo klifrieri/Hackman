@@ -2,20 +2,20 @@ import GameField from "./Components/GameFieldComponent/Gamefield";
 import React, { useEffect, useRef, useState } from "react";
 import Stats from "./Components/StatsComponent/Stats";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "./State/slices/gameFieldSlice";
+import gameFieldSlice from "./State/gameFieldSlice/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
-import Direction from "./Types/Direction";
+import Direction from "./Types_Classes/Character/Models/Direction";
 import SettingsOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/SettingsOverlay";
 import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/WinOverlay";
 import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
-import SpielfeldLayout from "./SpielfeldLayout";
+import createGameField from "./UtilityFunctions/createGameField";
 import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
 
 
-const allPoints: number = CalculateAllCoins(SpielfeldLayout());
+const allPoints: number = CalculateAllCoins(createGameField());
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
@@ -155,8 +155,6 @@ const App: React.FC = () => {
       width -= 50;
     }
 
-    console.debug("Height" + height);
-    console.debug("\nWidth" + width);
     var styleRow = document.createElement("style");
     styleRow.type = "text/css";
     styleRow.id = "rowStyleTag";

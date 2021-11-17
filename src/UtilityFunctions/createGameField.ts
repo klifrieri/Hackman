@@ -1,29 +1,29 @@
-import Coin from "./Components/GameFieldComponent/FieldComponents/Path/Coin";
-import Empy from "./Components/GameFieldComponent/FieldComponents/Path/Empty";
-import Holl from "./Components/GameFieldComponent/FieldComponents/HorizontalWalls/HorizontalWall";
-import Hwrs from "./Components/GameFieldComponent/FieldComponents/HorizontalWalls/HorizontalWallRightSideShort";
-import Hwls from "./Components/GameFieldComponent/FieldComponents/HorizontalWalls/HorizontalWallLeftSideShort";
-import Vell from "./Components/GameFieldComponent/FieldComponents/VerticalWalls/VerticalWall";
-import Vwts from "./Components/GameFieldComponent/FieldComponents/VerticalWalls/VerticalWallTopShort";
-import Vwbs from "./Components/GameFieldComponent/FieldComponents/VerticalWalls/VerticalWallBottomShort";
-import Tpbo from "./Components/GameFieldComponent/FieldComponents/TPieces/TPieceBottom";
-import Tpto from "./Components/GameFieldComponent/FieldComponents/TPieces/TPieceTop";
-import Tprs from "./Components/GameFieldComponent/FieldComponents/TPieces/TPieceRight";
-import Tpls from "./Components/GameFieldComponent/FieldComponents/TPieces/TPieceLeft";
-import Colt from "./Components/GameFieldComponent/FieldComponents/Corners/CornerLeftTop";
-import Colb from "./Components/GameFieldComponent/FieldComponents/Corners/CornerLeftBottom";
-import Cort from "./Components/GameFieldComponent/FieldComponents/Corners/CornerRightTop";
-import Corb from "./Components/GameFieldComponent/FieldComponents/Corners/CornerRightBottom";
-import Snac from "./Components/GameFieldComponent/FieldComponents/Path/Snack";
-import Hack from "./Components/GameFieldComponent/HackmanComponent/Hackman";
-import Gei1 from "./Components/GameFieldComponent/GhostComponents/GreenGhost";
-import Gei2 from "./Components/GameFieldComponent/GhostComponents/RedGhost";
-import Gei3 from "./Components/GameFieldComponent/GhostComponents/OrangeGhost";
-import Gei4 from "./Components/GameFieldComponent/GhostComponents/BlueGhost";
+import Coin from "../Components/GameFieldComponent/FieldComponents/Path/Coin";
+import Empy from "../Components/GameFieldComponent/FieldComponents/Path/Empty";
+import Holl from "../Components/GameFieldComponent/FieldComponents/HorizontalWalls/HorizontalWall";
+import Hwrs from "../Components/GameFieldComponent/FieldComponents/HorizontalWalls/HorizontalWallRightSideShort";
+import Hwls from "../Components/GameFieldComponent/FieldComponents/HorizontalWalls/HorizontalWallLeftSideShort";
+import Vell from "../Components/GameFieldComponent/FieldComponents/VerticalWalls/VerticalWall";
+import Vwts from "../Components/GameFieldComponent/FieldComponents/VerticalWalls/VerticalWallTopShort";
+import Vwbs from "../Components/GameFieldComponent/FieldComponents/VerticalWalls/VerticalWallBottomShort";
+import Tpbo from "../Components/GameFieldComponent/FieldComponents/TPieces/TPieceBottom";
+import Tpto from "../Components/GameFieldComponent/FieldComponents/TPieces/TPieceTop";
+import Tprs from "../Components/GameFieldComponent/FieldComponents/TPieces/TPieceRight";
+import Tpls from "../Components/GameFieldComponent/FieldComponents/TPieces/TPieceLeft";
+import Colt from "../Components/GameFieldComponent/FieldComponents/Corners/CornerLeftTop";
+import Colb from "../Components/GameFieldComponent/FieldComponents/Corners/CornerLeftBottom";
+import Cort from "../Components/GameFieldComponent/FieldComponents/Corners/CornerRightTop";
+import Corb from "../Components/GameFieldComponent/FieldComponents/Corners/CornerRightBottom";
+import Snac from "../Components/GameFieldComponent/FieldComponents/Path/Snack";
+import Hack from "../Components/GameFieldComponent/HackmanComponent/Hackman";
+import Gei1 from "../Components/GameFieldComponent/GhostComponents/GreenGhost";
+import Gei2 from "../Components/GameFieldComponent/GhostComponents/RedGhost";
+import Gei3 from "../Components/GameFieldComponent/GhostComponents/OrangeGhost";
+import Gei4 from "../Components/GameFieldComponent/GhostComponents/BlueGhost";
 import React from 'react';
-import Gate from "./Components/GameFieldComponent/FieldComponents/Path/Gate";
+import Gate from "../Components/GameFieldComponent/FieldComponents/Path/Gate";
 
-const SpielfeldLayout = () => {
+const createGameField = () => {
     let fields: React.FC<any>[][] = [
         [Colt, Holl, Holl, Holl, Holl, Tpbo, Holl, Holl, Holl, Holl, Tpbo, Holl, Holl, Holl, Holl, Tpbo, Holl, Holl, Holl, Holl, Cort],
         [Vell, Snac, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Coin, Vwbs, Coin, Coin, Coin, Coin, Vell, Coin, Coin, Coin, Snac, Vell],
@@ -47,4 +47,4 @@ const SpielfeldLayout = () => {
 
 
 
-export default SpielfeldLayout;
+export default createGameField;

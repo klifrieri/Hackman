@@ -1,4 +1,4 @@
-import Coordinate from "../../Coordinate";
+import Coordinate from "../Models/Coordinate";
 
 abstract class CoordinateHandler {
     protected _initialPosition: Coordinate;

@@ -1,6 +1,6 @@
-import Moveable from "../../Moveable";
-import Direction from "../../Direction";
-import CharacterIdentifier from "../../CharacterIdentifier";
+import Moveable from "../Models/Moveable";
+import Direction from "../Models/Direction";
+import CharacterIdentifier from "../Models/CharacterIdentifier";
 import CoordinateHandler from "./CoordinateHandler";
 import { FC } from "react";
 import Coin from "../../../Components/GameFieldComponent/FieldComponents/Path/Coin";
@@ -10,7 +10,7 @@ import BlueGhost from "../../../Components/GameFieldComponent/GhostComponents/Bl
 import GreenGhost from "../../../Components/GameFieldComponent/GhostComponents/GreenGhost";
 import OrangeGhost from "../../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
 import RedGhost from "../../../Components/GameFieldComponent/GhostComponents/RedGhost";
-import Coordinate from "../../Coordinate";
+import Coordinate from "../Models/Coordinate";
 import Gate from "../../../Components/GameFieldComponent/FieldComponents/Path/Gate";
 import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
 

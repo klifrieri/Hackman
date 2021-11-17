@@ -21,7 +21,7 @@ import Gate from "./FieldComponents/Path/Gate";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "../../State/store";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../State/slices/gameFieldSlice";
+import gameFieldSlice from "../../State/gameFieldSlice/gameFieldSlice";
 import './gameField.css';
 import GreenGhost from "./GhostComponents/GreenGhost";
 import RedGhost from "./GhostComponents/RedGhost";

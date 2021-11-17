@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { State } from "../../../State/store";
-import GhostCharacter from "../../../Types/Character/base/GhostCharacter";
+import GhostCharacter from "../../../Types_Classes/Character/Base/GhostCharacter";
 import {  getGhostAnimationClassName, getGhostBodyClassName, getGhostHeadClassName } from "./determineGhostCssClass";
 
 const BlueGhost: React.FC<any> = () => {

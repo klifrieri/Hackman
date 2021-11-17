@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { State, store } from "../../../../State/store"
 import { useEffect, useState } from "react"
 import { bindActionCreators } from "redux"
-import gameFieldSlice from "../../../../State/slices/gameFieldSlice"
+import gameFieldSlice from "../../../../State/gameFieldSlice/gameFieldSlice"
 
 
 const GameOver:React.FC = () => {

@@ -1,6 +1,6 @@
 import { applyMiddleware, createStore} from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import gameFieldSlice from "./slices/gameFieldSlice";
+import gameFieldSlice from "./gameFieldSlice/gameFieldSlice";
 
 
 //If you want to use the redux dev tools comment this store in and the other one out

@@ -1,9 +1,9 @@
 import { FC } from "react";
-import getRandomNumber from "../../UtilityFunctions/GetRandomNumber";
-import CharacterIdentifier from "../CharacterIdentifier";
-import Direction from "../Direction";
-import Moveable from "../Moveable";
-import GhostCharacter from "./base/GhostCharacter";
+import CharacterIdentifier from "./Models/CharacterIdentifier";
+import Direction from "./Models/Direction";
+import Moveable from "./Models/Moveable";
+import GhostCharacter from "./Base/GhostCharacter";
+import { getRandomNumber } from "../../UtilityFunctions/CalcHelper";
 
 class EasyGhostCharacter extends GhostCharacter {
     private _declaredCount: number;

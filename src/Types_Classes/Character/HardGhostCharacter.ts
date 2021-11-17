@@ -1,10 +1,10 @@
 import { FC } from "react";
-import CharacterIdentifier from "../CharacterIdentifier";
-import Coordinate from "../Coordinate";
-import Direction from "../Direction";
-import Moveable from "../Moveable";
-import MovementDirection from "../MovementDirection";
-import GhostCharacter from "./base/GhostCharacter";
+import CharacterIdentifier from "./Models/CharacterIdentifier";
+import Coordinate from "./Models/Coordinate";
+import Direction from "./Models/Direction";
+import Moveable from "./Models/Moveable";
+import MovementDirection from "./Models/MovementDirection";
+import GhostCharacter from "./Base/GhostCharacter";
 import HackmanCharacter from "./HackmanCharacter";
 import Observer from "./Observer/Observer";
 import Subject from "./Observer/Subject";

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
+import gameFieldSlice from "../../../../State/gameFieldSlice/gameFieldSlice";
 import { State, store } from "../../../../State/store";
 import { CalcFontSize, GetScreenSize } from "../../../../UtilityFunctions/CalcHelper";
 

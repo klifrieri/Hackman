@@ -1,6 +1,6 @@
 import {canMoveRight,canMoveLeft,canMoveDown,canMoveUp} from '../../../../UtilityFunctions/gameFieldSliceHelper/CanMove';
-import Coordinate from '../../../../Types/Coordinate';
-import Moveable from '../../../../Types/Moveable';
+import Coordinate from '../../../../Types_Classes/Character/Models/Coordinate';
+import Moveable from '../../../../Types_Classes/Character/Models/Moveable';
 import { testGameFieldCoinHackmanMiddle, testGameFieldElse, testGameFieldEmpty, testGameFieldGhost,testGameFieldPortalLeftAndRight,testGameFieldPortalUpAndDown, testGameFieldSnack } from '../../../Mock/TestField.Mock';
 const chai = require('chai');
 
