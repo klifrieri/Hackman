@@ -1,9 +1,9 @@
 import "./gameOverOverlay.css"
 import { useDispatch, useSelector } from "react-redux"
-import { State, store } from "../../State/store"
+import { State, store } from "../../../../State/store"
 import { useEffect, useState } from "react"
 import { bindActionCreators } from "redux"
-import gameFieldSlice from "../../State/slices/gameFieldSlice"
+import gameFieldSlice from "../../../../State/slices/gameFieldSlice"
 
 
 const GameOver:React.FC = () => {
@@ -45,6 +45,7 @@ const GameOver:React.FC = () => {
     return(
         <div className={DisplayOverlay}>
             <div className="go-overlay-box">
+                <h2>GAME OVER</h2>
                 <p>{Message}</p>
                 <button id="restart-game">
                     Neues Spiel

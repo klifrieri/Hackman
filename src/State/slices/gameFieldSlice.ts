@@ -22,6 +22,8 @@ import HardGhostCharacter from "../../Types/Character/HardGhostCharacter";
 import GhostCharacter from "../../Types/Character/base/GhostCharacter";
 import { mergeGameField, ghostEatsHackman } from "../../UtilityFunctions/move/mergeGameFieldHelper";
 import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
+import data from "../../data.json"
+
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(CharacterIdentifier.Hackman, 12, 10);
 const greenGhost = new EasyGhostCharacter(CharacterIdentifier.GreenGhost, 7, 9);
@@ -32,6 +34,7 @@ const ghosts: GhostCharacter[] = [greenGhost, redGhost, orangeGhost, blueGhost];
 let block: number[] = [];
 initialStateHackman.attach(orangeGhost);
 initialStateHackman.attach(blueGhost);
+
 const gameFieldSlice = createSlice({
 	name: "game",
 	initialState: {
@@ -45,6 +48,7 @@ const gameFieldSlice = createSlice({
 		options: false,
 		gameOver: false,
 		win: false,
+		players: data
 	},
 	reducers: {
 		gameTick: (state) => {
@@ -59,7 +63,6 @@ const gameFieldSlice = createSlice({
 						ghost.determineNextMove(temporaryGameField);
 					}
 				});
-
 				let gameField: FC<any>[][] = cloneDeep(state.gameField);
 				const { shallIncreaseEatenCoins, increaseScoreBy } = mergeGameField(gameField, state.hackman, state.ghosts);
 				if (shallIncreaseEatenCoins) {
@@ -80,7 +83,6 @@ const gameFieldSlice = createSlice({
 						break;
 				}
 				state.gameField = gameField;
-
 				state.hackman.determineIfMoveable(gameField);
 			}
 		},
@@ -187,6 +189,10 @@ const gameFieldSlice = createSlice({
 		hackmanJump: (state) => {
 			if (state.hackman.canJump) {
 				if (state.hackman.moveable !== Moveable.No) {
+					// if (
+					// 	state.hackman.moveable !== Moveable.No &&
+					// 	state.hackman.moveable !== Moveable.Gate
+					//   )
 					let positionToCheck: Coordinate = new Coordinate(100, 100);
 					switch (state.hackman.direction) {
 						case Direction.Up: {
@@ -294,20 +300,22 @@ const gameFieldSlice = createSlice({
 			state.gameOver = payload.payload
 		},
 		restartGame: (state) => {
-			state.eatenCoins = 0
-			state.hackman.remainingLifes = 3
-			state.gameOver = false
-			for (let i = 0; i < ghosts.length; i++) {
-				ghosts[i].resetToStartPosition()
-			}
+			state.eatenCoins = 0;
+			state.hackman.remainingLifes = 3;
+			state.gameOver = false;
 			state.win = false;
-			state.gameField = SpielfeldLayout()
+			state.isPaused = false;
+			state.score = 0;
+			state.hackman.resetToStartPosition();
+			for (let i = 0; i < ghosts.length; i++) {
+				ghosts[i].resetToStartPosition();
+			}
+			state.gameField = SpielfeldLayout();
 		},
 		winGame: (state) => {
 			state.win = true;
-			state.isPaused = !state.isPaused
-		}
-
+			state.isPaused = true;
+		},
 	},
 });
 

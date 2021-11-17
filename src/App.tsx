@@ -1,17 +1,19 @@
 import GameField from "./Components/GameFieldComponent/Gamefield";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Stats from "./Components/StatsComponent/Stats";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "./State/slices/gameFieldSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { State, store } from "./State/store";
 import Direction from "./Types/Direction";
-import SettingsOverlay from "./Components/GameFieldComponent/SettingsOverlay";
-import GameOver from "./Components/GameFieldComponent/GameOverOverlay";
+import SettingsOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/SettingsOverlay";
+import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
-import WinOverlay from "./Components/GameFieldComponent/WinOverlay";
-import { CalculateAllCoins } from "./UtilityFunctions/GameLogix";
+import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/WinOverlay";
+import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
 import SpielfeldLayout from "./SpielfeldLayout";
+import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
+
 
 const allPoints: number = CalculateAllCoins(SpielfeldLayout());
 
@@ -37,12 +39,16 @@ const App: React.FC = () => {
   const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
   const canJump = useSelector((state: State) => state.hackman.canJump);
   const options = useSelector((state: State) => state.options);
+
   const eatenCoins = useSelector((state: State) => state.eatenCoins);
+  const win = useSelector((state:State) => state.win)
+  const [ScreenSize, SetScreenSize] = useState(GetScreenSize())
+
 
   const centerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (eatenCoins >= allPoints) {
+    if (eatenCoins === allPoints - 1) {
       store.dispatch(winGame);
     }
   }, [eatenCoins]);
@@ -92,7 +98,7 @@ const App: React.FC = () => {
   }, [canJump]);
 
   const handleKeyDown = (e: React.KeyboardEvent): void => {
-    if (!isPaused) {
+    if (!isPaused && !win) {
       if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
         store.dispatch(changeIsMoveableHackman(Direction.Up));
       } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
@@ -111,7 +117,7 @@ const App: React.FC = () => {
       } else if (e.code === "ShiftLeft") {
         store.dispatch(hackmanJump);
       } else return;
-    } else if (isPaused && !options) {
+    } else if (isPaused && !options && !win) {
       if (e.key.toLowerCase() === "p") {
         store.dispatch(pauseGame(!isPaused));
       }
@@ -124,6 +130,7 @@ const App: React.FC = () => {
   };
 
   const setStyleTag = () => {
+    SetScreenSize(GetScreenSize())
     setRowHeightStyleTag();
     let headTag = document.getElementsByTagName("head");
     let row = centerRef.current?.firstElementChild;
@@ -132,7 +139,6 @@ const App: React.FC = () => {
     var styleTag = document.createElement("style");
     styleTag.type = "text/css";
     styleTag.id = "styleTag";
-
     styleTag.innerHTML = `div.center > div.row > div.field {width: ${rowHeightInPx};}`;
     let styleSheetTest = document.getElementById("styleTag");
     if (styleSheetTest) {
@@ -173,18 +179,23 @@ const App: React.FC = () => {
     headTag[0].appendChild(styleRow);
   };
 
+
   return (
     <div
       ref={centerRef}
       className="center"
       onKeyDown={handleKeyDown}
       tabIndex={0}
+      id="game"
     >
       <GameField />
       <Stats />
       <SettingsOverlay />
       <GameOver />
       <WinOverlay />
+      {(ScreenSize.width < 1300 && ScreenSize.width/ScreenSize.height > 1.65) && 
+        <GameController />      
+      }
     </div>
   );
 };

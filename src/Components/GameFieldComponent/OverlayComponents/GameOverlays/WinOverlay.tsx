@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../State/slices/gameFieldSlice";
-import { State, store } from "../../State/store";
+import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
+import { State, store } from "../../../../State/store";
+import HighscoreTable from "../../../StatsComponent/HighscoreTable";
 import './winOverlay.css';
 
 
@@ -11,7 +12,7 @@ const WinOverlay: React.FC = () => {
     const win: boolean = useSelector((state: State) => state.win);
     const score: number = useSelector((state:State) => state.score)
 
-    const [DisplayOverlay, SetDisplayOverlay] = useState("win-overlay-wrapper show-overlay")
+    const [DisplayOverlay, SetDisplayOverlay] = useState("win-overlay-wrapper hide-overlay")
 
     let restartButton = document.getElementById("win-restart-game")
 
@@ -39,7 +40,8 @@ const WinOverlay: React.FC = () => {
     return(
         <div className={DisplayOverlay}>
             <div className="win-overlay-box">
-                <h2>Win! Win! Win!</h2>
+                <h2 className="win-overlay-header">Win!</h2>
+                <HighscoreTable/>
                 <h4>Deine Punktzahl: {score}</h4>
                 <button id="win-restart-game">
                     Neues Spiel
@@ -49,4 +51,4 @@ const WinOverlay: React.FC = () => {
     )
 } 
 
-export default WinOverlay
+export default WinOverlay;
