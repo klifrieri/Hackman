@@ -32,6 +32,7 @@ const blueGhost = new GhostCharacter(CharacterIdentifier.BlueGhost, 9, 11, Movem
 const ghosts: GhostCharacter[] = [greenGhost, redGhost, orangeGhost, blueGhost];
 let block: number[] = [];
 
+
 const gameFieldSlice = createSlice({
     name: "game",
     initialState: {
@@ -43,10 +44,10 @@ const gameFieldSlice = createSlice({
         ghosts: ghosts,
         block: block,
         isPaused: false,
-        start: false,
+        start: true,
         menu: false,
         help: false,
-        settings: true,
+        settings: false,
         gameOver: false,
         win: false,
         points: 0,
@@ -318,6 +319,10 @@ const gameFieldSlice = createSlice({
                 state.start = true;
             }
         },
+        backToMenu: (state) => {
+            state.menu = true
+            state.settings = false
+        }
     },
 });
 

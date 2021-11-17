@@ -41,7 +41,7 @@ const Start:React.FC = () => {
                 <Help/>
             }
             {(settings && !start) &&                
-                <Options/>
+                <Options pComp={false}/>
             }
         </div>
     )

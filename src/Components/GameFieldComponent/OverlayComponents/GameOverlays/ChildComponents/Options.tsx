@@ -6,15 +6,21 @@ import gameFieldSlice from "../../../../../State/slices/gameFieldSlice";
 import { useEffect, useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaRegHandPointLeft, FaRegHandPointRight } from "react-icons/fa";
 
-const Options: React.FC = () => {
+interface IOptionsProps{
+    pComp:boolean
+}
+
+const Options: React.FC<IOptionsProps> = (props) => {
     const dispatch = useDispatch();
-    const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu, backToMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
     const difficult = useSelector((state: State) => state.difficult);
     const playerName = useSelector((state: State) => state.playerName);
     const gameStarted = useSelector((state: State) => state.gameStarted);
     let name = document.getElementById("s-opt-name-i") as HTMLInputElement;
     const [BtnPlus, SetBtnPlus] = useState(false);
     const [BtnMinus, SetBtnMinus] = useState(false);
+
+    const parentComponentMenu = props.pComp
 
     useEffect(() => {
         if (difficult <= 1) {
@@ -72,11 +78,20 @@ const Options: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="s-overlay-buttons">
-                <button id="s-opt-back-btn" className="s-overlay-button" onClick={() => backToStartMenu("options")}>
+            {parentComponentMenu &&
+                <div className="s-overlay-buttons">
+                <button id="s-opt-back-btn" className="s-overlay-button" onClick={() => backToMenu()}>
                     BACK
                 </button>
             </div>
+            }
+            {!parentComponentMenu &&
+                <div className="s-overlay-buttons">
+                    <button id="s-opt-back-btn" className="s-overlay-button" onClick={() => backToStartMenu("options")}>
+                        BACK
+                    </button>
+                </div>            
+            }
         </div>
     );
 };

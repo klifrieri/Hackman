@@ -17,7 +17,7 @@ const Control:React.FC<IControlProps> = (props) => {
     const [FontSize, SetFontSize] = useState(CalcFontSize(GetScreenSize()))
     const [ButtonSize, SetButtonSize] = useState(FontSize * 2.5)
     const isPaused = useSelector((state: State) => state.isPaused);
-    const options = useSelector((state: State) => state.options);
+    const options = useSelector((state: State) => state.settings);
 
     const RenderAll = ():any => {
         SetFontSize(CalcFontSize(GetScreenSize()))
