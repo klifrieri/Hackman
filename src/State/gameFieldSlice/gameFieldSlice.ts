@@ -93,39 +93,30 @@ const gameFieldSlice = createSlice({
 			}
 		},
 		activateGhost: (state, payload: PayloadAction<number>) => {
-			activateGhostByIndex(payload.payload,state.ghosts);
+			activateGhostByIndex(payload.payload, state.ghosts);
 		},
 		setBlock: (state) => {
 			let direction: Direction = state.hackman.direction;
 			switch (direction) {
 				case Direction.Up:
-					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y + 1][state.hackman.position.x] === Empty) {
-						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y + 1, state.hackman.position.x), Block);
-						state.hackman.canSetBlock = false;
-						state.blockPosition = new Coordinate(state.hackman.position.y + 1, state.hackman.position.x);
-					}
+					placeBlock(new Coordinate(state.hackman.position.y + 1, state.hackman.position.x));
 					break;
 				case Direction.Down:
-					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y - 1][state.hackman.position.x] === Empty) {
-						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y - 1, state.hackman.position.x), Block);
-						state.hackman.canSetBlock = false;
-						state.blockPosition = new Coordinate(state.hackman.position.y - 1, state.hackman.position.x);
-					}
+					placeBlock(new Coordinate(state.hackman.position.y - 1, state.hackman.position.x));
 					break;
 				case Direction.Left:
-					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x + 1] === Empty) {
-						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y, state.hackman.position.x + 1), Block);
-						state.hackman.canSetBlock = false;
-						state.blockPosition = new Coordinate(state.hackman.position.y, state.hackman.position.x + 1);
-					}
+					placeBlock(new Coordinate(state.hackman.position.y, state.hackman.position.x + 1));
 					break;
 				case Direction.Right:
-					if (state.hackman.canSetBlock && state.gameField[state.hackman.position.y][state.hackman.position.x - 1] === Empty) {
-						setSingleGameField(state.gameField, new Coordinate(state.hackman.position.y, state.hackman.position.x - 1), Block);
-						state.hackman.canSetBlock = false;
-						state.blockPosition = new Coordinate(state.hackman.position.y, state.hackman.position.x - 1);
-					}
+					placeBlock(new Coordinate(state.hackman.position.y, state.hackman.position.x - 1));
 					break;
+			}
+			function placeBlock(position: Coordinate) {
+				if (state.hackman.canSetBlock && state.gameField[position.y][position.x] === Empty) {
+					setSingleGameField(state.gameField, position, Block);
+					state.hackman.canSetBlock = false;
+					state.blockPosition = position;
+				}
 			}
 		},
 		hackmanJump: (state) => {
