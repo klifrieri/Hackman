@@ -1,19 +1,18 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { canMove, getDirectionByMovementDirection, getMovementDirectionByPosition, getMovementDirectionByPositionRevert, getPossibleDirections } from "../../UtilityFunctions/move/CanMove";
-import SpielfeldLayout from "../../SpielfeldLayout";
+
 import { moveHackman } from "../../UtilityFunctions/move/MoveHackman";
 import Direction from "../../Types/Direction";
-import GhostCharacter from "../../Types/Character/GhostCharacter";
+
 import Moveable from "../../Types/Moveable";
 import { setRandomDirectionAndCount } from "../../UtilityFunctions/GetRandomNumber";
 import { ghostEatsHackman, moveGhostDumb, moveGhostSmart } from "../../UtilityFunctions/move/MoveGhost";
 import React from "react";
-import CoinValue from "../../Types/CoinValue";
-import HackmanCharacter from "../../Types/Character/HackmanCharacter";
+
 import { generateBlockOnGameField, setGameField } from "../../UtilityFunctions/SpecialActions";
 import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
 import MovementDirection from "../../Types/MovementDirection";
-import CharacterIdentifier from "../../Types/CharacterIdentifier";
+
 import Coin from "../../Components/GameFieldComponent/FieldComponents/Path/Coin";
 import GreenGhost from "../../Components/GameFieldComponent/GhostComponents/GreenGhost";
 import RedGhost from "../../Components/GameFieldComponent/GhostComponents/RedGhost";
@@ -23,6 +22,11 @@ import Coordinate from "../../Types/Coordinate";
 import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
 import { resetBlueGhost, resetGreenGhost, resetOrangeGhost, resetRedGhost } from "../../UtilityFunctions/resetGhosts";
 import data from "../../data.json";
+import HackmanCharacter from "../../Types/Character/HackmanCharacter";
+import GhostCharacter from "../../Types/Character/GhostCharacter";
+import CharacterIdentifier from "../../Types/CharacterIdentifier";
+import SpielfeldLayout from "../../SpielfeldLayout";
+import CoinValue from "../../Types/CoinValue";
 
 const initialStateHackman: HackmanCharacter = new HackmanCharacter(CharacterIdentifier.Hackman, 12, 10);
 const greenGhost = new GhostCharacter(CharacterIdentifier.GreenGhost, 7, 9, MovementDirection.NorthEast, true);
