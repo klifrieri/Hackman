@@ -92,7 +92,6 @@ const gameFieldSlice = createSlice({
 			if (state.hackman.hackmanMoved === false) {
 				state.hackman.hackmanMoved = true;
 			}
-
 		},
 		activateGhost: (state, payload: PayloadAction<number>) => {
 			switch (payload.payload) {
