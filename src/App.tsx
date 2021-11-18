@@ -10,13 +10,13 @@ import WinOverlay from "./Components/OverlayComponents/GameOverlays/WinOverlay";
 import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
 import GameController from "./Components/OverlayComponents/GameController/GameController";
 import Start from "./Components/OverlayComponents/GameOverlays/StartOverlay";
-import SpielfeldLayout from "./SpielfeldLayout";
 import MenuOverlay from "./Components/OverlayComponents/GameOverlays/MenuOverlay";
 import gameFieldSlice from "./State/gameFieldSlice/gameFieldSlice";
 import Pause from "./Components/OverlayComponents/GameOverlays/ChildComponents/PauseDialog";
 import Direction from "./Types_Classes/Character/Models/Direction";
+import createGameField from "./UtilityFunctions/createGameField";
 
-const allEatenCoins: number = CalculateAllCoins(SpielfeldLayout());
+const allEatenCoins: number = CalculateAllCoins(createGameField());
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
