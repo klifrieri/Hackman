@@ -1,4 +1,3 @@
-import "./css/startOverlay.css"
 import Image from "../../../../IMG/hackman1.png"
 import {  State } from "../../../../State/store"
 import { useDispatch, useSelector } from "react-redux"
@@ -6,6 +5,7 @@ import { bindActionCreators } from "redux"
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice"
 import Help from "./ChildComponents/HelpDialog"
 import Options from "./ChildComponents/OptionsDialog"
+import "./css/startOverlay.css"
 
 
 const Start:React.FC = () => {
