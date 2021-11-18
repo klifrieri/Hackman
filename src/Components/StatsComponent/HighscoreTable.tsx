@@ -7,8 +7,6 @@ import "./highscore.css";
 
 const HighscoreTable: React.FC<any> = () => {
 
-
-
   const Players = useSelector((state: State) => state.players);
   let playersSorted = [...Players]
   let bestPlayers:Player[] = [];

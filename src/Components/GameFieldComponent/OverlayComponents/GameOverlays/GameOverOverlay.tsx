@@ -1,6 +1,6 @@
 import "./css/gameOverOverlay.css"
 import { useDispatch, useSelector } from "react-redux"
-import { State, store } from "../../../../State/store"
+import { State } from "../../../../State/store"
 import { useEffect, useState } from "react"
 import { bindActionCreators } from "redux"
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice"
@@ -13,9 +13,6 @@ const GameOver:React.FC = () => {
     const [Message, SetMessage] = useState("Game Over")
     const [Header, SetHeader] = useState("")
     const [DisplayOverlay, SetDisplayOverlay] = useState("go-overlay-wrapper go-hide-overlay")
-
-    let restartButton = document.getElementById("restart-game")
-
     
     const dispatch = useDispatch();
     const { restartGame } = bindActionCreators(
@@ -23,9 +20,6 @@ const GameOver:React.FC = () => {
         dispatch
         );
         
-    restartButton?.addEventListener("click", () => {
-        store.dispatch(restartGame)
-    })
 
     useEffect(() => {        
         if(gameOver){
@@ -54,7 +48,7 @@ const GameOver:React.FC = () => {
             <div className="go-overlay-box">
                 <h2>{Header}</h2>
                 <p>{Message}</p>
-                <button id="restart-game">
+                <button id="restart-game" onClick={() => restartGame()}>
                     Restart
                 </button>
             </div>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
-import { State, store } from "../../../../State/store";
+import { State } from "../../../../State/store";
 import HighscoreTable from "../../../StatsComponent/HighscoreTable";
 import "./css/winOverlay.css";
 

@@ -1,5 +1,4 @@
 import { CSSProperties, useEffect, useState } from "react"
-import { isWhiteSpaceLike } from "typescript"
 import { CalcFontSize, GetScreenSize } from "../../../../../UtilityFunctions/CalcHelper"
 
 

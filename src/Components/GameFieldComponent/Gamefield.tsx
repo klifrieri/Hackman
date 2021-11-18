@@ -63,19 +63,19 @@ const GameField: React.FC = () => {
   // if hackman got eaten the timer will stop.
   useEffect(() => {
     let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(1)),
+      () => activateGhost(1),
       1000
     );
     let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(2)),
+      () => activateGhost(2),
       3000
     );
     let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(3)),
+      () => activateGhost(3),
       6000
     );
     let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(4)),
+      () => activateGhost(4),
       10000
     );
 
@@ -104,7 +104,7 @@ const GameField: React.FC = () => {
   //But the one above
   useEffect(() => {
     let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(1)),
+      () => activateGhost(1),
       2500
     );
     if (!ghost1ShallTick && ghost1GotEaten && hackmanMoved) {
@@ -120,7 +120,7 @@ const GameField: React.FC = () => {
 
   useEffect(() => {
     let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(2)),
+      () => activateGhost(2),
       2500
     );
     if (!ghost2ShallTick && ghost2GotEaten && hackmanMoved) {
@@ -136,7 +136,7 @@ const GameField: React.FC = () => {
 
   useEffect(() => {
     let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(3)),
+      () => activateGhost(3),
       2500
     );
     if (!ghost3ShallTick && ghost3GotEaten && hackmanMoved) {
@@ -152,7 +152,7 @@ const GameField: React.FC = () => {
 
   useEffect(() => {
     let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(
-      () => store.dispatch(activateGhost(4)),
+      () => activateGhost(4),
       2500
     );
     if (!ghost4ShallTick && ghost4GotEaten && hackmanMoved) {
@@ -168,7 +168,7 @@ const GameField: React.FC = () => {
 
   //Gametick interval
   useEffect(() => {
-    const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => store.dispatch(gameTick), 250);
+    const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => gameTick(), 250);
     intervalStart();
     return () => intervalStop();
   }, [])

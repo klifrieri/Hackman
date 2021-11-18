@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Stats from "./Components/StatsComponent/Stats";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
-import { State, store } from "./State/store";
+import { State } from "./State/store";
 import Direction from "./Types/Direction";
 import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
@@ -177,7 +177,7 @@ const App: React.FC = () => {
             <GameOver />
             <WinOverlay />
             {ScreenSize.width < 1300 && ScreenSize.width / ScreenSize.height > 1.65 && <GameController />}
-            {(isPaused && !menu && !win) && <Pause/>}
+            {(isPaused && !menu && !win && !gameOver) && <Pause/>}
         </div>
     );
 };
