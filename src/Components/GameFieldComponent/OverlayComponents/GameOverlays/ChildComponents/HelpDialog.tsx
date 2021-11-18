@@ -1,4 +1,4 @@
-import "./../css/startOverlay.css"
+import "./css/helpDialog.css"
 import { useDispatch } from "react-redux"
 import { bindActionCreators } from "redux"
 import gameFieldSlice from "../../../../../State/slices/gameFieldSlice"

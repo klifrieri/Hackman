@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
 import { State } from "../../../../State/store";
-import Options from "./ChildComponents/Options";
-import './css/settingsOverlay.css';
+import Options from "./ChildComponents/OptionsDIalog";
+import './css/menuOverlay.css';
 
 
 const Overlay: React.FC = () => {
@@ -33,13 +33,13 @@ const Overlay: React.FC = () => {
                 <div className="overlay-box">
                     <h2>MENU</h2>
                     <div className="overlay-controls">
-                        <button id="restart-game-options" className="btn-game" onClick={() => {openOptions(!menu); pauseGame(!isPaused); restartGame()}}>
+                        <button id="restart-game-options" className="s-overlay-button" onClick={() => {openOptions(!menu); pauseGame(!isPaused); restartGame()}}>
                             New Game
                         </button>
-                        <button id="options" className="btn-game" onClick={() => openSettings()}>
+                        <button id="options" className="s-overlay-button" onClick={() => openSettings()}>
                             Options
                         </button>
-                        <button id="close-overlay" className="btn-game" onClick={() => {openOptions(!menu); pauseGame(!isPaused);}}>
+                        <button id="close-overlay" className="s-overlay-button" onClick={() => {openOptions(!menu); pauseGame(!isPaused);}}>
                             Close
                         </button>
                     </div>

@@ -1,4 +1,4 @@
-import "./../css/startOverlay.css";
+import "./css/optionsDialog.css";
 import { State } from "../../../../../State/store";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";

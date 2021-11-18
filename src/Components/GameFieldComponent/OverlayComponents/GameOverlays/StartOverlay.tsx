@@ -4,8 +4,8 @@ import {  State } from "../../../../State/store"
 import { useDispatch, useSelector } from "react-redux"
 import { bindActionCreators } from "redux"
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice"
-import Options from "./ChildComponents/Options"
-import Help from "./ChildComponents/Help"
+import Options from "./ChildComponents/OptionsDIalog"
+import Help from "./ChildComponents/HelpDialog"
 
 
 const Start:React.FC = () => {

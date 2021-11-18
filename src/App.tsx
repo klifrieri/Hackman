@@ -51,7 +51,7 @@ const App: React.FC = () => {
         }
     }, [remainingLives]);
 
-    useEffect(() => {
+    useEffect(() => {		
         centerRef.current?.focus();
         setStyleTag();
         window.addEventListener("resize", setStyleTag);
