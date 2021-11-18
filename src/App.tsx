@@ -4,19 +4,19 @@ import Stats from "./Components/StatsComponent/Stats";
 import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "./State/store";
-import Direction from "./Types/Direction";
-import GameOver from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/GameOverOverlay";
+import GameOver from "./Components/OverlayComponents/GameOverlays/GameOverOverlay";
 import CustomTimeOut from "./UtilityFunctions/Interval_And_Timer/CustomTimeOut";
-import WinOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/WinOverlay";
+import WinOverlay from "./Components/OverlayComponents/GameOverlays/WinOverlay";
 import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper";
-import GameController from "./Components/GameFieldComponent/OverlayComponents/GameController/GameController";
-import Start from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/StartOverlay";
+import GameController from "./Components/OverlayComponents/GameController/GameController";
+import Start from "./Components/OverlayComponents/GameOverlays/StartOverlay";
 import SpielfeldLayout from "./SpielfeldLayout";
-import MenuOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/MenuOverlay";
-import gameFieldSlice from "./State/slices/gameFieldSlice";
-import Pause from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/ChildComponents/PauseDialog";
+import MenuOverlay from "./Components/OverlayComponents/GameOverlays/MenuOverlay";
+import gameFieldSlice from "./State/gameFieldSlice/gameFieldSlice";
+import Pause from "./Components/OverlayComponents/GameOverlays/ChildComponents/PauseDialog";
+import Direction from "./Types_Classes/Character/Models/Direction";
 
-const allPoints: number = CalculateAllCoins(SpielfeldLayout());
+const allEatenCoins: number = CalculateAllCoins(SpielfeldLayout());
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
@@ -28,7 +28,7 @@ const App: React.FC = () => {
     const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
     const canJump = useSelector((state: State) => state.hackman.canJump);
     const menu = useSelector((state: State) => state.menu);
-    const points = useSelector((state: State) => state.points);
+    const eatenCoins = useSelector((state: State) => state.eatenCoins);
     const settings = useSelector((state: State) => state.settings);
     const win = useSelector((state: State) => state.win);
     const gameStarted = useSelector((state: State) => state.gameStarted);
@@ -38,13 +38,14 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if (gameStarted) centerRef.current?.focus();
-    }, [gameStarted, menu, settings]);
+    }, [gameStarted, menu, settings, win, gameOver]);
 
     useEffect(() => {
-        if (points === allPoints - 1) {
+        console.log(eatenCoins)
+        if (eatenCoins === allEatenCoins) {
             winGame();
         }
-    }, [points]);
+    }, [eatenCoins]);
 
     useEffect(() => {
         if (remainingLives === 0) {

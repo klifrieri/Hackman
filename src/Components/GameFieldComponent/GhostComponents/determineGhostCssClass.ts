@@ -1,5 +1,6 @@
-import CharacterIdentifier from "../../../Types/CharacterIdentifier";
-import Direction from "../../../Types/Direction";
+import CharacterIdentifier from "../../../Types_Classes/Character/Models/CharacterIdentifier";
+import Direction from "../../../Types_Classes/Character/Models/Direction";
+
 
 const getGhostAnimationClassName = (ghostDirection: Direction): string => {
   switch (ghostDirection) {
