@@ -10,6 +10,7 @@ import gameFieldSlice from "./gameFieldSlice/gameFieldSlice";
 //     (window as any).__REDUX_DEVTOOLS_EXTENSION__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
 // ) );
 
-export const store = createStore(gameFieldSlice.reducer,applyMiddleware(thunk));
+
+export const store = createStore(gameFieldSlice.reducer, applyMiddleware(thunk));
 
 export type State = ReturnType<typeof store.getState>
