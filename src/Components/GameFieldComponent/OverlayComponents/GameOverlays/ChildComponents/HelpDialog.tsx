@@ -8,7 +8,6 @@ const Help: React.FC = () => {
     const dispatch = useDispatch();
     const { backToStartMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
 
-
     return (
         <div className="s-overlay-help">
             <div className="s-help-h">HELP</div>

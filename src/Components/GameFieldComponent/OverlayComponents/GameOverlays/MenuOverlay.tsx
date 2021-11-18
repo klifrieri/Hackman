@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../../../State/slices/gameFieldSlice";
 import { State } from "../../../../State/store";
-import Options from "./ChildComponents/OptionsDIalog";
+import Options from "./ChildComponents/OptionsDialog";
 import './css/menuOverlay.css';
 
 
