@@ -8,7 +8,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 9999;
+    z-index: 9002;
 }
 
 .overlay-box{
@@ -63,11 +63,11 @@
 @media only screen and (max-width: 600px) {
     .s-overlay-button{
         border: 2px solid white;
-        font-size: 1rem;
+        font-size: 0.75rem;
         margin-top: 2%;
     }
     .overlay-box h2{
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         margin: 10% 0 5% 0;
     }
     .overlay-box{
@@ -79,11 +79,11 @@
 @media only screen and (min-width: 600px) {
     .s-overlay-button{
         border: 2px solid white;
-        font-size: 1rem;
+        font-size: 0.75rem;
         margin-top: 2%;
     }
     .overlay-box h2{
-        font-size: 1.75rem;
+        font-size: 1.5rem;
         margin: 10% 0 5% 0;
     }
     .overlay-box{
@@ -100,7 +100,7 @@
     }
     .overlay-box h2{
         font-size: 2rem;
-        margin: 10% 0 5% 0;;
+        margin: 5% 0 5% 0;;
     }
     .overlay-box{
         width: 50%;
@@ -111,12 +111,12 @@
 @media only screen and (min-width: 992px) {
     .s-overlay-button{
         border: 2px solid white;
-        font-size: 1.75rem;
-        margin-top: 2.5%;
+        font-size: 1.5rem;
+        margin-top: 1.255%;
     }
     .overlay-box h2{
-        font-size: 3rem;
-        margin: 10% 0 5% 0;
+        font-size: 2.75rem;
+        margin: 5% 0 5% 0;
     }
     .overlay-box{
         width: 60%;
@@ -128,11 +128,11 @@
     .s-overlay-button{
         border: 2px solid white;
         font-size: 1.75rem;
-        margin-top: 2%;
+        margin-top: 1.25%;
     }
     .overlay-box h2{
         font-size: 4rem;
-        margin: 10% 0 5% 0;
+        margin: 5% 0 5% 0;
     }
     .overlay-box{
         width: 60%;

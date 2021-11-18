@@ -11,6 +11,7 @@ const GameOver:React.FC = () => {
     const gameOver: boolean = useSelector((state: State) => state.gameOver);
     const eatenCoins: number = useSelector((state:State) => state.eatenCoins)
     const [Message, SetMessage] = useState("Game Over")
+    const [Header, SetHeader] = useState("")
     const [DisplayOverlay, SetDisplayOverlay] = useState("go-overlay-wrapper go-hide-overlay")
 
     let restartButton = document.getElementById("restart-game")
@@ -29,12 +30,18 @@ const GameOver:React.FC = () => {
     useEffect(() => {        
         if(gameOver){
             SetDisplayOverlay("go-overlay-wrapper go-show-overlay")
-            if(eatenCoins > 130)
-            SetMessage("Game Over")
-            else if(eatenCoins < 130 && eatenCoins > 91)
-                SetMessage("Das kannst du besser!")
-            else if(eatenCoins < 90)
-                SetMessage("Du hast Nachrang. Noob.")
+            if(eatenCoins > 130){
+                SetMessage("Close. Next time u get IT")
+                SetHeader("Pity.")
+            }
+            else if(eatenCoins < 130 && eatenCoins > 91){
+                SetMessage("Not bad!")
+                SetHeader("THE END")
+            }
+            else if(eatenCoins < 90){
+                SetMessage("Noob. Just noob.")
+                SetHeader("WTF???")
+            }
         }
         else
             SetDisplayOverlay("go-overlay-wrapper go-hide-overlay")
@@ -45,10 +52,10 @@ const GameOver:React.FC = () => {
     return(
         <div className={DisplayOverlay}>
             <div className="go-overlay-box">
-                <h2>GAME OVER</h2>
+                <h2>{Header}</h2>
                 <p>{Message}</p>
                 <button id="restart-game">
-                    Neues Spiel
+                    Restart
                 </button>
             </div>
         </div>

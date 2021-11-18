@@ -12,12 +12,12 @@ interface IControlProps{
 const Control:React.FC<IControlProps> = (props) => {
 
     const dispatch = useDispatch();
-    const { pauseGame, openOptions} = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { pauseGame, openMenu} = bindActionCreators(gameFieldSlice.actions, dispatch);
     const action = props.action
     const [FontSize, SetFontSize] = useState(CalcFontSize(GetScreenSize()))
     const [ButtonSize, SetButtonSize] = useState(FontSize * 2.5)
     const isPaused = useSelector((state: State) => state.isPaused);
-    const options = useSelector((state: State) => state.settings);
+    const menu = useSelector((state: State) => state.menu);
 
     const RenderAll = ():any => {
         SetFontSize(CalcFontSize(GetScreenSize()))
@@ -27,17 +27,17 @@ const Control:React.FC<IControlProps> = (props) => {
     const gameAction = ():any => {
         switch(action){            
             case "pause":
-                if(options === false){
-                    store.dispatch(pauseGame(!isPaused));
+                if(menu === false){
+                    pauseGame(!isPaused);
                 }
                 break
-            case "options":
+            case "menu":
                 if(isPaused){
-                    store.dispatch(openOptions(!options));
+                    openMenu(!menu);
                 }
                 else{
-                    store.dispatch(openOptions(!options));
-                    store.dispatch(pauseGame(!isPaused));
+                    openMenu(!menu);
+                    pauseGame(!isPaused);
                 }
                 break
         }
@@ -57,8 +57,8 @@ const Control:React.FC<IControlProps> = (props) => {
             {action === "pause" &&
                 <div style={{fontSize: FontSize, fontWeight: 500}}>PAUSE</div>
             }
-            {action === "options" &&
-                <div style={{fontSize: FontSize, fontWeight: 500}}>OPTIONS</div>
+            {action === "menu" &&
+                <div style={{fontSize: FontSize, fontWeight: 500}}>MENU</div>
             }
         </div>
 

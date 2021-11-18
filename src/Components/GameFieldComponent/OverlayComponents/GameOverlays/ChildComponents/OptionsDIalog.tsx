@@ -15,6 +15,7 @@ const Options: React.FC<IOptionsProps> = (props) => {
     const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu, backToMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
     const difficult = useSelector((state: State) => state.difficult);
     const playerName = useSelector((state: State) => state.playerName);
+    const playerHand = useSelector((state:State) => state.playerHand)
     const gameStarted = useSelector((state: State) => state.gameStarted);
     let name = document.getElementById("s-opt-name-i") as HTMLInputElement;
     const [BtnPlus, SetBtnPlus] = useState(false);
@@ -69,7 +70,7 @@ const Options: React.FC<IOptionsProps> = (props) => {
                     </div>
                     <div className="toggle">
                         <label className="switch">
-                            <input type="checkbox" onClick={() => changePlayingHand()} />
+                            <input type="checkbox" checked={playerHand} onClick={() => changePlayingHand()} />
                             <span className="slider round"></span>
                         </label>
                     </div>

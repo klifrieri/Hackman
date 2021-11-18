@@ -14,12 +14,13 @@ import Start from "./Components/GameFieldComponent/OverlayComponents/GameOverlay
 import SpielfeldLayout from "./SpielfeldLayout";
 import MenuOverlay from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/MenuOverlay";
 import gameFieldSlice from "./State/slices/gameFieldSlice";
+import Pause from "./Components/GameFieldComponent/OverlayComponents/GameOverlays/ChildComponents/PauseDialog";
 
 const allPoints: number = CalculateAllCoins(SpielfeldLayout());
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
-    const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature, pauseGame, openOptions, openGameOver, winGame } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature, pauseGame, openMenu, openGameOver, winGame } = bindActionCreators(gameFieldSlice.actions, dispatch);
 
     const isPaused = useSelector((state: State) => state.isPaused);
     const remainingLives = useSelector((state: State) => state.hackman.remainingLifes);
@@ -41,13 +42,13 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if (points === allPoints - 1) {
-            store.dispatch(winGame);
+            winGame();
         }
     }, [points]);
 
     useEffect(() => {
         if (remainingLives === 0) {
-            store.dispatch(openGameOver(!gameOver));
+            openGameOver(!gameOver);
         }
     }, [remainingLives]);
 
@@ -60,7 +61,7 @@ const App: React.FC = () => {
     }, []);
 
     useEffect(() => {
-        let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => store.dispatch(deleteBlock), 5000);
+        let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => deleteBlock(), 5000);
         if (!isPaused) {
             if (!canSetBlock) {
                 blockTimerStart();
@@ -74,7 +75,7 @@ const App: React.FC = () => {
     }, [canSetBlock, isPaused]);
 
     useEffect(() => {
-        let [canJumpTimerStart, canJumpTimerStop] = CustomTimeOut(() => store.dispatch(enableJumpingFeature), 5000);
+        let [canJumpTimerStart, canJumpTimerStop] = CustomTimeOut(() => enableJumpingFeature(), 5000);
         if (!canJump) {
             canJumpTimerStart();
         }
@@ -86,31 +87,33 @@ const App: React.FC = () => {
     const handleKeyDown = (e: React.KeyboardEvent): void => {
         if (!isPaused && !win) {
             if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
-                store.dispatch(changeIsMoveableHackman(Direction.Up));
+                changeIsMoveableHackman(Direction.Up);
             } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
-                store.dispatch(changeIsMoveableHackman(Direction.Right));
+                changeIsMoveableHackman(Direction.Right);
             } else if (e.key.toLowerCase() === "s" || e.key === "ArrowDown") {
-                store.dispatch(changeIsMoveableHackman(Direction.Down));
+                changeIsMoveableHackman(Direction.Down);
             } else if (e.key.toLowerCase() === "a" || e.key === "ArrowLeft") {
-                store.dispatch(changeIsMoveableHackman(Direction.Left));
+                changeIsMoveableHackman(Direction.Left);
             } else if (e.key.toLowerCase() === "p") {
-                store.dispatch(pauseGame(!isPaused));
+                pauseGame(!isPaused);
             } else if (e.code === "Space") {
-                store.dispatch(setBlock);
+                setBlock();
             } else if (e.code === "Escape") {
-                store.dispatch(openOptions(!menu));
-                store.dispatch(pauseGame(!isPaused));
+                openMenu(!menu);
+                pauseGame(!isPaused);
             } else if (e.code === "ShiftLeft") {
-                store.dispatch(hackmanJump);
+               hackmanJump();
             } else return;
         } else if (isPaused && !menu && !win) {
             if (e.key.toLowerCase() === "p") {
-                store.dispatch(pauseGame(!isPaused));
+                pauseGame(!isPaused);
+            }
+            if (e.code === "Escape") {
+                openMenu(!menu);
             }
         } else if (menu) {
             if (e.code === "Escape") {
-                store.dispatch(openOptions(!menu));
-                store.dispatch(pauseGame(!isPaused));
+                openMenu(!menu);
             }
         }
     };
@@ -174,6 +177,7 @@ const App: React.FC = () => {
             <GameOver />
             <WinOverlay />
             {ScreenSize.width < 1300 && ScreenSize.width / ScreenSize.height > 1.65 && <GameController />}
+            {(isPaused && !menu && !win) && <Pause/>}
         </div>
     );
 };

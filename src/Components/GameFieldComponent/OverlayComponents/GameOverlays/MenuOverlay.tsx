@@ -11,7 +11,7 @@ const Overlay: React.FC = () => {
 
 
     const dispatch = useDispatch();
-    const { pauseGame, openOptions, restartGame, openSettings } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { pauseGame, openMenu, restartGame, openSettings } = bindActionCreators(gameFieldSlice.actions, dispatch);
     const menu: boolean = useSelector((state: State) => state.menu);
     const isPaused: boolean = useSelector((state:State) => state.isPaused)
     const settings = useSelector((state:State) => state.settings)
@@ -33,13 +33,13 @@ const Overlay: React.FC = () => {
                 <div className="overlay-box">
                     <h2>MENU</h2>
                     <div className="overlay-controls">
-                        <button id="restart-game-options" className="s-overlay-button" onClick={() => {openOptions(!menu); pauseGame(!isPaused); restartGame()}}>
+                        <button id="restart-game-options" className="s-overlay-button" onClick={() => {openMenu(!menu); pauseGame(!isPaused); restartGame()}}>
                             New Game
                         </button>
                         <button id="options" className="s-overlay-button" onClick={() => openSettings()}>
                             Options
                         </button>
-                        <button id="close-overlay" className="s-overlay-button" onClick={() => {openOptions(!menu); pauseGame(!isPaused);}}>
+                        <button id="close-overlay" className="s-overlay-button" onClick={() => openMenu(!menu)}>
                             Close
                         </button>
                     </div>

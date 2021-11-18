@@ -8,7 +8,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 9999;
+    z-index: 9001;
 }
 
 .win-overlay-box{
@@ -57,18 +57,15 @@
 }
 
 #win-restart-game{
-    color: white;
-    text-align: center;
+    padding: 1% 5%;
     font-family: "Montserrat";
-    background-color: orange;
-    border-radius: 25px;
-    border: 2px solid white;
-    font-size: 125%;
     font-weight: 600;
-    padding: 1.25% 2.5%;
-    margin-top: 5%;
-    width: 40%;
-    transition: all 0.25s;
+    font-size: 2rem;
+    margin: 3% 0;
+    color: white;
+    background-color: darkorange;
+    border: 2px solid white;
+    border-radius: 5px;
 }
 #win-restart-game:hover{
     color: rgb(36, 35, 35);
@@ -158,12 +155,12 @@
         width: 45%;
     }
     .win-overlay-box h4{
-        font-size: 1.75rem;
-        margin: 5% 0 0 0;
+        font-size: 1.25rem;
+        margin: 2% 0 0 0;
     }
     .win-overlay-header{
-        font-size: 2.5rem; 
-        margin: 7.5% 0 2.5% 0;  
+        font-size: 2rem; 
+        margin: 0% 0 0% 0;  
     }
     #win-restart-game{
         font-size: 1.25rem;
@@ -177,15 +174,35 @@
         width: 50%;
     }
     .win-overlay-box h4{
-        font-size: 2rem;
-        margin: 7.5% 0 0 0;
+        font-size: 1.5rem;
+        margin: 2.5% 0 0 0;
     }
     .win-overlay-header{
-        font-size: 3.5rem; 
-        margin: 5% 0 0 0;  
+        font-size: 2.5rem; 
+        margin: 5% 0 0 0; 
+        padding: 0; 
+    }
+    #win-restart-game{
+        font-size: 1.25rem;
+        margin-top: 1%;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .win-overlay-box{
+        width: 50%;
+    }
+    .win-overlay-box h4{
+        font-size: 2rem;
+        margin: 2.5% 0 2 0;
+    }
+    .win-overlay-header{
+        font-size: 3rem; 
+        margin: 5% 0 0 0; 
+        padding: 0; 
     }
     #win-restart-game{
         font-size: 1.5rem;
-        margin-top: 5%;
+        margin-top: 2%;
     }
 }

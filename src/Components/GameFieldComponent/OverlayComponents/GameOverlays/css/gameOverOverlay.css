@@ -8,7 +8,7 @@
     width: 100vw;
     height: 100vh;
     background-color: rgba(0, 0, 0, 0.6);
-    z-index: 9999;
+    z-index: 9001;
 }
 
 .go-overlay-box{
@@ -34,15 +34,15 @@
 }
 
 #restart-game{
-    color: white;
+    padding: 1% 5%;
     font-family: "Montserrat";
-    background-color: orange;
-    border-radius: 25px;
-    border: 2px solid white;
-    font-size: 1.25rem;
     font-weight: 600;
-    padding: 1.25% 2.5%;
-    transition: all 0.25s;
+    font-size: 2rem;
+    margin: 3% 0;
+    color: white;
+    background-color: darkorange;
+    border: 2px solid white;
+    border-radius: 5px;
 }
 #restart-game:hover{
     color: rgb(36, 35, 35);
