@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import data from "../../data.json";
 
 const appStateSlice = createSlice({
-    name: "game",
+    name: "appState",
     initialState: {
         playerName: "Guest",
         playerHand: false,

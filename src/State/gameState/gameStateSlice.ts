@@ -37,7 +37,7 @@ initialStateHackman.attach(blueGhost);
 
 
 const gameStateSlice = createSlice({
-	name: "game",
+	name: "gameState",
 	initialState: {
 		gameField: createGameField(),
 		eatenCoins: 0,
