@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../../State/gameFieldSlice/gameFieldSlice";
+import appStateSlice from "../../../State/appState/appStateSlice";
+import gameStateSlice from "../../../State/gameState/gameStateSlice";
 import { State } from "../../../State/store";
 import HighscoreTable from "../../StatsComponent/HighscoreTable";
 import "./css/winOverlay.css";
 
 const WinOverlay: React.FC = () => {
 
-    const win: boolean = useSelector((state: State) => state.win);
-    const score: number = useSelector((state: State) => state.score);
+    const win: boolean = useSelector((state: State) => state.appState.win);
+    const score: number = useSelector((state: State) => state.gameState.score);
     //const playerName: string = useSelector((state:State) => state.playerName)
     const [DisplayOverlay, SetDisplayOverlay] = useState("win-overlay-wrapper hide-overlay");
 
     const dispatch = useDispatch();
-    const { restartGame } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { restartGame } = bindActionCreators(appStateSlice.actions, dispatch);
 
     useEffect(() => {
         if (win) {

@@ -7,8 +7,8 @@ import { State} from "../../State/store";
 
 const Stats: React.FC<any> = () => {
 
-    const score = useSelector((state:State)=>state.score);
-    const remainingLifes = useSelector((state:State)=>state.hackman.remainingLifes);
+    const score = useSelector((state:State)=>state.gameState.score);
+    const remainingLifes = useSelector((state:State)=>state.gameState.hackman.remainingLifes);
     
 
     return <div className="stats container width">

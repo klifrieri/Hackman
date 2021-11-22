@@ -19,11 +19,9 @@ import { cloneDeep } from "lodash";
 import EasyGhostCharacter from "../../Types_Classes/Character/EasyGhostCharacter";
 import HardGhostCharacter from "../../Types_Classes/Character/HardGhostCharacter";
 import GhostCharacter from "../../Types_Classes/Character/Base/GhostCharacter";
-import { mergeGameField, ghostEatsHackman, setSingleGameField } from "./gameTickHelper";
+import { mergeGameField, ghostEatsHackman, setSingleGameField } from "./helper/gameTickHelper";
 import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
-import data from "../../data.json";
-import { eatGhost, getTargetCoordinate, letHackmanJump } from "./hackmanJumpHelper";
-import activateGhostByIndex from "./activateGhostByIndex";
+import { eatGhost, getTargetCoordinate, letHackmanJump } from "./helper/hackmanJumpHelper";
 
 const initialStateHackman = new HackmanCharacter(CharacterIdentifier.Hackman, 12, 10);
 const greenGhost = new EasyGhostCharacter(CharacterIdentifier.GreenGhost, 7, 9);
@@ -38,72 +36,51 @@ initialStateHackman.attach(blueGhost);
 
 
 
-const gameFieldSlice = createSlice({
-    name: "game",
-    initialState: {
-        gameField: createGameField(),
-        eatenCoins: 0,
-        playerName: "Guest",
-        playerHand: false,
-        hackman: initialStateHackman,
-        ghosts: ghosts,
-        blockPosition: block,
-        isPaused: false,
-        start: true,
-        menu: false,
-        help: false,
-        settings: false,
-        gameOver: false,
-        win: false,
-        score: 0,
-        difficult: 1,
-        gameStarted: false,
-        players: data,
-    },
-    reducers: {
+const gameStateSlice = createSlice({
+	name: "game",
+	initialState: {
+		gameField: createGameField(),
+		eatenCoins: 0,
+		hackman: initialStateHackman,
+		ghosts: ghosts,
+		blockPosition: block,
+		score: 0,
+		difficult: 1,
+	},
+	reducers: {
 		gameTick: (state) => {
-			if (!state.isPaused) {
-				if (state.hackman.moveable !== Moveable.No) {
-					state.hackman.changeCharacterPosition();
-				}
-				let temporaryGameField: FC<any>[][] = cloneDeep(state.gameField);
-				state.ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
-					if (ghost.shallTick) {
-						ghost.determineNextMove(temporaryGameField);
-					}
-				});
-				let gameField: FC<any>[][] = cloneDeep(state.gameField);
-				const { shallIncreaseEatenCoins, increaseScoreBy } = mergeGameField(gameField, state.hackman, state.ghosts);
-				if (shallIncreaseEatenCoins) {
-					state.eatenCoins++;
-				}
-				switch (increaseScoreBy) {
-					case CoinValue.One:
-						state.score += 1;
-						break;
-					case CoinValue.Five:
-						state.score += 5;
-						state.ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
-							ghost.isEdible = true;
-						});
-						break;
-					case CoinValue.Ten:
-						state.score += 10;
-						break;
-				}
-				state.gameField = gameField;
-				state.hackman.determineIfMoveable(gameField);
+			// if (!state.isPaused) {
+			if (state.hackman.moveable !== Moveable.No) {
+				state.hackman.changeCharacterPosition();
 			}
-		},
-		changeIsMoveableHackman: (state, payload: PayloadAction<Direction>) => {
-			state.hackman.direction = payload.payload;
-			state.hackman.determineIfMoveable(state.gameField);
-			if (state.hackman.hackmanMoved === false) {
-				state.hackman.hackmanMoved = true;
+			let temporaryGameField: FC<any>[][] = cloneDeep(state.gameField);
+			state.ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
+				if (ghost.shallTick) {
+					ghost.determineNextMove(temporaryGameField);
+				}
+			});
+			let gameField: FC<any>[][] = cloneDeep(state.gameField);
+			const { shallIncreaseEatenCoins, increaseScoreBy } = mergeGameField(gameField, state.hackman, state.ghosts);
+			if (shallIncreaseEatenCoins) {
+				state.eatenCoins++;
 			}
-		},
-		activateGhost: (state, payload: PayloadAction<number>) => {
-			activateGhostByIndex(payload.payload, state.ghosts);
+			switch (increaseScoreBy) {
+				case CoinValue.One:
+					state.score += 1;
+					break;
+				case CoinValue.Five:
+					state.score += 5;
+					state.ghosts.forEach((ghost: WritableDraft<GhostCharacter>) => {
+						ghost.isEdible = true;
+					});
+					break;
+				case CoinValue.Ten:
+					state.score += 10;
+					break;
+			}
+			state.gameField = gameField;
+			state.hackman.determineIfMoveable(gameField);
+			// }
 		},
 		setBlock: (state) => {
 			let direction: Direction = state.hackman.direction;
@@ -173,12 +150,6 @@ const gameFieldSlice = createSlice({
 				state.score += 10;
 			}
 		},
-		pauseGame: (state, payload: PayloadAction<boolean>) => {
-			state.isPaused = payload.payload;
-		},
-		openMenu: (state, payload: PayloadAction<boolean>) => {
-			state.menu = payload.payload;
-		},
 		deleteBlock: (state) => {
 			setSingleGameField(state.gameField, new Coordinate(state.blockPosition.y, state.blockPosition.x), Empty);
 			state.hackman.canSetBlock = true;
@@ -186,62 +157,20 @@ const gameFieldSlice = createSlice({
 		enableJumpingFeature: (state) => {
 			state.hackman.canJump = true;
 		},
-		openGameOver: (state, payload: PayloadAction<boolean>) => {
-			state.gameOver = payload.payload;
-		},
-		restartGame: (state) => {
-			state.eatenCoins = 0;
-			state.hackman.remainingLifes = 3;
-			state.gameOver = false;
-			state.win = false;
-			state.isPaused = false;
-			state.score = 0;
-			state.hackman.resetToStartPosition();
-			for (let i = 0; i < ghosts.length; i++) {
-				ghosts[i].resetToStartPosition();
+		changeIsMoveableHackman: (state, payload: PayloadAction<Direction>) => {
+			state.hackman.direction = payload.payload;
+			state.hackman.determineIfMoveable(state.gameField);
+			if (state.hackman.hackmanMoved === false) {
+				state.hackman.hackmanMoved = true;
 			}
-			state.gameField = createGameField();
 		},
-		winGame: (state) => {
-			state.win = true;
-			state.isPaused = true;
+		activateGhostByIndex: (state, payload: PayloadAction<number>) => {
+			state.ghosts[payload.payload].shallTick = true;
 		},
-        startGame: (state) => {
-            state.gameStarted = true;
-        },
-        changePlayerName: (state, payload: PayloadAction<string>) => {
-            state.playerName = payload.payload;
-        },
-        changeDifficult: (state, payload: PayloadAction<string>) => {
-            if (payload.payload === "plus") state.difficult += 1;
-            else if (payload.payload === "minus") state.difficult -= 1;
-        },
-        changePlayingHand: (state) => {
-            state.playerHand = !state.playerHand;
-            console.log(state.playerHand);
-        },
-        openHelp: (state) => {
-            state.help = true;
-            state.start = false;
-        },
-        openSettings: (state) => {
-            state.settings = true;
-            state.start = false;
-        },
-        backToStartMenu: (state, payload: PayloadAction<string>) => {
-            if (payload.payload === "options") {
-                state.settings = false;
-                state.start = true;
-            } else if (payload.payload === "help") {
-                state.help = false;
-                state.start = true;
-            }
-        },
-        backToMenu: (state) => {
-            state.menu = true
-            state.settings = false
-        }
-    },
+		resetGhostGotEatenByIndex: (state, payload: PayloadAction<number>) => {
+			state.ghosts[payload.payload].gotEaten = false;
+		}
+	}
 });
 
-export default gameFieldSlice;
+export default gameStateSlice;

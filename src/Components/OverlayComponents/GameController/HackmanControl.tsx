@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../../State/gameFieldSlice/gameFieldSlice";
+import gameStateSlice from "../../../State/gameState/gameStateSlice";
 import Direction from "../../../Types_Classes/Character/Models/Direction";
 
 import { CalcFontSize, GetScreenSize } from "../../../UtilityFunctions/CalcHelper";
@@ -14,7 +14,7 @@ interface IControlProps{
 const Control:React.FC<IControlProps> = (props) => {
 
     const dispatch = useDispatch();
-    const { changeIsMoveableHackman, setBlock, hackmanJump, } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { changeIsMoveableHackman, setBlock, hackmanJump, } = bindActionCreators(gameStateSlice.actions, dispatch);
     const action = props.action
     const [FontSize, SetFontSize] = useState(CalcFontSize(GetScreenSize()))
     const [ButtonSize, SetButtonSize] = useState(FontSize * 2.5)

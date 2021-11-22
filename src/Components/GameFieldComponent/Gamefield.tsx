@@ -21,7 +21,7 @@ import Gate from "./FieldComponents/Path/Gate";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../State/store";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../State/gameFieldSlice/gameFieldSlice";
+import gameStateSlice from "../../State/gameState/gameStateSlice";
 import "./gameField.css";
 import GreenGhost from "./GhostComponents/GreenGhost";
 import RedGhost from "./GhostComponents/RedGhost";
@@ -33,20 +33,24 @@ import Block from "./FieldComponents/Path/Block";
 
 const GameField: React.FC = () => {
     const dispatch = useDispatch();
-    const { gameTick, activateGhost } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { gameTick, activateGhostByIndex: activateGhost, resetGhostGotEatenByIndex } = bindActionCreators(gameStateSlice.actions, dispatch);
 
-    const gameField = useSelector((state: State) => state.gameField);
-    const hackmanMoved = useSelector((state: State) => state.hackman.hackmanMoved);
+    const gameField = useSelector((state: State) => state.gameState.gameField);
+    const hackmanMoved = useSelector((state: State) => state.gameState.hackman.hackmanMoved);
 
-    const ghost1ShallTick = useSelector((state: State) => state.ghosts[0].shallTick);
-    const ghost2ShallTick = useSelector((state: State) => state.ghosts[1].shallTick);
-    const ghost3ShallTick = useSelector((state: State) => state.ghosts[2].shallTick);
-    const ghost4ShallTick = useSelector((state: State) => state.ghosts[3].shallTick);
+    const ghost1ShallTick = useSelector((state: State) => state.gameState.ghosts[0].shallTick);
+    const ghost2ShallTick = useSelector((state: State) => state.gameState.ghosts[1].shallTick);
+    const ghost3ShallTick = useSelector((state: State) => state.gameState.ghosts[2].shallTick);
+    const ghost4ShallTick = useSelector((state: State) => state.gameState.ghosts[3].shallTick);
 
-    let ghost1GotEaten = useSelector((state: State) => state.ghosts[0].gotEaten);
-    let ghost2GotEaten = useSelector((state: State) => state.ghosts[1].gotEaten);
-    let ghost3GotEaten = useSelector((state: State) => state.ghosts[2].gotEaten);
-    let ghost4GotEaten = useSelector((state: State) => state.ghosts[3].gotEaten);
+    const ghost1GotEaten = useSelector((state: State) => state.gameState.ghosts[0].gotEaten);
+    const ghost2GotEaten = useSelector((state: State) => state.gameState.ghosts[1].gotEaten);
+    const ghost3GotEaten = useSelector((state: State) => state.gameState.ghosts[2].gotEaten);
+    const ghost4GotEaten = useSelector((state: State) => state.gameState.ghosts[3].gotEaten);
+
+    const gameIsPaused = useSelector((state: State) => state.appState.isPaused);
+
+
 
     // The game "starts" when hackman moved the first time.
     // if hackman got eaten the timer will stop.
@@ -80,10 +84,10 @@ const GameField: React.FC = () => {
     //If hackman dies and all ghost are set to shalltick = false the following useeffect wont trigger
     //But the one above
     useEffect(() => {
-        let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => activateGhost(1), 2500);
+        let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => activateGhost(0), 2500);
         if (!ghost1ShallTick && ghost1GotEaten && hackmanMoved) {
             ghost1TimerStart();
-            ghost1GotEaten = false;
+            resetGhostGotEatenByIndex(0);
         } else {
             ghost1TimerStop();
         }
@@ -93,10 +97,10 @@ const GameField: React.FC = () => {
     }, [ghost1ShallTick, ghost1GotEaten]);
 
     useEffect(() => {
-        let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(() => activateGhost(2), 2500);
+        let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(() => activateGhost(1), 2500);
         if (!ghost2ShallTick && ghost2GotEaten && hackmanMoved) {
             ghost2TimerStart();
-            ghost2GotEaten = false;
+            resetGhostGotEatenByIndex(1);
         } else {
             ghost2TimerStop();
         }
@@ -106,10 +110,10 @@ const GameField: React.FC = () => {
     }, [ghost2ShallTick, ghost2GotEaten]);
 
     useEffect(() => {
-        let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(() => activateGhost(3), 2500);
+        let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(() => activateGhost(2), 2500);
         if (!ghost3ShallTick && ghost3GotEaten && hackmanMoved) {
             ghost3TimerStart();
-            ghost3GotEaten = false;
+            resetGhostGotEatenByIndex(2);
         } else {
             ghost3TimerStop();
         }
@@ -119,10 +123,10 @@ const GameField: React.FC = () => {
     }, [ghost3ShallTick, ghost3GotEaten]);
 
     useEffect(() => {
-        let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(() => activateGhost(4), 2500);
+        let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(() => activateGhost(3), 2500);
         if (!ghost4ShallTick && ghost4GotEaten && hackmanMoved) {
             ghost4TimerStart();
-            ghost4GotEaten = false;
+            resetGhostGotEatenByIndex(3);
         } else {
             ghost4TimerStop();
         }
@@ -134,7 +138,8 @@ const GameField: React.FC = () => {
     //Gametick interval
     useEffect(() => {
         const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => gameTick(), 250);
-        intervalStart();
+        
+            intervalStart();
         return () => intervalStop();
     }, []);
 

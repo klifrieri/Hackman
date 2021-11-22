@@ -11,7 +11,7 @@ import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper"
 import GameController from "./Components/OverlayComponents/GameController/GameController";
 import Start from "./Components/OverlayComponents/GameOverlays/StartOverlay";
 import MenuOverlay from "./Components/OverlayComponents/GameOverlays/MenuOverlay";
-import gameFieldSlice from "./State/gameFieldSlice/gameFieldSlice";
+import gameStateSlice from "./State/gameState/gameStateSlice";
 import Pause from "./Components/OverlayComponents/GameOverlays/ChildComponents/PauseDialog";
 import Direction from "./Types_Classes/Character/Models/Direction";
 import createGameField from "./UtilityFunctions/createGameField";
@@ -20,7 +20,7 @@ const allEatenCoins: number = CalculateAllCoins(createGameField());
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
-    const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature, pauseGame, openMenu, openGameOver, winGame } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature, pauseGame, openMenu, openGameOver, winGame } = bindActionCreators(gameStateSlice.actions, dispatch);
 
     const isPaused = useSelector((state: State) => state.isPaused);
     const remainingLives = useSelector((state: State) => state.hackman.remainingLifes);

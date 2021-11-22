@@ -2,9 +2,10 @@ import "./css/optionsDialog.css";
 import { State } from "../../../../State/store";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../../../State/gameFieldSlice/gameFieldSlice";
+import gameStateSlice from "../../../../State/gameState/gameStateSlice";
 import { useEffect, useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaRegHandPointLeft, FaRegHandPointRight } from "react-icons/fa";
+import appStateSlice from "../../../../State/appState/appStateSlice";
 
 interface IOptionsProps{
     pComp:boolean
@@ -12,11 +13,11 @@ interface IOptionsProps{
 
 const Options: React.FC<IOptionsProps> = (props) => {
     const dispatch = useDispatch();
-    const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu, backToMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
-    const difficult = useSelector((state: State) => state.difficult);
-    const playerName = useSelector((state: State) => state.playerName);
-    const playerHand = useSelector((state:State) => state.playerHand)
-    const gameStarted = useSelector((state: State) => state.gameStarted);
+    const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu, backToMenu } = bindActionCreators(appStateSlice.actions, dispatch);
+    const difficult = useSelector((state: State) => state.appState.difficult);
+    const playerName = useSelector((state: State) => state.appState.playerName);
+    const playerHand = useSelector((state:State) => state.appState.playerHand)
+    const gameStarted = useSelector((state: State) => state.appState.gameStarted);
     let name = document.getElementById("s-opt-name-i") as HTMLInputElement;
     const [BtnPlus, SetBtnPlus] = useState(false);
     const [BtnMinus, SetBtnMinus] = useState(false);

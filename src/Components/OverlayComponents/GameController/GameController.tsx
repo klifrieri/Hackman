@@ -11,7 +11,7 @@ const GameController: React.FC<any> = () => {
     const [ButtonSize, SetButtonSize] = useState(FontSize * 2.5);
     const [ScreenSize, SetScreenSize] = useState(GetScreenSize());
     const [Margin, SetMargin] = useState(FontSize / 4);
-    const playerHand = useSelector((state: State) => state.playerHand);
+    const playerHand = useSelector((state: State) => state.appState.playerHand);
 
     const RenderAll = (): any => {
         SetFontSize(CalcFontSize(GetScreenSize()));

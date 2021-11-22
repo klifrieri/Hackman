@@ -2,21 +2,22 @@ import Image from "../../../IMG/hackman1.png"
 import {  State } from "../../../State/store"
 import { useDispatch, useSelector } from "react-redux"
 import { bindActionCreators } from "redux"
-import gameFieldSlice from "../../../State/gameFieldSlice/gameFieldSlice"
+import gameStateSlice from "../../../State/gameState/gameStateSlice"
 import Help from "./ChildComponents/HelpDialog"
 import Options from "./ChildComponents/OptionsDialog"
 import "./css/startOverlay.css"
+import appStateSlice from "../../../State/appState/appStateSlice"
 
 
 const Start:React.FC = () => {
 
 
     const dispatch = useDispatch();
-    const { startGame, openHelp, openSettings } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { startGame, openHelp, openSettings } = bindActionCreators(appStateSlice.actions, dispatch);
 
-    const start = useSelector((state:State) => state.start)
-    const settings = useSelector((state:State) => state.settings)
-    const help = useSelector((state:State) => state.help)    
+    const start = useSelector((state:State) => state.appState.start)
+    const settings = useSelector((state:State) => state.appState.settings)
+    const help = useSelector((state:State) => state.appState.help)    
 
 
     return (

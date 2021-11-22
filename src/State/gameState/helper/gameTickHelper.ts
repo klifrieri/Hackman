@@ -1,17 +1,17 @@
-import Coin from "../../Components/GameFieldComponent/FieldComponents/Path/Coin";
-import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import Snack from "../../Components/GameFieldComponent/FieldComponents/Path/Snack";
-import BlueGhost from "../../Components/GameFieldComponent/GhostComponents/BlueGhost";
-import GreenGhost from "../../Components/GameFieldComponent/GhostComponents/GreenGhost";
-import OrangeGhost from "../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
-import RedGhost from "../../Components/GameFieldComponent/GhostComponents/RedGhost";
-import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
-import GhostCharacter from "../../Types_Classes/Character/Base/GhostCharacter";
-import HackmanCharacter from "../../Types_Classes/Character/HackmanCharacter";
-import CharacterIdentifier from "../../Types_Classes/Character/Models/CharacterIdentifier";
-import CoinValue from "../../Types_Classes/Models/CoinValue";
-import Block from "../../Components/GameFieldComponent/FieldComponents/Path/Block";
-import Coordinate from "../../Types_Classes/Character/Models/Coordinate";
+import Coin from "../../../Components/GameFieldComponent/FieldComponents/Path/Coin";
+import Empty from "../../../Components/GameFieldComponent/FieldComponents/Path/Empty";
+import Snack from "../../../Components/GameFieldComponent/FieldComponents/Path/Snack";
+import BlueGhost from "../../../Components/GameFieldComponent/GhostComponents/BlueGhost";
+import GreenGhost from "../../../Components/GameFieldComponent/GhostComponents/GreenGhost";
+import OrangeGhost from "../../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
+import RedGhost from "../../../Components/GameFieldComponent/GhostComponents/RedGhost";
+import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import GhostCharacter from "../../../Types_Classes/Character/Base/GhostCharacter";
+import HackmanCharacter from "../../../Types_Classes/Character/HackmanCharacter";
+import CharacterIdentifier from "../../../Types_Classes/Character/Models/CharacterIdentifier";
+import CoinValue from "../../../Types_Classes/Models/CoinValue";
+import Block from "../../../Components/GameFieldComponent/FieldComponents/Path/Block";
+import Coordinate from "../../../Types_Classes/Character/Models/Coordinate";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import { FC } from "react";
 
@@ -86,9 +86,11 @@ const mergeGameField = (gameField: FC<any>[][], hackman: WritableDraft<HackmanCh
         shallIncreaseEatenCoins = true;
         increaseScoreBy = CoinValue.Five;
     }
+
     if(gameField[hackman.lastPosition.y][hackman.lastPosition.x] !== Block){
         setSingleGameField(gameField, hackman.lastPosition, Empty);
     }
+    
     setSingleGameField(gameField, hackman.position, Hackman);
 
     return { shallIncreaseEatenCoins, increaseScoreBy };

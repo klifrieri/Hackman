@@ -1,12 +1,13 @@
 import "./css/helpDialog.css"
 import { useDispatch } from "react-redux"
 import { bindActionCreators } from "redux"
-import gameFieldSlice from "../../../../State/gameFieldSlice/gameFieldSlice"
+import gameStateSlice from "../../../../State/gameState/gameStateSlice"
+import appStateSlice from "../../../../State/appState/appStateSlice";
 
 const Help: React.FC = () => {
 
     const dispatch = useDispatch();
-    const { backToStartMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { backToStartMenu } = bindActionCreators(appStateSlice.actions, dispatch);
 
     return (
         <div className="s-overlay-help">

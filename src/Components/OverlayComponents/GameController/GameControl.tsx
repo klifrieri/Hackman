@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../../State/gameFieldSlice/gameFieldSlice";
+import appStateSlice from "../../../State/appState/appStateSlice";
+import gameStateSlice from "../../../State/gameState/gameStateSlice";
 import { State } from "../../../State/store";
 import { CalcFontSize, GetScreenSize } from "../../../UtilityFunctions/CalcHelper";
 
@@ -11,12 +12,12 @@ interface IControlProps {
 
 const Control: React.FC<IControlProps> = (props) => {
     const dispatch = useDispatch();
-    const { pauseGame, openMenu } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { pauseGame, openMenu } = bindActionCreators(appStateSlice.actions, dispatch);
     const action = props.action;
     const [FontSize, SetFontSize] = useState(CalcFontSize(GetScreenSize()));
     const [ButtonSize, SetButtonSize] = useState(FontSize * 2.5);
-    const isPaused = useSelector((state: State) => state.isPaused);
-    const menu = useSelector((state: State) => state.menu);
+    const isPaused = useSelector((state: State) => state.appState.isPaused);
+    const menu = useSelector((state: State) => state.appState.menu);
 
     const RenderAll = (): any => {
         SetFontSize(CalcFontSize(GetScreenSize()));

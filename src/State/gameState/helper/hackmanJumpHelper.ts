@@ -1,12 +1,12 @@
 import { FC } from "react";
-import Empty from "../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import Hackman from "../../Components/GameFieldComponent/HackmanComponent/Hackman";
-import HackmanCharacter from "../../Types_Classes/Character/HackmanCharacter";
-import Coordinate from "../../Types_Classes/Character/Models/Coordinate";
-import Direction from "../../Types_Classes/Character/Models/Direction";
+import Empty from "../../../Components/GameFieldComponent/FieldComponents/Path/Empty";
+import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import HackmanCharacter from "../../../Types_Classes/Character/HackmanCharacter";
+import Coordinate from "../../../Types_Classes/Character/Models/Coordinate";
+import Direction from "../../../Types_Classes/Character/Models/Direction";
 import { WritableDraft } from "@reduxjs/toolkit/node_modules/immer/dist/internal";
 import { setGameFieldByGhostName } from "./gameTickHelper";
-import GhostCharacter from "../../Types_Classes/Character/Base/GhostCharacter";
+import GhostCharacter from "../../../Types_Classes/Character/Base/GhostCharacter";
 
 const getTargetCoordinate = (hackmanDirection: Direction, hackmanPosition: Coordinate): Coordinate | undefined => {
     let y = hackmanPosition.y;

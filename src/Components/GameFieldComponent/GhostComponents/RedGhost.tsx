@@ -5,7 +5,7 @@ import GhostCharacter from "../../../Types_Classes/Character/Base/GhostCharacter
 import {  getGhostAnimationClassName, getGhostBodyClassName, getGhostHeadClassName } from "./determineGhostCssClass";
 
 const RedGhost: React.FC<any> = () => {
-    const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[1]);
+    const ghostCharacter: GhostCharacter = useSelector((state: State) => state.gameState.ghosts[1]);
 
     const [ghostHeadClassName, setGhostHeadClassName] = useState("");
     const [ghostBodyClassName, setGhostBodyClassName] = useState("");

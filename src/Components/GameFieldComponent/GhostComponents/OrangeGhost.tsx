@@ -5,7 +5,7 @@ import GhostCharacter from "../../../Types_Classes/Character/Base/GhostCharacter
 import {  getGhostAnimationClassName, getGhostBodyClassName, getGhostHeadClassName } from "./determineGhostCssClass";
 
 const OrangeGhost: React.FC<any> = () => {
-    const ghostCharacter: GhostCharacter = useSelector((state: State) => state.ghosts[2]);
+    const ghostCharacter: GhostCharacter = useSelector((state: State) => state.gameState.ghosts[2]);
 
     const [ghostHeadClassName, setGhostHeadClassName] = useState("");
     const [ghostBodyClassName, setGhostBodyClassName] = useState("");

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameFieldSlice from "../../../State/gameFieldSlice/gameFieldSlice";
+import gameStateSlice from "../../../State/gameState/gameStateSlice";
 import { State } from "../../../State/store";
 import Options from "./ChildComponents/OptionsDialog";
 import './css/menuOverlay.css';
@@ -11,7 +11,7 @@ const Overlay: React.FC = () => {
 
 
     const dispatch = useDispatch();
-    const { pauseGame, openMenu, restartGame, openSettings } = bindActionCreators(gameFieldSlice.actions, dispatch);
+    const { pauseGame, openMenu, restartGame, openSettings } = bindActionCreators(gameStateSlice.actions, dispatch);
     const menu: boolean = useSelector((state: State) => state.menu);
     const isPaused: boolean = useSelector((state:State) => state.isPaused)
     const settings = useSelector((state:State) => state.settings)

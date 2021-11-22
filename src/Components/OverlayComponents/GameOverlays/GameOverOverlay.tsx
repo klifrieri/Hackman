@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { State } from "../../../State/store"
 import { useEffect, useState } from "react"
 import { bindActionCreators } from "redux"
-import gameFieldSlice from "../../../State/gameFieldSlice/gameFieldSlice"
+import gameStateSlice from "../../../State/gameState/gameStateSlice"
 
 
 const GameOver:React.FC = () => {
@@ -16,7 +16,7 @@ const GameOver:React.FC = () => {
     
     const dispatch = useDispatch();
     const { restartGame } = bindActionCreators(
-        gameFieldSlice.actions,
+        gameStateSlice.actions,
         dispatch
         );
         

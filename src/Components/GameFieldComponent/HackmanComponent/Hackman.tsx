@@ -5,7 +5,7 @@ import { useState } from "react";
 import { getHackmanAnimationClassName, getViewDirectionClassName } from "./determineHackmanCssClass";
 
 const Hackman: React.FC<any> = () => {
-    const hackmanDirection = useSelector((state: State) => state.hackman.direction);
+    const hackmanDirection = useSelector((state: State) => state.gameState.hackman.direction);
     const [hackmanAnimationClassName, setHackmanAnimationClassName] = useState("");
     const [viewDirectionClassName, setViewDirectionClassName] = useState("");
 

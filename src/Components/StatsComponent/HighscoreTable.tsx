@@ -7,7 +7,7 @@ import Player from "../../Types_Classes/Models/Player";
 
 const HighscoreTable: React.FC<any> = () => {
 
-  const Players = useSelector((state: State) => state.players);
+  const Players = useSelector((state: State) => state.appState.players);
   let playersSorted = [...Players]
   let bestPlayers:Player[] = [];
   
