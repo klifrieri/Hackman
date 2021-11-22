@@ -86,7 +86,7 @@ const App: React.FC = () => {
     }, [canJump]);
 
     const handleKeyDown = (e: React.KeyboardEvent): void => {
-        if (!isPaused && !win) {
+        if (!isPaused && !win && gameStarted) {
             if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
                 changeIsMoveableHackman(Direction.Up);
             } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
