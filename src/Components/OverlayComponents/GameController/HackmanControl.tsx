@@ -3,8 +3,8 @@ import { FaChevronDown, FaChevronLeft, FaChevronRight, FaChevronUp } from "react
 import { useDispatch } from "react-redux";
 import { bindActionCreators } from "redux";
 import gameFieldSlice from "../../../State/gameFieldSlice/gameFieldSlice";
-import { store } from "../../../State/store";
 import Direction from "../../../Types_Classes/Character/Models/Direction";
+
 import { CalcFontSize, GetScreenSize } from "../../../UtilityFunctions/CalcHelper";
 
 interface IControlProps{
@@ -27,22 +27,22 @@ const Control:React.FC<IControlProps> = (props) => {
     const playerAction = ():any => {
         switch(action){
             case "up":
-                store.dispatch(changeIsMoveableHackman(Direction.Up))
+                changeIsMoveableHackman(Direction.Up)
                 break
             case "down":
-                store.dispatch(changeIsMoveableHackman(Direction.Down))
+                changeIsMoveableHackman(Direction.Down)
                 break
             case "left":
-                store.dispatch(changeIsMoveableHackman(Direction.Left))
+                changeIsMoveableHackman(Direction.Left)
                 break
             case "right":
-                store.dispatch(changeIsMoveableHackman(Direction.Right))
+                changeIsMoveableHackman(Direction.Right)
                 break
             case "jump":
-                store.dispatch(hackmanJump)
+                hackmanJump()
                 break
             case "block":
-                store.dispatch(setBlock)
+                setBlock()
                 break
         }
     }

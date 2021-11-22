@@ -64,8 +64,8 @@
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
     .hs-header{
-        font-size: 1.5rem;
-        margin: 5% 0 10% 0;
+        font-size: 1.25rem;
+        margin: 5% 0 5% 0;
     }
     .hs-element p{
         font-size: 0.75rem;
@@ -75,7 +75,17 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
     .hs-header{
-        font-size: 2rem;
+        font-size: 1.5rem;
+        margin: 2.5% 0 0% 0;
+    }
+    .hs-element p{
+        font-size: 0.8rem;
+    }
+}
+
+@media only screen and (min-width: 1400px) {
+    .hs-header{
+        font-size: 1.5rem;
         margin: 5% 0 5% 0;
     }
     .hs-element p{

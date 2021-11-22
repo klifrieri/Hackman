@@ -1,13 +1,11 @@
 
 import { useSelector } from "react-redux";
 import { State } from "../../State/store";
-import Player from "../../Types_Classes/Models/Player";
 import HighscoreElement from "./HighscoreElement";
 import "./highscore.css";
+import Player from "../../Types_Classes/Models/Player";
 
 const HighscoreTable: React.FC<any> = () => {
-
-
 
   const Players = useSelector((state: State) => state.players);
   let playersSorted = [...Players]

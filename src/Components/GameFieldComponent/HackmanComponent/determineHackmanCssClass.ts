@@ -1,5 +1,6 @@
 import Direction from "../../../Types_Classes/Character/Models/Direction";
 
+
 const getHackmanAnimationClassName = (hackmanDirection:Direction): string => {   
     switch (hackmanDirection) {
       case Direction.Up:

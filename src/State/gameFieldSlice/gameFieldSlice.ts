@@ -35,22 +35,32 @@ let block = new Coordinate(0, 0);
 initialStateHackman.attach(orangeGhost);
 initialStateHackman.attach(blueGhost);
 
+
+
+
 const gameFieldSlice = createSlice({
-	name: "game",
-	initialState: {
-		gameField: createGameField(),
-		eatenCoins: 0,
-		score: 0,
-		hackman: initialStateHackman,
-		ghosts: ghosts,
-		blockPosition: block,
-		isPaused: false,
-		options: false,
-		gameOver: false,
-		win: false,
-		players: data,
-	},
-	reducers: {
+    name: "game",
+    initialState: {
+        gameField: createGameField(),
+        eatenCoins: 0,
+        playerName: "Guest",
+        playerHand: false,
+        hackman: initialStateHackman,
+        ghosts: ghosts,
+        blockPosition: block,
+        isPaused: false,
+        start: true,
+        menu: false,
+        help: false,
+        settings: false,
+        gameOver: false,
+        win: false,
+        score: 0,
+        difficult: 1,
+        gameStarted: false,
+        players: data,
+    },
+    reducers: {
 		gameTick: (state) => {
 			if (!state.isPaused) {
 				if (state.hackman.moveable !== Moveable.No) {
@@ -166,8 +176,8 @@ const gameFieldSlice = createSlice({
 		pauseGame: (state, payload: PayloadAction<boolean>) => {
 			state.isPaused = payload.payload;
 		},
-		openOptions: (state, payload: PayloadAction<boolean>) => {
-			state.options = payload.payload;
+		openMenu: (state, payload: PayloadAction<boolean>) => {
+			state.menu = payload.payload;
 		},
 		deleteBlock: (state) => {
 			setSingleGameField(state.gameField, new Coordinate(state.blockPosition.y, state.blockPosition.x), Empty);
@@ -196,7 +206,42 @@ const gameFieldSlice = createSlice({
 			state.win = true;
 			state.isPaused = true;
 		},
-	},
+        startGame: (state) => {
+            state.gameStarted = true;
+        },
+        changePlayerName: (state, payload: PayloadAction<string>) => {
+            state.playerName = payload.payload;
+        },
+        changeDifficult: (state, payload: PayloadAction<string>) => {
+            if (payload.payload === "plus") state.difficult += 1;
+            else if (payload.payload === "minus") state.difficult -= 1;
+        },
+        changePlayingHand: (state) => {
+            state.playerHand = !state.playerHand;
+            console.log(state.playerHand);
+        },
+        openHelp: (state) => {
+            state.help = true;
+            state.start = false;
+        },
+        openSettings: (state) => {
+            state.settings = true;
+            state.start = false;
+        },
+        backToStartMenu: (state, payload: PayloadAction<string>) => {
+            if (payload.payload === "options") {
+                state.settings = false;
+                state.start = true;
+            } else if (payload.payload === "help") {
+                state.help = false;
+                state.start = true;
+            }
+        },
+        backToMenu: (state) => {
+            state.menu = true
+            state.settings = false
+        }
+    },
 });
 
 export default gameFieldSlice;

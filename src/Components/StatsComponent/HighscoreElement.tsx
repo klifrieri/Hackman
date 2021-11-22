@@ -1,5 +1,6 @@
 import Player from "../../Types_Classes/Models/Player"
 
+
 interface IHighScoreElementProps{
     player:Player;
 }
