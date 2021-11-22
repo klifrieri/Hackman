@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameStateSlice from "../../../State/gameState/gameStateSlice";
+import appStateSlice from "../../../State/appState/appStateSlice";
 import { State } from "../../../State/store";
 import Options from "./ChildComponents/OptionsDialog";
 import './css/menuOverlay.css';
@@ -11,10 +11,10 @@ const Overlay: React.FC = () => {
 
 
     const dispatch = useDispatch();
-    const { pauseGame, openMenu, restartGame, openSettings } = bindActionCreators(gameStateSlice.actions, dispatch);
-    const menu: boolean = useSelector((state: State) => state.menu);
-    const isPaused: boolean = useSelector((state:State) => state.isPaused)
-    const settings = useSelector((state:State) => state.settings)
+    const { pauseGame, openMenu, restartGame, openSettings } = bindActionCreators(appStateSlice.actions, dispatch);
+    const menu: boolean = useSelector((state: State) => state.appState.menu);
+    const isPaused: boolean = useSelector((state:State) => state.appState.isPaused)
+    const settings = useSelector((state:State) => state.appState.settings)
     const [DisplayOverlay, SetDisplayOverlay] = useState("overlay-wrapper show-overlay")
 
     useEffect(() => {        

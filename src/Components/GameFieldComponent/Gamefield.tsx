@@ -55,10 +55,10 @@ const GameField: React.FC = () => {
     // The game "starts" when hackman moved the first time.
     // if hackman got eaten the timer will stop.
     useEffect(() => {
-        let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => activateGhost(1), 1000);
-        let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(() => activateGhost(2), 3000);
-        let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(() => activateGhost(3), 6000);
-        let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(() => activateGhost(4), 10000);
+        let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => activateGhost(0), 1000);
+        let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(() => activateGhost(1), 3000);
+        let [ghost3TimerStart, ghost3TimerStop] = CustomTimeOut(() => activateGhost(2), 6000);
+        let [ghost4TimerStart, ghost4TimerStop] = CustomTimeOut(() => activateGhost(3), 10000);
 
         if (hackmanMoved) {
             ghost1TimerStart();
@@ -138,8 +138,12 @@ const GameField: React.FC = () => {
     //Gametick interval
     useEffect(() => {
         const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => gameTick(), 250);
-        
+        if(!gameIsPaused){
             intervalStart();
+        }
+        else{
+            intervalStop();
+        }
         return () => intervalStop();
     }, []);
 

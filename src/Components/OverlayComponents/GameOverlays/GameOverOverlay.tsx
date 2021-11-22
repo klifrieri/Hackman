@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from "react-redux"
 import { State } from "../../../State/store"
 import { useEffect, useState } from "react"
 import { bindActionCreators } from "redux"
-import gameStateSlice from "../../../State/gameState/gameStateSlice"
+import appStateSlice from "../../../State/appState/appStateSlice"
 
 
 const GameOver:React.FC = () => {
     
-    const gameOver: boolean = useSelector((state: State) => state.gameOver);
-    const eatenCoins: number = useSelector((state:State) => state.eatenCoins)
+    const gameOver: boolean = useSelector((state: State) => state.appState.gameOver);
+    const eatenCoins: number = useSelector((state:State) => state.gameState.eatenCoins);
     const [Message, SetMessage] = useState("Game Over")
     const [Header, SetHeader] = useState("")
     const [DisplayOverlay, SetDisplayOverlay] = useState("go-overlay-wrapper go-hide-overlay")
     
     const dispatch = useDispatch();
     const { restartGame } = bindActionCreators(
-        gameStateSlice.actions,
+        appStateSlice.actions,
         dispatch
         );
         

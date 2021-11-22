@@ -11,29 +11,33 @@ import { CalculateAllCoins, GetScreenSize } from "./UtilityFunctions/CalcHelper"
 import GameController from "./Components/OverlayComponents/GameController/GameController";
 import Start from "./Components/OverlayComponents/GameOverlays/StartOverlay";
 import MenuOverlay from "./Components/OverlayComponents/GameOverlays/MenuOverlay";
-import gameStateSlice from "./State/gameState/gameStateSlice";
-import Pause from "./Components/OverlayComponents/GameOverlays/ChildComponents/PauseDialog";
-import Direction from "./Types_Classes/Character/Models/Direction";
 import createGameField from "./UtilityFunctions/createGameField";
+import appStateSlice from "./State/appState/appStateSlice";
+import gameStateSlice from "./State/gameState/gameStateSlice";
+import Direction from "./Types_Classes/Character/Models/Direction";
+import Pause from "./Components/OverlayComponents/GameOverlays/ChildComponents/PauseDialog";
 
 const allEatenCoins: number = CalculateAllCoins(createGameField());
 
 const App: React.FC = () => {
     const dispatch = useDispatch();
-    const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature, pauseGame, openMenu, openGameOver, winGame } = bindActionCreators(gameStateSlice.actions, dispatch);
+    const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature } = bindActionCreators(gameStateSlice.actions, dispatch);
+    const {  pauseGame, openMenu, openGameOver, winGame } = bindActionCreators(appStateSlice.actions, dispatch);
 
-    const isPaused = useSelector((state: State) => state.isPaused);
-    const remainingLives = useSelector((state: State) => state.hackman.remainingLifes);
-    const gameOver = useSelector((state: State) => state.gameOver);
-    const canSetBlock = useSelector((state: State) => state.hackman.canSetBlock);
-    const canJump = useSelector((state: State) => state.hackman.canJump);
-    const menu = useSelector((state: State) => state.menu);
-    const eatenCoins = useSelector((state: State) => state.eatenCoins);
-    const settings = useSelector((state: State) => state.settings);
-    const win = useSelector((state: State) => state.win);
-    const gameStarted = useSelector((state: State) => state.gameStarted);
+    const isPaused = useSelector((state: State) => state.appState.isPaused);
+    const gameOver = useSelector((state: State) => state.appState.gameOver);
+    const menu = useSelector((state: State) => state.appState.menu);
+    const settings = useSelector((state: State) => state.appState.settings);
+    const win = useSelector((state: State) => state.appState.win);
+    const gameStarted = useSelector((state: State) => state.appState.gameStarted);
+    
+    const eatenCoins = useSelector((state: State) => state.gameState.eatenCoins);
+    const remainingLives = useSelector((state: State) => state.gameState.hackman.remainingLifes);
+    const canSetBlock = useSelector((state: State) => state.gameState.hackman.canSetBlock);
+    const canJump = useSelector((state: State) => state.gameState.hackman.canJump);
+    
     const [ScreenSize, SetScreenSize] = useState(GetScreenSize());
-
+    
     const centerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
