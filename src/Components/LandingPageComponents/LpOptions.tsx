@@ -6,6 +6,7 @@ import gameStateSlice from "../../State/gameState/gameStateSlice";
 import { useEffect, useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaRegHandPointLeft, FaRegHandPointRight } from "react-icons/fa";
 import appStateSlice from "../../State/appState/appStateSlice";
+import { Link } from "react-router-dom";
 
 
 const LpOptions: React.FC = () => {
@@ -76,20 +77,9 @@ const LpOptions: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {/* {parentComponentMenu &&
-                <div className="s-overlay-buttons">
-                <button id="s-opt-back-btn" className="s-overlay-button" onClick={() => backToMenu()}>
-                    BACK
-                </button>
+            <div className="s-overlay-buttons">
+                <Link className="s-overlay-button" to="/">Back</Link>
             </div>
-            }
-            {!parentComponentMenu &&
-                <div className="s-overlay-buttons">
-                    <button id="s-opt-back-btn" className="s-overlay-button" onClick={() => backToStartMenu("options")}>
-                        BACK
-                    </button>
-                </div>            
-            } */}
         </div>
     );
 };

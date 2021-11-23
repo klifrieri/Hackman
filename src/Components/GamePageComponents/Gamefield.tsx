@@ -1,39 +1,17 @@
-import Coin from "../GamePageComponents/FieldComponents/Path/Coin";
-import Empty from "../GamePageComponents/FieldComponents/Path/Empty";
-import Hackman from "../GamePageComponents/HackmanComponent/Hackman";
-import VerticalWall from "../GamePageComponents/FieldComponents/VerticalWalls/VerticalWall";
-import VerticalWallTS from "../GamePageComponents/FieldComponents/VerticalWalls/VerticalWallTopShort";
-import VerticalWallBS from "../GamePageComponents/FieldComponents/VerticalWalls/VerticalWallBottomShort";
-import HorizontalWall from "../GamePageComponents/FieldComponents/HorizontalWalls/HorizontalWall";
-import HorizontalWallRS from "../GamePageComponents/FieldComponents/HorizontalWalls/HorizontalWallRightSideShort";
-import HorizontalWallLS from "../GamePageComponents/FieldComponents/HorizontalWalls/HorizontalWallLeftSideShort";
-import TPieceBottom from "../GamePageComponents/FieldComponents/TPieces/TPieceBottom";
-import TPieceTop from "../GamePageComponents/FieldComponents/TPieces/TPieceTop";
-import TPieceRight from "../GamePageComponents/FieldComponents/TPieces/TPieceRight";
-import TPieceLeft from "../GamePageComponents/FieldComponents/TPieces/TPieceLeft";
-import CornerLT from "../GamePageComponents/FieldComponents/Corners/CornerLeftTop";
-import CornerLB from "../GamePageComponents/FieldComponents/Corners/CornerLeftBottom";
-import CornerRT from "../GamePageComponents/FieldComponents/Corners/CornerRightTop";
-import CornerRB from "../GamePageComponents/FieldComponents/Corners/CornerRightBottom";
 import React, { useEffect } from "react";
-import Snack from "../GamePageComponents/FieldComponents/Path/Snack";
-import Gate from "../GamePageComponents/FieldComponents/Path/Gate";
 import { useDispatch, useSelector } from "react-redux";
 import { State } from "../../State/store";
 import { bindActionCreators } from "redux";
 import gameStateSlice from "../../State/gameState/gameStateSlice";
 import "./gameField.css";
-import GreenGhost from "./GhostComponents/GreenGhost";
-import RedGhost from "./GhostComponents/RedGhost";
-import OrangeGhost from "./GhostComponents/OrangeGhost";
-import BlueGhost from "../GamePageComponents/GhostComponents/BlueGhost";
 import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
 import CustomTimeOut from "../../UtilityFunctions/Interval_And_Timer/CustomTimeOut";
-import Block from "../GamePageComponents/FieldComponents/Path/Block";
+import renderGameField from "../../UtilityFunctions/GameFieldFunctions/renderGameField";
+import IGameFieldProps from "../../Types_Classes/Props/IGameFieldProps";
 
-const GameField: React.FC = () => {
+const GameField: React.FC<IGameFieldProps> = (props) => {
     const dispatch = useDispatch();
-    const { gameTick, activateGhostByIndex: activateGhost, resetGhostGotEatenByIndex } = bindActionCreators(gameStateSlice.actions, dispatch);
+    const { gameTick, activateGhostByIndex: activateGhost, resetGhostGotEatenByIndex, enableJumpingFeature, deleteBlock } = bindActionCreators(gameStateSlice.actions, dispatch);
 
     const gameField = useSelector((state: State) => state.gameState.gameField);
     const hackmanMoved = useSelector((state: State) => state.gameState.hackman.hackmanMoved);
@@ -48,12 +26,6 @@ const GameField: React.FC = () => {
     const ghost3GotEaten = useSelector((state: State) => state.gameState.ghosts[2].gotEaten);
     const ghost4GotEaten = useSelector((state: State) => state.gameState.ghosts[3].gotEaten);
 
-    const gameIsPaused = useSelector((state: State) => state.appState.isPaused);
-
-
-
-    // The game "starts" when hackman moved the first time.
-    // if hackman got eaten the timer will stop.
     useEffect(() => {
         let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => activateGhost(0), 1000);
         let [ghost2TimerStart, ghost2TimerStop] = CustomTimeOut(() => activateGhost(1), 3000);
@@ -79,10 +51,6 @@ const GameField: React.FC = () => {
         };
     }, [hackmanMoved]);
 
-    //If a ghost gets eaten its shalltick sets to false.It needs to get reactivated after a delay
-    //Only if Hackman already moved indicating that the game is in running mode and its only a single ghost
-    //If hackman dies and all ghost are set to shalltick = false the following useeffect wont trigger
-    //But the one above
     useEffect(() => {
         let [ghost1TimerStart, ghost1TimerStop] = CustomTimeOut(() => activateGhost(0), 2500);
         if (!ghost1ShallTick && ghost1GotEaten && hackmanMoved) {
@@ -138,46 +106,47 @@ const GameField: React.FC = () => {
     //Gametick interval
     useEffect(() => {
         const [intervalStart, intervalStop] = CustomIntervalForGameTick(() => gameTick(), 250);
-        if(!gameIsPaused){
+        if (!props.isPaused) {
             intervalStart();
         }
-        else{
+        else {
             intervalStop();
         }
         return () => intervalStop();
-    }, []);
+    }, [props.isPaused]);
 
-    const renderComponent = (component: React.FC<any>, key: number) => {
-        if (component === HorizontalWall) return <HorizontalWall key={key} />;
-        else if (component === HorizontalWallLS) return <HorizontalWallLS key={key} />;
-        else if (component === HorizontalWallRS) return <HorizontalWallRS key={key} />;
-        else if (component === VerticalWall) return <VerticalWall key={key} />;
-        else if (component === VerticalWallBS) return <VerticalWallBS key={key} />;
-        else if (component === VerticalWallTS) return <VerticalWallTS key={key} />;
-        else if (component === TPieceBottom) return <TPieceBottom key={key} />;
-        else if (component === TPieceTop) return <TPieceTop key={key} />;
-        else if (component === TPieceRight) return <TPieceRight key={key} />;
-        else if (component === TPieceLeft) return <TPieceLeft key={key} />;
-        else if (component === CornerLT) return <CornerLT key={key} />;
-        else if (component === CornerLB) return <CornerLB key={key} />;
-        else if (component === CornerRT) return <CornerRT key={key} />;
-        else if (component === CornerRB) return <CornerRB key={key} />;
-        else if (component === Coin) return <Coin key={key} />;
-        else if (component === Hackman) return <Hackman key={key} />;
-        else if (component === GreenGhost) {
-            return <GreenGhost key={key} />;
-        } else if (component === RedGhost) {
-            return <RedGhost key={key} />;
-        } else if (component === OrangeGhost) {
-            return <OrangeGhost key={key} />;
-        } else if (component === BlueGhost) {
-            return <BlueGhost key={key} />;
-        } else if (component === Snack) return <Snack key={key} />;
-        else if (component === Empty) return <Empty key={key} />;
-        else if (component === Gate) return <Gate key={key} />;
-        else if (component === Block) return <Block key={key} />;
-        else return undefined;
-    };
+
+    const canSetBlock = useSelector((state: State) => state.gameState.hackman.canSetBlock);
+    useEffect(() => {
+        let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => deleteBlock(), 5000);
+        if (!props.isPaused) {
+            if (!canSetBlock) {
+                blockTimerStart();
+            }
+        }
+        else if (props.isPaused) {
+            blockTimerStop();
+        }
+        return () => {
+            blockTimerStop();
+        };
+    }, [canSetBlock, props.isPaused]);
+
+    const canJump = useSelector((state: State) => state.gameState.hackman.canJump);
+    useEffect(() => {
+        let [canJumpTimerStart, canJumpTimerStop] = CustomTimeOut(() => enableJumpingFeature(), 5000);
+        if (!props.isPaused) {
+            if (!canJump) {
+                canJumpTimerStart();
+            }
+        }
+        else if (props.isPaused) {
+            canJumpTimerStop();
+        }
+        return () => {
+            canJumpTimerStop();
+        };
+    }, [canJump]);
 
     return (
         <>
@@ -185,7 +154,7 @@ const GameField: React.FC = () => {
                 return (
                     <div className="row" key={x}>
                         {row.map((feld, y) => {
-                            return renderComponent(feld, y);
+                            return renderGameField(feld, y);
                         })}
                     </div>
                 );

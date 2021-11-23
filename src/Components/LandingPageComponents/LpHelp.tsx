@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import "./css/lpHelp.css"
 
 const LpHelp: React.FC = () => {
-
     return (
         <div className="s-overlay-help">
             <div className="s-help-h">HELP</div>
@@ -16,7 +15,7 @@ const LpHelp: React.FC = () => {
                 3. Press <i>P</i> for Pause or <i>ESC</i> to open the options
             </div>
             <div className="s-overlay-buttons">
-                <Link className="s-overlay-button" to="/hackman">Back</Link>
+                <Link className="s-overlay-button" to="/">Back</Link>
             </div>
         </div>
     );

@@ -6,18 +6,22 @@ import { getHackmanAnimationClassName, getViewDirectionClassName } from "./deter
 
 const Hackman: React.FC<any> = () => {
     const hackmanDirection = useSelector((state: State) => state.gameState.hackman.direction);
-    const [hackmanAnimationClassName, setHackmanAnimationClassName] = useState("");
+    const isPaused = useSelector((state: State) => state.appState.isPaused);
+    const [hackmanAnimationClassName, setHackmanAnimationClassName] = useState("hackmanFill");
     const [viewDirectionClassName, setViewDirectionClassName] = useState("");
 
     useEffect(() => {
+        if(!isPaused){
         setHackmanAnimationClassName(getHackmanAnimationClassName(hackmanDirection));
-        const timeout = setTimeout(() => {
-            setHackmanAnimationClassName("hackmanFill");
-        }, 250);
+    }
+            const timeout = setTimeout(() => {
+                setHackmanAnimationClassName("hackmanFill");
+            }, 250);
 
-        return () => clearTimeout(timeout);
+
+        // return () => clearTimeout(timeout);
         //eslint-disable-next-line
-    }, []);
+    }, [isPaused]);
 
     useEffect(() => {
         setViewDirectionClassName(getViewDirectionClassName(hackmanDirection));

@@ -7,7 +7,6 @@ const appStateSlice = createSlice({
         playerName: "Guest",
         playerHand: false,
         isPaused: false,
-        start: true,
         menu: false,
         help: false,
         settings: false,
@@ -18,9 +17,6 @@ const appStateSlice = createSlice({
         players: data,
     },
     reducers: {
-        startGame: (state) => {
-            state.gameStarted = true;
-        },
 		pauseGame: (state, payload: PayloadAction<boolean>) => {
 			state.isPaused = payload.payload;
 		},
@@ -60,19 +56,15 @@ const appStateSlice = createSlice({
         },
         openHelp: (state) => {
             state.help = true;
-            state.start = false;
         },
         openSettings: (state) => {
             state.settings = true;
-            state.start = false;
         },
         backToStartMenu: (state, payload: PayloadAction<string>) => {
             if (payload.payload === "options") {
                 state.settings = false;
-                state.start = true;
             } else if (payload.payload === "help") {
                 state.help = false;
-                state.start = true;
             }
         },
         backToMenu: (state) => {

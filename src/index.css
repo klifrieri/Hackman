@@ -2,7 +2,6 @@
 @import url('./Components/GamePageComponents/FieldComponents/fieldComponents.css');
 @import url('./Components/GamePageComponents/HackmanComponent/hackman.css');
 @import url('./Components/GamePageComponents/GhostComponents/ghost.css');
-@import url('./Components/GamePageComponents/stats.css');
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;

@@ -1,42 +1,42 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { bindActionCreators } from "redux";
 import GameField from "../Components/GamePageComponents/Gamefield";
-import Stats from "../Components/GamePageComponents/Stats";
+import Stats from "../Components/GamePageComponents/LifeAndScore";
 import appStateSlice from "../State/appState/appStateSlice";
 import gameStateSlice from "../State/gameState/gameStateSlice";
 import { State } from "../State/store";
 import Direction from "../Types_Classes/Character/Models/Direction";
 import { CalculateAllCoins, GetScreenSize } from "../UtilityFunctions/CalcHelper";
 import createGameField from "../UtilityFunctions/createGameField";
-import CustomTimeOut from "../UtilityFunctions/Interval_And_Timer/CustomTimeOut";
+import gameFieldCssInjection from "../UtilityFunctions/CssInjection/gameFieldCssInjection";
 
 const allEatenCoins: number = CalculateAllCoins(createGameField());
 
 const GamePage: React.FC = () => {
-    const centerRef = useRef<HTMLDivElement>(null);
-    
     const dispatch = useDispatch();
-    const { changeIsMoveableHackman, setBlock, deleteBlock, hackmanJump, enableJumpingFeature } = bindActionCreators(gameStateSlice.actions, dispatch);
+    const { changeIsMoveableHackman, setBlock, hackmanJump } = bindActionCreators(gameStateSlice.actions, dispatch);
     const { pauseGame, openMenu, openGameOver, winGame } = bindActionCreators(appStateSlice.actions, dispatch);
 
     const isPaused = useSelector((state: State) => state.appState.isPaused);
     const gameOver = useSelector((state: State) => state.appState.gameOver);
     const menu = useSelector((state: State) => state.appState.menu);
-    const settings = useSelector((state: State) => state.appState.settings);
     const win = useSelector((state: State) => state.appState.win);
-    const gameStarted = useSelector((state: State) => state.appState.gameStarted);
+
 
     const eatenCoins = useSelector((state: State) => state.gameState.eatenCoins);
+
+
+
     const remainingLives = useSelector((state: State) => state.gameState.hackman.remainingLifes);
-    const canSetBlock = useSelector((state: State) => state.gameState.hackman.canSetBlock);
-    const canJump = useSelector((state: State) => state.gameState.hackman.canJump);
+    const score = useSelector((state: State) => state.gameState.score);
 
     const [ScreenSize, SetScreenSize] = useState(GetScreenSize());
 
     useEffect(() => {
-        if (gameStarted) centerRef.current?.focus();
-    }, [gameStarted, menu, settings, win, gameOver]);
+        centerRef.current?.focus();
+    });
 
     useEffect(() => {
         console.log(eatenCoins)
@@ -50,93 +50,18 @@ const GamePage: React.FC = () => {
             openGameOver(!gameOver);
         }
     }, [remainingLives]);
+
+    const centerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        let [blockTimerStart, blockTimerStop] = CustomTimeOut(() => deleteBlock(), 5000);
-        if (!isPaused) {
-            if (!canSetBlock) {
-                blockTimerStart();
-            }
-        } else if (isPaused) {
-            blockTimerStop();
-        }
-        return () => {
-            blockTimerStop();
-        };
-    }, [canSetBlock, isPaused]);
+        centerRef.current?.focus();
+        gameFieldCssInjection(centerRef);
+        window.addEventListener("resize", () => gameFieldCssInjection(centerRef));
+        return () => window.removeEventListener("resize", () => gameFieldCssInjection(centerRef));
+        //eslint-disable-next-line
+    }, []);
 
-    useEffect(() => {
-        let [canJumpTimerStart, canJumpTimerStop] = CustomTimeOut(() => enableJumpingFeature(), 5000);
-        if (!canJump) {
-            canJumpTimerStart();
-        }
-        return () => {
-            canJumpTimerStop();
-        };
-    }, [canJump]);
-
-        // useEffect(() => {
-    //     centerRef.current?.focus();
-    //     setStyleTag();
-    //     window.addEventListener("resize", setStyleTag);
-    //     return () => window.removeEventListener("resize", setStyleTag);
-    //     //eslint-disable-next-line
-    // }, []);
-
-
-
-
-    // const setStyleTag = () => {
-    //     SetScreenSize(GetScreenSize());
-    //     setRowHeightStyleTag();
-    //     let headTag = document.getElementsByTagName("head");
-    //     let row = centerRef.current?.firstElementChild;
-    //     let rowHeightInPx = getComputedStyle(row!).height;
-
-    //     var styleTag = document.createElement("style");
-    //     styleTag.type = "text/css";
-    //     styleTag.id = "styleTag";
-    //     styleTag.innerHTML = `div.center > div.row > div.field {width: ${rowHeightInPx};}`;
-    //     let styleSheetTest = document.getElementById("styleTag");
-    //     if (styleSheetTest) {
-    //         headTag[0].removeChild(styleSheetTest);
-    //     }
-    //     headTag[0].appendChild(styleTag);
-    // };
-
-    // const setRowHeightStyleTag = () => {
-    //     let headTag = document.getElementsByTagName("head");
-    //     let height = window.innerHeight;
-    //     let width = window.innerWidth;
-    //     if (width - height < 50) {
-    //         width -= 50;
-    //     }
-
-    //     console.debug("Height" + height);
-    //     console.debug("\nWidth" + width);
-    //     var styleRow = document.createElement("style");
-    //     styleRow.type = "text/css";
-    //     styleRow.id = "rowStyleTag";
-    //     let estimatedHeight = 0;
-    //     if (height > width + width / 2) {
-    //         estimatedHeight = 2;
-    //         console.debug("case one!");
-    //     } else if (height > width) {
-    //         estimatedHeight = 3;
-    //         console.debug("case two!");
-    //     } else {
-    //         estimatedHeight = 5;
-    //         console.debug("case three!");
-    //     }
-    //     styleRow.innerHTML = `div.center > div.row { height: ${estimatedHeight}%}`;
-    //     let styleSheetTest = document.getElementById("rowStyleTag");
-    //     if (styleSheetTest) {
-    //         headTag[0].removeChild(styleSheetTest);
-    //     }
-    //     headTag[0].appendChild(styleRow);
-    // };
-    
     const handleKeyDown = (e: React.KeyboardEvent): void => {
-        if (!isPaused && !win && gameStarted) {
+        if (!isPaused && !win) {
             if (e.key.toLowerCase() === "w" || e.key === "ArrowUp") {
                 changeIsMoveableHackman(Direction.Up);
             } else if (e.key.toLowerCase() === "d" || e.key === "ArrowRight") {
@@ -168,15 +93,18 @@ const GamePage: React.FC = () => {
             }
         }
     };
+
     return (
-        <>
-            <GameField/>
-            <Stats/>
-                        {/*
+        <div ref={centerRef} className="center" onKeyDown={handleKeyDown} tabIndex={0} id="game">
+
+            <GameField isPaused={isPaused} />
+            <Stats remainingLifes={remainingLives} score={score} />
+            <Link to="/" className="s-overlay-button">START</Link>
+            {/*
             {menu && <MenuOverlay />}
             {ScreenSize.width < 1300 && ScreenSize.width / ScreenSize.height > 1.65 && <GameController />}
-            {(isPaused && !menu && !win && !gameOver) && <Pause />} */}
-        </>
+        {(isPaused && !menu && !win && !gameOver) && <Pause />} */}
+        </div>
     );
 };
 

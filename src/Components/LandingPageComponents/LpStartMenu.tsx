@@ -3,7 +3,6 @@ import Image from "../../IMG/hackman1.png";
 import "./css/lpStartMenu.css";
 
 const LpStartMenu: React.FC = () => {
-
     return (
         <div className="s-overlay-menu">
             <div className="s-overlay-header">
@@ -14,7 +13,7 @@ const LpStartMenu: React.FC = () => {
                 <div className="s-overlay-header-r s-text">MAN</div>
             </div>
             <div className="s-overlay-buttons">
-             <Link to="/game" className="s-overlay-button">START</Link> 
+                <Link to="/game" className="s-overlay-button">START</Link>
                 <Link to="/options" className="s-overlay-button">OPTIONS</Link>
                 <Link to="/help" className="s-overlay-button">HELP</Link>
             </div>
