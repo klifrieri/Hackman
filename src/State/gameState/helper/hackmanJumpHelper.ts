@@ -1,6 +1,6 @@
 import { FC } from "react";
-import Empty from "../../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import Empty from "../../../Components/GamePageComponents/FieldComponents/Path/Empty";
+import Hackman from "../../../Components/GamePageComponents/HackmanComponent/Hackman";
 import HackmanCharacter from "../../../Types_Classes/Character/HackmanCharacter";
 import Coordinate from "../../../Types_Classes/Character/Models/Coordinate";
 import Direction from "../../../Types_Classes/Character/Models/Direction";

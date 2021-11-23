@@ -1,17 +1,14 @@
-import "./css/optionsDialog.css";
-import { State } from "../../../../State/store";
+import "./css/lpOptions.css";
+import { State } from "../../State/store";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameStateSlice from "../../../../State/gameState/gameStateSlice";
+import gameStateSlice from "../../State/gameState/gameStateSlice";
 import { useEffect, useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaRegHandPointLeft, FaRegHandPointRight } from "react-icons/fa";
-import appStateSlice from "../../../../State/appState/appStateSlice";
+import appStateSlice from "../../State/appState/appStateSlice";
 
-interface IOptionsProps{
-    pComp:boolean
-}
 
-const Options: React.FC<IOptionsProps> = (props) => {
+const LpOptions: React.FC = () => {
     const dispatch = useDispatch();
     const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu, backToMenu } = bindActionCreators(appStateSlice.actions, dispatch);
     const difficult = useSelector((state: State) => state.appState.difficult);
@@ -22,7 +19,6 @@ const Options: React.FC<IOptionsProps> = (props) => {
     const [BtnPlus, SetBtnPlus] = useState(false);
     const [BtnMinus, SetBtnMinus] = useState(false);
 
-    const parentComponentMenu = props.pComp
 
     useEffect(() => {
         if (difficult <= 1) {
@@ -80,7 +76,7 @@ const Options: React.FC<IOptionsProps> = (props) => {
                     </div>
                 </div>
             </div>
-            {parentComponentMenu &&
+            {/* {parentComponentMenu &&
                 <div className="s-overlay-buttons">
                 <button id="s-opt-back-btn" className="s-overlay-button" onClick={() => backToMenu()}>
                     BACK
@@ -93,9 +89,9 @@ const Options: React.FC<IOptionsProps> = (props) => {
                         BACK
                     </button>
                 </div>            
-            }
+            } */}
         </div>
     );
 };
 
-export default Options;
+export default LpOptions;

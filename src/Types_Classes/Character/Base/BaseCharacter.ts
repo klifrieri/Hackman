@@ -3,16 +3,16 @@ import Direction from "../Models/Direction";
 import CharacterIdentifier from "../Models/CharacterIdentifier";
 import CoordinateHandler from "./CoordinateHandler";
 import { FC } from "react";
-import Coin from "../../../Components/GameFieldComponent/FieldComponents/Path/Coin";
-import Empty from "../../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import Snack from "../../../Components/GameFieldComponent/FieldComponents/Path/Snack";
-import BlueGhost from "../../../Components/GameFieldComponent/GhostComponents/BlueGhost";
-import GreenGhost from "../../../Components/GameFieldComponent/GhostComponents/GreenGhost";
-import OrangeGhost from "../../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
-import RedGhost from "../../../Components/GameFieldComponent/GhostComponents/RedGhost";
+import Coin from "../../../Components/GamePageComponents/FieldComponents/Path/Coin";
+import Empty from "../../../Components/GamePageComponents/FieldComponents/Path/Empty";
+import Snack from "../../../Components/GamePageComponents/FieldComponents/Path/Snack";
 import Coordinate from "../Models/Coordinate";
-import Gate from "../../../Components/GameFieldComponent/FieldComponents/Path/Gate";
-import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import Gate from "../../../Components/GamePageComponents/FieldComponents/Path/Gate";
+import Hackman from "../../../Components/GamePageComponents/HackmanComponent/Hackman";
+import BlueGhost from "../../../Components/GamePageComponents/GhostComponents/BlueGhost";
+import GreenGhost from "../../../Components/GamePageComponents/GhostComponents/GreenGhost";
+import OrangeGhost from "../../../Components/GamePageComponents/GhostComponents/OrangeGhost";
+import RedGhost from "../../../Components/GamePageComponents/GhostComponents/RedGhost";
 
 abstract class BaseCharacter extends CoordinateHandler {
   protected _name: CharacterIdentifier;

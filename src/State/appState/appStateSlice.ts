@@ -18,6 +18,9 @@ const appStateSlice = createSlice({
         players: data,
     },
     reducers: {
+        startGame: (state) => {
+            state.gameStarted = true;
+        },
 		pauseGame: (state, payload: PayloadAction<boolean>) => {
 			state.isPaused = payload.payload;
 		},
@@ -44,9 +47,6 @@ const appStateSlice = createSlice({
 			state.win = true;
 			state.isPaused = true;
 		},
-        startGame: (state) => {
-            state.gameStarted = true;
-        },
         changePlayerName: (state, payload: PayloadAction<string>) => {
             state.playerName = payload.payload;
         },

@@ -1,5 +1,5 @@
-import Coin from "../Components/GameFieldComponent/FieldComponents/Path/Coin";
-import Snack from "../Components/GameFieldComponent/FieldComponents/Path/Snack";
+import Coin from "../Components/GamePageComponents/FieldComponents/Path/Coin";
+import Snack from "../Components/GamePageComponents/FieldComponents/Path/Snack";
 import Screen from "../Types_Classes/Models/Screen"
 
 

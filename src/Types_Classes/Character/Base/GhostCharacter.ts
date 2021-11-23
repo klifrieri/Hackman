@@ -1,10 +1,10 @@
 import { FC } from "react";
-import Empty from "../../../Components/GameFieldComponent/FieldComponents/Path/Empty";
-import BlueGhost from "../../../Components/GameFieldComponent/GhostComponents/BlueGhost";
-import GreenGhost from "../../../Components/GameFieldComponent/GhostComponents/GreenGhost";
-import OrangeGhost from "../../../Components/GameFieldComponent/GhostComponents/OrangeGhost";
-import RedGhost from "../../../Components/GameFieldComponent/GhostComponents/RedGhost";
-import Hackman from "../../../Components/GameFieldComponent/HackmanComponent/Hackman";
+import Empty from "../../../Components/GamePageComponents/FieldComponents/Path/Empty";
+import BlueGhost from "../../../Components/GamePageComponents/GhostComponents/BlueGhost";
+import GreenGhost from "../../../Components/GamePageComponents/GhostComponents/GreenGhost";
+import OrangeGhost from "../../../Components/GamePageComponents/GhostComponents/OrangeGhost";
+import RedGhost from "../../../Components/GamePageComponents/GhostComponents/RedGhost";
+import Hackman from "../../../Components/GamePageComponents/HackmanComponent/Hackman";
 import CustomTimerForGhostEdible from "../../../UtilityFunctions/Interval_And_Timer/CustomTimerForGhostEdible";
 import CharacterIdentifier from "../Models/CharacterIdentifier";
 import Direction from "../Models/Direction";

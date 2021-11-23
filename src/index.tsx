@@ -1,14 +1,30 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
 import { Provider } from 'react-redux';
 import { store } from "./State/store";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import LpHelp from "./Components/LandingPageComponents/LpHelp";
+import LpOptions from "./Components/LandingPageComponents/LpOptions";
+import LpStartMenu from "./Components/LandingPageComponents/LpStartMenu";
+import EndingPage from "./Pages/EndingPage";
+import GamePage from "./Pages/GamePage";
+import LandingPage from "./Pages/LandingPage";
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<LandingPage />}>
+            <Route index element={<LpStartMenu />} />
+            <Route path="help" element={<LpHelp />} />
+            <Route path="options" element={<LpOptions />} />
+          </Route>
+          <Route path="/game" element={<GamePage />} />
+          <Route path="/ending" element={<EndingPage />} />
+        </Routes>
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

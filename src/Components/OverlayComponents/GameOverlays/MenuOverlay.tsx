@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import appStateSlice from "../../../State/appState/appStateSlice";
 import { State } from "../../../State/store";
-import Options from "./ChildComponents/OptionsDialog";
+import LpOptions from "../../LandingPageComponents/LpOptions";
 import './css/menuOverlay.css';
 
 
@@ -45,9 +45,9 @@ const Overlay: React.FC = () => {
                     </div>
                 </div>
             }
-            {settings &&
-                <Options pComp={menu}/>
-            }
+            {/* {settings &&
+                // <LpOptions pComp={menu}/>
+            } */}
         </div>
     )
 } 
