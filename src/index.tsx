@@ -7,9 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import LpHelp from "./Components/LandingPageComponents/LpHelp";
 import LpOptions from "./Components/LandingPageComponents/LpOptions";
 import LpStartMenu from "./Components/LandingPageComponents/LpStartMenu";
-import EndingPage from "./Pages/EndingPage";
+import EndingPage from "./Pages/HighscorePage";
 import GamePage from "./Pages/GamePage";
 import LandingPage from "./Pages/LandingPage";
+import WinOverlay from "./Components/GamePageComponents/Overlays/WinOverlay";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -22,7 +23,7 @@ ReactDOM.render(
             <Route path="options" element={<LpOptions />} />
           </Route>
           <Route path="/game" element={<GamePage />} />
-          <Route path="/ending" element={<EndingPage />} />
+          <Route path="/high" element={<WinOverlay />} />
         </Routes>
       </BrowserRouter>
     </Provider>

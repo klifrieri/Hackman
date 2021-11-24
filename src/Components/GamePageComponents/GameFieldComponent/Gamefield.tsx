@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { State } from "../../State/store";
 import { bindActionCreators } from "redux";
-import gameStateSlice from "../../State/gameState/gameStateSlice";
+import gameStateSlice from "../../../State/gameState/gameStateSlice";
+import { State } from "../../../State/store";
+import IGameFieldProps from "../../../Types_Classes/Props/IGameFieldProps";
+import renderGameField from "../../../UtilityFunctions/GameFieldFunctions/renderGameField";
+import CustomIntervalForGameTick from "../../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
+import CustomTimeOut from "../../../UtilityFunctions/Interval_And_Timer/CustomTimeOut";
 import "./gameField.css";
-import CustomIntervalForGameTick from "../../UtilityFunctions/Interval_And_Timer/CustomIntervalForGameTick";
-import CustomTimeOut from "../../UtilityFunctions/Interval_And_Timer/CustomTimeOut";
-import renderGameField from "../../UtilityFunctions/GameFieldFunctions/renderGameField";
-import IGameFieldProps from "../../Types_Classes/Props/IGameFieldProps";
 
 const GameField: React.FC<IGameFieldProps> = (props) => {
     const dispatch = useDispatch();

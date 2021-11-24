@@ -62,41 +62,6 @@ input:checked + .slider:before {
 
 /* SLIDER END*/
 
-.s-overlay-buttons {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-}
-.s-overlay-button {
-    padding: 1% 5%;
-    font-family: "Montserrat";
-    font-weight: 600;
-    font-size: 2rem;
-    margin: 3% 0;
-    color: white;
-    background-color: darkorange;
-    border: 2px solid white;
-    border-radius: 5px;
-}
-.s-overlay-button:hover {
-    color: rgb(36, 35, 35);
-    border-color: rgb(255, 230, 0);
-    cursor: pointer;
-}
-.s-overlay-opt {
-    width: 40%;
-    height: 70%;
-    background-color: rgb(32, 31, 31);
-    border-radius: 25px;
-    box-shadow: 0px 0px 50px silver;
-}
-.s-opt-h {
-    text-align: center;
-    color: darkorange;
-    font-size: 4rem;
-    margin: 10% 0 5% 0;
-}
 .s-opt-el {
     width: 70%;
     display: flex;
@@ -174,13 +139,6 @@ input:checked + .slider:before {
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
-    .s-overlay-button {
-        font-size: 0.75rem;
-        margin: 1.5% 0;
-    }
-    .s-overlay-opt {
-        width: 50%;
-    }
     .s-opt-dif-btn {
         font-size: 0.75rem;
     }
@@ -235,21 +193,8 @@ input:checked + .slider:before {
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 600px) {
-
-    .s-overlay-button {
-        font-size: 0.75rem;
-        margin: 1.5% 0;
-    }
-    .s-overlay-opt {
-        width: 50%;
-        height: 70%;
-    }
     .s-opt-dif-btn {
         font-size: 0.75rem;
-    }
-    .s-opt-h {
-        font-size: 2rem;
-        margin: 1% 0;
     }
     #s-opt-name {
         font-size: 0.75rem;
@@ -257,9 +202,6 @@ input:checked + .slider:before {
     #s-opt-name-i {
         font-size: 1rem;
         width: 75px;
-    }
-    .s-opt-t {
-        font-size: 0.75rem;
     }
     .s-opt-el {
         margin: 5% auto;
@@ -295,19 +237,8 @@ input:checked + .slider:before {
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .s-overlay-button {
-        font-size: 0.75rem;
-        margin: 1% 0;
-    }
-    .s-overlay-opt {
-        width: 50%;
-    }
     .s-opt-dif-btn {
         font-size: 1rem;
-    }
-    .s-opt-h {
-        font-size: 2rem;
-        margin: 1% 0;
     }
     #s-opt-name {
         font-size: 1rem;
@@ -315,9 +246,6 @@ input:checked + .slider:before {
     #s-opt-name-i {
         font-size: 1.25rem;
         width: 100px;
-    }
-    .s-opt-t {
-        font-size: 1rem;
     }
     .s-opt-el {
         margin: 5% auto;
@@ -346,18 +274,6 @@ input:checked + .slider:before {
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .s-overlay-button {
-        font-size: 1.25rem;
-        margin: 3% 0;
-    }
-    .s-opt-h {
-        font-size: 2.5rem;
-        margin: 10% 0 5% 0;
-    }
-    .s-overlay-opt {
-        width: 60%;
-        height: 70%;
-    }
     .s-opt-dif-btn {
         font-size: 1.5rem;
     }
@@ -368,9 +284,6 @@ input:checked + .slider:before {
         font-size: 1.5rem;
         width: 200px;
     }
-    .s-opt-t {
-        font-size: 1.5rem;
-    }
     .s-opt-el {
         margin: 5% auto;
     }
@@ -379,34 +292,7 @@ input:checked + .slider:before {
     }
 }
 
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-    .s-overlay-button {
-        font-size: 2rem;
-        margin: 3% 0;
-    }
-    .s-opt-h {
-        font-size: 4rem;
-        margin: 10% 0 5% 0;
-    }
-    .s-overlay-opt {
-        width: 60%;
-        height: 70%;
-    }
-}
 @media only screen and (min-width: 1400px) {
-    .s-overlay-button {
-        font-size: 2rem;
-        margin: 3% 0;
-    }
-    .s-overlay-opt {
-        width: 40%;
-        height: 70%;
-    }
-    .s-opt-h {
-        font-size: 4rem;
-        margin: 10% 0 5% 0;
-    }
     .s-opt-hand-icon {
         font-size: 2rem;
     }
@@ -426,9 +312,6 @@ input:checked + .slider:before {
         width: 200px;
         font-size: 2rem;
         padding: 3px 10px;
-    }
-    .s-opt-t {
-        font-size: 2rem;
     }
     .s-opt-el {
         margin: 7.5% auto;
@@ -448,18 +331,6 @@ input:checked + .slider:before {
     }
 }
 @media only screen and (min-width: 1600px) {
-    .s-overlay-button {
-        font-size: 2rem;
-        margin: 3% 0;
-    }
-    .s-overlay-opt {
-        width: 40%;
-        height: 70%;
-    }
-    .s-opt-h {
-        font-size: 4rem;
-        margin: 10% 0 5% 0;
-    }
     .s-opt-hand-icon {
         font-size: 2rem;
     }
@@ -479,9 +350,6 @@ input:checked + .slider:before {
         width: 250px;
         font-size: 2rem;
         padding: 3px 10px;
-    }
-    .s-opt-t {
-        font-size: 2rem;
     }
     .s-opt-el {
         margin: 7.5% auto;

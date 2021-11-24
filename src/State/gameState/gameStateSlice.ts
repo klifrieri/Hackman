@@ -169,6 +169,16 @@ const gameStateSlice = createSlice({
 		},
 		resetGhostGotEatenByIndex: (state, payload: PayloadAction<number>) => {
 			state.ghosts[payload.payload].gotEaten = false;
+		},
+		resetAppState: (state) => {
+			state.eatenCoins = 0;
+			state.hackman.remainingLifes = 3;
+			state.score = 0;
+			state.hackman.resetToStartPosition();
+			for (let i = 0; i < ghosts.length; i++) {
+				ghosts[i].resetToStartPosition();
+			}
+			state.gameField = createGameField();
 		}
 	}
 });

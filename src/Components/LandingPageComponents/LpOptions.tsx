@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const LpOptions: React.FC = () => {
     const dispatch = useDispatch();
-    const { changePlayerName, changeDifficult, changePlayingHand, backToStartMenu, backToMenu } = bindActionCreators(appStateSlice.actions, dispatch);
+    const { changePlayerName, changeDifficult, changePlayingHand } = bindActionCreators(appStateSlice.actions, dispatch);
     const difficult = useSelector((state: State) => state.appState.difficult);
     const playerName = useSelector((state: State) => state.appState.playerName);
     const playerHand = useSelector((state:State) => state.appState.playerHand)
@@ -35,10 +35,10 @@ const LpOptions: React.FC = () => {
     }, [difficult]);
 
     return (
-        <div className="s-overlay-opt">
-            <div className="s-opt-h">OPTIONS</div>
+        <div className="overlay">
+            <div className="overlay-heading">OPTIONS</div>
             <div className="s-opt-el">
-                <div className="s-opt-t">Name:</div>
+                <div className="overlay-white-text">Name:</div>
                 <div className="s-opt-w">
                     <input id="s-opt-name-i" placeholder={playerName}></input>
                     <button id="s-opt-name" onClick={() => changePlayerName(name.value)}>
@@ -48,12 +48,12 @@ const LpOptions: React.FC = () => {
             </div>
             {!gameStarted && (
                 <div className="s-opt-el">
-                    <div className="s-opt-t">Difficult:</div>
+                    <div className="overlay-white-text">Difficult:</div>
                     <div className="s-opt-w">
                         <button disabled={BtnMinus} id="s-minus" className="s-opt-dif-btn minus" onClick={() => changeDifficult("minus")}>
                             <FaMinus />
                         </button>
-                        <div className="s-opt-t">{difficult}</div>
+                        <div className="overlay-white-text">{difficult}</div>
                         <button disabled={BtnPlus} id="s-plus" className="s-opt-dif-btn plus" onClick={() => changeDifficult("plus")}>
                             <FaPlus />
                         </button>
@@ -61,7 +61,7 @@ const LpOptions: React.FC = () => {
                 </div>
             )}
             <div className="s-opt-el">
-                <div className="s-opt-t">Handed:</div>
+                <div className="overlay-white-text">Handed:</div>
                 <div className="s-opt-w">
                     <div className="s-opt-hand-icon">
                         <FaRegHandPointLeft />
@@ -77,8 +77,8 @@ const LpOptions: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="s-overlay-buttons">
-                <Link className="s-overlay-button" to="/">Back</Link>
+            <div className="btn-wrapper">
+                <Link className="btn" to="/">Back</Link>
             </div>
         </div>
     );

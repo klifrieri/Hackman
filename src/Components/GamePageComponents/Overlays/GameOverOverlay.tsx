@@ -1,4 +1,4 @@
-import "./css/gameOverOverlay.css"
+import "./gameOverOverlay.css"
 import { useDispatch, useSelector } from "react-redux"
 import { State } from "../../../State/store"
 import { useEffect, useState } from "react"
@@ -7,23 +7,18 @@ import appStateSlice from "../../../State/appState/appStateSlice"
 
 
 const GameOver:React.FC = () => {
-    
-    const gameOver: boolean = useSelector((state: State) => state.appState.gameOver);
     const eatenCoins: number = useSelector((state:State) => state.gameState.eatenCoins);
     const [Message, SetMessage] = useState("Game Over")
     const [Header, SetHeader] = useState("")
-    const [DisplayOverlay, SetDisplayOverlay] = useState("go-overlay-wrapper go-hide-overlay")
-    
+ 
     const dispatch = useDispatch();
-    const { restartGame } = bindActionCreators(
+    const { resetAppState: restartGame } = bindActionCreators(
         appStateSlice.actions,
         dispatch
         );
         
 
-    useEffect(() => {        
-        if(gameOver){
-            SetDisplayOverlay("go-overlay-wrapper go-show-overlay")
+    useEffect(() => {    
             if(eatenCoins > 130){
                 SetMessage("Close. Next time... YOU WILL WIN!")
                 SetHeader("Pity.")
@@ -36,19 +31,16 @@ const GameOver:React.FC = () => {
                 SetMessage("Noob. Just noob.")
                 SetHeader("WTF???")
             }
-        }
-        else
-            SetDisplayOverlay("go-overlay-wrapper go-hide-overlay")
-
-    }, [gameOver])
+        
+    },[])
 
 
     return(
-        <div className={DisplayOverlay}>
+        <div className="go-overlay-wrapper">
             <div className="go-overlay-box">
                 <h2>{Header}</h2>
                 <p>{Message}</p>
-                <button id="restart-game" onClick={() => restartGame()}>
+                <button id="restart-game" className="btn" onClick={() => restartGame()}>
                     Restart
                 </button>
             </div>

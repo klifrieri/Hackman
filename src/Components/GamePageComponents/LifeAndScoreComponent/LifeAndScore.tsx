@@ -1,4 +1,4 @@
-import ILifeAndScoreProps from "../../Types_Classes/Props/ILifeAndScoreProps";
+import ILifeAndScoreProps from '../../../Types_Classes/Props/ILifeAndScoreProps';
 import './lifeAndScore.css';
 
 const LifeAndScore: React.FC<ILifeAndScoreProps> = (props) => {

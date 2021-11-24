@@ -4,6 +4,9 @@ import { RefObject } from "react";
         setRowHeightStyleTag();
         let headTag = document.getElementsByTagName("head");
         let row = centerRef.current?.firstElementChild;
+        if(!row){
+            return;
+        }
         let rowHeightInPx = getComputedStyle(row!).height;
 
         var styleTag = document.createElement("style");

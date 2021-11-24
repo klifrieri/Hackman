@@ -1,4 +1,4 @@
-import Player from "../../Types_Classes/Models/Player"
+import Player from "../../../Types_Classes/Models/Player"
 
 
 interface IHighScoreElementProps{

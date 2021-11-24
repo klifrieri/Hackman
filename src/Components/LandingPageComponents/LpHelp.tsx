@@ -3,19 +3,19 @@ import "./css/lpHelp.css"
 
 const LpHelp: React.FC = () => {
     return (
-        <div className="s-overlay-help">
-            <div className="s-help-h">HELP</div>
-            <div className="s-help-t">
+        <div className="overlay">
+            <div className="overlay-heading">HELP</div>
+            <div className="overlay-white-text">
                 1. Move Hackman with <i>Keyboard-Arrows</i> or <i>W, A, S, D</i>
             </div>
-            <div className="s-help-t">
+            <div className="overlay-white-text">
                 2. Set a Block with <i>SPACE</i> or Jump with <i>SHIFT-L</i>
             </div>
-            <div className="s-help-t">
+            <div className="overlay-white-text">
                 3. Press <i>P</i> for Pause or <i>ESC</i> to open the options
             </div>
-            <div className="s-overlay-buttons">
-                <Link className="s-overlay-button" to="/">Back</Link>
+            <div className="btn-wrapper">
+                <Link className="btn" to="/">Back</Link>
             </div>
         </div>
     );

@@ -12,12 +12,11 @@ interface IControlProps {
 
 const Control: React.FC<IControlProps> = (props) => {
     const dispatch = useDispatch();
-    const { pauseGame, openMenu } = bindActionCreators(appStateSlice.actions, dispatch);
+    const { pauseGame } = bindActionCreators(appStateSlice.actions, dispatch);
     const action = props.action;
     const [FontSize, SetFontSize] = useState(CalcFontSize(GetScreenSize()));
     const [ButtonSize, SetButtonSize] = useState(FontSize * 2.5);
     const isPaused = useSelector((state: State) => state.appState.isPaused);
-    const menu = useSelector((state: State) => state.appState.menu);
 
     const RenderAll = (): any => {
         SetFontSize(CalcFontSize(GetScreenSize()));
@@ -27,15 +26,12 @@ const Control: React.FC<IControlProps> = (props) => {
     const gameAction = (): any => {
         switch (action) {
             case "pause":
-                if (menu === false) {
                     pauseGame(!isPaused);
-                }
+                
                 break;
             case "menu":
                 if (isPaused) {
-                    openMenu(!menu);
                 } else {
-                    openMenu(!menu);
                     pauseGame(!isPaused);
                 }
                 break;
