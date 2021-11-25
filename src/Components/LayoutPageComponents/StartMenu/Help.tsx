@@ -4,16 +4,16 @@ import "./css/help.css"
 const Help: React.FC = () => {
     return (
         <>
-            <div className="overlay-heading dorange-text heading-fontsize">HELP</div>
-            <div className="overlay-text text-fontsize white-text">
+            <h1>HELP</h1>
+            <p>
                 1. Move Hackman with <i>Keyboard-Arrows</i> or <i>W, A, S, D</i>
-            </div>
-            <div className="overlay-text text-fontsize white-text">
+            </p>
+            <p>
                 2. Set a Block with <i>SPACE</i> or Jump with <i>SHIFT-L</i>
-            </div>
-            <div className="overlay-text text-fontsize white-text">
+            </p>
+            <p>
                 3. Press <i>P</i> for Pause or <i>ESC</i> to open the options
-            </div>
+            </p>
             <div className="btn-wrapper flex-columns">
                 <Link className="btn" to="/">Back</Link>
             </div>

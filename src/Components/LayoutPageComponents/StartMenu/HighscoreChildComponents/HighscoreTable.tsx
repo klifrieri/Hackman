@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import HighscoreElement from "./HighscoreElement";
-import "./css/highscore.css";
+import "./css/highscores.css";
 import Player from "../../../../Types_Classes/Models/Player";
 import { State } from "../../../../State/store";
 
@@ -18,17 +18,17 @@ const HighscoreTable: React.FC<any> = () => {
 	}
 
 	return (
-		<div className="highscore-table-wrapper white-text text-fontsize">
-			<div className="table-row overlay-text">
-				<div>Rank</div>
-				<div>Name</div>
-				<div>Score</div>
-				<div>Stats</div>
+		<>
+			<div className="table-row">
+				<p>Rank</p>
+				<p>Name</p>
+				<p>Score</p>
+				<p>Stats</p>
 			</div>
 			{bestPlayers.map((player) => (
 				<HighscoreElement player={player} />
 			))}
-		</div>
+		</>
 	);
 };
 

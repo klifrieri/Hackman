@@ -5,10 +5,10 @@ import appStateSlice from "../../State/appState/appStateSlice";
 import gameStateSlice from "../../State/gameState/gameStateSlice";
 
 
-const useCustomNavigator = ()=>{
+const useCustomNavigator = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { gameStarted, resetAppState } = bindActionCreators(appStateSlice.actions, dispatch);
+    const { gameStarted, resetAppState, lockGameField, pauseGame } = bindActionCreators(appStateSlice.actions, dispatch);
     const { resetGameState } = bindActionCreators(gameStateSlice.actions, dispatch);
 
     const startGame = () => {
@@ -19,12 +19,18 @@ const useCustomNavigator = ()=>{
     const restartGame = () => {
         resetAppState();
         resetGameState();
-
         gameStarted();
         navigate("/game");
     };
-
-    return {startGame,restartGame};
+    const endGame = () => {
+        lockGameField();
+        navigate("/end")
+    }
+    const menuWhilePlaying = () => {
+        pauseGame(true);
+        navigate("/");
+    }
+    return { startGame, restartGame, endGame, menuWhilePlaying };
 }
 
 export default useCustomNavigator;

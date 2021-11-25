@@ -11,6 +11,8 @@ code {
 * {
   font-family: "System";
   text-decoration: none;
+  margin: 0;
+  padding: 0;
 }
 
 html {
@@ -24,12 +26,23 @@ div#root {
 /* Main */
 body {
   height: 100%;
-  margin: 0;
-  padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-y: hidden;
+}
+
+h1 {
+  text-align: center;
+  margin: 5% 0 7.5% 0;
+  font-size: 1.5rem;
+  color: darkorange;
+}
+
+p {
+  color: white;
+  padding: 3% 5%;
+  font-size: 0.75rem;
 }
 
 .center {
@@ -60,37 +73,15 @@ body {
   box-shadow: 0px 0px 50px silver;
 }
 
-.overlay-heading {
-  text-align: center;
-  margin: 5% 0 7.5% 0;
-}
-
-.heading-fontsize{
-  font-size: 1.5rem;
-}
-.white-text{
-  color: white;
-}
-.dorange-text{
-  color:darkorange;
-}
-.overlay-text {
-  padding: 3% 5%;
-}
-
-.text-fontsize{
-  font-size: 0.75rem;
-}
-
 .btn-wrapper {
   display: flex;
   width: 100%;
   align-items: center;
 }
-.flex-columns{
-  flex-direction:column;
+.flex-columns {
+  flex-direction: column;
 }
-.flex-row{
+.flex-row {
   flex-direction: row;
 }
 .btn {
@@ -116,16 +107,16 @@ body {
     margin: 1.5% 0;
     border: 1px solid white;
   }
-  .overlay{
-    width:40%;
+  .overlay {
+    width: 40%;
   }
-  .heading-fontsize{
+  h1 {
     font-size: 1rem;
   }
   .overlay-text {
     padding: 1% 5%;
   }
-  .text-fontsize{
+  .text-fontsize {
     font-size: 0.75rem;
   }
 }
@@ -135,13 +126,11 @@ body {
     font-size: 0.75rem;
     margin: 2% 0;
   }
-  .heading-fontsize{
+  h1 {
     font-size: 3rem;
   }
-  .overlay-text {
+  p {
     padding: 2% 5%;
-  }
-  .text-fontsize{
     font-size: 1.5rem;
   }
 }
@@ -151,30 +140,25 @@ body {
     font-size: 0.75rem;
     margin: 4% 0;
   }
-  .heading-fontsize{
+  h1 {
     font-size: 2rem;
   }
-  .overlay-text {
+  p {
     padding: 2% 5%;
-  }
-  .text-fontsize{
     font-size: 1rem;
   }
 }
-
 
 @media only screen and (min-width: 992px) {
   .btn {
     font-size: 1.25rem;
     margin: 1.5% 0;
   }
-  .heading-fontsize{
+  h1 {
     font-size: 3rem;
   }
-  .overlay-text {
+  p {
     padding: 3% 5%;
-  }
-  .text-fontsize{
     font-size: 1.5rem;
   }
 }
@@ -184,13 +168,11 @@ body {
     font-size: 2rem;
     margin: 2% 0;
   }
-  .heading-fontsize{
+  h1 {
     font-size: 4rem;
   }
-  .overlay-text {
+  p {
     padding: 3% 5%;
-  }
-  .text-fontsize{
     font-size: 1.75rem;
   }
 }
@@ -200,13 +182,11 @@ body {
     font-size: 2rem;
     margin: 3% 0;
   }
-  .heading-fontsize{
+  h1 {
     font-size: 4rem;
   }
-  .overlay-text {
+  p {
     padding: 3% 5%;
-  }
-  .text-fontsize{
     font-size: 1.5rem;
   }
 }

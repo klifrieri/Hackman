@@ -8,31 +8,26 @@ const appStateSlice = createSlice({
         playerHand: false,
         gameIsRunning: false,
         isPaused: false,
-        gameLost: false,
-        win: false,
+        gameLocked:false,
         difficult: 1,
         players: data,
     },
     reducers: {
         gameStarted: (state) => {
             state.gameIsRunning = true;
+            state.gameLocked = false;
         },
 		pauseGame: (state, payload: PayloadAction<boolean>) => {
             state.isPaused = payload.payload;
         },
         resetAppState: (state) => {
-            state.gameLost = false;
-            state.win = false;
             state.isPaused = false;
             state.gameIsRunning = false;
+            state.gameLocked = false;
         },
-        winGame: (state) => {
-            state.win = true;
-            state.isPaused = true;
-        },
-        gameOver: (state) => {
-            state.gameLost = true;
-            state.isPaused = true;
+        lockGameField:(state)=>{
+            state.gameLocked = true;
+            state.gameIsRunning = false;
         },
         changePlayerName: (state, payload: PayloadAction<string>) => {
             state.playerName = payload.payload;
