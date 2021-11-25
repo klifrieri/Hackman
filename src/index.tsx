@@ -7,9 +7,9 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GamePage from "./Pages/GamePage";
 import LayoutPage from "./Pages/LayoutPage";
 import StartMenu from "./Components/LayoutPageComponents/StartMenu/StartMenu";
-import Win from "./Components/LayoutPageComponents/Win";
 import Options from "./Components/LayoutPageComponents/StartMenu/Options";
 import Help from "./Components/LayoutPageComponents/StartMenu/Help";
+import Highscores from "./Components/LayoutPageComponents/Highscores";
 
 ReactDOM.render(
   <React.StrictMode>
@@ -20,7 +20,7 @@ ReactDOM.render(
             <Route index element={<StartMenu />} />
             <Route path="help" element={<Help />} />
             <Route path="options" element={<Options />} />
-            <Route path="highscores" element={<Win />} />
+            <Route path="highscores" element={<Highscores />} />
           </Route>
           <Route path="/game" element={<GamePage />} />
         </Routes>

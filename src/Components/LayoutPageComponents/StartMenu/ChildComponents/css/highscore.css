@@ -1,0 +1,10 @@
+.highscore-wrapper{
+    display: grid;
+    grid-template-rows:auto;
+}
+.table-row{
+    display: grid;
+    grid-template-columns: 1fr 2fr 2fr 2fr;
+    border-bottom: 1px solid white;
+}
+

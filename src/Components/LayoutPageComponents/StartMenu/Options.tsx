@@ -35,9 +35,9 @@ const Options: React.FC = () => {
 
     return (
         <>
-            <div className="overlay-heading">OPTIONS</div>
+            <div className="overlay-heading dorange-text heading-fontsize">OPTIONS</div>
             <div className="option-section">
-                <div className="overlay-white-text">Name:</div>
+                <div className="overlay-text text-fontsize white-text">Name:</div>
                 <div className="option-subsection">
                     <input id="name-input" placeholder={playerName}></input>
                     <button id="accept-name-btn" className="small-btn green-background" onClick={() => changePlayerName(name.value)}>
@@ -47,12 +47,12 @@ const Options: React.FC = () => {
             </div>
             {!gameStarted && (
                 <div className="option-section">
-                    <div className="overlay-white-text">Difficult:</div>
+                    <div className="overlay-text text-fontsize white-text">Difficult:</div>
                     <div className="option-subsection">
                         <button disabled={BtnMinus} id="s-minus" className="small-btn difficult-btn red-background" onClick={() => changeDifficult("minus")}>
                             <FaMinus />
                         </button>
-                        <div className="overlay-white-text">{difficult}</div>
+                        <div className="overlay-text text-fontsize white-text">{difficult}</div>
                         <button disabled={BtnPlus} id="s-plus" className="small-btn difficult-btn green-background" onClick={() => changeDifficult("plus")}>
                             <FaPlus />
                         </button>
@@ -60,7 +60,7 @@ const Options: React.FC = () => {
                 </div>
             )}
             <div className="option-section">
-                <div className="overlay-white-text">Handed:</div>
+                <div className="overlay-text text-fontsize white-text">Handed:</div>
                 <div className="option-subsection">
                     <div className="hand-icon">
                         <FaRegHandPointLeft />
@@ -76,7 +76,7 @@ const Options: React.FC = () => {
                     </div>
                 </div>
             </div>
-            <div className="btn-wrapper">
+            <div className="btn-wrapper flex-columns">
                 <Link className="btn" to="/">Back</Link>
             </div>
         </>
