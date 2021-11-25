@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
 import appStateSlice from "../../State/appState/appStateSlice";
 import { State } from "../../State/store";
-import HighscoreTable from "./HighscoreTable";
+import HighScores from "./StartMenu/Highscores";
 import "./css/win.css";
 
 const Win: React.FC = () => {
@@ -19,7 +19,7 @@ const Win: React.FC = () => {
     return (
         <>
             <h2 className="win-overlay-header">WIN!</h2>
-            <HighscoreTable />
+            <HighScores />
             <h4>Your score: {score}</h4>
             <button id="win-restart-game" className="btn" onClick={() => restartGame()}>
                 New Game

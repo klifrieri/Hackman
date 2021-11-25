@@ -14,7 +14,7 @@ const Options: React.FC = () => {
     const difficult = useSelector((state: State) => state.appState.difficult);
     const playerName = useSelector((state: State) => state.appState.playerName);
     const playerHand = useSelector((state:State) => state.appState.playerHand)
-    const gameStarted = useSelector((state: State) => state.appState.gameStarted);
+    const gameStarted = useSelector((state: State) => state.appState.gameIsRunning);
     let name = document.getElementById("s-opt-name-i") as HTMLInputElement;
     const [BtnPlus, SetBtnPlus] = useState(false);
     const [BtnMinus, SetBtnMinus] = useState(false);

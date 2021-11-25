@@ -20,7 +20,7 @@ ReactDOM.render(
             <Route index element={<StartMenu />} />
             <Route path="help" element={<Help />} />
             <Route path="options" element={<Options />} />
-            <Route path="high" element={<Win />} />
+            <Route path="highscores" element={<Win />} />
           </Route>
           <Route path="/game" element={<GamePage />} />
         </Routes>

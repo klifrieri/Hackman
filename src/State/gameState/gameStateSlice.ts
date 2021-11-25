@@ -170,7 +170,7 @@ const gameStateSlice = createSlice({
 		resetGhostGotEatenByIndex: (state, payload: PayloadAction<number>) => {
 			state.ghosts[payload.payload].gotEaten = false;
 		},
-		resetAppState: (state) => {
+		resetGameState: (state) => {
 			state.eatenCoins = 0;
 			state.hackman.remainingLifes = 3;
 			state.score = 0;

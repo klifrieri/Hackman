@@ -6,7 +6,7 @@ const appStateSlice = createSlice({
     initialState: {
         playerName: "Guest",
         playerHand: false,
-        gameStarted:false,
+        gameIsRunning: false,
         isPaused: false,
         gameLost: false,
         win: false,
@@ -14,23 +14,26 @@ const appStateSlice = createSlice({
         players: data,
     },
     reducers: {
+        gameStarted: (state) => {
+            state.gameIsRunning = true;
+        },
 		pauseGame: (state, payload: PayloadAction<boolean>) => {
-			state.isPaused = payload.payload;
-		},
-		resetAppState: (state) => {
-			state.gameLost = false;
-			state.win = false;
-			state.isPaused = false;
-            state.gameStarted = false;
-		},
-		winGame: (state) => {
-			state.win = true;
-			state.isPaused = true;
-		},
-        gameOver: (state) => {
-			state.gameLost = true;
+            state.isPaused = payload.payload;
+        },
+        resetAppState: (state) => {
+            state.gameLost = false;
+            state.win = false;
+            state.isPaused = false;
+            state.gameIsRunning = false;
+        },
+        winGame: (state) => {
+            state.win = true;
             state.isPaused = true;
-		},
+        },
+        gameOver: (state) => {
+            state.gameLost = true;
+            state.isPaused = true;
+        },
         changePlayerName: (state, payload: PayloadAction<string>) => {
             state.playerName = payload.payload;
         },
