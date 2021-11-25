@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import Image from "../../StaticAssets/hackman1.png";
-import "./css/lpStartMenu.css";
+import Image from "../../../StaticAssets/hackman1.png";
+import "./css/startMenu.css";
 
-const LpStartMenu: React.FC = () => {
+const StartMenu: React.FC = () => {
     return (
-        <div className="overlay">
+        <>
             <div className="s-overlay-header">
                 <div className="s-overlay-header-l orange-text">HAC</div>
                 <div className="s-overlay-header-img">
@@ -17,8 +17,8 @@ const LpStartMenu: React.FC = () => {
                 <Link to="/options" className="btn">OPTIONS</Link>
                 <Link to="/help" className="btn">HELP</Link>
             </div>
-        </div>
+        </>
     )
 }
 
-export default LpStartMenu;
+export default StartMenu;

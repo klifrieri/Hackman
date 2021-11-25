@@ -1,15 +1,14 @@
-import "./css/lpOptions.css";
-import { State } from "../../State/store";
+import "./css/options.css";
 import { useDispatch, useSelector } from "react-redux";
 import { bindActionCreators } from "redux";
-import gameStateSlice from "../../State/gameState/gameStateSlice";
 import { useEffect, useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaRegHandPointLeft, FaRegHandPointRight } from "react-icons/fa";
-import appStateSlice from "../../State/appState/appStateSlice";
 import { Link } from "react-router-dom";
+import appStateSlice from "../../../State/appState/appStateSlice";
+import { State } from "../../../State/store";
 
 
-const LpOptions: React.FC = () => {
+const Options: React.FC = () => {
     const dispatch = useDispatch();
     const { changePlayerName, changeDifficult, changePlayingHand } = bindActionCreators(appStateSlice.actions, dispatch);
     const difficult = useSelector((state: State) => state.appState.difficult);
@@ -35,35 +34,35 @@ const LpOptions: React.FC = () => {
     }, [difficult]);
 
     return (
-        <div className="overlay">
+        <>
             <div className="overlay-heading">OPTIONS</div>
-            <div className="s-opt-el">
+            <div className="option-section">
                 <div className="overlay-white-text">Name:</div>
-                <div className="s-opt-w">
-                    <input id="s-opt-name-i" placeholder={playerName}></input>
-                    <button id="s-opt-name" onClick={() => changePlayerName(name.value)}>
+                <div className="option-subsection">
+                    <input id="name-input" placeholder={playerName}></input>
+                    <button id="accept-name-btn" className="small-btn green-background" onClick={() => changePlayerName(name.value)}>
                         <FaCheck />
                     </button>
                 </div>
             </div>
             {!gameStarted && (
-                <div className="s-opt-el">
+                <div className="option-section">
                     <div className="overlay-white-text">Difficult:</div>
-                    <div className="s-opt-w">
-                        <button disabled={BtnMinus} id="s-minus" className="s-opt-dif-btn minus" onClick={() => changeDifficult("minus")}>
+                    <div className="option-subsection">
+                        <button disabled={BtnMinus} id="s-minus" className="small-btn difficult-btn red-background" onClick={() => changeDifficult("minus")}>
                             <FaMinus />
                         </button>
                         <div className="overlay-white-text">{difficult}</div>
-                        <button disabled={BtnPlus} id="s-plus" className="s-opt-dif-btn plus" onClick={() => changeDifficult("plus")}>
+                        <button disabled={BtnPlus} id="s-plus" className="small-btn difficult-btn green-background" onClick={() => changeDifficult("plus")}>
                             <FaPlus />
                         </button>
                     </div>
                 </div>
             )}
-            <div className="s-opt-el">
+            <div className="option-section">
                 <div className="overlay-white-text">Handed:</div>
-                <div className="s-opt-w">
-                    <div className="s-opt-hand-icon">
+                <div className="option-subsection">
+                    <div className="hand-icon">
                         <FaRegHandPointLeft />
                     </div>
                     <div className="toggle">
@@ -72,7 +71,7 @@ const LpOptions: React.FC = () => {
                             <span className="slider round"></span>
                         </label>
                     </div>
-                    <div className="s-opt-hand-icon">
+                    <div className="hand-icon">
                         <FaRegHandPointRight />
                     </div>
                 </div>
@@ -80,8 +79,8 @@ const LpOptions: React.FC = () => {
             <div className="btn-wrapper">
                 <Link className="btn" to="/">Back</Link>
             </div>
-        </div>
+        </>
     );
 };
 
-export default LpOptions;
+export default Options;

@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
-import "./css/lpHelp.css"
+import "./css/help.css"
 
-const LpHelp: React.FC = () => {
+const Help: React.FC = () => {
     return (
-        <div className="overlay">
+        <>
             <div className="overlay-heading">HELP</div>
             <div className="overlay-white-text">
                 1. Move Hackman with <i>Keyboard-Arrows</i> or <i>W, A, S, D</i>
@@ -17,8 +17,8 @@ const LpHelp: React.FC = () => {
             <div className="btn-wrapper">
                 <Link className="btn" to="/">Back</Link>
             </div>
-        </div>
+        </>
     );
 };
 
-export default LpHelp;
+export default Help;

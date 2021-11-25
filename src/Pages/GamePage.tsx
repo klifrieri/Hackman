@@ -5,9 +5,7 @@ import { bindActionCreators } from "redux";
 import GameController from "../Components/GamePageComponents/GameController/GameController";
 import GameField from "../Components/GamePageComponents/GameFieldComponent/Gamefield";
 import LifeAndScore from "../Components/GamePageComponents/LifeAndScoreComponent/LifeAndScore";
-import GameOver from "../Components/GamePageComponents/Overlays/GameOverOverlay";
-import PauseOverlay from "../Components/GamePageComponents/Overlays/PauseOverlay";
-import WinOverlay from "../Components/GamePageComponents/Overlays/WinOverlay";
+import PauseOverlay from "../Components/PauseOverlay";
 import appStateSlice from "../State/appState/appStateSlice";
 import gameStateSlice from "../State/gameState/gameStateSlice";
 import { State } from "../State/store";
@@ -92,8 +90,6 @@ const GamePage: React.FC = () => {
             <GameField isPaused={isPaused} />
             <LifeAndScore remainingLifes={remainingLives} score={score} />
             {isPaused && !win && !gameLost && <PauseOverlay />}
-            {win && <WinOverlay/>}
-            {gameLost && <GameOver/>}
             {ScreenSize.width < 1300 && ScreenSize.width / ScreenSize.height > 1.65 && <GameController />}
         </div>
     );

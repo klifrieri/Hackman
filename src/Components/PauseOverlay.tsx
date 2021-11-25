@@ -1,5 +1,5 @@
 import { CSSProperties, useEffect, useState } from "react"
-import { CalcFontSize, GetScreenSize } from "../../../UtilityFunctions/CalcHelper"
+import { CalcFontSize, GetScreenSize } from "../UtilityFunctions/CalcHelper"
 
 
 const PauseOverlay:React.FC = () => {
