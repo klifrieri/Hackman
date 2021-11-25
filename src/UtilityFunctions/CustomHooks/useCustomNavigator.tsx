@@ -13,22 +13,22 @@ const useCustomNavigator = () => {
 
     const startGame = () => {
         gameStarted();
-        navigate("/game");
+        navigate("/" + process.env.REACT_APP_URL + "/game")
     };
 
     const restartGame = () => {
         resetAppState();
         resetGameState();
         gameStarted();
-        navigate("/game");
+        navigate("/" + process.env.REACT_APP_URL + "/game")
     };
     const endGame = () => {
         lockGameField();
-        navigate("/end")
+        navigate("/" + process.env.REACT_APP_URL + "/end")
     }
     const menuWhilePlaying = () => {
         pauseGame(true);
-        navigate("/");
+        navigate("/" + process.env.REACT_APP_URL);
     }
     return { startGame, restartGame, endGame, menuWhilePlaying };
 }

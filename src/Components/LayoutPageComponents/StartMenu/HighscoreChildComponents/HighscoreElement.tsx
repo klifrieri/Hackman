@@ -13,7 +13,7 @@ const HighscoreElement: React.FC<IHighScoreElementProps> = (props) => {
             <p>{player.name}</p>
             <p>{player.score}</p>
             <div>
-                <Link to="/stats" className="stats-btn">Stats</Link>
+                {/* <Link to="/stats" className="stats-btn">Stats</Link> */}
             </div>
         </div>
     )

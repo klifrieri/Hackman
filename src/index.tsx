@@ -17,14 +17,14 @@ ReactDOM.render(
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LayoutPage />}>
+          <Route path={process.env.REACT_APP_URL + "/"} element={<LayoutPage />}>
             <Route index element={<StartMenu />} />
             <Route path="help" element={<Help />} />
             <Route path="options" element={<Options />} />
             <Route path="highscores" element={<Highscores />} />
-            <Route path="/end" element={<EndedGame />} />
+            <Route path="end" element={<EndedGame />} />
           </Route>
-          <Route path="/game" element={<GamePage />} />
+          <Route path={process.env.REACT_APP_URL + "/game"}element={<GamePage />} />
         </Routes>
       </BrowserRouter>
     </Provider>

@@ -5,7 +5,6 @@ import { State } from "../../../State/store";
 import { Link } from "react-router-dom";
 import useCustomNavigator from "../../../UtilityFunctions/CustomHooks/useCustomNavigator";
 
-
 const EndedGame: React.FC = () => {
     const score:number = useSelector((state:State)=>state.gameState.score);
     const {restartGame} = useCustomNavigator();
@@ -15,7 +14,7 @@ const EndedGame: React.FC = () => {
             <h1>Game Over!</h1>
             <p>You reached {score} points!</p>
             <div className="btn-wrapper flex-row">
-                <Link to="/" className="btn">Back</Link>
+                <Link to={"/" + process.env.REACT_APP_URL} className="btn">Back</Link>
                 <button onClick={restartGame} className="btn">New Game</button>
             </div>
         </>

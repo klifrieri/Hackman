@@ -15,7 +15,7 @@ const Help: React.FC = () => {
                 3. Press <i>P</i> for Pause or <i>ESC</i> to open the options
             </p>
             <div className="btn-wrapper flex-columns">
-                <Link className="btn" to="/">Back</Link>
+                <Link className="btn" to={"/" + process.env.REACT_APP_URL}>Back</Link>
             </div>
         </>
     );

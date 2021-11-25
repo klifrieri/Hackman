@@ -76,7 +76,6 @@ const GamePage: React.FC = () => {
             }
         }
     }
-
     return (
         <div ref={centerRef} className="center" onKeyDown={handleKeyDown} tabIndex={0} id="game">
             <GameField isPaused={isPaused} />

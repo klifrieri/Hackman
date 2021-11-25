@@ -77,7 +77,7 @@ const Options: React.FC = () => {
                 </div>
             </div>
             <div className="btn-wrapper flex-columns">
-                <Link className="btn" to="/">Back</Link>
+                <Link className="btn" to={"/" + process.env.REACT_APP_URL}>Back</Link>
             </div>
         </>
     );

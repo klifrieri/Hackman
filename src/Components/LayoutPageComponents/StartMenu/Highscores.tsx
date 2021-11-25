@@ -8,7 +8,7 @@ const Highscores: React.FC = () => {
             <h1 className="blink-animation">Highscores</h1>
             <HighscoreTable />
             <div className="btn-wrapper flex-columns">
-                <Link to="/" className="btn">Back</Link>
+                <Link to={"/" + process.env.REACT_APP_URL} className="btn">Back</Link>
             </div>
         </>
     );
